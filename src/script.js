@@ -27,7 +27,7 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
  * Base
  */
 // Debug
-const gui = new dat.GUI()
+// const gui = new dat.GUI()
 const debugObject = {}
 
 // Canvas
