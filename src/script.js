@@ -3,6 +3,17 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
+
+
+
+/**
+POST-PROCESSING
+*/
 
 
 /**
@@ -34,7 +45,7 @@ const updateAllMaterials = () =>
     {
         if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
         {
-            // child.material.envMap = environmentMap
+            child.material.envMap = environmentMap
             child.material.envMapIntensity = debugObject.envMapIntensity
             child.material.needsUpdate = true
             child.castShadow = true
@@ -57,7 +68,7 @@ const environmentMap = cubeTextureLoader.load([
 
 environmentMap.encoding = THREE.sRGBEncoding
 
-// scene.background = environmentMap
+scene.background = environmentMap
 scene.environment = environmentMap
 
 debugObject.envMapIntensity = 0.4
@@ -69,11 +80,29 @@ gui.add(debugObject, 'envMapIntensity').min(0).max(4).step(0.001).onChange(updat
 let foxMixer = null
 
 gltfLoader.load(
+    '/models/Coin/glTF/Coin.gltf',
+    (gltf) =>
+    {
+        // Model
+        gltf.scene.scale.set(0.001, 0.001, 0.001)
+        gltf.scene.position.set(0, 0.2, 0)
+        gltf.scene.rotation.set(1.55, 0,  0)
+        scene.add(gltf.scene)
+
+
+        // Update materials
+        updateAllMaterials()
+    }
+)
+
+gltfLoader.load(
     '/models/Fox/glTF/Fox.gltf',
     (gltf) =>
     {
         // Model
-        gltf.scene.scale.set(0.03, 0.03, 0.03)
+        gltf.scene.scale.set(0.008, 0.008, 0.008)
+        gltf.scene.position.set(0, 0.27, 0)
+        gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
         // Animation
@@ -89,18 +118,18 @@ gltfLoader.load(
 /**
  * Floor
  */
-const floorColorTexture = textureLoader.load('textures/dirt/color.jpg')
+const floorColorTexture = textureLoader.load('textures/dirt/color.png')
 floorColorTexture.encoding = THREE.sRGBEncoding
 floorColorTexture.repeat.set(1, 1)
 floorColorTexture.wrapS = THREE.RepeatWrapping
 floorColorTexture.wrapT = THREE.RepeatWrapping
 
-const floorNormalTexture = textureLoader.load('textures/dirt/normal.jpg')
-floorNormalTexture.repeat.set(1.5, 1.5)
+const floorNormalTexture = textureLoader.load('textures/dirt/normal.png')
+floorNormalTexture.repeat.set(1, 1)
 floorNormalTexture.wrapS = THREE.RepeatWrapping
 floorNormalTexture.wrapT = THREE.RepeatWrapping
 
-const floorGeometry = new THREE.CircleGeometry(5, 64)
+const floorGeometry = new THREE.CircleGeometry(1, 64)
 const floorMaterial = new THREE.MeshStandardMaterial({
     map: floorColorTexture,
     normalMap: floorNormalTexture
@@ -112,18 +141,15 @@ scene.add(floor)
 /**
  * Lights
  */
-const directionalLight = new THREE.DirectionalLight('#ffffff', 4)
+const directionalLight = new THREE.DirectionalLight('#B9FD02', 4)
 directionalLight.castShadow = true
 directionalLight.shadow.camera.far = 15
 directionalLight.shadow.mapSize.set(1024, 1024)
 directionalLight.shadow.normalBias = 0.05
-directionalLight.position.set(3.5, 2, - 1.25)
+directionalLight.position.set(3.5, 3, - 1.25)
 scene.add(directionalLight)
 
-gui.add(directionalLight, 'intensity').min(0).max(10).step(0.001).name('lightIntensity')
-gui.add(directionalLight.position, 'x').min(- 5).max(5).step(0.001).name('lightX')
-gui.add(directionalLight.position, 'y').min(- 5).max(5).step(0.001).name('lightY')
-gui.add(directionalLight.position, 'z').min(- 5).max(5).step(0.001).name('lightZ')
+
 
 /**
  * Sizes
@@ -152,8 +178,11 @@ window.addEventListener('resize', () =>
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 0.1, 100)
-camera.position.set(6, 4, 8)
+const camera = new CinematicCamera( 50, window.innerWidth / window.innerHeight, 0.01, 2000 );
+camera.setLens( 100 );
+camera.setFocalLength(19);
+camera.position.set( -1, 1, -1 );
+
 scene.add(camera)
 
 // Controls

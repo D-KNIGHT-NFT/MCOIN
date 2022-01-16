@@ -75,14 +75,6 @@ body {
     width: 100%;
 }
 
-#linklist {
-    width: 100vw;
-    position: fixed;
-    bottom: 0%;
-    left: 0%;
-    z-index: 1000000;
-    color: var(--black);
-}
 /*==============================>> Navbar */
 nav {
     display: flex;
@@ -232,22 +224,21 @@ main {
   display: flex;
   flex-flow: column nowrap;
   color: white;
-  z-index: 10000;
+  z-index: -1000;
   padding: 4%;
   margin-top: 5%;
 }
 
 header {
     position: fixed;
-    top: 5%;
-    left: 20%;
-    z-index: -500;
-    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1000;
+    width: 100vw;
     height: 100vh;
 }
 
 iframe {
-  height: 100%;
 }
 
 canvas
@@ -255,7 +246,7 @@ canvas
  position: fixed;
  top: 0;
  left: 0;
- z-index: -1000;
+ z-index: 1000;
 }
 
 
@@ -293,8 +284,6 @@ padding: 24px;
 }
 
 .youtube {
-  display: flex;
-  flex-flow: column nowrap;
   width: 100%;
   height: 100%;
   margin: auto;
@@ -316,13 +305,13 @@ h1.letter {
 .letter-p {
   line-height: 1.2rem;
   text-align: start;
-  text-align: left;
+
 }
 
 .letter-cont {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   border-radius: 16px;
   border: 1px dashed var(--purple);
@@ -330,7 +319,9 @@ h1.letter {
 }
 
 .letter-block {
-  display: block;
+  display: inline-flex;
+  flex-flow: column nowrap;
+  width: 20%;
   padding: 1%;
   border-radius: 8px 0 0 8px;
   padding-right: 8px;
