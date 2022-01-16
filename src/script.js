@@ -72,7 +72,7 @@ scene.background = environmentMap
 scene.environment = environmentMap
 
 debugObject.envMapIntensity = 0.4
-gui.add(debugObject, 'envMapIntensity').min(0).max(4).step(0.001).onChange(updateAllMaterials)
+
 
 /**
  * Models
