@@ -81,18 +81,18 @@ nav {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    padding: 16px 56px 16px 0;
+    padding: 16px;
     margin: 0 4% 0 0;
 
   position: fixed;
-  top: 0;
-  left: 0;
-  width:100%;
+  top: 2%;
+  left: 2%;
+  width:14%;
   z-index: 50000;
   background: rgba(13, 13, 13, 0.56);
   backdrop-filter: blur(32px);
 
-  border-radius: 0 0 16px 16px;
+  border-radius: 16px;
 }
 /*Strip the ul of padding and list styling*/
 ul.navlistgroup {
