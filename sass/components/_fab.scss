@@ -1,0 +1,102 @@
+.fab {
+  display: block;
+  width: 100%;
+  height: 100%;
+  button {
+    outline: none;
+    background: #0076D9;
+    border: none;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+    color: white;
+    z-index: 101;
+    transition: all 1s cubic-bezier(0,.74,.16,1.39);
+  }
+  button.fab-trigger {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    outline: none;
+    z-index: 9999;
+    &.open {
+      background: transparent;
+      color: #FC3A21;
+    }
+  }
+  .fab-actions {
+    width: 0px;
+    height: 0px;
+      border: 3px solid #0076D9;
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0; 
+      top: 0;
+      z-index: 1000;
+      margin: auto;
+      border-radius: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s cubic-bezier(.78,.34,.3,.79); 
+    &.open {
+      opacity: 1;
+      visibility: visible;
+      width: 200px;
+      height: 200px;
+      button.top {
+        position: absolute;
+        left: 50%;
+        top: -25px;
+        transform: translateX(-50%);
+      }
+      button.left {
+        position: absolute;
+        left: -25px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      button.bottom {
+        position: absolute;
+        left: 50%;
+        bottom: -25px;
+        transform: translateX(-50%);
+      }
+      button.right {
+        position: absolute;
+        right: -25px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    button.top {
+        position: absolute;
+        left: 50%;
+        top: 75px;
+        transform: translateX(-50%);
+    }
+    button.left {
+      position: absolute;
+      left: 75px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    button.bottom {
+      position: absolute;
+        left: 50%;
+        bottom: 75px;
+        transform: translateX(-50%);
+    }
+    button.right {
+      position: absolute;
+        right: 75px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+  }
+}

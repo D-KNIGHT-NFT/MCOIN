@@ -18,6 +18,7 @@ POST-PROCESSING
 
 /**
  * Loaders
+ * 
  */
 const gltfLoader = new GLTFLoader()
 const textureLoader = new THREE.TextureLoader()
@@ -118,25 +119,25 @@ gltfLoader.load(
 /**
  * Floor
  */
-const floorColorTexture = textureLoader.load('textures/dirt/color.png')
-floorColorTexture.encoding = THREE.sRGBEncoding
-floorColorTexture.repeat.set(1, 1)
-floorColorTexture.wrapS = THREE.RepeatWrapping
-floorColorTexture.wrapT = THREE.RepeatWrapping
+// const floorColorTexture = textureLoader.load('textures/dirt/color.png')
+// floorColorTexture.encoding = THREE.sRGBEncoding
+// floorColorTexture.repeat.set(1, 1)
+// floorColorTexture.wrapS = THREE.RepeatWrapping
+// floorColorTexture.wrapT = THREE.RepeatWrapping
 
-const floorNormalTexture = textureLoader.load('textures/dirt/normal.png')
-floorNormalTexture.repeat.set(1, 1)
-floorNormalTexture.wrapS = THREE.RepeatWrapping
-floorNormalTexture.wrapT = THREE.RepeatWrapping
+// const floorNormalTexture = textureLoader.load('textures/dirt/normal.png')
+// floorNormalTexture.repeat.set(1, 1)
+// floorNormalTexture.wrapS = THREE.RepeatWrapping
+// floorNormalTexture.wrapT = THREE.RepeatWrapping
 
-const floorGeometry = new THREE.CircleGeometry(1, 64)
-const floorMaterial = new THREE.MeshStandardMaterial({
-    map: floorColorTexture,
-    normalMap: floorNormalTexture
-})
-const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-floor.rotation.x = - Math.PI * 0.5
-scene.add(floor)
+// const floorGeometry = new THREE.CircleGeometry(1, 64)
+// const floorMaterial = new THREE.MeshStandardMaterial({
+//     map: floorColorTexture,
+//     normalMap: floorNormalTexture
+// })
+// const floor = new THREE.Mesh(floorGeometry, floorMaterial)
+// floor.rotation.x = - Math.PI * 0.5
+// scene.add(floor)
 
 /**
  * Lights
@@ -178,10 +179,10 @@ window.addEventListener('resize', () =>
  * Camera
  */
 // Base camera
-const camera = new CinematicCamera( 50, window.innerWidth / window.innerHeight, 0.01, 2000 );
-camera.setLens( 100 );
-camera.setFocalLength(19);
-camera.position.set( -1, 1, -1 );
+const camera = new CinematicCamera( 100, window.innerWidth / window.innerHeight, 0.01, 2000 );
+camera.setLens( 5);
+camera.setFocalLength(9);
+camera.position.set( -1, 1, -3);
 
 scene.add(camera)
 
