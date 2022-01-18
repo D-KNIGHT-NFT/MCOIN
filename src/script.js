@@ -15,6 +15,9 @@ import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
 
 
 
+
+//FAB
+
 $("#trigger").click(function(){
   $(this).toggleClass('open');
   $('.fab-actions').toggleClass('open');
@@ -117,14 +120,14 @@ gltfLoader.load(
     (gltf) =>
     {
         // Model
-        gltf.scene.scale.set(0.008, 0.008, 0.008)
-        gltf.scene.position.set(0, 0, 0)
+        gltf.scene.scale.set(0.002, 0.002, 0.002)
+        gltf.scene.position.set(0, 1.19, 0)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
         // Animation
         foxMixer = new THREE.AnimationMixer(gltf.scene)
-        const foxAction = foxMixer.clipAction(gltf.animations[1])
+        const foxAction = foxMixer.clipAction(gltf.animations[0])
         foxAction.play()
 
         // Update materials
@@ -132,28 +135,48 @@ gltfLoader.load(
     }
 )
 
+gltfLoader.load(
+    '/models/astronaut/glTF/htdi.gltf',
+    (gltf) =>
+    {
+        // Model
+        gltf.scene.scale.set(0.2, 0.2, 0.2)
+        gltf.scene.position.set(0, 0, 0)
+        gltf.scene.rotation.set(0, 0,  0)
+        scene.add(gltf.scene)
+
+        // Animation
+        // foxMixer = new THREE.AnimationMixer(gltf.scene)
+        // const foxAction = foxMixer.clipAction(gltf.animations[1])
+        // foxAction.play()
+
+        // // Update materials
+        // updateAllMaterials()
+    }
+)
+
 /**
  * Floor
  */
-const floorColorTexture = textureLoader.load('textures/dirt/color.png')
-floorColorTexture.encoding = THREE.sRGBEncoding
-floorColorTexture.repeat.set(1, 1)
-floorColorTexture.wrapS = THREE.RepeatWrapping
-floorColorTexture.wrapT = THREE.RepeatWrapping
+// const floorColorTexture = textureLoader.load('textures/dirt/color.png')
+// floorColorTexture.encoding = THREE.sRGBEncoding
+// floorColorTexture.repeat.set(1, 1)
+// floorColorTexture.wrapS = THREE.RepeatWrapping
+// floorColorTexture.wrapT = THREE.RepeatWrapping
 
-const floorNormalTexture = textureLoader.load('textures/dirt/normal.png')
-floorNormalTexture.repeat.set(1, 1)
-floorNormalTexture.wrapS = THREE.RepeatWrapping
-floorNormalTexture.wrapT = THREE.RepeatWrapping
+// const floorNormalTexture = textureLoader.load('textures/dirt/normal.png')
+// floorNormalTexture.repeat.set(1, 1)
+// floorNormalTexture.wrapS = THREE.RepeatWrapping
+// floorNormalTexture.wrapT = THREE.RepeatWrapping
 
-const floorGeometry = new THREE.CircleGeometry(1, 64)
-const floorMaterial = new THREE.MeshStandardMaterial({
-    map: floorColorTexture,
-    normalMap: floorNormalTexture
-})
-const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-floor.rotation.x = - Math.PI * 0.5
-scene.add(floor)
+// const floorGeometry = new THREE.CircleGeometry(1, 64)
+// const floorMaterial = new THREE.MeshStandardMaterial({
+//     map: floorColorTexture,
+//     normalMap: floorNormalTexture
+// })
+// const floor = new THREE.Mesh(floorGeometry, floorMaterial)
+// floor.rotation.x = - Math.PI * 0.5
+// scene.add(floor)
 
 /**
  * Lights
@@ -198,7 +221,7 @@ window.addEventListener('resize', () =>
 const camera = new CinematicCamera( 100, window.innerWidth / window.innerHeight, 0.01, 2000 );
 camera.setLens( 5);
 camera.setFocalLength(9);
-camera.position.set( -1, 1, -3);
+camera.position.set( 1, 2, -1);
 
 scene.add(camera)
 

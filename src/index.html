@@ -45,6 +45,10 @@
      <!-- Iphone 11-12pro Max -->
    </header>
 
+   <div class="popup" onclick="myFunction()">Click me!
+     <span class="popuptext" id="myPopup">Coming up soon....</span>
+   </div>
+
    <!-- <div class="fab">
      <button class="fab-trigger" id="trigger"><img src= "../static/logo.png"/></button>
      <div class="fab-actions">
@@ -54,8 +58,6 @@
        <button class="left"><i class="material-icons">free_breakfast</i></button>
      </div>
    </div> -->
-
-   <div id="link-list"><a href="https://bit.ly/maricoin2"class="button button--helene"><span><span>Lista de espera</span></span></a></div>
 
    <main>
 
@@ -251,5 +253,12 @@
      </section>
    </main>
    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   <script>
+   // When the user clicks on div, open the popup
+   function myFunction() {
+     var popup = document.getElementById("myPopup");
+     popup.classList.toggle("show");
+   }
+   </script>
   </body>
 </html>
