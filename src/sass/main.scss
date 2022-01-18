@@ -1,5 +1,5 @@
-@use 'abstracts/variables';
-@use 'components/fab';
+@import 'abstracts/variables';
+@import 'components/fab';
 
 
 /*==============================>> TEXT DEFINITIONS */
@@ -48,6 +48,8 @@ body {
     width: 100%;
 }
 
+
+
 /*==============================>> Navbar */
 nav {
     display: flex;
@@ -75,7 +77,7 @@ nav {
   bottom: 0%;
   left: 0%;
   z-index: 1000000;
-  background-color: var(--blue);
+  background-color: $flag-blue;
   color: var(--black);
 }
 
@@ -372,7 +374,7 @@ h1.letter {
 }
 
 @keyframes marquee {
-    -200% { transform: translateX(0); }
+    200% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
 }
 /*  

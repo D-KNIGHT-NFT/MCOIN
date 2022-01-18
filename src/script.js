@@ -1,4 +1,4 @@
-import './style.css'
+import './css/style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
@@ -9,6 +9,18 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
 
+
+
+
+
+
+
+$("#trigger").click(function(){
+  $(this).toggleClass('open');
+  $('.fab-actions').toggleClass('open');
+  $('i.trigger-icon').html($('i.trigger-icon').text() == 'add' ? 'clear' : 'add');
+  
+ });
 /**
 POST-PROCESSING
 */
