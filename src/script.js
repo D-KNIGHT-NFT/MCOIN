@@ -96,21 +96,21 @@ const rayOrigin = new THREE.Vector3(-3, 0 , 0)
  */
 let foxMixer = null
 
-gltfLoader.load(
-    '/models/Coin/glTF/coin.gltf',
-    (gltf) =>
-    {
-        // Model
-        gltf.scene.scale.set(0.001, 0.001, 0.001)
-        gltf.scene.position.set(0, 0.2, 0)
-        gltf.scene.rotation.set(1.55, 0,  0)
-        scene.add(gltf.scene)
+// gltfLoader.load(
+//     '/models/Coin/glTF/coin.gltf',
+//     (gltf) =>
+//     {
+//         // Model
+//         gltf.scene.scale.set(0.001, 0.001, 0.001)
+//         gltf.scene.position.set(0, 0.2, 0)
+//         gltf.scene.rotation.set(1.55, 0,  0)
+//         scene.add(gltf.scene)
 
 
-        // Update materials
-        updateAllMaterials()
-    }
-)
+//         // Update materials
+//         updateAllMaterials()
+//     }
+// )
 
 gltfLoader.load(
     '/models/Fox/glTF/Fox.gltf',
@@ -118,13 +118,13 @@ gltfLoader.load(
     {
         // Model
         gltf.scene.scale.set(0.008, 0.008, 0.008)
-        gltf.scene.position.set(0, 0.27, 0)
+        gltf.scene.position.set(0, 0, 0)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
         // Animation
         foxMixer = new THREE.AnimationMixer(gltf.scene)
-        const foxAction = foxMixer.clipAction(gltf.animations[0])
+        const foxAction = foxMixer.clipAction(gltf.animations[1])
         foxAction.play()
 
         // Update materials
@@ -135,25 +135,25 @@ gltfLoader.load(
 /**
  * Floor
  */
-// const floorColorTexture = textureLoader.load('textures/dirt/color.png')
-// floorColorTexture.encoding = THREE.sRGBEncoding
-// floorColorTexture.repeat.set(1, 1)
-// floorColorTexture.wrapS = THREE.RepeatWrapping
-// floorColorTexture.wrapT = THREE.RepeatWrapping
+const floorColorTexture = textureLoader.load('textures/dirt/color.png')
+floorColorTexture.encoding = THREE.sRGBEncoding
+floorColorTexture.repeat.set(1, 1)
+floorColorTexture.wrapS = THREE.RepeatWrapping
+floorColorTexture.wrapT = THREE.RepeatWrapping
 
-// const floorNormalTexture = textureLoader.load('textures/dirt/normal.png')
-// floorNormalTexture.repeat.set(1, 1)
-// floorNormalTexture.wrapS = THREE.RepeatWrapping
-// floorNormalTexture.wrapT = THREE.RepeatWrapping
+const floorNormalTexture = textureLoader.load('textures/dirt/normal.png')
+floorNormalTexture.repeat.set(1, 1)
+floorNormalTexture.wrapS = THREE.RepeatWrapping
+floorNormalTexture.wrapT = THREE.RepeatWrapping
 
-// const floorGeometry = new THREE.CircleGeometry(1, 64)
-// const floorMaterial = new THREE.MeshStandardMaterial({
-//     map: floorColorTexture,
-//     normalMap: floorNormalTexture
-// })
-// const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-// floor.rotation.x = - Math.PI * 0.5
-// scene.add(floor)
+const floorGeometry = new THREE.CircleGeometry(1, 64)
+const floorMaterial = new THREE.MeshStandardMaterial({
+    map: floorColorTexture,
+    normalMap: floorNormalTexture
+})
+const floor = new THREE.Mesh(floorGeometry, floorMaterial)
+floor.rotation.x = - Math.PI * 0.5
+scene.add(floor)
 
 /**
  * Lights
