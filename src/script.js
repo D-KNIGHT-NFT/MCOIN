@@ -100,12 +100,12 @@ const rayOrigin = new THREE.Vector3(-3, 0 , 0)
 let foxMixer = null
 
 // gltfLoader.load(
-//     '/models/Coin/glTF/coin.gltf',
+//     '/models/robot/glTF/robot.gltf',
 //     (gltf) =>
 //     {
 //         // Model
-//         gltf.scene.scale.set(0.001, 0.001, 0.001)
-//         gltf.scene.position.set(0, 0.2, 0)
+//         gltf.scene.scale.set(0.009, 0.009, 0.009)
+//         gltf.scene.position.set(0, 3, 0)
 //         gltf.scene.rotation.set(1.55, 0,  0)
 //         scene.add(gltf.scene)
 
@@ -120,7 +120,7 @@ gltfLoader.load(
     (gltf) =>
     {
         // Model
-        gltf.scene.scale.set(0.002, 0.002, 0.002)
+        gltf.scene.scale.set(0.003, 0.002, 0.002)
         gltf.scene.position.set(0, 1.19, 0)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
@@ -220,7 +220,7 @@ window.addEventListener('resize', () =>
 // Base camera
 const camera = new CinematicCamera( 100, window.innerWidth / window.innerHeight, 0.01, 2000 );
 camera.setLens( 5);
-camera.setFocalLength(9);
+camera.setFocalLength(10);
 camera.position.set( 1, 2, -1);
 
 scene.add(camera)
