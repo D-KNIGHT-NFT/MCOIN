@@ -9,8 +9,6 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
 
-
-
 /**
 POST-PROCESSING
 */
@@ -74,14 +72,20 @@ scene.environment = environmentMap
 
 debugObject.envMapIntensity = 0.4
 
+/**
+ * Raycaster
+ */
 
+const raycaster = new THREE.Raycaster()
+
+const rayOrigin = new THREE.Vector3(-3, 0 , 0)
 /**
  * Models
  */
 let foxMixer = null
 
 gltfLoader.load(
-    '/models/Coin/glTF/Coin.gltf',
+    '/models/Coin/glTF/coin.gltf',
     (gltf) =>
     {
         // Model

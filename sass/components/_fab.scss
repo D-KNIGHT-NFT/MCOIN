@@ -11,7 +11,7 @@
     height: 50px;
     font-size: 2rem;
     color: white;
-    z-index: 101;
+    z-index: 10000;
     transition: all 1s cubic-bezier(0,.74,.16,1.39);
   }
   button.fab-trigger {
