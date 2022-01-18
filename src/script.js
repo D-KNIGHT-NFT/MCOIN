@@ -181,7 +181,7 @@ gltfLoader.load(
 /**
  * Lights
  */
-const directionalLight = new THREE.DirectionalLight('#B9FD02', 4)
+const directionalLight = new THREE.DirectionalLight('#ffffff', 4)
 directionalLight.castShadow = true
 directionalLight.shadow.camera.far = 15
 directionalLight.shadow.mapSize.set(1024, 1024)
