@@ -121,7 +121,7 @@ gltfLoader.load(
     {
         // Model
         gltf.scene.scale.set(0.003, 0.002, 0.002)
-        gltf.scene.position.set(0, 1.19, 0)
+        gltf.scene.position.set(0, 1.1, -0.3)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
@@ -136,12 +136,12 @@ gltfLoader.load(
 )
 
 gltfLoader.load(
-    '/models/astronaut/glTF/htdi.gltf',
+    '/models/logo/glTF/logo.gltf',
     (gltf) =>
     {
         // Model
-        gltf.scene.scale.set(0.2, 0.2, 0.2)
-        gltf.scene.position.set(0, 0, 0)
+        gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+        gltf.scene.position.set(0, -0.5, 0)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
@@ -221,7 +221,7 @@ window.addEventListener('resize', () =>
 const camera = new CinematicCamera( 100, window.innerWidth / window.innerHeight, 0.01, 2000 );
 camera.setLens( 5);
 camera.setFocalLength(10);
-camera.position.set( 1, 2, -1);
+camera.position.set( 0, 0.8, 2);
 
 scene.add(camera)
 
