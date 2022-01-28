@@ -138,7 +138,7 @@ gltfLoader.load(
         let logo = gltf.scene;
         let newMaterial = new THREE.MeshPhysicalMaterial( 
         {
-          transmission: 1.0, roughness: 0.2, metalness: 0.25, thickness: 0.5
+          transmission: 1.0, roughness: 0.5, metalness: 0.25, thickness: 0.9
         } 
         );
 
