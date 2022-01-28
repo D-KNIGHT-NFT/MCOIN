@@ -37,17 +37,6 @@ html {
   background-color: var(--yellow);
 }
 
-body {
-    overflow-x: hidden;
-    margin-top: 20%;
-    display: flex;
-    flex-flow: column nowrap;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
 /* ===========================================POPUP*/
 
 
@@ -59,10 +48,10 @@ nav {
     justify-content: center;
     align-items: center;
     padding: 16px;
-    margin: 0 4% 0 0;
+    margin: 5%;
     position: fixed;
-    top: 2%;
-    left: 2%;
+    top: 25%;
+    left: 50%;
     width:10%;
     z-index: 50000;
     background: rgba(13, 13, 13, 0.56);

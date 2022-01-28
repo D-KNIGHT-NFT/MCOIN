@@ -158,46 +158,21 @@ nav {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px;
-  margin: 0 4% 0 0;
+  padding: 0;
+  margin: 0;
   position: fixed;
-  top: 2%;
-  left: 2%;
-  width: 10%;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   z-index: 50000;
   background: rgba(13, 13, 13, 0.56);
   backdrop-filter: blur(32px);
-  border-radius: 16px;
+  border-radius: 0;
+
 }
 
 /*==============================>> MAIN BLOCKS ( by z-index) */
-#link-list {
-  width: 100%;
-  position: fixed;
-  bottom: 0%;
-  left: 0%;
-  z-index: 1000000;
-  background-color: #1fbcd1;
-  color: var(--black);
-}
 
-main {
-  display: flex;
-  flex-flow: column nowrap;
-  color: white;
-  z-index: -1000;
-  padding: 4%;
-  margin-top: 5%;
-}
-
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1000;
-  width: 100vw;
-  height: 100vh;
-}
 
 canvas {
   position: fixed;

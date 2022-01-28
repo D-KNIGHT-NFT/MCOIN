@@ -11,19 +11,6 @@ import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
 
 
 
-
-
-
-
-
-//FAB
-
-$("#trigger").click(function(){
-  $(this).toggleClass('open');
-  $('.fab-actions').toggleClass('open');
-  $('i.trigger-icon').html($('i.trigger-icon').text() == 'add' ? 'clear' : 'add');
-  
- });
 /**
 POST-PROCESSING
 */
@@ -219,7 +206,7 @@ window.addEventListener('resize', () =>
 const camera = new CinematicCamera( 50, window.innerWidth / window.innerHeight, 0.01, 2000 );
 camera.setLens( 5);
 camera.setFocalLength(10);
-camera.position.set( 0, 0, 2.5);
+camera.position.set( 0, 1, 2.5);
 
 scene.add(camera)
 
