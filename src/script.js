@@ -8,6 +8,13 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
+import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
+import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
+import { HTMLMesh } from 'three/examples/jsm/interactive/HTMLMesh.js';
+import { InteractiveGroup } from 'three/examples/jsm/interactive/InteractiveGroup.js';
+import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory.js';
 
 
 
@@ -16,17 +23,13 @@ POST-PROCESSING
 */
 
 
-/**
- * Loaders
- * 
- */
+/*** Loaders */
 const gltfLoader = new GLTFLoader()
 const textureLoader = new THREE.TextureLoader()
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 
-/**
- * Base
- */
+/*** Base */
+
 // Debug
 // const gui = new dat.GUI()
 const debugObject = {}
@@ -82,6 +85,7 @@ const rayOrigin = new THREE.Vector3(-3, 0 , 0)
 /**
  * Models
  */
+
 let foxMixer = null
 
 // gltfLoader.load(
@@ -125,10 +129,22 @@ gltfLoader.load(
     (gltf) =>
     {
         // Model
+
         gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
         gltf.scene.position.set(0, -0.5, 0)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
+
+        let logo = gltf.scene;
+        let newMaterial = new THREE.MeshPhysicalMaterial( 
+        {
+          transmission: 1.0, roughness: 0, metalness: 0.25, thickness: 0.5
+        } 
+        );
+
+        logo.traverse((o) => {
+          if (o.isMesh) o.material = newMaterial;
+        });
 
         // Animation
         // logoMixer = new THREE.AnimationMixer(gltf.scene)
@@ -136,7 +152,7 @@ gltfLoader.load(
         // logoAction.play()
 
         // Update materials
-        updateAllMaterials()
+        // updateAllMaterials()
     }
 )
 
