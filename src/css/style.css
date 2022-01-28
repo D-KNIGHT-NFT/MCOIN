@@ -40,7 +40,7 @@ html {
 
 body {
   overflow-x: hidden;
-  margin-top: 20%;
+  margin-top:0;
   display: flex;
   flex-flow: column nowrap;
   position: absolute;
@@ -56,10 +56,10 @@ nav {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 24px 0;
-  margin: 24px 0;
+  padding: 24px 0 24px 0;
+  margin: 24px 0 0 0;
   position: fixed;
-  bottom: 0;
+  bottom: 4%;
   left: 0;
   width: 100%;
   z-index: 50000;
@@ -72,7 +72,7 @@ nav {
 .logo2 {
   position: fixed;
   bottom: 0;
-  left: 4%;
+  left: 6%;
   z-index: 50010;
 }
 
