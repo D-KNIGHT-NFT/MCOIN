@@ -158,14 +158,14 @@ nav {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0;
-  margin: 0;
+  padding: 24px 0;
+  margin: 24px 0;
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   z-index: 50000;
-  background: rgba(13, 13, 13, 0.56);
+  background: rgba(200, 200, 200, 0.3);
   backdrop-filter: blur(32px);
   border-radius: 0;
 
@@ -398,8 +398,6 @@ h1.letter {
 }
 /*==============================>> MARQUEES */
 .marquee {
-  overflow-x: hidden;
-  background-color: var(--yellow);
   font-family: "Syncopate", sans-serif;
   font-style: normal;
   font-weight: 700;
@@ -411,10 +409,9 @@ h1.letter {
 
 .marquee--long {
   position: fixed;
-  top: 6%;
+  top: 0;
   z-index: 300000;
-  font-size: 2vw;
-  background-color: #bafc03;
+  font-size: 1vw;
 }
 
 .marquee span {
