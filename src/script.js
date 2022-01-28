@@ -90,9 +90,7 @@ debugObject.envMapIntensity = 0.4
 /**
  * Raycaster
  */
-
 const raycaster = new THREE.Raycaster()
-
 const rayOrigin = new THREE.Vector3(-3, 0 , 0)
 /**
  * Models
@@ -146,12 +144,12 @@ gltfLoader.load(
         scene.add(gltf.scene)
 
         // Animation
-        // foxMixer = new THREE.AnimationMixer(gltf.scene)
-        // const foxAction = foxMixer.clipAction(gltf.animations[1])
-        // foxAction.play()
+        // logoMixer = new THREE.AnimationMixer(gltf.scene)
+        // const logoAction = logoMixer.clipAction(gltf.animations[1])
+        // logoAction.play()
 
-        // // Update materials
-        // updateAllMaterials()
+        // Update materials
+        updateAllMaterials()
     }
 )
 
@@ -218,10 +216,10 @@ window.addEventListener('resize', () =>
  * Camera
  */
 // Base camera
-const camera = new CinematicCamera( 100, window.innerWidth / window.innerHeight, 0.01, 2000 );
+const camera = new CinematicCamera( 50, window.innerWidth / window.innerHeight, 0.01, 2000 );
 camera.setLens( 5);
 camera.setFocalLength(10);
-camera.position.set( 0, 0.8, 2);
+camera.position.set( 0, 0, 2.5);
 
 scene.add(camera)
 
