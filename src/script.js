@@ -72,7 +72,7 @@ environmentMap.encoding = THREE.sRGBEncoding
 scene.background = environmentMap
 scene.environment = environmentMap
 
-debugObject.envMapIntensity = 0.4
+environmentMap.envMapIntensity = 0.05
 
 
 /*** Raycaster */
@@ -104,6 +104,7 @@ gltfLoader.load(
     }
 )
 
+/*** Load HTDI Logo model **/
 gltfLoader.load(
     '/models/logo/glTF/logo.gltf',
     (gltf) =>
@@ -119,9 +120,10 @@ gltfLoader.load(
         let newMaterial = new THREE.MeshPhysicalMaterial( 
         {
           transmission: 1, 
-          roughness: 0.15,  
-          thickness: 0.5,
-          envMap: environmentMap
+          roughness: 0.4,  
+          thickness: 1,
+          envMap: environmentMap,
+          envMapIntensity: 0.4
         });
 
         logo.traverse((o) => {
@@ -132,30 +134,30 @@ gltfLoader.load(
 )
 
 const geometry = new THREE.IcosahedronGeometry(1, 15);
-const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.7, transmission: 1, thickness: 1});
+const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0, 1)
-glassphere.scale.set(0.05, 0.05, 0.05)
+glassphere.position.set(0, 1, 0)
+glassphere.scale.set(0.08, 0.08, 0.08)
 scene.add(glassphere);
 
 /*** Lights */
 
-const directionalLight = new THREE.DirectionalLight('#B9FD02', 16)
+const directionalLight = new THREE.DirectionalLight('#B9FD02', 8)
 directionalLight.castShadow = true
 directionalLight.shadow.camera.far = 15
 directionalLight.shadow.mapSize.set(2048, 2048)
 
-const directionalLight2 = new THREE.DirectionalLight('#ED75B2', 16)
+const directionalLight2 = new THREE.DirectionalLight('#ED75B2', 8)
 directionalLight2.castShadow = true
 directionalLight2.shadow.camera.far = 15
 directionalLight2.shadow.mapSize.set(2048, 2048)
 
-const directionalLight3 = new THREE.DirectionalLight('#00B0FF', 16)
+const directionalLight3 = new THREE.DirectionalLight('#00B0FF', 8)
 directionalLight3.castShadow = true
 directionalLight3.shadow.camera.far = 15
 directionalLight3.shadow.mapSize.set(2048, 2048)
 
-const directionalLight4 = new THREE.DirectionalLight('#7AC74D', 16)
+const directionalLight4 = new THREE.DirectionalLight('#7AC74D', 8)
 directionalLight4.castShadow = true
 directionalLight4.shadow.camera.far = 15
 directionalLight4.shadow.mapSize.set(2048, 2048)

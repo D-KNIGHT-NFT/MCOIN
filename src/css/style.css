@@ -40,12 +40,6 @@ html {
 
 body {
   overflow-x: hidden;
-  margin-top:0;
-  display: flex;
-  flex-flow: column nowrap;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
 }
 
@@ -56,16 +50,17 @@ nav {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 24px 0 24px 0;
+  padding: 16px 0 16px 0;
   margin: 24px 0 0 0;
   position: fixed;
-  bottom: 4%;
-  left: 0;
-  width: 100%;
+  bottom: 4.5%;
+  right: 1%;
+  width: 80%;
   z-index: 50000;
-  background: rgba(200, 200, 200, 0.3);
-  backdrop-filter: blur(32px);
-  border-radius: 0;
+  overflow-x: hidden;
+  background: #B9FD02;
+  border-radius: 32px;
+  border: 2px solid white;
 
 }
 
