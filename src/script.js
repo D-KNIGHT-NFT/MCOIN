@@ -18,20 +18,16 @@ import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerM
 
 
 
-/**
-POST-PROCESSING
-*/
-
-
 /*** Loaders */
 const gltfLoader = new GLTFLoader()
 const textureLoader = new THREE.TextureLoader()
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 
+
 /*** Base */
 
 // Debug
-// const gui = new dat.GUI()
+const gui = new dat.GUI()
 const debugObject = {}
 
 // Canvas
@@ -40,9 +36,8 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
-/**
- * Update all materials
- */
+/*** Update all materials */
+
 const updateAllMaterials = () =>
 {
     scene.traverse((child) =>
@@ -58,9 +53,9 @@ const updateAllMaterials = () =>
     })
 }
 
-/**
- * Environment map
- */
+/*** Environment maps */
+
+
 const environmentMap = cubeTextureLoader.load([
     '/textures/environmentMap/px.jpg',
     '/textures/environmentMap/nx.jpg',
@@ -70,6 +65,8 @@ const environmentMap = cubeTextureLoader.load([
     '/textures/environmentMap/nz.jpg'
 ])
 
+
+
 environmentMap.encoding = THREE.sRGBEncoding
 
 scene.background = environmentMap
@@ -77,32 +74,15 @@ scene.environment = environmentMap
 
 debugObject.envMapIntensity = 0.4
 
-/**
- * Raycaster
- */
+
+/*** Raycaster */
+
 const raycaster = new THREE.Raycaster()
 const rayOrigin = new THREE.Vector3(-3, 0 , 0)
-/**
- * Models
- */
+
+/*** Models */
 
 let foxMixer = null
-
-// gltfLoader.load(
-//     '/models/robot/glTF/robot.gltf',
-//     (gltf) =>
-//     {
-//         // Model
-//         gltf.scene.scale.set(0.009, 0.009, 0.009)
-//         gltf.scene.position.set(0, 3, 0)
-//         gltf.scene.rotation.set(1.55, 0,  0)
-//         scene.add(gltf.scene)
-
-
-//         // Update materials
-//         updateAllMaterials()
-//     }
-// )
 
 gltfLoader.load(
     '/models/Fox/glTF/Fox.gltf',
@@ -138,63 +118,59 @@ gltfLoader.load(
         let logo = gltf.scene;
         let newMaterial = new THREE.MeshPhysicalMaterial( 
         {
-          transmission: 1.0, roughness: 0.5, metalness: 0.25, thickness: 0.9
-        } 
-        );
+          transmission: 1, 
+          roughness: 0.15,  
+          thickness: 0.5,
+          envMap: environmentMap
+        });
 
         logo.traverse((o) => {
           if (o.isMesh) o.material = newMaterial;
         });
 
-        // Animation
-        // logoMixer = new THREE.AnimationMixer(gltf.scene)
-        // const logoAction = logoMixer.clipAction(gltf.animations[1])
-        // logoAction.play()
-
-        // Update materials
-        // updateAllMaterials()
     }
 )
 
-/**
- * Floor
- */
-// const floorColorTexture = textureLoader.load('textures/dirt/color.png')
-// floorColorTexture.encoding = THREE.sRGBEncoding
-// floorColorTexture.repeat.set(1, 1)
-// floorColorTexture.wrapS = THREE.RepeatWrapping
-// floorColorTexture.wrapT = THREE.RepeatWrapping
+const geometry = new THREE.IcosahedronGeometry(1, 15);
+const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.7, transmission: 1, thickness: 1});
+const glassphere = new THREE.Mesh(geometry, glassmaterial);
+glassphere.position.set(0, 0, 1)
+glassphere.scale.set(0.05, 0.05, 0.05)
+scene.add(glassphere);
 
-// const floorNormalTexture = textureLoader.load('textures/dirt/normal.png')
-// floorNormalTexture.repeat.set(1, 1)
-// floorNormalTexture.wrapS = THREE.RepeatWrapping
-// floorNormalTexture.wrapT = THREE.RepeatWrapping
+/*** Lights */
 
-// const floorGeometry = new THREE.CircleGeometry(1, 64)
-// const floorMaterial = new THREE.MeshStandardMaterial({
-//     map: floorColorTexture,
-//     normalMap: floorNormalTexture
-// })
-// const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-// floor.rotation.x = - Math.PI * 0.5
-// scene.add(floor)
-
-/**
- * Lights
- */
-const directionalLight = new THREE.DirectionalLight('#ffffff', 4)
+const directionalLight = new THREE.DirectionalLight('#B9FD02', 16)
 directionalLight.castShadow = true
 directionalLight.shadow.camera.far = 15
-directionalLight.shadow.mapSize.set(1024, 1024)
-directionalLight.shadow.normalBias = 0.05
-directionalLight.position.set(3.5, 3, - 1.25)
-scene.add(directionalLight)
+directionalLight.shadow.mapSize.set(2048, 2048)
+
+const directionalLight2 = new THREE.DirectionalLight('#ED75B2', 16)
+directionalLight2.castShadow = true
+directionalLight2.shadow.camera.far = 15
+directionalLight2.shadow.mapSize.set(2048, 2048)
+
+const directionalLight3 = new THREE.DirectionalLight('#00B0FF', 16)
+directionalLight3.castShadow = true
+directionalLight3.shadow.camera.far = 15
+directionalLight3.shadow.mapSize.set(2048, 2048)
+
+const directionalLight4 = new THREE.DirectionalLight('#7AC74D', 16)
+directionalLight4.castShadow = true
+directionalLight4.shadow.camera.far = 15
+directionalLight4.shadow.mapSize.set(2048, 2048)
+
+directionalLight.position.set(0, -4, -2)
+directionalLight2.position.set(0, 4, 2)
+directionalLight3.position.set(2, 4, 0)
+directionalLight4.position.set(-2, -4, 0)
+
+scene.add(directionalLight, directionalLight2, directionalLight3, directionalLight4)
 
 
 
-/**
- * Sizes
- */
+/*** Sizes */
+
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
@@ -215,14 +191,10 @@ window.addEventListener('resize', () =>
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
-/**
- * Camera
- */
-// Base camera
-const camera = new CinematicCamera( 50, window.innerWidth / window.innerHeight, 0.01, 2000 );
-camera.setLens( 5);
-camera.setFocalLength(10);
-camera.position.set( 0, 1, 2.5);
+/*** Cameras */// Base camera
+
+const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.01, 100)
+camera.position.set(0, 0, 5)
 
 scene.add(camera)
 
@@ -230,13 +202,11 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
-/**
- * Renderer
- */
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true
-})
+/** POST-PROCESSING */
+
+/** Renderer */
+
+const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true})
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.CineonToneMapping
@@ -247,9 +217,8 @@ renderer.setClearColor('#211d20')
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-/**
- * Animate
- */
+/*** Animate */
+
 const clock = new THREE.Clock()
 let previousTime = 0
 
