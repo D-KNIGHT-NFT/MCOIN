@@ -18,17 +18,11 @@ import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerM
 
 
 
-/*** Loaders */
-const gltfLoader = new GLTFLoader()
-const textureLoader = new THREE.TextureLoader()
-const cubeTextureLoader = new THREE.CubeTextureLoader()
-
-
 /*** Base */
 
 // Debug
-const gui = new dat.GUI()
-const debugObject = {}
+// const gui = new dat.GUI()
+// const debugObject = {}
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -37,14 +31,13 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 /*** Update all materials */
-
 const updateAllMaterials = () =>
 {
     scene.traverse((child) =>
     {
         if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
         {
-            child.material.envMap = environmentMap
+            child.material.envMap = debugObject.envMap
             child.material.envMapIntensity = debugObject.envMapIntensity
             child.material.needsUpdate = true
             child.castShadow = true
@@ -54,39 +47,35 @@ const updateAllMaterials = () =>
 }
 
 /*** Environment maps */
+const cubeTextureLoader = new THREE.CubeTextureLoader()
+cubeTextureLoader.setPath('textures/environmentMap/');
+const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']);
+environmentMap.encoding = THREE.sRGBEncoding;
+environmentMap.envMapIntensity = 0.5
 
-
-const environmentMap = cubeTextureLoader.load([
-    '/textures/environmentMap/px.jpg',
-    '/textures/environmentMap/nx.jpg',
-    '/textures/environmentMap/py.jpg',
-    '/textures/environmentMap/ny.jpg',
-    '/textures/environmentMap/pz.jpg',
-    '/textures/environmentMap/nz.jpg'
-])
-
-
-
-environmentMap.encoding = THREE.sRGBEncoding
+// const hdrEquirect = new THREE.RGBELoader().load(
+//     "/empty_warehouse_01_2k.hdr",
+//     () => {
+//       hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+//     }
+//   );
 
 scene.background = environmentMap
 scene.environment = environmentMap
 
-environmentMap.envMapIntensity = 0.05
-
 
 /*** Raycaster */
 
-const raycaster = new THREE.Raycaster()
-const rayOrigin = new THREE.Vector3(-3, 0 , 0)
+/*** Models */
+
+/*** Load Fox model **/
+const gltfLoader = new GLTFLoader()
 
 /*** Models */
 
 let foxMixer = null
 
-gltfLoader.load(
-    '/models/Fox/glTF/Fox.gltf',
-    (gltf) =>
+gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
     {
         // Model
         gltf.scene.scale.set(0.003, 0.002, 0.002)
@@ -103,11 +92,13 @@ gltfLoader.load(
         updateAllMaterials()
     }
 )
+const textureLoader = new THREE.TextureLoader();
+const normalMapTexture = textureLoader.load('textures/tile/nm.png');
+normalMapTexture.wrapS = THREE.RepeatWrapping;
+normalMapTexture.wrapT = THREE.RepeatWrapping;
 
 /*** Load HTDI Logo model **/
-gltfLoader.load(
-    '/models/logo/glTF/logo.gltf',
-    (gltf) =>
+gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
     {
         // Model
 
@@ -117,57 +108,59 @@ gltfLoader.load(
         scene.add(gltf.scene)
 
         let logo = gltf.scene;
-        let newMaterial = new THREE.MeshPhysicalMaterial( 
+        let logoMaterial= new THREE.MeshPhysicalMaterial( 
         {
-          transmission: 1, 
-          roughness: 0.4,  
-          thickness: 1,
+          transmission: 1,
+          color: 0xffffff,
+          roughness: 0.2,  
+          thickness: 0.9,
+          clearcoat: 0.8,
+          metalness: 0.1,
+          reflectivity: 0.5,
+          ior: 1.65,
+          clearcoatRoughness: 0.4,
           envMap: environmentMap,
-          envMapIntensity: 0.4
+          envMapIntensity: 1.6,
+          normalMap: normalMapTexture,
+          normalRepeat: 3,  
+          clearcoatNormalScale: 2.62,
+          attenuationTint: 0xffffff,
+          attenuationDistance: 0,
+          // bloomThreshold: 0.85,
+          // bloomStrength: 0.35,
+          // bloomRadius: 0.33,
         });
 
         logo.traverse((o) => {
-          if (o.isMesh) o.material = newMaterial;
+          if (o.isMesh) o.material = logoMaterial;
         });
-
     }
 )
 
-const geometry = new THREE.IcosahedronGeometry(1, 15);
-const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
-const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 1, 0)
-glassphere.scale.set(0.08, 0.08, 0.08)
-scene.add(glassphere);
+const bgTexture = textureLoader.load("src/texture.jpg");
+  const bgGeometry = new THREE.PlaneGeometry(5, 5);
+  const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
+  const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
+  bgMesh.position.set(0, 5, -1);
+  scene.add(bgMesh);
+
+// const geometry = new THREE.IcosahedronGeometry(1, 15);
+// const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
+// const glassphere = new THREE.Mesh(geometry, glassmaterial);
+// glassphere.position.set(0, 1, 0)
+// glassphere.scale.set(0.9, 0.9, 0.9)
+// scene.add(glassphere);
 
 /*** Lights */
 
-const directionalLight = new THREE.DirectionalLight('#B9FD02', 8)
+const ambient = new THREE.AmbientLight( 0x20d7cc, 2);
+scene.add(ambient)
+
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 1, 1.8)
 directionalLight.castShadow = true
-directionalLight.shadow.camera.far = 15
-directionalLight.shadow.mapSize.set(2048, 2048)
-
-const directionalLight2 = new THREE.DirectionalLight('#ED75B2', 8)
-directionalLight2.castShadow = true
-directionalLight2.shadow.camera.far = 15
-directionalLight2.shadow.mapSize.set(2048, 2048)
-
-const directionalLight3 = new THREE.DirectionalLight('#00B0FF', 8)
-directionalLight3.castShadow = true
-directionalLight3.shadow.camera.far = 15
-directionalLight3.shadow.mapSize.set(2048, 2048)
-
-const directionalLight4 = new THREE.DirectionalLight('#7AC74D', 8)
-directionalLight4.castShadow = true
-directionalLight4.shadow.camera.far = 15
-directionalLight4.shadow.mapSize.set(2048, 2048)
-
-directionalLight.position.set(0, -4, -2)
-directionalLight2.position.set(0, 4, 2)
-directionalLight3.position.set(2, 4, 0)
-directionalLight4.position.set(-2, -4, 0)
-
-scene.add(directionalLight, directionalLight2, directionalLight3, directionalLight4)
+directionalLight.shadow.camera.far = 500
+directionalLight.position.set(0, 0, -1)
+scene.add( directionalLight )
 
 
 
@@ -195,8 +188,8 @@ window.addEventListener('resize', () =>
 
 /*** Cameras */// Base camera
 
-const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.01, 100)
-camera.position.set(0, 0, 5)
+const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.01, 100)
+camera.position.set(0, 1, 5)
 
 scene.add(camera)
 
@@ -205,6 +198,8 @@ const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
 /** POST-PROCESSING */
+
+
 
 /** Renderer */
 
