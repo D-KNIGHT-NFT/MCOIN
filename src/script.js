@@ -111,7 +111,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         let logoMaterial= new THREE.MeshPhysicalMaterial( 
         {
           transmission: 1,
-          color: 0xffffff,
+          color: 0x8800ff,
           roughness: 0.2,  
           thickness: 0.9,
           clearcoat: 0.8,
@@ -125,7 +125,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
           normalRepeat: 3,  
           clearcoatNormalScale: 2.62,
           attenuationTint: 0xffffff,
-          attenuationDistance: 0,
+          attenuationDistance: 3.5,
           // bloomThreshold: 0.85,
           // bloomStrength: 0.35,
           // bloomRadius: 0.33,
@@ -153,7 +153,7 @@ const bgTexture = textureLoader.load("src/texture.jpg");
 
 /*** Lights */
 
-const ambient = new THREE.AmbientLight( 0x20d7cc, 2);
+const ambient = new THREE.AmbientLight( 0x8800ff, 0.5);
 scene.add(ambient)
 
 const directionalLight = new THREE.DirectionalLight( 0xffffff, 1, 1.8)
