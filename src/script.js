@@ -138,23 +138,28 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
 )
 
 const bgTexture = textureLoader.load("src/texture.jpg");
-  const bgGeometry = new THREE.PlaneGeometry(5, 5);
+  const bgGeometry = new THREE.PlaneGeometry(1, 1);
   const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
   const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
-  bgMesh.position.set(0, 5, -1);
+  bgMesh.position.set(0, 0, 0);
   scene.add(bgMesh);
 
-// const geometry = new THREE.IcosahedronGeometry(1, 15);
-// const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
-// const glassphere = new THREE.Mesh(geometry, glassmaterial);
-// glassphere.position.set(0, 1, 0)
-// glassphere.scale.set(0.9, 0.9, 0.9)
-// scene.add(glassphere);
+const geometry = new THREE.IcosahedronGeometry(1, 15);
+const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
+const glassphere = new THREE.Mesh(geometry, glassmaterial);
+glassphere.position.set(0, 1.2, -0.3)
+glassphere.scale.set(0.2, 0.2, 0.2)
+scene.add(glassphere);
 
 /*** Lights */
 
-const ambient = new THREE.AmbientLight( 0x8800ff, 0.5);
+const ambient = new THREE.AmbientLight( 0x8800ff, 10);
+ambient.position.set(0, 0 ,-0.1)
 scene.add(ambient)
+
+const hemisphericLight = new THREE.HemisphereLight( 0xffffbb, 0x080820, 10);
+hemisphericLight.position
+scene.add( hemisphericLight );
 
 const directionalLight = new THREE.DirectionalLight( 0xffffff, 1, 1.8)
 directionalLight.castShadow = true
