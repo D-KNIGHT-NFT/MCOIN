@@ -51,7 +51,7 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
 cubeTextureLoader.setPath('textures/environmentMap/');
 const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']);
 environmentMap.encoding = THREE.sRGBEncoding;
-environmentMap.envMapIntensity = 0.5
+environmentMap.envMapIntensity = 100
 
 // const hdrEquirect = new THREE.RGBELoader().load(
 //     "/empty_warehouse_01_2k.hdr",
@@ -112,7 +112,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         {
           transmission: 1,
           color: 0x8800ff,
-          roughness: 0.2,  
+          roughness: 0.1,  
           thickness: 0.9,
           clearcoat: 0.8,
           metalness: 0.1,
@@ -167,8 +167,6 @@ directionalLight.shadow.camera.far = 500
 directionalLight.position.set(0, 0, -1)
 scene.add( directionalLight )
 
-
-
 /*** Sizes */
 
 const sizes = {
@@ -193,8 +191,8 @@ window.addEventListener('resize', () =>
 
 /*** Cameras */// Base camera
 
-const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.01, 100)
-camera.position.set(0, 1, 5)
+const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 0.01, 100)
+camera.position.set(0, 0, 4)
 
 scene.add(camera)
 
