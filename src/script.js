@@ -53,13 +53,6 @@ const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jp
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.envMapIntensity = 0.01
 
-// const hdrEquirect = new THREE.RGBELoader().load(
-//     "/empty_warehouse_01_2k.hdr",
-//     () => {
-//       hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-//     }
-//   );
-
 scene.background = environmentMap
 scene.environment = environmentMap
 
@@ -157,7 +150,7 @@ scene.add(glassphere);
 const directionalLight = new THREE.DirectionalLight( 0xffffff, 1, 0.5)
 directionalLight.castShadow = true
 directionalLight.shadow.camera.far = 500
-directionalLight.position.set(0-1, 0, -1)
+directionalLight.position.set(0.1, 0, -1)
 scene.add( directionalLight )
 
 /*** Sizes */
@@ -184,8 +177,8 @@ window.addEventListener('resize', () =>
 
 /*** Cameras */// Base camera
 
-const camera = new THREE.PerspectiveCamera(1145, sizes.width / sizes.height, 0.01, 10000)
-camera.position.set(0, 0, 2.8)
+const camera = new THREE.PerspectiveCamera(135, sizes.width / sizes.height, 0.1, 10000)
+camera.position.set(0, 0, 0.3)
 
 scene.add(camera)
 
@@ -207,7 +200,7 @@ const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true})
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.CineonToneMapping
-renderer.toneMappingExposure = 0.5
+renderer.toneMappingExposure = 0.3
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor('#211d20')
