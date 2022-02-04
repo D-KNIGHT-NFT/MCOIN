@@ -137,13 +137,6 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
     }
 )
 
-const bgTexture = textureLoader.load("src/texture.jpg");
-  const bgGeometry = new THREE.PlaneGeometry(1, 1);
-  const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
-  const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
-  bgMesh.position.set(0, 0, 0);
-  scene.add(bgMesh);
-
 const geometry = new THREE.IcosahedronGeometry(1, 15);
 const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
@@ -191,7 +184,7 @@ window.addEventListener('resize', () =>
 
 /*** Cameras */// Base camera
 
-const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 0.01, 100)
+const camera = new THREE.PerspectiveCamera(80, sizes.width / sizes.height, 0.01, 100)
 camera.position.set(0, 0, 4)
 
 scene.add(camera)
