@@ -93,7 +93,7 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
     }
 )
 const textureLoader = new THREE.TextureLoader();
-const normalMapTexture = textureLoader.load('textures/tile/nm.png');
+const normalMapTexture = textureLoader.load('src/nm.png');
 normalMapTexture.wrapS = THREE.RepeatWrapping;
 normalMapTexture.wrapT = THREE.RepeatWrapping;
 
@@ -102,8 +102,8 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
     {
         // Model
 
-        gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
-        gltf.scene.position.set(0, -0.5, 0)
+        gltf.scene.scale.set(0.0025, 0.0025, 0.0025)
+        gltf.scene.position.set(0, -0.8, 0)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
@@ -113,7 +113,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
           transmission: 1,
           color: 0x8800ff,
           roughness: 0.1,  
-          thickness: 0.9,
+          thickness: 0.7,
           clearcoat: 0.8,
           metalness: 0.1,
           reflectivity: 0.5,
@@ -137,10 +137,11 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
     }
 )
 
+
 const geometry = new THREE.IcosahedronGeometry(1, 15);
 const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 1.2, -0.3)
+glassphere.position.set(0, 1.2, -0.1)
 glassphere.scale.set(0.2, 0.2, 0.2)
 scene.add(glassphere);
 
