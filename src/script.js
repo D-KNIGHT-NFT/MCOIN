@@ -51,7 +51,7 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
 cubeTextureLoader.setPath('textures/environmentMap/');
 const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']);
 environmentMap.encoding = THREE.sRGBEncoding;
-environmentMap.envMapIntensity = 100
+environmentMap.envMapIntensity = 0.01
 
 // const hdrEquirect = new THREE.RGBELoader().load(
 //     "/empty_warehouse_01_2k.hdr",
@@ -78,8 +78,8 @@ let foxMixer = null
 gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
     {
         // Model
-        gltf.scene.scale.set(0.003, 0.002, 0.002)
-        gltf.scene.position.set(0, 1.1, -0.3)
+        gltf.scene.scale.set(0.0019, 0.0019, 0.0019)
+        gltf.scene.position.set(0, -0.1, 0)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
@@ -102,30 +102,30 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
     {
         // Model
 
-        gltf.scene.scale.set(0.0025, 0.0025, 0.0025)
-        gltf.scene.position.set(0, -0.8, 0)
+        gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+        gltf.scene.position.set(0, -0.8, 0.38)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
         let logo = gltf.scene;
         let logoMaterial= new THREE.MeshPhysicalMaterial( 
-        {
+        { 
+
           transmission: 1,
-          color: 0x8800ff,
-          roughness: 0.1,  
-          thickness: 0.7,
-          clearcoat: 0.8,
-          metalness: 0.1,
-          reflectivity: 0.5,
-          ior: 1.65,
+          roughness: 0.2,  
+          thickness: 0.2,
+          clearcoat: 0.2,
+          metalness: 0,
+          reflectivity: 1.2,
+          ior: 1.9,
           clearcoatRoughness: 0.4,
           envMap: environmentMap,
-          envMapIntensity: 1.6,
+          envMapIntensity: 0.2,
           normalMap: normalMapTexture,
           normalRepeat: 3,  
-          clearcoatNormalScale: 2.62,
-          attenuationTint: 0xffffff,
-          attenuationDistance: 3.5,
+          // clearcoatNormalScale: 2.62,
+          // attenuationTint: 0x000000,
+          // attenuationDistance: 3.5,
           // bloomThreshold: 0.85,
           // bloomStrength: 0.35,
           // bloomRadius: 0.33,
@@ -141,24 +141,23 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
 const geometry = new THREE.IcosahedronGeometry(1, 15);
 const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 1.2, -0.1)
-glassphere.scale.set(0.2, 0.2, 0.2)
+glassphere.position.set(0, 0, 0)
+glassphere.scale.set(0.5, 0.5, 0.5)
 scene.add(glassphere);
 
 /*** Lights */
 
-const ambient = new THREE.AmbientLight( 0x8800ff, 10);
-ambient.position.set(0, 0 ,-0.1)
-scene.add(ambient)
+// const ambient = new THREE.AmbientLight( 0x8800ff, 0.3);
+// scene.add(ambient)
 
-const hemisphericLight = new THREE.HemisphereLight( 0xffffbb, 0x080820, 10);
-hemisphericLight.position
-scene.add( hemisphericLight );
+// const hemisphericLight = new THREE.HemisphereLight( 0xffffbb, 0.02);
+// hemisphericLight.position
+// scene.add( hemisphericLight );
 
-const directionalLight = new THREE.DirectionalLight( 0xffffff, 1, 1.8)
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 1, 0.5)
 directionalLight.castShadow = true
 directionalLight.shadow.camera.far = 500
-directionalLight.position.set(0, 0, -1)
+directionalLight.position.set(0-1, 0, -1)
 scene.add( directionalLight )
 
 /*** Sizes */
@@ -185,14 +184,18 @@ window.addEventListener('resize', () =>
 
 /*** Cameras */// Base camera
 
-const camera = new THREE.PerspectiveCamera(80, sizes.width / sizes.height, 0.01, 100)
-camera.position.set(0, 0, 4)
+const camera = new THREE.PerspectiveCamera(1145, sizes.width / sizes.height, 0.01, 10000)
+camera.position.set(0, 0, 2.8)
 
 scene.add(camera)
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
+controls.enable = false
 controls.enableDamping = true
+controls.autoRotate= true
+controls.enableZoom = false
+controls.autoRotateSpeed = 1.0
 
 /** POST-PROCESSING */
 
@@ -204,7 +207,7 @@ const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true})
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.CineonToneMapping
-renderer.toneMappingExposure = 1.75
+renderer.toneMappingExposure = 0.5
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor('#211d20')

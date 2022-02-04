@@ -1,34 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Homenaje');
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&display=swap');
 
-/*==============================>> TEXT DEFINITIONS */
-h2, h3 {
-  font-family: "Space Grotesk", sans-serif;
-  font-style: normal;
-}
-
-h1 {
-  font-family: "Syncopate", sans-serif;
-  font-size: 4rem;
-  font-weight: 700;
-}
-
-h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-}
-
-h3 {
-  font-size: 1.5rem;
-  font-weight: 300;
-}
-
-p {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1rem;
-  text-align: center;
-  overflow-wrap: break-word;
-}
 
 * {
   margin: 0;
@@ -36,40 +8,31 @@ p {
 }
 
 html {
-  background-color: var(--yellow);
+  background-color: var(--black);
 }
 
 body {
-  overflow-x: hidden;
+  overflow: hidden;
   width: 100%;
 }
 
 /* ===========================================POPUP*/
 /*==============================>> Navbar */
 nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0 0 8px 0;
-  margin: 24px 0;
+ 
   position: fixed;
   color: white;
-  bottom: 51%;
-  right: 4%;
-  width: 90vw;
+  bottom: 15%;
+  right: 10%;
+
   z-index: 50000;
-  overflow-x: hidden;
-  border-radius: 12px;
-  border-bottom: 0.1px solid white;
+  overflow: hidden;
   font-family: "Space Grotesk", sans-serif;
-  font-size: 1rem;
-  text-align: right;
+  font-weight: 900;
+  font-size: 18vh;
+  line-height: 1;
 }
 
-.new {
-
-}
 
 .logo2 {
   position: fixed;
@@ -85,6 +48,7 @@ canvas {
   top: 0;
   left: 0;
   z-index: 1000;
+  overflow: hidden;
 }
 
 /*==============================>> SECTION COMMONS */
