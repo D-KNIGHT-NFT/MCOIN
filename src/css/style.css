@@ -30,6 +30,7 @@ nav {
   font-family: "Space Grotesk", sans-serif;
   font-weight: 900;
   font-size: 18vh;
+  user-select: none;
   line-height: 1;
 }
 
