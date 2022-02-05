@@ -133,7 +133,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
 
 
 const geometry = new THREE.IcosahedronGeometry(1, 15);
-const glassmaterial = new THREE.MeshPhysicalMaterial({ side: THREE.DoubleSide, roughness: 0.2, transmission: 1, thickness: 1});
+const glassmaterial = new THREE.MeshPhysicalMaterial({ side: THREE.DoubleSide, roughness: 0.02, transmission: 1, thickness: 1});
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0)
 glassphere.scale.set(0.24, 0.24, 0.24)
@@ -148,7 +148,7 @@ light.distance = 8
 light.decay = 2
 light.castShadow = true
 light.shadow.camera.far = 500
-light.position.set(0, -0.2, 0)
+light.position.set(0, -0.1, 0)
 scene.add( light )
 
 /*** Sizes */
@@ -175,8 +175,8 @@ window.addEventListener('resize', () =>
 
 /*** Cameras */// Base camera
 
-const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height, 0.1, 100)
-camera.position.set( 0, 0, 0.3)
+const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height,0.2, 100)
+camera.position.set( 0, 0, -0.01)
 
 scene.add(camera)
 
@@ -185,8 +185,11 @@ const controls = new OrbitControls(camera, canvas)
 controls.enable = false
 controls.enableDamping = true
 controls.autoRotate= true
-controls.enableZoom = false
+// controls.enableZoom = false
 controls.autoRotateSpeed = 1.0
+controls.minDistance = 0.35;
+controls.maxDistance = 1.5;
+controls.target.set( 0, 0, 0 );
 
 /** POST-PROCESSING */
 
