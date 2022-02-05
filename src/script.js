@@ -103,17 +103,17 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         let logo = gltf.scene;
         let logoMaterial= new THREE.MeshPhysicalMaterial( 
         { 
-
+          side:THREE.BackSide,
           transmission: 1,
-          roughness: 0.2,  
-          thickness: 0.2,
+          roughness: 0.01,  
+          thickness: 0.01,
           clearcoat: 0.2,
           metalness: 0,
-          reflectivity: 1.2,
-          ior: 1.9,
+          reflectivity: 1.9,
+          ior: 2.33,
           // clearcoatRoughness: 0.4,
           envMap: environmentMap,
-          envMapIntensity: 0.2,
+          envMapIntensity: 1,
           normalMap: normalMapTexture,
           // normalRepeat: 3,  
           // clearcoatNormalScale: 2.62,
@@ -135,23 +135,20 @@ const geometry = new THREE.IcosahedronGeometry(1, 15);
 const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0)
-glassphere.scale.set(0.5, 0.5, 0.5)
+glassphere.scale.set(0.3, 0.3, 0.3)
 scene.add(glassphere);
 
 /*** Lights */
 
-// const ambient = new THREE.AmbientLight( 0x8800ff, 0.3);
-// scene.add(ambient)
-
-// const hemisphericLight = new THREE.HemisphereLight( 0xffffbb, 0.02);
-// hemisphericLight.position
-// scene.add( hemisphericLight );
-
-const directionalLight = new THREE.DirectionalLight( 0xffffff, 1, 0.5)
-directionalLight.castShadow = true
-directionalLight.shadow.camera.far = 500
-directionalLight.position.set(0.1, 0, -1)
-scene.add( directionalLight )
+const light = new THREE.PointLight( 0x7A7194, 1, 1000)
+light.intensity = 4
+light.power = 8
+light.distance = 8
+light.decay = 2
+light.castShadow = true
+light.shadow.camera.far = 500
+light.position.set(0, -0.5, 0)
+scene.add( light )
 
 /*** Sizes */
 
@@ -177,8 +174,8 @@ window.addEventListener('resize', () =>
 
 /*** Cameras */// Base camera
 
-const camera = new THREE.PerspectiveCamera(135, sizes.width / sizes.height, 0.1, 10000)
-camera.position.set(0, 0, 0.3)
+const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height, 0.1, 100)
+camera.position.set( 0, 0, 0.3)
 
 scene.add(camera)
 
