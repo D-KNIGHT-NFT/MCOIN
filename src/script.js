@@ -103,20 +103,20 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         let logo = gltf.scene;
         let logoMaterial= new THREE.MeshPhysicalMaterial( 
         { 
-          side:THREE.BackSide,
-          transmission: 1,
+          side: THREE.DoubleSide,
+          transmission: 1.4,
           roughness: 0.01,  
-          thickness: 0.01,
-          clearcoat: 0.2,
+          thickness: 0.001,
+          clearcoat: 0.1,
           metalness: 0,
           reflectivity: 1.9,
-          ior: 2.33,
+          ior: 5,
           // clearcoatRoughness: 0.4,
           envMap: environmentMap,
-          envMapIntensity: 1,
+          envMapIntensity: 1.4,
           normalMap: normalMapTexture,
-          // normalRepeat: 3,  
-          // clearcoatNormalScale: 2.62,
+          normalRepeat: 3,  
+          clearcoatNormalScale: 2.62,
           // attenuationTint: 0x000000,
           // attenuationDistance: 3.5,
           // bloomThreshold: 0.85,
@@ -127,27 +127,28 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         logo.traverse((o) => {
           if (o.isMesh) o.material = logoMaterial;
         });
+
     }
 )
 
 
 const geometry = new THREE.IcosahedronGeometry(1, 15);
-const glassmaterial = new THREE.MeshPhysicalMaterial({roughness: 0.2, transmission: 1, thickness: 1});
+const glassmaterial = new THREE.MeshPhysicalMaterial({ side: THREE.DoubleSide, roughness: 0.2, transmission: 1, thickness: 1});
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0)
-glassphere.scale.set(0.3, 0.3, 0.3)
+glassphere.scale.set(0.24, 0.24, 0.24)
 scene.add(glassphere);
 
 /*** Lights */
 
-const light = new THREE.PointLight( 0x7A7194, 1, 1000)
+const light = new THREE.PointLight( 0x7A7194, 1, 100)
 light.intensity = 4
 light.power = 8
 light.distance = 8
 light.decay = 2
 light.castShadow = true
 light.shadow.camera.far = 500
-light.position.set(0, -0.5, 0)
+light.position.set(0, -0.2, 0)
 scene.add( light )
 
 /*** Sizes */
