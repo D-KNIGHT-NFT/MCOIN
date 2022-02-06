@@ -27,6 +27,25 @@ import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerM
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
+// JQUERY UI
+
+var cube = document.querySelector('.cube');
+var radioGroup = document.querySelector('.radio-group');
+var currentClass = '';
+
+function changeSide() {
+  var checkedRadio = radioGroup.querySelector(':checked');
+  var showClass = 'show-' + checkedRadio.value;
+  if ( currentClass ) {
+    cube.classList.remove( currentClass );
+  }
+  cube.classList.add( showClass );
+  currentClass = showClass;
+}
+// set initial side
+changeSide();
+
+radioGroup.addEventListener( 'change', changeSide );
 // Scene
 const scene = new THREE.Scene()
 
@@ -51,7 +70,7 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
 cubeTextureLoader.setPath('textures/environmentMap/');
 const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']);
 environmentMap.encoding = THREE.sRGBEncoding;
-environmentMap.envMapIntensity = 0.01
+environmentMap.envMapIntensity = 0.9
 
 scene.background = environmentMap
 scene.environment = environmentMap
@@ -91,49 +110,58 @@ normalMapTexture.wrapS = THREE.RepeatWrapping;
 normalMapTexture.wrapT = THREE.RepeatWrapping;
 
 /*** Load HTDI Logo model **/
-gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
-    {
-        // Model
+// gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
+//     {
+//         // Model
 
-        gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
-        gltf.scene.position.set(0, -0.8, 0.38)
-        gltf.scene.rotation.set(0, 0,  0)
-        scene.add(gltf.scene)
+//         gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+//         gltf.scene.position.set(0, -0.8, 0.38)
+//         gltf.scene.rotation.set(0, 0,  0)
+//         scene.add(gltf.scene)
 
-        let logo = gltf.scene;
-        let logoMaterial= new THREE.MeshPhysicalMaterial( 
-        { 
-          side: THREE.DoubleSide,
-          transmission: 1.4,
-          roughness: 0.01,  
-          thickness: 0.001,
-          clearcoat: 0.1,
-          metalness: 0,
-          reflectivity: 1.9,
-          ior: 5,
-          // clearcoatRoughness: 0.4,
-          envMap: environmentMap,
-          envMapIntensity: 1.4,
-          normalMap: normalMapTexture,
-          normalRepeat: 3,  
-          clearcoatNormalScale: 2.62,
-          // attenuationTint: 0x000000,
-          // attenuationDistance: 3.5,
-          // bloomThreshold: 0.85,
-          // bloomStrength: 0.35,
-          // bloomRadius: 0.33,
-        });
+//         let logo = gltf.scene;
+//         let logoMaterial= new THREE.MeshPhysicalMaterial( 
+//         { 
+//           side: THREE.BackSide,
+//           transmission: 1.4,
+//           roughness: 0.01,  
+//           thickness: 0.001,
+//           clearcoat: 0.1,
+//           metalness: 0,
+//           reflectivity: 1.9,
+//           ior: 5,
+//           // clearcoatRoughness: 0.4,
+//           envMap: environmentMap,
+//           envMapIntensity: 1.4,
+//           normalMap: normalMapTexture,
+//           normalRepeat: 3,  
+//           clearcoatNormalScale: 2.62,
+//           // attenuationTint: 0x000000,
+//           // attenuationDistance: 3.5,
+//           // bloomThreshold: 0.85,
+//           // bloomStrength: 0.35,
+//           // bloomRadius: 0.33,
+//         });
 
-        logo.traverse((o) => {
-          if (o.isMesh) o.material = logoMaterial;
-        });
+//         logo.traverse((o) => {
+//           if (o.isMesh) o.material = logoMaterial;
+//         });
 
-    }
-)
+//     }
+// )
 
 
-const geometry = new THREE.IcosahedronGeometry(1, 15);
-const glassmaterial = new THREE.MeshPhysicalMaterial({ side: THREE.DoubleSide, roughness: 0.02, transmission: 1, thickness: 1});
+const geometry = new THREE.IcosahedronGeometry(1, 24);
+const glassmaterial = new THREE.MeshPhysicalMaterial(
+    { side: THREE.DoubleSide,  
+      // normalMap: normalMapTexture, 
+      reflectivity: 4.9, 
+      roughness: 0.02, 
+      transmission: 1, 
+      thickness: 1,
+      envMap: environmentMap
+  }
+);
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0)
 glassphere.scale.set(0.24, 0.24, 0.24)

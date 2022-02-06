@@ -13,11 +13,22 @@ html {
 
 body {
   overflow: hidden;
-  width: 98%;
+  width: 99%;
 }
 
-nav {
+canvas {
   position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.infoCard {
+  position: fixed;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
   top: 2%;
   left: 2%;
   color: white;
@@ -28,22 +39,73 @@ nav {
   user-select: none;
   line-height: 0.8;
 }
+label { }
 
-
-.logo2 {
-  position: fixed;
-  bottom: 6%;
-  left: 2%;
-  z-index: 50010;
+.radio-group {
+  display: flex;
+  position: relative;
+  flex-flow:column nowrap;
+  padding: 4px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 400;
+  font-size: 6vh;
+  outline: 0.5px solid white;
+  user-select: none;
+  cursor: pointer;
+  line-height: 0.8;
 }
 
-
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  overflow: hidden;
+.levelInfo {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #CCC;
+  padding: 4px;
+  perspective: 400px;
 }
 
+.cube {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(-100px);
+  transition: transform 1s;
+}
+
+input {
+  display: none;
+}
+
+.cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }
+.cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }
+.cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }
+.cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }
+.cube.show-top    { transform: translateZ(-100px) rotateX( -90deg); }
+.cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
+
+.cube__face {
+  position:  fixed;
+  z-index: 50000;
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.cube__face--front  { background: hsla(  0, 100%, 50%, 0.7); }
+.cube__face--right  { background: hsla( 60, 100%, 50%, 0.7); }
+.cube__face--back   { background: hsla(120, 100%, 50%, 0.7); }
+.cube__face--left   { background: hsla(180, 100%, 50%, 0.7); }
+.cube__face--top    { background: hsla(240, 100%, 50%, 0.7); }
+.cube__face--bottom { background: hsla(300, 100%, 50%, 0.7); }
+
+.cube__face--front  { transform: rotateY(  0deg) translateZ(100px); }
+.cube__face--right  { transform: rotateY( 90deg) translateZ(100px); }
+.cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+.cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
+.cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
+.cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
 
