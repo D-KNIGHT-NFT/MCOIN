@@ -26,6 +26,7 @@ canvas {
 
 .page-text {
   position: fixed;
+  top: 50%;
   width: 100%;
   text-align: center;
   z-index: 50000;
@@ -35,7 +36,7 @@ canvas {
 .main-title {
   font-family: "Orbitron", sans-serif;
   font-weight: 900;
-  font-size:16.8em;
+  font-size: 100%;
   line-height: 0.8;
   color: white;
   margin: 0 auto;
@@ -44,7 +45,7 @@ canvas {
 .main-subtitle {
   font-family: "Space Grotesk", sans-serif;
   font-weight: 300;
-  font-size: 2.5em;
+  font-size: 100%;
   line-height: 1.2;
   color: white;
   user-select: none;
@@ -81,21 +82,20 @@ label { }
 }
 
 .logo {
-  display: grid;
-  grid-auto-flow: column;
   position: fixed;
   z-index: 50000;
   top: 2%;
   right: 2%;
-  padding: 4px;
+  padding: 8px 4px 0 4px;
   background-color: black;
 }
 
 .radio-group {
   display: grid;
+  grid-auto-flow: column;
   font-family: "Space Grotesk", sans-serif;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.5rem;
   text-align: center;
   border: 1px solid #CCC;
   padding: 2px 1px 2px 8px;
@@ -115,32 +115,10 @@ label { }
 }
 
 input[type="radio"] {
-  display:  grid;
   place-content: center;
   -webkit-appearance: none;
   appearance: none;
   background-color: #fff;
-  margin: 0;
-  width: 0.65em;
-  height: 0.65em;
-  border-radius: 50%;
-  border: 0.15em solid blue;
-  font: inherit;
-  color: blue;
-  transform: translateY(0.9em);
-}
-
-input[type="radio"]::before {
-  content: "";
-  width: 0.65em;
-  height: 0.65em;
-  border-radius: 50%;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--form-control-color);
-}
-input[type="radio"]:checked::before {
-  transform: scale(1);
 }
 
 .levelInfo {
