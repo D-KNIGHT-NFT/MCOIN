@@ -67,10 +67,10 @@ const updateAllMaterials = () =>
 
 /*** Environment maps */
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/');
+cubeTextureLoader.setPath('textures/environmentMap/level-1/');
 const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']);
 environmentMap.encoding = THREE.sRGBEncoding;
-environmentMap.envMapIntensity = 0.9
+environmentMap.envMapIntensity = 1.9
 
 scene.background = environmentMap
 scene.environment = environmentMap
@@ -97,7 +97,7 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
 
         // Animation
         foxMixer = new THREE.AnimationMixer(gltf.scene)
-        const foxAction = foxMixer.clipAction(gltf.animations[0])
+        const foxAction = foxMixer.clipAction(gltf.animations[1])
         foxAction.play()
 
         // Update materials
@@ -109,7 +109,7 @@ const normalMapTexture = textureLoader.load('src/nm.png');
 normalMapTexture.wrapS = THREE.RepeatWrapping;
 normalMapTexture.wrapT = THREE.RepeatWrapping;
 
-/*** Load HTDI Logo model **/
+// /*** Load HTDI Logo model **/
 // gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
 //     {
 //         // Model
@@ -153,23 +153,33 @@ normalMapTexture.wrapT = THREE.RepeatWrapping;
 
 const geometry = new THREE.IcosahedronGeometry(1, 24);
 const glassmaterial = new THREE.MeshPhysicalMaterial(
-    { side: THREE.DoubleSide,  
-      // normalMap: normalMapTexture, 
+    { 
+      side: THREE.DoubleSide,  
+      // normalMap: normalMapTexture,
+      // normalRepeat: 9,  
+      // clearcoatNormalScale: 9.62, 
       reflectivity: 4.9, 
       roughness: 0.02, 
       transmission: 1, 
       thickness: 1,
-      envMap: environmentMap
+      envMap: environmentMap,
+      envMapIntensity: 1.4
   }
 );
+
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0)
 glassphere.scale.set(0.24, 0.24, 0.24)
 scene.add(glassphere);
 
+let animate = () => {
+    requestAnimationFrame(animate)
+    glassphere.scale.z += 0.2
+}
+
 /*** Lights */
 
-const light = new THREE.PointLight( 0x7A7194, 1, 100)
+const light = new THREE.PointLight( 0x7A7194, 0.1, 100)
 light.intensity = 4
 light.power = 8
 light.distance = 8
@@ -214,9 +224,9 @@ controls.enable = false
 controls.enableDamping = true
 controls.autoRotate= true
 // controls.enableZoom = false
-controls.autoRotateSpeed = 1.0
-controls.minDistance = 0.35;
-controls.maxDistance = 1.5;
+controls.autoRotateSpeed = 1.5
+controls.minDistance = 0.39;
+controls.maxDistance = 1.1;
 controls.target.set( 0, 0, 0 );
 
 /** POST-PROCESSING */
