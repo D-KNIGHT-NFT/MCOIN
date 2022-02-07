@@ -172,10 +172,6 @@ glassphere.position.set(0, 0, 0)
 glassphere.scale.set(0.24, 0.24, 0.24)
 scene.add(glassphere);
 
-let animate = () => {
-    requestAnimationFrame(animate)
-    glassphere.scale.z += 0.2
-}
 
 /*** Lights */
 

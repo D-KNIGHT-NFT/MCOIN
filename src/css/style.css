@@ -36,7 +36,7 @@ canvas {
 .main-title {
   font-family: "Orbitron", sans-serif;
   font-weight: 900;
-  font-size: 100%;
+  font-size: 4rem;
   line-height: 0.8;
   color: white;
   margin: 0 auto;
@@ -58,7 +58,7 @@ canvas {
 
   position: fixed;
   z-index: 50000;
-  bottom: 2%;
+  bottom: 35%;
   left: 2%;
 
   color: white;
@@ -86,8 +86,6 @@ label { }
   z-index: 50000;
   top: 2%;
   right: 2%;
-  padding: 8px 4px 0 4px;
-  background-color: black;
 }
 
 .radio-group {
