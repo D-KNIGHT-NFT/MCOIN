@@ -13,7 +13,8 @@ html {
 
 body {
   overflow: hidden;
-  width: 99%;
+  width: 100vw;
+  height: 100vh;
 }
 
 canvas {
@@ -32,22 +33,25 @@ canvas {
   z-index: 50000;
   display: flex;
   flex-flow: column wrap;
+  justify-content: space-between;
+
 }
 .main-title {
   font-family: "Orbitron", sans-serif;
   font-weight: 900;
-  font-size: 4rem;
+  font-size: 5rem;
   line-height: 0.8;
-  color: white;
+  color: hsla(0, 79%, 63%, 1);
   margin: 0 auto;
   user-select: none;
 }
 .main-subtitle {
   font-family: "Space Grotesk", sans-serif;
+  font-style: normal;
   font-weight: 300;
-  font-size: 100%;
+  font-size: 1.4rem;
   line-height: 1.2;
-  color: white;
+  color: hsla(0, 0%, 100%, 1);
   user-select: none;
 }
 .infoCard {
