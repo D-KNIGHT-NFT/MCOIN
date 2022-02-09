@@ -99,7 +99,7 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
 
         // Animation
         foxMixer = new THREE.AnimationMixer(gltf.scene)
-        const foxAction = foxMixer.clipAction(gltf.animations[1])
+        const foxAction = foxMixer.clipAction(gltf.animations[0])
         foxAction.play()
 
         // Update materials

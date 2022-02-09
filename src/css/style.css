@@ -44,8 +44,8 @@ hr {
 .logo {
   position: fixed;
   z-index: 50000;
-  top: 2%;
-  right: 2%;
+  top: 3%;
+  right: 3%;
 }
 .headers {
   position: absolute;
@@ -56,21 +56,34 @@ hr {
 }
 .infoCard {
   display: grid;
-  grid-template-columns: 224px;
+  grid-template-columns: 216px; 
   gap: 8px;
-  overflow-y: scroll;
   position: fixed;
-  top: 0%;
-  left: 0%;
+  top: 8%;
+  left: 4%;
   z-index: 50000;
   color: white;
   border: 1px solid #CCC;
   background-color: black;
   padding:  8px;
 }
-
+.container-sections { 
+  display: grid;
+  grid-template-columns: repeat(6, max-content);
+  width: 100%;
+  gap: 8px;
+  position: fixed;
+  bottom: 0%;
+  left: 0%;
+  z-index: 50000;
+  color: white;
+  border: 1px solid #CCC;
+  background-color: black;
+  padding:  4px;
+   }
 .section {
   border: 1px solid #CCC;
+  padding: 2px;
 }
 .title {
   font-family: "Orbitron", sans-serif;
@@ -78,6 +91,7 @@ hr {
   font-size: 1.8rem;
   user-select: none;
   line-height: 1;
+  border: 1px solid #CCC;
   padding: 4px;
 }
 .drops {
@@ -94,7 +108,7 @@ hr {
   display: grid;
   grid-auto-flow: column;
   font-family: "Space Grotesk", sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 0.5rem;
   text-align: center;
   border: 1px solid #CCC;
@@ -103,7 +117,7 @@ hr {
 .cube {
   width: 200px;
   height: 200px;
-  padding: 8px;
+  padding: 4px;
   position: relative;
   transform-style: preserve-3d;
   transform: translateZ(-100px);
@@ -115,6 +129,7 @@ label {
 }
 
 input[type="radio"] {
+  display: none;
   place-content: center;
   -webkit-appearance: none;
   appearance: none;
@@ -122,8 +137,7 @@ input[type="radio"] {
 }
 
 .levelInfo {
-  border: 1px solid #CCC;
-  padding: 4px;
+  padding: 2px;
   perspective: 400px;
 }
 
@@ -160,10 +174,10 @@ input[type="radio"] {
 /* Small screens - MOBILE */
 @media only screen {
 
-  h3, h4, h5 { margin: 3rem 0 1.38rem; font-family: 'Space Grotesk', sans-serif; font-weight: 400; line-height: 1.3; }
+  h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 400; line-height: 1.3; }
   h1 { font-family: Federant; font-style: normal; font-weight: normal; color: hsla(0, 79%, 63%, 1); margin: 0 auto; }
   h2 { font-family: "Space Grotesk", sans-serif; font-style: normal; font-weight: 300; color: hsla(0, 0%, 100%, 1); }
-  p { margin-bottom: 1rem; font-family: Lexend; font-style: normal; font-weight: normal; letter-spacing: -0.008em; }
+  p { font-family: Lexend; font-style: normal; font-weight: normal; letter-spacing: -0.008em; }
 } 
 
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
@@ -188,7 +202,7 @@ input[type="radio"] {
   h5 { font-size: 1.2rem; line-height: 1.3;}
   small, 
   .text_small {font-size: 0.833rem;}
-  .headers { bottom: 22%; right: 1%; text-align: right; width: 40%; }
+  .headers { bottom: 28%; right: 1%; text-align: right; width: 40%; }
 
  } 
  
@@ -221,8 +235,7 @@ input[type="radio"] {
 @media screen and (orientation:portrait) { .headers { display: none; } }
 /* Landscape */
 @media screen and (orientation:landscape) { 
-  .headers { bottom: 6%; right: 2%; text-align: right; width: 50%; }
-  .infoCard { height: 90vh; padding-left: 32px; border-left: 1px solid black;} 
+  .headers { bottom: 8%; right: 2%; text-align: right; width: 50%; }
 }
 /* CSS for iPhone, iPad, and Retina Displays */
 /* Non-Retina */
