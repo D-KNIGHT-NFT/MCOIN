@@ -28,7 +28,6 @@ import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerM
 const canvas = document.querySelector('canvas.webgl')
 
 // JQUERY UI
-
 var cube = document.querySelector('.cube');
 var radioGroup = document.querySelector('.radio-group');
 var currentClass = '';
@@ -46,6 +45,9 @@ function changeSide() {
 changeSide();
 
 radioGroup.addEventListener( 'change', changeSide );
+
+////////////////////////////////////////////////////////////////////
+
 // Scene
 const scene = new THREE.Scene()
 

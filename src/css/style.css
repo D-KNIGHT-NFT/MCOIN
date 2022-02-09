@@ -3,18 +3,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;900&family=Shanti&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Federant&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strong,sub,sup,var,b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,nav,output,ruby,section,summary,time,mark,audio,video { 
+  margin: 0; 
+  padding: 0; 
+  border: 0; 
+  font-size: 100%; 
+  font: inherit; 
+  vertical-align: baseline;
 }
-
-html {
-  background-color: var(--black);
+article,aside,details,figcaption,figure,footer,header,nav,section { 
+  display: block;
 }
 body {
+  line-height: 1.75;
   overflow: hidden;
   width: 100vw;
   height: 100vh;
+}
+
+ol,ul { 
+  list-style: none;
+}
+blockquote,q { 
+  quotes: none;
+}
+html {
+  background-color: var(--black);
 }
 canvas {
   position: fixed;
@@ -26,49 +40,26 @@ canvas {
 hr {
   padding: 8px, 0;
 }
-h1 {
-  font-family: Federant;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 50px;
-  line-height: 110%;
+
+.logo {
+  position: fixed;
+  z-index: 50000;
+  top: 2%;
+  right: 2%;
 }
-p {
-  font-family: Shanti;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 25.2px;
-  letter-spacing: -0.008em;
-}
-.page-text {
+.headers {
   position: fixed;
   top: 50%;
   width: 100%;
   text-align: center;
   z-index: 50000;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: space-between;
 }
-.main-title {
-  font-family: "Orbitron", sans-serif;
-  font-weight: 900;
-  font-size: 5rem;
-  line-height: 0.8;
-  color: hsla(0, 79%, 63%, 1);
-  margin: 0 auto;
+/* .main-title {
   user-select: none;
 }
 .main-subtitle {
-  font-family: "Space Grotesk", sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 1.4rem;
-  line-height: 1.2;
-  color: hsla(0, 0%, 100%, 1);
   user-select: none;
-}
+} */
 .infoCard {
   display: grid;
   grid-template-columns: 224px;
@@ -76,13 +67,11 @@ p {
   gap: 16px;
   position: fixed;
   z-index: 50000;
-  bottom: 35%;
-  left: 2%;
   color: white;
   border: 1px solid #CCC;
   background-color: black;
   padding:  16px;
-  text-align: justify;
+  text-align: justify-all;
 }
 
 .card-block {
@@ -96,12 +85,6 @@ p {
   font-size: 1.8rem;
   user-select: none;
   line-height: 0.9;
-}
-.logo {
-  position: fixed;
-  z-index: 50000;
-  top: 2%;
-  right: 2%;
 }
 .radio-group {
   display: grid;
@@ -151,7 +134,7 @@ input[type="radio"] {
 .cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
 
 .cube__face {
-  position:  fixed;
+  position: fixed;
   width: 200px;
   height: 200px;
 }
@@ -169,4 +152,85 @@ input[type="radio"] {
 .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
 .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
 .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+
+
+/* Define mobile styles - Mobile First */
+/* Small screens - MOBILE */
+@media only screen {
+
+  h3, h4, h5 { margin: 3rem 0 1.38rem; font-family: 'Space Grotesk', sans-serif; font-weight: 400; line-height: 1.3; }
+  h1 { font-family: Federant; font-style: normal; font-weight: normal; color: hsla(0, 79%, 63%, 1); margin: 0 auto; }
+  h2 { font-family: "Space Grotesk", sans-serif; font-style: normal; font-weight: 300; color: hsla(0, 0%, 100%, 1); }
+  p { margin-bottom: 1rem; font-family: Lexend; font-style: normal; font-weight: normal; letter-spacing: -0.008em; }
+} 
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+@media only screen and (max-width: 40em) {
+  h1 { font-size: 1.802rem; }
+  h2 { font-size: 1.602rem; line-height: 1; }
+  h3 { font-size: 1.424rem; }
+  h4 { font-size: 1.266rem; }
+  h5 { font-size: 1.125rem; }
+  small, 
+  .text_small {font-size: 0.889rem; }
+  .headers { bottom: 6%; right: 6%; text-align: right; width: 30%; }
+}
+ 
+/* Medium screens - TABLET *//* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) {
+  h1 { font-size: 2.488rem; line-height: 1.3; }
+  h2 { font-size: 2.074rem; line-height: 1.3; font-weight: 400; }
+  h3 { font-size: 1.728rem; line-height: 1.3; }
+  h4 { font-size: 1.44rem; line-height: 1.3; }
+  h5 { font-size: 1.2rem; line-height: 1.3;}
+  small, 
+  .text_small {font-size: 0.833rem;}
+  .headers { top: 32%; right: 2%; text-align: right; width: 50%; }
+
+ } 
+ 
+@media only screen and (min-width: 40.063em) and (max-width: 64em) { } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+ 
+/* Large screens - DESKTOP */ /* min-width 1025px, large screens */
+@media only screen and (min-width: 64.063em) {
+  h1 { font-size: 4.209rem; }
+  h2 {font-size: 3.157rem;}
+  h3 {font-size: 2.369rem;}
+  h4 {font-size: 1.777rem;}
+  h5 {font-size: 1.333rem;}
+  small, 
+  .text_small {font-size: 0.75rem;}
+ } 
+ 
+@media only screen and (min-width: 64.063em) and (max-width: 90em) { } /* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+ 
+/* XLarge screens */
+@media only screen and (min-width: 90.063em) { } /* min-width 1441px, xlarge screens */
+ 
+@media only screen and (min-width: 90.063em) and (max-width: 120em) { } /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+ 
+/* XXLarge screens */
+@media only screen and (min-width: 120.063em) { } /* min-width 1921px, xlarge screens */
+ 
+/*------------------------------------------*/
+ 
+/* Portrait */
+@media screen and (orientation:portrait) { .headers { display: none; } }
+/* Landscape */
+@media screen and (orientation:landscape) { .headers { bottom: 6%; right: 2%; text-align: right; width: 50%; } }
+/* CSS for iPhone, iPad, and Retina Displays */
+/* Non-Retina */
+@media screen and (-webkit-max-device-pixel-ratio: 1) {
+}
+/* Retina */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+}
+ 
+
+
 
