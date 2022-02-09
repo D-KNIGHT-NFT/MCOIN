@@ -73,7 +73,7 @@ p {
   display: grid;
   grid-template-columns: 224px;
   grid-template-rows: auto, 200px, 250px, auto;
-  gap: 24px;
+  gap: 16px;
   position: fixed;
   z-index: 50000;
   bottom: 35%;
@@ -84,6 +84,7 @@ p {
   padding:  16px;
   text-align: justify;
 }
+
 .card-block {
   display: grid;
   border: 1px solid #CCC;
