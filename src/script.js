@@ -27,7 +27,14 @@ import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerM
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
-// JQUERY UI
+
+// CARD FLIP
+var card = document.querySelector('.card');
+card.addEventListener( 'click', function() {
+  card.classList.toggle('is-flipped');
+});
+
+// CUBE ROTATION
 var cube = document.querySelector('.cube');
 var radioGroup = document.querySelector('.radio-group');
 var currentClass = '';

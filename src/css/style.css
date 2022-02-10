@@ -3,24 +3,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;900&family=Shanti&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Federant&display=swap');
 
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strong,sub,sup,var,b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,nav,output,ruby,section,summary,time,mark,audio,video { 
-  margin: 0; 
-  padding: 0; 
-  border: 0; 
-  font-size: 100%; 
-  font: inherit; 
-  vertical-align: baseline;
-}
-article,aside,details,figcaption,figure,footer,header,nav,section { 
-  display: block;
+/* MY CSS RESETS */
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,h2,h3,h4,h5,h6,p,
+blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,
+ins,kbd,q,s,samp,small,strong,sub,sup,var,
+b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,
+caption,tbody,tfoot,thead,tr,th,td,article,
+aside,canvas,details,embed,figure,figcaption,footer,header,nav,output,ruby,section,
+summary,time,mark,audio,video { margin: 0; padding: 0; border: 0; font: inherit; vertical-align: baseline; }
+
+article,aside,details,figcaption,figure,footer,header,nav,section { display: block; }
+
+input[type="radio"] {
+  display: none;
+  place-content: center;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
 }
 
-html,body {
-  overflow: hidden;
-}
-body {
-  line-height: 1.75;
-}
+html {font-size: 100%;} /*16px*/
+html,body { overflow: hidden; line-height: 1.1; }
+
+/* MY STYLE DEFINITIONS */
+
 canvas {
   position: fixed;
   top: 0;
@@ -34,13 +46,11 @@ ol,ul {
 blockquote,q { 
   quotes: none;
 }
-hr {
-  padding: 8px, 0;
-}
-h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 400; line-height: 1.3; }
-h1 { font-family: Federant; font-style: normal; font-weight: normal; color: hsla(0, 0%, 100%, 1); margin: 0 auto; }
-h2 { font-family: "Space Grotesk", sans-serif; font-style: normal; font-weight: 300; color: hsla(0, 0%, 100%, 1); }
-p { font-family: Lexend; font-style: normal; font-weight: normal; letter-spacing: -0.008em; }
+
+/* BASE TEXT STYLES */
+p,h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-style: normal; }
+h1 { font-family: "Orbitron", sans-serif; font-weight: 900;color: hsla(0, 0%, 100%, 1); margin: 0 auto; }
+h2 { color: hsla(0, 0%, 100%, 1); }
 
 .logo {
   position: fixed;
@@ -49,6 +59,7 @@ p { font-family: Lexend; font-style: normal; font-weight: normal; letter-spacing
   right: 3%;
 }
 .wrapper {}
+
 .headers {
   position: absolute;
   top: 50%;
@@ -56,106 +67,74 @@ p { font-family: Lexend; font-style: normal; font-weight: normal; letter-spacing
   text-align: center;
   z-index: 50000;
 }
-.infoCard {
-  display: grid;
-  grid-template-columns: 216px; 
-  gap: 8px;
-  position: fixed;
+/* 3D Flip Cards */
+.scene {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center; 
+  justify-content: space-between;
+  width: 216px;
+  height: auto;
+  perspective: 800px;
+  position: absolute;
   top: 8%;
   left: 4%;
   z-index: 50000;
-  color: white;
-  border: 1px solid #CCC;
-  background-color: black;
-  padding:  8px;
 }
-.container-sections { 
-  display: grid;
-  grid-template-columns: repeat(6, max-content);
+.card {
   width: 100%;
-  gap: 8px;
-  position: fixed;
-  bottom: 0%;
-  left: 0%;
-  z-index: 50000;
+  height: auto;
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+.card__face {
+  position: absolute;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.card__face--front {
   color: white;
   border: 1px solid #CCC;
-  background-color: black;
-  padding:  4px;
-   }
-.section {
+  background: black;
+}
+.card__face--back {
+  color: white;
   border: 1px solid #CCC;
-  padding: 2px;
+  background: black;
+  transform: rotateY( 180deg );
+}
+.card.is-flipped {
+  transform: rotateY(180deg);
 }
 .title {
-  font-family: "Orbitron", sans-serif;
-  font-weight: 900;
-  font-size: 1.8rem;
-  user-select: none;
-  line-height: 1;
   border: 1px solid #CCC;
-  padding: 8px;
+  padding: 12px;
 }
-.drops {
-  font-family: "Orbitron", sans-serif;
-  font-weight: 900;
-  font-size: 1rem;
-  line-height: 1;
+.levelInfo {
   padding: 2px;
+  perspective: 400px;
 }
-.info {
-  text-align: justify-all;
-}
-.radio-group {
-  display: grid;
-  grid-auto-flow: column;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 300;
-  font-size: 0.5rem;
-  text-align: center;
-  border: 1px solid #CCC;
-  line-height: 1;
-}
+.cube.show-front  { transform: translateZ(-200px) rotateY(   0deg); }
+.cube.show-right  { transform: translateZ(-200px) rotateY( -90deg); }
+.cube.show-back   { transform: translateZ(-200px) rotateY(-180deg); }
+.cube.show-left   { transform: translateZ(-200px) rotateY(  90deg); }
+.cube.show-top    { transform: translateZ(-200px) rotateX( -90deg); }
+.cube.show-bottom { transform: translateZ(-200px) rotateX(  90deg); }
 .cube {
   width: 200px;
   height: 200px;
   padding: 4px;
   position: relative;
   transform-style: preserve-3d;
-  transform: translateZ(-100px);
+  transform: translateZ(-200px);
   transition: transform 1s;
 }
-
-label { 
-
-}
-
-input[type="radio"] {
-  display: none;
-  place-content: center;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: #fff;
-}
-
-.levelInfo {
-  padding: 2px;
-  perspective: 400px;
-}
-
-.cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }
-.cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }
-.cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }
-.cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }
-.cube.show-top    { transform: translateZ(-100px) rotateX( -90deg); }
-.cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
-
 .cube__face {
   position: fixed;
   width: 200px;
   height: 200px;
 }
-
 .cube__face--front  { background: hsla(  0, 100%, 50%, 0.7); }
 .cube__face--right  { background: hsla( 60, 100%, 50%, 0.7); }
 .cube__face--back   { background: hsla(120, 100%, 50%, 0.7); }
@@ -169,60 +148,84 @@ input[type="radio"] {
 .cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
 .cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
 .cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+.radio-group {
+  display: grid;
+  grid-auto-flow: column;
+  text-align: center;
+  border: 1px solid #CCC;
+  line-height: 1;
+}
+#description-limbus {
+  text-align: justify-all;
+}
+/* **********************************************************************************/
+/* ****************************** MEDIA QUERIES ************************************/
+/* ***********************************************************************************/
 
+/* Define mobile styles - Mobile First./* Scale 1.067 - Minor Second *//* Small screens - MOBILE */
 
+@media only screen
+ {
+  h1 { margin-top: 0; font-size: 1.383rem; }
+  h2 { font-size: 1.296rem; }
+  h3 { font-size: 1.215rem; }
+  h4 { font-size: 1.138rem; }
+  h5 { font-size: 1.067rem; }
+  p  { font-size: 0.7rem; letter-spacing: -0.008em; }
+ }
 
-/* Define mobile styles - Mobile First.  Small screens - MOBILE */
-@media only screen {
+/* max-width 640px, mobile-only styles. 1.125 - Major Second.  */
 
-} 
-
-/* max-width 640px, mobile-only styles, use when QAing mobile issues */
-@media only screen and (max-width: 40em) {
+@media only screen and (max-width: 40em) 
+ {
   h1 { font-size: 1.802rem; }
-  h2 { font-size: 1.602rem; line-height: 1; }
+  h2 { font-size: 1.602rem; }
   h3 { font-size: 1.424rem; }
   h4 { font-size: 1.266rem; }
   h5 { font-size: 1.125rem; }
-  small, 
-  .text_small {font-size: 0.889rem; }
-  .headers { bottom: 6%; right: 6%; text-align: right; width: 30%; }
-}
- 
-/* Medium screens - TABLET min-width 641px, medium screens */
 
-@media only screen and (min-width: 40.063em) {
+  .headers { bottom: 6%; right: 6%; text-align: right; width: 30%; }
+ }
+ 
+/* Medium screens - TABLET min-width 641px, medium screens. 1.200 - Minor Third */
+
+@media only screen and (min-width: 40.063em) 
+ {
   h1 { font-size: 2.488rem; line-height: 1.3; }
   h2 { font-size: 2.074rem; line-height: 1.3; font-weight: 400; }
   h3 { font-size: 1.728rem; line-height: 1.3; }
   h4 { font-size: 1.44rem; line-height: 1.3; }
   h5 { font-size: 1.2rem; line-height: 1.3;}
-  small, 
-  .text_small {font-size: 0.833rem;}
+
   .headers { top: 50%; right: 1%; text-align: right; width: 32%; }
 
  } 
+/* min-width 641px and max-width 1024px.  */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) 
+ {
+  h1 { margin-top: 0; font-size: 3.052rem; }
+  h2 { font-size: 2.441rem; }
+  h3 { font-size: 1.953rem; }
+  h4 { font-size: 1.563rem; }
+  h5 { font-size: 1.25rem; }
+  p  { font-size: 0.8rem; letter-spacing: -0.008em; }
+ } 
  
-@media only screen and (min-width: 40.063em) and (max-width: 64em) { } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
- 
-/* Large screens - DESKTOP  min-width 1025px, large screens */
+/* Large screens - DESKTOP  min-width 1025px,large screens. 1.333 - Perfect Fourth */
 @media only screen and (min-width: 64.063em) {
   h1 { font-size: 4.209rem; }
-  h2 {font-size: 3.157rem;}
-  h3 {font-size: 2.369rem;}
-  h4 {font-size: 1.777rem;}
-  h5 {font-size: 1.333rem;}
-  small, 
-  .text_small {font-size: 0.75rem;}
+  h2 { font-size: 3.157rem; }
+  h3 { font-size: 2.369rem; }
+  h4 { font-size: 1.777rem; }
+  h5 { font-size: 1.333rem; }
+  p  { font-size: 0.8rem; letter-spacing: -0.008em; }
  } 
  
 @media only screen and (min-width: 64.063em) and (max-width: 90em) { } /* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
- 
 /* XLarge screens  min-width 1441px, xlarge screens */
 @media only screen and (min-width: 90.063em) { } 
- 
 @media only screen and (min-width: 90.063em) and (max-width: 120em) { } /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
- 
 /* XXLarge screens */
 @media only screen and (min-width: 120.063em) { } /* min-width 1921px, xlarge screens */
  
