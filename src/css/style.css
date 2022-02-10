@@ -28,7 +28,7 @@ input[type="radio"] {
   background-color: #fff;
 }
 
-html {font-size: 100%;} /*16px*/
+html {font-size: 100%; color: hsla(0, 0%, 100%, 1);} /*16px*/
 html,body { overflow: hidden; line-height: 1.1; }
 
 /* MY STYLE DEFINITIONS */
@@ -49,48 +49,52 @@ blockquote,q {
 
 /* BASE TEXT STYLES */
 p,h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-style: normal; }
-h1 { font-family: "Orbitron", sans-serif; font-weight: 900;color: hsla(0, 0%, 100%, 1); margin: 0 auto; }
-h2 { color: hsla(0, 0%, 100%, 1); }
+h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
 
+/* UI ELEMENTS */
 .logo {
   position: fixed;
   z-index: 50000;
   top: 3%;
   right: 3%;
 }
-.wrapper {}
 
 .headers {
   position: absolute;
   top: 50%;
-  width: 100%;
-  text-align: center;
   z-index: 50000;
 }
 /* 3D Flip Cards */
 .scene {
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center; 
-  justify-content: space-between;
-  width: 216px;
-  height: auto;
-  perspective: 800px;
+  width: 8vw;
+  height: 20vh;
+  perspective: 900px;
   position: absolute;
-  top: 8%;
-  left: 4%;
+  top: 0;
+  left: 0;
   z-index: 50000;
 }
-.card {
-  width: 100%;
-  height: auto;
-  position: relative;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-}
-.card__face {
+.container {
+  display: grid;
   position: absolute;
-  width: 100%;
+  grid-template-columns:;
+}
+.card {
+  width: 4vw;
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr, 1fr, 1fr;
+  transform-style: preserve-3d;
+  transform-origin: center right;
+  transform: translateZ(-200px);
+  transition: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+.card.is-flipped {
+  transform:  translateX(100px) rotateY(-180deg);
+}
+.card__face { 
+  position: absolute;
   backface-visibility: hidden;
 }
 .card__face--front {
@@ -103,9 +107,9 @@ h2 { color: hsla(0, 0%, 100%, 1); }
   border: 1px solid #CCC;
   background: black;
   transform: rotateY( 180deg );
-}
+} 
 .card.is-flipped {
-  transform: rotateY(180deg);
+  transform:  rotateY(180deg);
 }
 .title {
   border: 1px solid #CCC;
@@ -113,21 +117,25 @@ h2 { color: hsla(0, 0%, 100%, 1); }
 }
 .levelInfo {
   padding: 2px;
-  perspective: 400px;
+  perspective: 100px;
+  background: hsla(0, 0%, 100%, 1);
 }
-.cube.show-front  { transform: translateZ(-200px) rotateY(   0deg); }
-.cube.show-right  { transform: translateZ(-200px) rotateY( -90deg); }
-.cube.show-back   { transform: translateZ(-200px) rotateY(-180deg); }
-.cube.show-left   { transform: translateZ(-200px) rotateY(  90deg); }
-.cube.show-top    { transform: translateZ(-200px) rotateX( -90deg); }
-.cube.show-bottom { transform: translateZ(-200px) rotateX(  90deg); }
+.back--description {
+  padding: 16px;
+  text-align: left;
+}
+.cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }
+.cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }
+.cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }
+.cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }
+.cube.show-top    { transform: translateZ(-100px) rotateX( -90deg); }
+.cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
 .cube {
   width: 200px;
   height: 200px;
-  padding: 4px;
   position: relative;
   transform-style: preserve-3d;
-  transform: translateZ(-200px);
+  transform: translateZ(-100px);
   transition: transform 1s;
 }
 .cube__face {
@@ -154,10 +162,10 @@ h2 { color: hsla(0, 0%, 100%, 1); }
   text-align: center;
   border: 1px solid #CCC;
   line-height: 1;
+  padding: 8px 0;
 }
-#description-limbus {
-  text-align: justify-all;
-}
+
+
 /* **********************************************************************************/
 /* ****************************** MEDIA QUERIES ************************************/
 /* ***********************************************************************************/
@@ -171,7 +179,7 @@ h2 { color: hsla(0, 0%, 100%, 1); }
   h3 { font-size: 1.215rem; }
   h4 { font-size: 1.138rem; }
   h5 { font-size: 1.067rem; }
-  p  { font-size: 0.7rem; letter-spacing: -0.008em; }
+  p  { font-size: 0.6rem; letter-spacing: -0.008em; }
  }
 
 /* max-width 640px, mobile-only styles. 1.125 - Major Second.  */
@@ -191,11 +199,11 @@ h2 { color: hsla(0, 0%, 100%, 1); }
 
 @media only screen and (min-width: 40.063em) 
  {
-  h1 { font-size: 2.488rem; line-height: 1.3; }
-  h2 { font-size: 2.074rem; line-height: 1.3; font-weight: 400; }
-  h3 { font-size: 1.728rem; line-height: 1.3; }
-  h4 { font-size: 1.44rem; line-height: 1.3; }
-  h5 { font-size: 1.2rem; line-height: 1.3;}
+  h1 { font-size: 2.488rem; }
+  h2 { font-size: 2.074rem; }
+  h3 { font-size: 1.728rem; }
+  h4 { font-size: 1.44rem;  }
+  h5 { font-size: 1.2rem;   }
 
   .headers { top: 50%; right: 1%; text-align: right; width: 32%; }
 
@@ -209,7 +217,7 @@ h2 { color: hsla(0, 0%, 100%, 1); }
   h3 { font-size: 1.953rem; }
   h4 { font-size: 1.563rem; }
   h5 { font-size: 1.25rem; }
-  p  { font-size: 0.8rem; letter-spacing: -0.008em; }
+  p  { font-size: 0.7rem; letter-spacing: -0.008em; }
  } 
  
 /* Large screens - DESKTOP  min-width 1025px,large screens. 1.333 - Perfect Fourth */
@@ -219,9 +227,8 @@ h2 { color: hsla(0, 0%, 100%, 1); }
   h3 { font-size: 2.369rem; }
   h4 { font-size: 1.777rem; }
   h5 { font-size: 1.333rem; }
-  p  { font-size: 0.8rem; letter-spacing: -0.008em; }
- } 
- 
+  p  { font-size: 0.7rem; letter-spacing: -0.008em; }
+ }
 @media only screen and (min-width: 64.063em) and (max-width: 90em) { } /* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
 /* XLarge screens  min-width 1441px, xlarge screens */
 @media only screen and (min-width: 90.063em) { } 
@@ -233,12 +240,12 @@ h2 { color: hsla(0, 0%, 100%, 1); }
  
 /* Portrait */
 @media screen and (orientation:portrait) { 
-  .headers { top:  30%; width: 70%;}
-  .infoCard { top: 56%; left: 0%; } 
+  .headers { top: 20%; right: 2%; width: 85%;}
 }
 /* Landscape */
 @media screen and (orientation:landscape) { 
-  .headers { bottom: 8%; right: 2%; text-align: right; width: 50%; }
+  .headers { bottom: 0; right: 2%; text-align: right; width: 50%; }
+  .logo { top: 7%; }
 }
 /* CSS for iPhone, iPad, and Retina Displays */
 /* Non-Retina */
