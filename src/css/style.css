@@ -29,9 +29,11 @@ input[type="radio"] {
 }
 
 html {font-size: 100%; color: hsla(0, 0%, 100%, 1);} /*16px*/
-html,body { overflow: hidden; line-height: 1.1; }
+html,body { line-height: 1.1; }
 
 /* MY STYLE DEFINITIONS */
+
+/* #maindiv{ position: absolute; z-index: 60000; } */
 
 canvas {
   position: fixed;
@@ -51,7 +53,104 @@ blockquote,q {
 p,h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-style: normal; }
 h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
 
-/* UI ELEMENTS */
+/* **********************************************************************************/
+/* ****************************** / Marquee/************************************/
+/* ***********************************************************************************/
+
+#maindiv{
+  bottom: 0%;
+  position: fixed;
+  z-index: 60000;
+  border: 2px solid black;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#div1 {
+  display: inline-block;
+  animation: marquee 10s linear infinite;
+}
+
+#div2 {
+  display: inline-block;
+  animation: marquee2 10s linear infinite;
+  animation-delay: 5s;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee2 {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-200%);
+  }
+}
+/* .marquee-top {
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+    background: #fefefe;
+    color: #333;
+    border: 1px solid #4a4a4a;
+}
+
+.marquee-top p {
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+    -moz-transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    transform: translateX(50%);
+    -moz-animation: bouncing-text 10s linear infinite alternate;
+    -webkit-animation: bouncing-text 10s linear infinite alternate;
+    animation: bouncing-text 10s linear infinite alternate;
+}
+
+@-moz-keyframes bouncing-text {
+    0% {
+        -moz-transform: translateX(50%);
+    }
+    100% {
+        -moz-transform: translateX(-50%);
+    }
+}
+
+@-webkit-keyframes bouncing-text {
+    0% {
+        -webkit-transform: translateX(50%);
+    }
+    100% {
+        -webkit-transform: translateX(-50%);
+    }
+}
+
+@keyframes bouncing-text {
+    0% {
+        -moz-transform: translateX(50%);
+        -webkit-transform: translateX(50%);
+        transform: translateX(50%);
+    }
+    100% {
+        -moz-transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
+} */
+/* **********************************************************************************/
+/* ****************************** / logo + Headers /************************************/
+/* ***********************************************************************************/
 .logo {
   position: fixed;
   z-index: 50000;
@@ -64,9 +163,12 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   top: 50%;
   z-index: 50000;
 }
-/* 3D Flip Cards */
+/* **********************************************************************************/
+/* ****************************** / 3D Flip Cards /************************************/
+/* ***********************************************************************************/
+
 .scene {
-  width: 8vw;
+  width: 4vw;
   height: 20vh;
   perspective: 900px;
   position: absolute;
@@ -75,9 +177,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   z-index: 50000;
 }
 .container {
-
   position: absolute;
-
 }
 .card {
   width: 8vw;

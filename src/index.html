@@ -23,8 +23,22 @@
 </head>
 
 <body>
+
   <div class="logo"><a href="#"></a><img src= "../static/branding/logo.png"/></div>
   <canvas class="webgl"></canvas>
+
+  <!-- <div class="marquee-top">
+    <p>🖤  Special Valentine's Drop  🖤 Monday. 14th February 00:00 UTC 🖤 More info </p>
+  </div> -->
+
+  <div id="maindiv">
+    <div id="div1">
+      &nbsp;🖤  Special Valentine's Drop  🖤 Monday. 14th February 00:00 UTC 🖤 More info
+    </div>
+    <div id="div2">
+      &nbsp;🖤  Special Valentine's Drop  🖤 Monday. 14th February 00:00 UTC 🖤 More info
+    </div>
+  </div>
 
     <div class="headers">
       <div class="main-title"><h1>Virtual</h1></div>
@@ -67,7 +81,8 @@
       </div>
     </div>
 
-
+<script type="text/javascript">// MARQUEE
+$('#maindiv').width($('#div1').width());</script>
       
 </body>
 </html>
