@@ -57,18 +57,18 @@ rectLight1.position.set( -1, 0, 0 );
 rectLight1.rotation.set( 0, -45, 0 )
 scene.add( rectLight1 );
 
-const rectLight2 = new THREE.RectAreaLight( 0xA272B7, 1, 24, 24 );
+const rectLight2 = new THREE.RectAreaLight( 0xc3c3c3, 1, 24, 24 );
 rectLight2.position.set( 0, 0, -1 );
 rectLight2.rotation.set( 0, -60 ,0 )
 scene.add( rectLight2 );
 
-const rectLight3 = new THREE.RectAreaLight( 0x000000, 1, 24, 24 );
+const rectLight3 = new THREE.RectAreaLight( 0x000000, 4, 24, 24 );
 rectLight3.position.set( 0, 0, 1 );
 rectLight3.rotation.set( 0, 60 ,0 )
 scene.add( rectLight3 );
 
 
-const rectLight4 = new THREE.RectAreaLight( 0x6030F3, 2, 24, 24 );
+const rectLight4 = new THREE.RectAreaLight( 0xc3c3c3, 2, 24, 24 );
 rectLight4.position.set( 1, 0, 0 );
 rectLight4.rotation.set( 0, 45 ,0 )
 scene.add( rectLight4 );
@@ -80,7 +80,7 @@ scene.add( rectLight4 );
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 cubeTextureLoader.setPath('textures/environmentMap/level-1/');
-const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']);
+const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
 environmentMap.envMapIntensity = 4.0
@@ -107,7 +107,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
   }
 );
 const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
-const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x808080, roughness: 0.1, metalness: 0 } );
+const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x8CB8F1, roughness: 0.4, metalness: 0.8 } );
 const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
 mshStdFloor.position.set(0, -0.79, 0)
 scene.add( mshStdFloor );
