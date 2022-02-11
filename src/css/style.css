@@ -29,7 +29,8 @@ input[type="radio"] {
 }
 
 html {font-size: 100%; color: hsla(0, 0%, 100%, 1);} /*16px*/
-html,body { overflow:  hidden;line-height: 1.1; }
+html,body { overflow:  hidden;line-height: 1.1; border: 11.11px solid hsla(0, 0%, 100%, 1);
+ }
 
 /* MY STYLE DEFINITIONS */
 
@@ -70,109 +71,19 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
 
 .headers {
   position: absolute;
-  top: 50%;
+  top: 90%;
   z-index: 50000;
   user-select: none;
 }
+.main-title {
+  background-color: black;
+  color: hsla(127, 4%, 60%, 1);
+}
+
 /* **********************************************************************************/
 /* ****************************** / 3D Flip Cards /************************************/
 /* ***********************************************************************************/
 
-.scene {
-  width: 4vw;
-  height: 20vh;
-  perspective: 900px;
-  position: absolute;
-  bottom: 20%;
-  left: 4%;
-  z-index: 50000;
-}
-.container {
-  position: absolute;
-}
-.card {
-  width: 8vw;
-  position: relative;
-  transform-style: preserve-3d;
-  transform-origin: center right;
-  transform: translateZ(-200px);
-  transition: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-.card.is-flipped {
-  transform:  translateX(100px) rotateY(-180deg);
-}
-.card__face { 
-  position: absolute;
-  backface-visibility: hidden;
-}
-.card__face--front {
-  color: white;
-  border: 1px solid #CCC;
-  background: black;
-}
-.card__face--back {
-  color: white;
-  border: 1px solid #CCC;
-  background: black;
-  transform: rotateY( 180deg );
-} 
-.card.is-flipped {
-  transform:  rotateY(180deg);
-}
-.title {
-  border: 1px solid #CCC;
-  padding: 12px;
-}
-.levelInfo {
-  padding: 2px;
-  perspective: 100px;
-  background: hsla(0, 0%, 100%, 1);
-}
-.back--description {
-  padding: 16px;
-  text-align: left;
-}
-.cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }
-.cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }
-.cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }
-.cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }
-.cube.show-top    { transform: translateZ(-100px) rotateX( -90deg); }
-.cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }
-.cube {
-  width: 200px;
-  height: 200px;
-  position: relative;
-  transform-style: preserve-3d;
-  transform: translateZ(-100px);
-  transition: transform 1s;
-}
-.cube__face {
-  position: fixed;
-  width: 200px;
-  height: 200px;
-}
-.cube__face--front  { background: hsla(  0, 100%, 50%, 0.7); }
-.cube__face--right  { background: hsla( 60, 100%, 50%, 0.7); }
-.cube__face--back   { background: hsla(120, 100%, 50%, 0.7); }
-.cube__face--left   { background: hsla(180, 100%, 50%, 0.7); }
-.cube__face--top    { background: hsla(240, 100%, 50%, 0.7); }
-.cube__face--bottom { background: hsla(300, 100%, 50%, 0.7); }
-
-.cube__face--front  { transform: rotateY(  0deg) translateZ(100px); }
-.cube__face--right  { transform: rotateY( 90deg) translateZ(100px); }
-.cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
-.cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
-.cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
-.cube__face--bottom { transform: rotateX(-90deg) translateZ(100px); }
-.radio-group {
-  display: grid;
-  grid-auto-flow: column;
-  text-align: center;
-  border: 1px solid #CCC;
-  line-height: 1;
-  padding: 8px 0;
-}
 
 
 /* **********************************************************************************/
@@ -200,7 +111,6 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h3 { font-size: 1.424rem; }
   h4 { font-size: 1.266rem; }
   h5 { font-size: 1.125rem; }
-
   .headers { bottom: 6%; right: 6%; text-align: right; width: 30%; }
  }
  
@@ -249,14 +159,13 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
  
 /* Portrait */
 @media screen and (orientation:portrait) { 
-  .headers { top: 20%; right: 2%; width: 85%;}
-  .scene { bottom: 18%; left: 2%; }
+  .headers {margin-bottom: 100px; right: 2%; width: 85%; height: 30%;}
+
 }
 /* Landscape */
 @media screen and (orientation:landscape) { 
-  .headers { bottom: -12%; right: 2%; text-align: right; width: 50%; }
+  .headers { bottom: 2%; right: 2%; text-align: right; width: 80%; margin-top: 56px ; }
   .logo { top: 7%; }
-  .scene { bottom: 69%; left: 1%; }
 }
 /* CSS for iPhone, iPad, and Retina Displays */
 /* Non-Retina */

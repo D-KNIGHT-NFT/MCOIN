@@ -2,6 +2,8 @@ import './css/style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
+import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls.js';
+import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -15,7 +17,8 @@ import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import { HTMLMesh } from 'three/examples/jsm/interactive/HTMLMesh.js';
 import { InteractiveGroup } from 'three/examples/jsm/interactive/InteractiveGroup.js';
 import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory.js';
-
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
+import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
 
 
 /*** Base */
@@ -24,8 +27,15 @@ import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerM
 // const gui = new dat.GUI()
 // const debugObject = {}
 
-// Canvas
+////////////////////////////////////////////////////////////////////
+// Canvas & UI
+///////////////
+
 const canvas = document.querySelector('canvas.webgl')
+
+////////////////////////////////////////////////////////////////////
+// Audio
+///////////////
 
 const audioElement = document.getElementById( 'music' );
 audioElement.play();
@@ -33,11 +43,25 @@ audioElement.play();
 const logo = document.getElementById( 'logo' );
 logo.addEventListener( 'click', audioElement );
 
-
 ////////////////////////////////////////////////////////////////////
 
 // Scene
 const scene = new THREE.Scene()
+
+
+RectAreaLightUniformsLib.init();
+
+const rectLight1 = new THREE.RectAreaLight( 0xffffff, 5, 10, 20 );
+rectLight1.position.set( - 5, 0, 5 );
+scene.add( rectLight1 );
+
+const rectLight2 = new THREE.RectAreaLight( 0xDD432B, 5, 10, 20 );
+rectLight2.position.set( 0, 0, 5 );
+scene.add( rectLight2 );
+
+const rectLight3 = new THREE.RectAreaLight( 0xffffff, 5, 10, 20 );
+rectLight3.position.set( 5, 0, -5 );
+scene.add( rectLight3 );
 
 /*** Environment maps */
 const cubeTextureLoader = new THREE.CubeTextureLoader()
@@ -47,10 +71,31 @@ environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
 environmentMap.envMapIntensity = 0.9
 
+scene.environment = new THREE.Color( 0xefd1b5 );
 scene.background = environmentMap
-scene.environment = environmentMap
+scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025 );
 
+const geometry = new THREE.IcosahedronGeometry(1, 24);
+const glassmaterial = new THREE.MeshPhysicalMaterial(
+    { 
+      side: THREE.DoubleSide,  
+      // normalMap: normalMapTexture,
+      // normalRepeat: 9,  
+      // clearcoatNormalScale: 9.62, 
+      reflectivity: 0.9, 
+      refractionRatio: 0.985,
+      roughness: 0.02, 
+      transmission: 1, 
+      thickness: 1,
+      envMap: environmentMap,
+      envMapIntensity: 1.4
+  }
+);
 
+const glassphere = new THREE.Mesh(geometry, glassmaterial);
+glassphere.position.set(0, 0, 0)
+glassphere.scale.set(0.34, 0.34, 0.34)
+scene.add(glassphere);
 /*** Load Fox model **/
 const gltfLoader = new GLTFLoader()
 
@@ -61,10 +106,21 @@ let foxMixer = null
 gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
     {
         // Model
-        gltf.scene.scale.set(0.0019, 0.0019, 0.0019)
-        gltf.scene.position.set(0, -0.1, 0)
-        gltf.scene.rotation.set(0, 0,  0)
-        scene.add(gltf.scene)
+        const fox = gltf.scene
+        fox.scale.set(0.0019, 0.0019, 0.0019)
+        fox.position.set(0, -0.1, 0)
+        fox.rotation.set(0, 0,  0)
+
+        fox.traverse( function ( object ) {
+            if ( object.isMesh ) {
+                object.material.envMap = environmentMap;
+                object.castShadow = true;
+
+            }
+
+        } );
+
+        scene.add( fox)
 
         // Animation
         foxMixer = new THREE.AnimationMixer(gltf.scene)
@@ -116,32 +172,8 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
 // )
 
 
-const geometry = new THREE.IcosahedronGeometry(1, 24);
-const glassmaterial = new THREE.MeshPhysicalMaterial(
-    { 
-      side: THREE.DoubleSide,  
-      // normalMap: normalMapTexture,
-      // normalRepeat: 9,  
-      // clearcoatNormalScale: 9.62, 
-      reflectivity: 0.9, 
-      refractionRatio: 0.985,
-      roughness: 0.02, 
-      transmission: 1, 
-      thickness: 1,
-      envMap: environmentMap,
-      envMapIntensity: 1.4
-  }
-);
-
-const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0, 0)
-glassphere.scale.set(0.34, 0.34, 0.34)
-scene.add(glassphere);
-
-
 /*** Lights */
 
-scene.add( new THREE.AmbientLight( 0x222244 ) )
 
 const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
 light.intensity = 24
