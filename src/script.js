@@ -34,36 +34,10 @@ const logo = document.getElementById( 'logo' );
 logo.addEventListener( 'click', audioElement );
 
 
-// CARD FLIP
-var card = document.querySelector('.card');
-card.addEventListener( 'click', function() {
-  card.classList.toggle('is-flipped');
-});
-
-// CUBE ROTATION
-var cube = document.querySelector('.cube');
-var radioGroup = document.querySelector('.radio-group');
-var currentClass = '';
-
-function changeSide() {
-  var checkedRadio = radioGroup.querySelector(':checked');
-  var showClass = 'show-' + checkedRadio.value;
-  if ( currentClass ) {
-    cube.classList.remove( currentClass );
-  }
-  cube.classList.add( showClass );
-  currentClass = showClass;
-}
-// set initial side
-changeSide();
-
-radioGroup.addEventListener( 'change', changeSide );
-
 ////////////////////////////////////////////////////////////////////
 
 // Scene
 const scene = new THREE.Scene()
-
 
 /*** Environment maps */
 const cubeTextureLoader = new THREE.CubeTextureLoader()
@@ -71,15 +45,11 @@ cubeTextureLoader.setPath('textures/environmentMap/level-1/');
 const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
-environmentMap.envMapIntensity = 1.9
+environmentMap.envMapIntensity = 0.9
 
 scene.background = environmentMap
 scene.environment = environmentMap
 
-
-/*** Raycaster */
-
-/*** Models */
 
 /*** Load Fox model **/
 const gltfLoader = new GLTFLoader()
