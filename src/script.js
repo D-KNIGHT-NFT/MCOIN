@@ -27,6 +27,12 @@ import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerM
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
+const audioElement = document.getElementById( 'music' );
+audioElement.play();
+
+const logo = document.getElementById( 'logo' );
+logo.addEventListener( 'click', audioElement );
+
 
 // CARD FLIP
 var card = document.querySelector('.card');
@@ -58,21 +64,6 @@ radioGroup.addEventListener( 'change', changeSide );
 // Scene
 const scene = new THREE.Scene()
 
-/*** Update all materials */
-const updateAllMaterials = () =>
-{
-    scene.traverse((child) =>
-    {
-        if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
-        {
-            child.material.envMap = debugObject.envMap
-            child.material.envMapIntensity = debugObject.envMapIntensity
-            child.material.needsUpdate = true
-            child.castShadow = true
-            child.receiveShadow = true
-        }
-    })
-}
 
 /*** Environment maps */
 const cubeTextureLoader = new THREE.CubeTextureLoader()
@@ -109,15 +100,9 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
         foxMixer = new THREE.AnimationMixer(gltf.scene)
         const foxAction = foxMixer.clipAction(gltf.animations[0])
         foxAction.play()
-
-        // Update materials
-        updateAllMaterials()
     }
 )
-const textureLoader = new THREE.TextureLoader();
-const normalMapTexture = textureLoader.load('/static/nm.png');
-normalMapTexture.wrapS = THREE.RepeatWrapping;
-normalMapTexture.wrapT = THREE.RepeatWrapping;
+
 
 // /*** Load HTDI Logo model **/
 // gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
