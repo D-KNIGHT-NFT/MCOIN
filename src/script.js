@@ -79,6 +79,7 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
 cubeTextureLoader.setPath('textures/environmentMap/level-1/');
 const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']);
 environmentMap.encoding = THREE.sRGBEncoding;
+environmentMap.mapping = THREE.CubeRefractionMapping
 environmentMap.envMapIntensity = 1.9
 
 scene.background = environmentMap
@@ -114,7 +115,7 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
     }
 )
 const textureLoader = new THREE.TextureLoader();
-const normalMapTexture = textureLoader.load('src/nm.png');
+const normalMapTexture = textureLoader.load('/static/nm.png');
 normalMapTexture.wrapS = THREE.RepeatWrapping;
 normalMapTexture.wrapT = THREE.RepeatWrapping;
 
@@ -167,7 +168,8 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       // normalMap: normalMapTexture,
       // normalRepeat: 9,  
       // clearcoatNormalScale: 9.62, 
-      reflectivity: 4.9, 
+      reflectivity: 0.9, 
+      refractionRatio: 0.985,
       roughness: 0.02, 
       transmission: 1, 
       thickness: 1,
@@ -178,20 +180,22 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0)
-glassphere.scale.set(0.24, 0.24, 0.24)
+glassphere.scale.set(0.34, 0.34, 0.34)
 scene.add(glassphere);
 
 
 /*** Lights */
 
-const light = new THREE.PointLight( 0x7A7194, 0.1, 100)
-light.intensity = 4
-light.power = 8
-light.distance = 8
+scene.add( new THREE.AmbientLight( 0x222244 ) )
+
+const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
+light.intensity = 24
+light.power = 18
+light.distance = 888
 light.decay = 2
 light.castShadow = true
-light.shadow.camera.far = 500
-light.position.set(0, -0.1, 0)
+light.shadow.camera.zoom = 4;
+light.position.set(0, -0.2, 0)
 scene.add( light )
 
 /*** Sizes */
@@ -229,9 +233,9 @@ controls.enable = false
 controls.enableDamping = true
 controls.autoRotate= true
 // controls.enableZoom = false
-controls.autoRotateSpeed = 1.5
-controls.minDistance = 0.39;
-controls.maxDistance = 1.1;
+controls.autoRotateSpeed = 0.7
+controls.minDistance = 0.37;
+controls.maxDistance = 1.6;
 controls.target.set( 0, 0, 0 );
 
 /** POST-PROCESSING */

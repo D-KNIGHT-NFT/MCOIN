@@ -29,7 +29,7 @@ input[type="radio"] {
 }
 
 html {font-size: 100%; color: hsla(0, 0%, 100%, 1);} /*16px*/
-html,body { line-height: 1.1; }
+html,body { overflow:  hidden;line-height: 1.1; }
 
 /* MY STYLE DEFINITIONS */
 
@@ -72,6 +72,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   position: absolute;
   top: 50%;
   z-index: 50000;
+  user-select: none;
 }
 /* **********************************************************************************/
 /* ****************************** / 3D Flip Cards /************************************/
