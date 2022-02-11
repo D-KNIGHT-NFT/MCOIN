@@ -44,36 +44,51 @@ const logo = document.getElementById( 'logo' );
 logo.addEventListener( 'click', audioElement );
 
 ////////////////////////////////////////////////////////////////////
+// SCENE
+///////////////
 
-// Scene
 const scene = new THREE.Scene()
 
 
 RectAreaLightUniformsLib.init();
 
-const rectLight1 = new THREE.RectAreaLight( 0xffffff, 5, 10, 20 );
-rectLight1.position.set( - 5, 0, 5 );
+const rectLight1 = new THREE.RectAreaLight( 0xffffff, 2, 24, 24 );
+rectLight1.position.set( -1, 0, 0 );
+rectLight1.rotation.set( 0, -45, 0 )
 scene.add( rectLight1 );
 
-const rectLight2 = new THREE.RectAreaLight( 0xDD432B, 5, 10, 20 );
-rectLight2.position.set( 0, 0, 5 );
+const rectLight2 = new THREE.RectAreaLight( 0xA272B7, 1, 24, 24 );
+rectLight2.position.set( 0, 0, -1 );
+rectLight2.rotation.set( 0, -60 ,0 )
 scene.add( rectLight2 );
 
-const rectLight3 = new THREE.RectAreaLight( 0xffffff, 5, 10, 20 );
-rectLight3.position.set( 5, 0, -5 );
+const rectLight3 = new THREE.RectAreaLight( 0x000000, 1, 24, 24 );
+rectLight3.position.set( 0, 0, 1 );
+rectLight3.rotation.set( 0, 60 ,0 )
 scene.add( rectLight3 );
 
-/*** Environment maps */
+
+const rectLight4 = new THREE.RectAreaLight( 0x6030F3, 2, 24, 24 );
+rectLight4.position.set( 1, 0, 0 );
+rectLight4.rotation.set( 0, 45 ,0 )
+scene.add( rectLight4 );
+
+// scene.add( new RectAreaLightHelper( rectLight1 ) );
+// scene.add( new RectAreaLightHelper( rectLight2 ) );
+// scene.add( new RectAreaLightHelper( rectLight3 ) );
+
+
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 cubeTextureLoader.setPath('textures/environmentMap/level-1/');
 const environmentMap = cubeTextureLoader.load(['px.jpg','nx.jpg','py.jpg','ny.jpg','pz.jpg','nz.jpg']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
-environmentMap.envMapIntensity = 0.9
+environmentMap.envMapIntensity = 4.0
 
-scene.environment = new THREE.Color( 0xefd1b5 );
+scene.environment = environmentMap
 scene.background = environmentMap
-scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025 );
+
+scene.fog = new THREE.FogExp2( 0x000000, 0.52);
 
 const geometry = new THREE.IcosahedronGeometry(1, 24);
 const glassmaterial = new THREE.MeshPhysicalMaterial(
@@ -83,17 +98,23 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       // normalRepeat: 9,  
       // clearcoatNormalScale: 9.62, 
       reflectivity: 0.9, 
-      refractionRatio: 0.985,
+      refractionRatio: 5.985,
       roughness: 0.02, 
       transmission: 1, 
       thickness: 1,
       envMap: environmentMap,
-      envMapIntensity: 1.4
+      envMapIntensity: 16
   }
 );
+const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
+const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x808080, roughness: 0.1, metalness: 0 } );
+const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
+mshStdFloor.position.set(0, -0.79, 0)
+scene.add( mshStdFloor );
+
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0, 0)
+glassphere.position.set(0, 0, 0.1)
 glassphere.scale.set(0.34, 0.34, 0.34)
 scene.add(glassphere);
 /*** Load Fox model **/
@@ -131,59 +152,70 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
 
 
 // /*** Load HTDI Logo model **/
-// gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
-//     {
-//         // Model
+gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
+    {
+        // Model
 
-//         gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
-//         gltf.scene.position.set(0, -0.8, 0.38)
-//         gltf.scene.rotation.set(0, 0,  0)
-//         scene.add(gltf.scene)
+        gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+        gltf.scene.position.set(0, -0.8, 0.28)
+        gltf.scene.rotation.set(0, 0,  0)
+        scene.add(gltf.scene)
 
-//         let logo = gltf.scene;
-//         let logoMaterial= new THREE.MeshPhysicalMaterial( 
-//         { 
-//           side: THREE.BackSide,
-//           transmission: 1.4,
-//           roughness: 0.01,  
-//           thickness: 0.001,
-//           clearcoat: 0.1,
-//           metalness: 0,
-//           reflectivity: 1.9,
-//           ior: 5,
-//           // clearcoatRoughness: 0.4,
-//           envMap: environmentMap,
-//           envMapIntensity: 1.4,
-//           normalMap: normalMapTexture,
-//           normalRepeat: 3,  
-//           clearcoatNormalScale: 2.62,
-//           // attenuationTint: 0x000000,
-//           // attenuationDistance: 3.5,
-//           // bloomThreshold: 0.85,
-//           // bloomStrength: 0.35,
-//           // bloomRadius: 0.33,
-//         });
+        let logo = gltf.scene;
+        let logoMaterial= new THREE.MeshPhysicalMaterial( 
+        { 
+          side: THREE.DoubleSide, 
+          transmission: 1,
+          roughness: 0.01,  
+          thickness: 0.01,
+          clearcoat: 0.1,
+          metalness: 0,
+          reflectivity: 0.2,
+          ior: 5,
+          refractionRatio: 4,
+          // clearcoatRoughness: 0.4,
+          envMap: environmentMap,
+          envMapIntensity: 1.4,
+          // normalMap: normalMapTexture,
+          // normalRepeat: 3,  
+          // clearcoatNormalScale: 2.62,
+          // attenuationTint: 0x000000,
+          // attenuationDistance: 3.5,
+          // bloomThreshold: 0.85,
+          // bloomStrength: 0.35,
+          // bloomRadius: 0.33,
+        });
 
-//         logo.traverse((o) => {
-//           if (o.isMesh) o.material = logoMaterial;
-//         });
+        logo.traverse((o) => {
+          if (o.isMesh) o.material = logoMaterial;
+        });
 
-//     }
-// )
+    }
+)
 
 
 /*** Lights */
 
 
 const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
-light.intensity = 24
-light.power = 18
-light.distance = 888
-light.decay = 2
+light.intensity = 104.0
+light.power = 56.6
+light.distance = 1000.0
+light.decay = 0
 light.castShadow = true
 light.shadow.camera.zoom = 4;
 light.position.set(0, -0.2, 0)
 scene.add( light )
+
+const light2 = new THREE.PointLight( 0x7A7194, 0.001, 1000)
+light2.intensity = 104.0
+light2.power = 56.6
+light2.distance = 1000.0
+light2.decay = 0
+light2.castShadow = true
+light2.shadow.camera.zoom = 4;
+light2.position.set(0, 0.2, 0)
+scene.add( light2 )
 
 /*** Sizes */
 

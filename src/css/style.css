@@ -29,7 +29,7 @@ input[type="radio"] {
 }
 
 html {font-size: 100%; color: hsla(0, 0%, 100%, 1);} /*16px*/
-html,body { overflow:  hidden;line-height: 1.1; border: 11.11px solid hsla(0, 0%, 100%, 1);
+html,body { overflow:  hidden;line-height: 1.2; border: 11.11px solid hsla(0, 0%, 100%, 0.4);
  }
 
 /* MY STYLE DEFINITIONS */
@@ -70,16 +70,26 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
 }
 
 .headers {
+  display: flex;
+  flex-flow: column no nowrap;
+  align-content: center;
+  justify-content: center;
   position: absolute;
-  top: 90%;
   z-index: 50000;
   user-select: none;
 }
 .main-title {
-  background-color: black;
+  background: hsla(0, 0%, 0%, 0.8);
   color: hsla(127, 4%, 60%, 1);
+  margin: 0 0 4px 0;
+  padding: 24px 24px;
 }
-
+.main-subtitle { 
+  margin: 4px 0 ;
+  padding: 8px 8px;
+  background: hsla(8, 72%, 52%, 1);
+  color: hsla(0, 0%, 0%, 1);
+ }
 /* **********************************************************************************/
 /* ****************************** / 3D Flip Cards /************************************/
 /* ***********************************************************************************/
@@ -111,7 +121,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h3 { font-size: 1.424rem; }
   h4 { font-size: 1.266rem; }
   h5 { font-size: 1.125rem; }
-  .headers { bottom: 6%; right: 6%; text-align: right; width: 30%; }
+ 
  }
  
 /* Medium screens - TABLET min-width 641px, medium screens. 1.200 - Minor Third */
@@ -123,8 +133,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h3 { font-size: 1.728rem; }
   h4 { font-size: 1.44rem;  }
   h5 { font-size: 1.2rem;   }
-
-  .headers { top: 50%; right: 1%; text-align: right; width: 32%; }
+ .headers { bottom: 8%; right: 0; text-align: right; width: 80%; }
 
  } 
 /* min-width 641px and max-width 1024px.  */
@@ -159,12 +168,18 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
  
 /* Portrait */
 @media screen and (orientation:portrait) { 
-  .headers {margin-bottom: 100px; right: 2%; width: 85%; height: 30%;}
+  .headers {bottom: 0; left: 2%; width: 64%; }
+  .logo { top: 2%; right: 2%; }
+  h1 { font-size: 1.209rem; }
+   h3 { font-size: 1rem; }
 
 }
 /* Landscape */
 @media screen and (orientation:landscape) { 
-  .headers { bottom: 2%; right: 2%; text-align: right; width: 80%; margin-top: 56px ; }
+  h1 { font-size: 1.209rem; }
+  h3 { font-size: .8rem; }
+  .headers { bottom: 0; left: 0; text-align: center; width: 100%; padding: 0 4px 0 4px; }
+  main-title { padding: 0 16px; }
   .logo { top: 7%; }
 }
 /* CSS for iPhone, iPad, and Retina Displays */
