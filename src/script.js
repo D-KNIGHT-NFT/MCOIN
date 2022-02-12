@@ -56,20 +56,20 @@ const scene = new THREE.Scene()
 
 const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
 light.intensity = 104.0
-light.power = 56.6
-light.distance = 1000.0
-light.decay = 0
-light.castShadow = true
+light.power = 200
+light.distance = 10.0
+light.decay = 2
+light.castShadow = false
 light.shadow.camera.zoom = 4;
 light.position.set(0, -0.2, 0)
 scene.add( light )
 
 const light2 = new THREE.PointLight( 0x7A7194, 0.001, 1000)
 light2.intensity = 104.0
-light2.power = 56.6
-light2.distance = 1000.0
-light2.decay = 0
-light2.castShadow = true
+light2.power = 200
+light2.distance = 10.0
+light2.decay = 2
+light2.castShadow = false
 light2.shadow.camera.zoom = 4;
 light2.position.set(0, 0.2, 0)
 scene.add( light2 )
@@ -81,7 +81,7 @@ rectLight1.position.set( -1, 0, 0 );
 rectLight1.rotation.set( 0, -45, 0 )
 scene.add( rectLight1 );
 
-const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 16, 24, 24 );
+const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 104, 24, 24 );
 rectLight2.position.set( 0, 0, -1 );
 rectLight2.rotation.set( 0, -60 ,0 )
 scene.add( rectLight2 );
@@ -106,7 +106,7 @@ cubeTextureLoader.setPath('textures/environmentMap/level-1/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
-environmentMap.envMapIntensity = 30.0
+environmentMap.envMapIntensity = 1.0
 
 scene.environment = environmentMap
 scene.background = environmentMap
@@ -128,9 +128,9 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       refractionRatio: 5.985,
       roughness: 0.02, 
       transmission: 1, 
-      thickness: 1,
+      thickness: 1.5,
       envMap: environmentMap,
-      envMapIntensity: 8
+      // envMapIntensity: 1
   }
 )
 
