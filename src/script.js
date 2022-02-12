@@ -49,15 +49,38 @@ logo.addEventListener( 'click', audioElement );
 
 const scene = new THREE.Scene()
 
+////////////////////////////////////////////////////////////////////
+// LIGHTS 
+///////////////
+
+const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
+light.intensity = 104.0
+light.power = 56.6
+light.distance = 1000.0
+light.decay = 0
+light.castShadow = true
+light.shadow.camera.zoom = 4;
+light.position.set(0, -0.2, 0)
+scene.add( light )
+
+const light2 = new THREE.PointLight( 0x7A7194, 0.001, 1000)
+light2.intensity = 104.0
+light2.power = 56.6
+light2.distance = 1000.0
+light2.decay = 0
+light2.castShadow = true
+light2.shadow.camera.zoom = 4;
+light2.position.set(0, 0.2, 0)
+scene.add( light2 )
 
 RectAreaLightUniformsLib.init();
 
-const rectLight1 = new THREE.RectAreaLight( 0xffffff, 2, 24, 24 );
+const rectLight1 = new THREE.RectAreaLight( 0x000000, 2, 24, 24 );
 rectLight1.position.set( -1, 0, 0 );
 rectLight1.rotation.set( 0, -45, 0 )
 scene.add( rectLight1 );
 
-const rectLight2 = new THREE.RectAreaLight( 0xc3c3c3, 1, 24, 24 );
+const rectLight2 = new THREE.RectAreaLight( 0xc3c3c3 , 2, 24, 24 );
 rectLight2.position.set( 0, 0, -1 );
 rectLight2.rotation.set( 0, -60 ,0 )
 scene.add( rectLight2 );
@@ -67,8 +90,7 @@ rectLight3.position.set( 0, 0, 1 );
 rectLight3.rotation.set( 0, 60 ,0 )
 scene.add( rectLight3 );
 
-
-const rectLight4 = new THREE.RectAreaLight( 0xc3c3c3, 2, 24, 24 );
+const rectLight4 = new THREE.RectAreaLight( 0xc3c3c3 , 2, 24, 24 );
 rectLight4.position.set( 1, 0, 0 );
 rectLight4.rotation.set( 0, 45 ,0 )
 scene.add( rectLight4 );
@@ -88,7 +110,11 @@ environmentMap.envMapIntensity = 4.0
 scene.environment = environmentMap
 scene.background = environmentMap
 
-scene.fog = new THREE.FogExp2( 0x000000, 0.52);
+scene.fog = new THREE.FogExp2( 0x000000, 0.53);
+
+////////////////////////////////////////////////////////////////////
+// MESHES + LOADERS
+///////////////
 
 const geometry = new THREE.IcosahedronGeometry(1, 24);
 const glassmaterial = new THREE.MeshPhysicalMaterial(
@@ -105,7 +131,8 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       envMap: environmentMap,
       envMapIntensity: 16
   }
-);
+)
+
 const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
 const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x8CB8F1, roughness: 0.4, metalness: 0.8 } );
 const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
@@ -136,11 +163,8 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
             if ( object.isMesh ) {
                 object.material.envMap = environmentMap;
                 object.castShadow = true;
-
             }
-
         } );
-
         scene.add( fox)
 
         // Animation
@@ -193,31 +217,51 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
     }
 )
 
+gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
+    {
+        // Model BIG SIZE
+        // gltf.scene.scale.set(0.0055, 0.0055, 0.0055)
+        gltf.scene.scale.set(0.0005, 0.0005, 0.0005)
+        gltf.scene.position.set(0, 0, 0.5)
+        gltf.scene.rotation.set(0, 0,  0)
+        scene.add(gltf.scene)
 
-/*** Lights */
+        let single = gltf.scene;
+        let singleMaterial= new THREE.MeshPhysicalMaterial( 
+        { 
+          side: THREE.DoubleSide, 
+          transmission: 1,
+          roughness: 0.01,  
+          thickness: 0.01,
+          clearcoat: 0.1,
+          metalness: 0,
+          reflectivity: 0.2,
+          ior: 5,
+          refractionRatio: 4,
+          // clearcoatRoughness: 0.4,
+          envMap: environmentMap,
+          envMapIntensity: 1.4,
+          // normalMap: normalMapTexture,
+          // normalRepeat: 3,  
+          // clearcoatNormalScale: 2.62,
+          // attenuationTint: 0x000000,
+          // attenuationDistance: 3.5,
+          // bloomThreshold: 0.85,
+          // bloomStrength: 0.35,
+          // bloomRadius: 0.33,
+        });
+
+        single.traverse((o) => {
+          if (o.isMesh) o.material = singleMaterial;
+        });
+
+    }
+)
 
 
-const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
-light.intensity = 104.0
-light.power = 56.6
-light.distance = 1000.0
-light.decay = 0
-light.castShadow = true
-light.shadow.camera.zoom = 4;
-light.position.set(0, -0.2, 0)
-scene.add( light )
-
-const light2 = new THREE.PointLight( 0x7A7194, 0.001, 1000)
-light2.intensity = 104.0
-light2.power = 56.6
-light2.distance = 1000.0
-light2.decay = 0
-light2.castShadow = true
-light2.shadow.camera.zoom = 4;
-light2.position.set(0, 0.2, 0)
-scene.add( light2 )
-
-/*** Sizes */
+////////////////////////////////////////////////////////////////////
+// WINDOW SIZES + ASPECT
+///////////////
 
 const sizes = {
     width: window.innerWidth,
@@ -239,14 +283,19 @@ window.addEventListener('resize', () =>
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
-/*** Cameras */// Base camera
+////////////////////////////////////////////////////////////////////
+// CAMERA
+///////////////
 
 const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height,0.2, 100)
 camera.position.set( 0, 0, -0.01)
 
 scene.add(camera)
 
-// Controls
+////////////////////////////////////////////////////////////////////
+// CONTROLS 
+///////////////
+
 const controls = new OrbitControls(camera, canvas)
 controls.enable = false
 controls.enableDamping = true
@@ -257,11 +306,9 @@ controls.minDistance = 0.37;
 controls.maxDistance = 1.6;
 controls.target.set( 0, 0, 0 );
 
-/** POST-PROCESSING */
-
-
-
-/** Renderer */
+////////////////////////////////////////////////////////////////////
+// Renderer
+///////////////
 
 const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true})
 renderer.physicallyCorrectLights = true
@@ -274,7 +321,10 @@ renderer.setClearColor('#211d20')
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-/*** Animate */
+////////////////////////////////////////////////////////////////////
+// EFFECT COMPOSER -> POST-PRODUCTION
+///////////////
+
 
 const clock = new THREE.Clock()
 let previousTime = 0
