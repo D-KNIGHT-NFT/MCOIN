@@ -1,5 +1,6 @@
 import './css/style.css'
 import * as THREE from 'three'
+import { WebGLRenderer } from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls.js';
@@ -75,22 +76,22 @@ scene.add( light2 )
 
 RectAreaLightUniformsLib.init();
 
-const rectLight1 = new THREE.RectAreaLight( 0x000000, 2, 24, 24 );
+const rectLight1 = new THREE.RectAreaLight( 0x000000, 16, 24, 24 );
 rectLight1.position.set( -1, 0, 0 );
 rectLight1.rotation.set( 0, -45, 0 )
 scene.add( rectLight1 );
 
-const rectLight2 = new THREE.RectAreaLight( 0xc3c3c3 , 2, 24, 24 );
+const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 16, 24, 24 );
 rectLight2.position.set( 0, 0, -1 );
 rectLight2.rotation.set( 0, -60 ,0 )
 scene.add( rectLight2 );
 
-const rectLight3 = new THREE.RectAreaLight( 0x000000, 4, 24, 24 );
+const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 16, 24, 24 );
 rectLight3.position.set( 0, 0, 1 );
 rectLight3.rotation.set( 0, 60 ,0 )
 scene.add( rectLight3 );
 
-const rectLight4 = new THREE.RectAreaLight( 0xc3c3c3 , 2, 24, 24 );
+const rectLight4 = new THREE.RectAreaLight( 0xc3c3c3 , 16, 24, 24 );
 rectLight4.position.set( 1, 0, 0 );
 rectLight4.rotation.set( 0, 45 ,0 )
 scene.add( rectLight4 );
@@ -105,7 +106,7 @@ cubeTextureLoader.setPath('textures/environmentMap/level-1/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
-environmentMap.envMapIntensity = 4.0
+environmentMap.envMapIntensity = 30.0
 
 scene.environment = environmentMap
 scene.background = environmentMap
@@ -123,13 +124,13 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       // normalMap: normalMapTexture,
       // normalRepeat: 9,  
       // clearcoatNormalScale: 9.62, 
-      reflectivity: 0.9, 
+      reflectivity: 0.4, 
       refractionRatio: 5.985,
       roughness: 0.02, 
       transmission: 1, 
       thickness: 1,
       envMap: environmentMap,
-      envMapIntensity: 16
+      envMapIntensity: 8
   }
 )
 
@@ -192,12 +193,12 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
           transmission: 1,
           roughness: 0.01,  
           thickness: 0.01,
-          clearcoat: 0.1,
+          clearcoat: 1.0,
           metalness: 0,
-          reflectivity: 0.2,
-          ior: 5,
+          reflectivity: 1,
+          ior: 3.4,
           refractionRatio: 4,
-          // clearcoatRoughness: 0.4,
+          clearcoatRoughness: 0.2,
           envMap: environmentMap,
           envMapIntensity: 1.4,
           // normalMap: normalMapTexture,
@@ -325,7 +326,6 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // EFFECT COMPOSER -> POST-PRODUCTION
 ///////////////
 
-
 const clock = new THREE.Clock()
 let previousTime = 0
 
@@ -343,7 +343,6 @@ const tick = () =>
     {
         foxMixer.update(deltaTime)
     }
-
     // Render
     renderer.render(scene, camera)
 

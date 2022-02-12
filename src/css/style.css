@@ -34,7 +34,7 @@ html,body { overflow:  hidden;line-height: 1.2; border: 11.11px solid hsla(0, 0%
 
 /* MY STYLE DEFINITIONS */
 
-/* #maindiv{ position: absolute; z-index: 60000; } */
+.social-container { position: absolute; z-index: 50000; }
 
 canvas {
   position: fixed;
@@ -54,10 +54,20 @@ p,h2, h3, h4, h5 { font-family: cy,sans-serif; font-weight: 700;font-style: norm
 h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
 
 /* **********************************************************************************/
-/* ****************************** / Marquee/************************************/
+/* ****************************** / UI /************************************/
 /* ***********************************************************************************/
 
-
+.social-container { 
+  display: flex;
+  flex-flow: column nowrap;
+  bottom: 2%;
+  background: hsla(0, 0%, 0%, 0.8);
+  color: hsla(127, 4%, 60%, 1);
+  padding: 4px 4px;
+  border-radius: 4px;
+  align-content: center;
+  margin: 0 auto;
+}
 /* **********************************************************************************/
 /* ****************************** / logo + Headers /************************************/
 /* ***********************************************************************************/
@@ -167,7 +177,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
  
 /* Portrait */
 @media screen and (orientation:portrait) { 
-  .headers {bottom: 0; left: 2%; width: 64%; }
+  .headers {bottom: 0; right: 0; width: 64%; }
   .logo { top: 2%; right: 2%; }
   h1 { font-size: 1.209rem; }
    h3 { font-size: 1rem; }
