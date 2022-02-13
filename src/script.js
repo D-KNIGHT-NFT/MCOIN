@@ -41,23 +41,66 @@ const canvas = document.querySelector('canvas.webgl')
 // Audio
 ///////////////
 
-const audioElement = document.getElementById( 'music' );
-audioElement.play();
+// const audioElement = document.getElementById( 'music' );
 
+// if (audioElement.canPlayType('audio/mpeg')) {
+//   audioElement.play();
+//   audioElement.volume = 0.5;
+//   console.log("music on")
+// }
 
-$(document).ready(function(){
-  $("#jquery_jplayer_1").jPlayer({
-   ready: function () {
-    $(this).jPlayer("setMedia", {
-     m4a: "/sounds/ES_Lucid_Space-Joseph_Beg.mp3",
-     oga: "/sounds/ES_Lucid_Space-Joseph_Beg.ogg"
-    });
-   },
-   swfPath: "/js/jquery.jplayer.min.js",
-   supplied: "m4a, oga",
-   gui: ".jp-gui"
-  });
- });
+window.onload = function(){
+
+   var audioElement = document.getElementById('music');
+   var play = document.getElementById('play');
+   var pause = document.getElementById('pause');
+   var loading = document.getElementById('loading');
+
+   function displayControls() {
+      loading.style.display = "none";
+      play.style.display = "block";
+   }
+
+   // check that the media is ready before displaying the controls
+   if (audioElement.paused) {
+      displayControls();
+   } else {
+      // not ready yet - wait for canplay event
+      audioElement.addEventListener('canplay', function() {
+         displayControls();
+      });
+   }
+
+   play.addEventListener('click', function() {
+      audioElement.play();
+      play.style.display = "none";
+      pause.style.display = "block";
+   });
+
+   pause.addEventListener('click', function() {
+      audioElement.pause();
+      pause.style.display = "none";
+      play.style.display = "block";
+   });
+
+   audioElement.volume = 0.5;
+   // // display progress
+
+   // audioElement.addEventListener('timeupdate', function() {
+   //    //sets the percentage
+   //    bar.style.width = parseInt(((audioElement.currentTime / audioElement.duration) * 100), 10) + "%";
+   // });
+
+   // progress.addEventListener('click', function(e) {
+
+   //   // calculate the normalized position clicked
+   //   var clickPosition = (e.pageX  - this.offsetLeft) / this.offsetWidth;
+   //   var clickTime = clickPosition * audioElement.duration;
+
+   //   // move the playhead to the correct position
+   //   audioElement.currentTime = clickTime;
+   // });
+}
 
 ////////////////////////////////////////////////////////////////////
 // SCENE
@@ -157,7 +200,7 @@ scene.add( mshStdFloor );
 
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0, 0.1)
+glassphere.position.set(0, 0, 0.08)
 glassphere.scale.set(0.34, 0.34, 0.34)
 scene.add(glassphere);
 /*** Load Fox model **/

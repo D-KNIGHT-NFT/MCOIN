@@ -21,28 +21,49 @@ blockquote,q { quotes: none; }
 ol,ul { list-style: none; }
 
  /* **********************************************************************************/
- /* *********//*/ COLOR VARIABLES /*/
+ /* *********//*/ PSEUDO-CLASSES /*/
  /* ***********************************************************************************/
 
  :root {
   --primary-red: hsla(8, 72%, 52%, 1);
+  --primary-yellow: hsla(76, 98%, 50%, 1);
+  --neutral1: hsla(127, 4%, 60%, 1);
+  --neutral04: hsla(127, 4%, 60%, 0.4);
   --white1: hsla(100, 100%, 100%, 1.0);
   --white08: hsla(100, 100%, 100%, 0.8);
   --white04: hsla(100, 100%, 100%, 0.4);
+  --white02: hsla(100, 100%, 100%, 0.2);
   --black1: hsla(0, 0%, 0%, 1.0);
   --black08: hsla(0, 0%, 0%, 0.8);
  }
-
- /* BASE TEXT STYLES */
- p,h2, h3, h4, h5 { font-family: cy,sans-serif; font-weight: 400;font-style: normal; margin: 0; }
- h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
-
 
 /* **********************************************************************************/
 /* *********//*/ POSITIONS & Z-INDEX /*/
 /* ***********************************************************************************/
 
 canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
+#htdi-player { position: absolute; top: 32px; right: 160px; z-index: 1000; }
+
+/* **********************************************************************************/
+/* *********//*/ Audio Player/*/
+/* ***********************************************************************************/
+
+
+#htdi-player {
+}
+
+#controls {
+  display: flex;
+  flex-flow: column wrap;
+  width: 180px;
+  font-family: cy, sans-serif;
+}
+
+#play, 
+#pause { backdrop-filter: blur(5px); background: var(--white04) ;font-family: cy, sans-serif; font-weight: 700; line-height: 1.5; }
+
+
+
 
 /* --------------------------------------------------------------------------------- */
 /* *-> / UI / <-*/
@@ -51,17 +72,20 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
 @media only screen 
 {
   canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
-  .logo-img { position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; position: absolute; top: 2%; right: 2%; border-radius: 8px; }
-  .social-cont { position: fixed; z-index: 50000; display: flex; flex-flow: row nowrap; bottom: 2%; left: 2%; border-radius: 4px; margin: 0 auto; background: var(--black08) }
-  .headers { display: flex; flex-flow: row nowrap; position: absolute; z-index: 50000; right: 1%; bottom: 2%%;  user-select: none; }
-  .main-title { background: var(--white04); color: var(--primary-red); padding: 8px; text-align: right; }
+  .logo-img { position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; top: 2%; right: 2%; border-radius: 8px; }
+  .social-cont { position: fixed; z-index: 50000; display: flex; flex-flow: row nowrap; }
+  .headers { display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 2%;  user-select: none; }
+  .main-title { color: var(--black1); padding: 8px; text-align: right; }
   .main-subtitle { padding: 8px; background: var(--primary-red); color: var(--black1);}
+  #jp_container_1 { position: absolute; top: 2%; left:  2%; z-index: 60000; }
 }
 
 
 /* max-width 640px, mobile-only styles. */
 @media only screen and (max-width: 40em) 
  {
+  .social-cont { top: 8px;left: 8px; }
+
 
  }
 
@@ -109,6 +133,10 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
 /* **********************************************************************************/
 /* ****************************** / TEXT /************************************/
 /* ***********************************************************************************/
+
+/* BASE TEXT STYLES */
+p,h2, h3, h4, h5 { font-family: cy,sans-serif; font-weight: 400;font-style: normal; margin: 0; }
+h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
 
 @media only screen {}
 @media only print {}
@@ -159,8 +187,9 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
   only screen and (     -o-min-device-pixel-ratio: 3/1),
   only screen and (        min-device-pixel-ratio: 3),
   only screen and (                min-resolution: 458dpi),
-  only screen and (                min-resolution: 3dppx) { 
-    /* Retina styles here */
+  only screen and (                min-resolution: 3dppx) 
+{ 
+  .social-cont { top: 8px;left: 8px; flex-flow: row wrap; }
 }
 
 /* ****************************** /* Retina 2x Media Query*/

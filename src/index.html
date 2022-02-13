@@ -20,18 +20,28 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link type="text/css" href="/skin/blue.monday/css/jplayer.blue.monday.css" rel="stylesheet" />
-
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
 </head>
 
 <body>
 
-  <audio loop id="music" preload="auto">
+  <canvas class="webgl"></canvas>
+
+
+  <audio loop id="music" preload="metadata">
     <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
     <source src="/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg">
+    <!-- place fallback here as <audio> supporting browsers will ignore it -->
+    <a href="audiofile.mp3">audiofile.mp3</a>
   </audio>
+
+  <div id="htdi-player">
+    <div id="controls">
+      <span id="loading">loading</span>
+      <button id="play" style="display:none">play sound</button>
+      <button id="pause" style="display:none" >pause</button>
+    </div>
+  </div>
+
 
   <div class="logo-img"><a href="#"></a>
     <img
@@ -45,63 +55,68 @@
     src= "../static/UI/Icon/logo/logo.png"/>
   </div>
 
-  
 <div class="social-cont">
-  <div id="icon-social"><a href="https://www.instagram.com/htdi.collective/"></a><img src= "../static/UI/Icon/Socials/001@1x.png"/></div>
-  <div id="icon-social"><a href="#"></a><img src= "../static/UI/Icon/Socials/002@1x.png"/></div>
-  <div id="icon-social"><a href="#"></a><img src= "../static/UI/Icon/Socials/003@1x.png"/></div>
-  <div id="icon-social"><a href="#"></a><img src= "../static/UI/Icon/Socials/004@1x.png"/></div>
-  <div id="icon-social"><a href="#"></a><img src= "../static/UI/Icon/Socials/005@1x.png"/></div>
-  <div id="icon-social"><a href="#"></a><img src= "../static/UI/Icon/Socials/006@1x.png"/></div>
-
+  <div id="icon-social">
+    <a href="https://www.instagram.com/htdi.collective/"></a><img srcset="
+    ../static/UI/Icon/Socials/001@4x.png 4x,
+    ../static/UI/Icon/Socials/001@3x.png 3x,
+    ../static/UI/Icon/Socials/001@2x.png 2x,
+    ../static/UI/Icon/Socials/001@1x.png 1x
+    "
+    src= "../static/UI/Icon/Socials/001@1x.png"/>
+  </div>
+  <div id="icon-social">
+    <a href="#"></a><img srcset="
+    ../static/UI/Icon/Socials/002@4x.png 4x,
+    ../static/UI/Icon/Socials/002@3x.png 3x,
+    ../static/UI/Icon/Socials/002@2x.png 2x,
+    ../static/UI/Icon/Socials/002@1x.png 1x
+    "
+    src= "../static/UI/Icon/Socials/002@1x.png"/>
+  </div>
+  <div id="icon-social">
+    <a href="#"></a><img srcset="
+    ../static/UI/Icon/Socials/003@4x.png 4x,
+    ../static/UI/Icon/Socials/003@3x.png 3x,
+    ../static/UI/Icon/Socials/003@2x.png 2x,
+    ../static/UI/Icon/Socials/003@1x.png 1x
+    "
+    src= "../static/UI/Icon/Socials/003@1x.png"/>
+  </div>
+  <div id="icon-social">
+    <a href="#"></a><img srcset="
+    ../static/UI/Icon/Socials/004@4x.png 4x,
+    ../static/UI/Icon/Socials/004@3x.png 3x,
+    ../static/UI/Icon/Socials/004@2x.png 2x,
+    ../static/UI/Icon/Socials/004@1x.png 1x
+    "
+    src= "../static/UI/Icon/Socials/004@1x.png"/>
+  </div>
+  <div id="icon-social">
+    <a href="#"></a><img srcset="
+    ../static/UI/Icon/Socials/005@4x.png 4x,
+    ../static/UI/Icon/Socials/005@3x.png 3x,
+    ../static/UI/Icon/Socials/005@2x.png 2x,
+    ../static/UI/Icon/Socials/005@1x.png 1x
+    "
+    src= "../static/UI/Icon/Socials/005@1x.png"/>
+  </div>
+  <div id="icon-social">
+    <a href="#"></a><img srcset="
+    ../static/UI/Icon/Socials/006@4x.png 4x,
+    ../static/UI/Icon/Socials/006@3x.png 3x,
+    ../static/UI/Icon/Socials/006@2x.png 2x,
+    ../static/UI/Icon/Socials/006@1x.png 1x
+    "
+    src= "../static/UI/Icon/Socials/006@1x.png"/>
+  </div>
 </div>
 
-  <canvas class="webgl"></canvas>
-
-  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-
-  <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
-    <div class="jp-type-single">
-      <div class="jp-gui jp-interface">
-        <div class="jp-volume-controls">
-          <button class="jp-mute" role="button" tabindex="0">mute</button>
-          <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
-          <div class="jp-volume-bar">
-            <div class="jp-volume-bar-value"></div>
-          </div>
-        </div>
-        <div class="jp-controls-holder">
-          <div class="jp-controls">
-            <button class="jp-play" role="button" tabindex="0">play</button>
-            <button class="jp-stop" role="button" tabindex="0">stop</button>
-          </div>
-          <div class="jp-progress">
-            <div class="jp-seek-bar">
-              <div class="jp-play-bar"></div>
-            </div>
-          </div>
-          <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-          <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-          <div class="jp-toggles">
-            <button class="jp-repeat" role="button" tabindex="0">repeat</button>
-          </div>
-        </div>
-      </div>
-      <div class="jp-details">
-        <div class="jp-title" aria-label="title">&nbsp;</div>
-      </div>
-      <div class="jp-no-solution">
-        <span>Update Required</span>
-        To play the media you will need to either update your browser to a recent version or update your <a href="https://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-      </div>
-    </div>
+<div class="headers">
+  <div class="main-title"><h1>HTDI Collective</h1>
+    <div class="main-subtitle"><h3>A collaborative and inclusive digital Artist Collective</h3></div>
   </div>
-
-  <div class="headers">
-    <div class="main-title"><h1>HTDI Collective</h1>
-      <div class="main-subtitle"><h3>A collaborative and inclusive digital Artist Collective</h3></div>
-    </div>
-  </div>
+</div>
 
       
 </body>
