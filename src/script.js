@@ -1,4 +1,6 @@
 import './css/style.css'
+import $ from "jquery";
+import jPlayer from "jplayer";
 import * as THREE from 'three'
 import { WebGLRenderer } from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -34,6 +36,7 @@ import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLigh
 
 const canvas = document.querySelector('canvas.webgl')
 
+
 ////////////////////////////////////////////////////////////////////
 // Audio
 ///////////////
@@ -41,8 +44,20 @@ const canvas = document.querySelector('canvas.webgl')
 const audioElement = document.getElementById( 'music' );
 audioElement.play();
 
-const logo = document.getElementById( 'logo' );
-logo.addEventListener( 'click', audioElement );
+
+$(document).ready(function(){
+  $("#jquery_jplayer_1").jPlayer({
+   ready: function () {
+    $(this).jPlayer("setMedia", {
+     m4a: "/sounds/ES_Lucid_Space-Joseph_Beg.mp3",
+     oga: "/sounds/ES_Lucid_Space-Joseph_Beg.ogg"
+    });
+   },
+   swfPath: "/js/jquery.jplayer.min.js",
+   supplied: "m4a, oga",
+   gui: ".jp-gui"
+  });
+ });
 
 ////////////////////////////////////////////////////////////////////
 // SCENE
@@ -289,7 +304,7 @@ window.addEventListener('resize', () =>
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height,0.2, 100)
+const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height, 0.2, 100)
 camera.position.set( 0, 0, -0.01)
 
 scene.add(camera)
@@ -359,8 +374,6 @@ const tick = () =>
 }
 
 tick()
-
-
 
 
 

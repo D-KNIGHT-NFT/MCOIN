@@ -3,161 +3,140 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;900&family=Shanti&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Federant&display=swap');
 
-/* MY CSS RESETS */
-html,
-body,
-div,
-span,
-object,
-iframe,
-h1,h2,h3,h4,h5,h6,p,
-blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,
-ins,kbd,q,s,samp,small,strong,sub,sup,var,
-b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,
-caption,tbody,tfoot,thead,tr,th,td,article,
+/* **********************************************************************************/
+/* *********//*/ CSS RESETS /*/
+/* ***********************************************************************************/
+
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strong,sub,sup,var,
+b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,
 aside,canvas,details,embed,figure,figcaption,footer,header,nav,output,ruby,section,
 summary,time,mark,audio,video { margin: 0; padding: 0; border: 0; font: inherit; vertical-align: baseline; }
 
 article,aside,details,figcaption,figure,footer,header,nav,section { display: block; }
 
-input[type="radio"] {
-  display: none;
-  place-content: center;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: #fff;
-}
+input[type="radio"] { display: none; place-content: center; -webkit-appearance: none;appearance: none; }
+html { font-size: 100%; color: var(--black1); overflow: hidden;} /*16px*/
+body { line-height: 1.2; }
+blockquote,q { quotes: none; }
+ol,ul { list-style: none; }
 
-html {font-size: 100%; color: hsla(0, 0%, 100%, 1);} /*16px*/
-html,body { overflow:  hidden;line-height: 1.2; border: 11.11px solid hsla(0, 0%, 100%, 0.4);
+ /* **********************************************************************************/
+ /* *********//*/ COLOR VARIABLES /*/
+ /* ***********************************************************************************/
+
+ :root {
+  --primary-red: hsla(8, 72%, 52%, 1);
+  --white1: hsla(100, 100%, 100%, 1.0);
+  --white08: hsla(100, 100%, 100%, 0.8);
+  --white04: hsla(100, 100%, 100%, 0.4);
+  --black1: hsla(0, 0%, 0%, 1.0);
+  --black08: hsla(0, 0%, 0%, 0.8);
  }
 
-/* MY STYLE DEFINITIONS */
-
-.social-container,
-audio { position: absolute; z-index: 50000; }
-
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-}
-ol,ul { 
-  list-style: none;
-}
-blockquote,q { 
-  quotes: none;
-}
-/* BASE TEXT STYLES */
-p,h2, h3, h4, h5 { font-family: cy,sans-serif; font-weight: 700;font-style: normal; }
-h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
-
-/* **********************************************************************************/
-/* ****************************** / UI /************************************/
-/* ***********************************************************************************/
-audio { right:  4%; top: 24%; }
-.social-container { 
-  display: flex;
-  flex-flow: column nowrap;
-  bottom: 2%;
-  background: hsla(0, 0%, 0%, 0.8);
-  color: hsla(127, 4%, 60%, 1);
-  padding: 4px 4px;
-  border-radius: 4px;
-  align-content: center;
-  margin: 0 auto;
-}
-/* **********************************************************************************/
-/* ****************************** / logo + Headers /************************************/
-/* ***********************************************************************************/
-#logo {
-  position: fixed;
-  z-index: 50000;
-  top: 3%;
-  right: 3%;
-}
-
-.headers {
-  display: flex;
-  flex-flow: column no nowrap;
-  align-content: center;
-  justify-content: center;
-  position: absolute;
-  z-index: 50000;
-  user-select: none;
-}
-.main-title {
-  background: hsla(0, 0%, 0%, 0.8);
-  color: hsla(127, 4%, 60%, 1);
-  margin: 0 0 4px 0;
-  padding: 24px 24px;
-}
-.main-subtitle { 
-  margin: 4px 0 ;
-  padding: 8px 8px;
-  background: hsla(8, 72%, 52%, 1);
-  color: hsla(0, 0%, 0%, 1);
- }
-/* **********************************************************************************/
-/* ****************************** / 3D Flip Cards /************************************/
-/* ***********************************************************************************/
-
+ /* BASE TEXT STYLES */
+ p,h2, h3, h4, h5 { font-family: cy,sans-serif; font-weight: 400;font-style: normal; margin: 0; }
+ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
 
 
 /* **********************************************************************************/
-/* ****************************** MEDIA QUERIES ************************************/
+/* *********//*/ POSITIONS & Z-INDEX /*/
 /* ***********************************************************************************/
 
-/* Define mobile styles - Mobile First./* Scale 1.067 - Minor Second *//* Small screens - MOBILE */
+canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
 
-@media only screen
+/* --------------------------------------------------------------------------------- */
+/* *-> / UI / <-*/
+/* **********************************************************************************/
+
+@media only screen 
+{
+  canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
+  .logo-img { position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; position: absolute; top: 2%; right: 2%; border-radius: 8px; }
+  .social-cont { position: fixed; z-index: 50000; display: flex; flex-flow: row nowrap; bottom: 2%; left: 2%; border-radius: 4px; margin: 0 auto; background: var(--black08) }
+  .headers { display: flex; flex-flow: row nowrap; position: absolute; z-index: 50000; right: 1%; bottom: 2%%;  user-select: none; }
+  .main-title { background: var(--white04); color: var(--primary-red); padding: 8px; text-align: right; }
+  .main-subtitle { padding: 8px; background: var(--primary-red); color: var(--black1);}
+}
+
+
+/* max-width 640px, mobile-only styles. */
+@media only screen and (max-width: 40em) 
  {
-  h1 { margin-top: 0; font-size: 1.383rem; }
-/*   h2 { font-size: 1.296rem; } */
-  h3 { font-size: 1.215rem; }
-  h4 { font-size: 1.138rem; }
-  h5 { font-size: 1.067rem; }
-  p  { font-size: 0.6rem; letter-spacing: -0.008em; }
+
  }
 
-/* max-width 640px, mobile-only styles. 1.125 - Major Second.  */
+ /* Medium screens - TABLET min-width 641px  */
+ @media only screen and (min-width: 40.063em) 
+ {
+
+
+ }
+
+ /* Large screens - DESKTOP  min-width 1025px */
+ @media only screen and (min-width: 64.063em) 
+ {
+
+
+ }
+
+ /* XLarge screens  min-width 1441px, xlarge screens */
+ @media only screen and (min-width: 90.063em) { } 
+
+ /* min-width 1921px, xlarge screens */
+ @media only screen and (min-width: 120.063em) { }
+
+ /* **********************************************************************************/
+ /* ****************************** /* CSS for iPhone orientation
+ /* ***********************************************************************************/
+  
+ /* Portrait */
+
+ @media only screen and (orientation:portrait) { 
+   /* classes */
+
+   /* texts */
+   h1 { font-size: 1.209rem; }
+   h3 { font-size: 1rem; }
+ }
+
+ /* Landscape */
+
+ @media only screen and (orientation:landscape) { 
+   h1 { font-size: 1.209rem; }
+   h3 { font-size: .8rem; }
+ }
+
+/* **********************************************************************************/
+/* ****************************** / TEXT /************************************/
+/* ***********************************************************************************/
+
+@media only screen {}
+@media only print {}
+
+/* Small screens 1.125 - Major Second.  */
 
 @media only screen and (max-width: 40em) 
  {
   h1 { font-size: 1.802rem; }
-/*   h2 { font-size: 1.602rem; } */
+  h2 { font-size: 1.602rem; }
   h3 { font-size: 1.424rem; }
   h4 { font-size: 1.266rem; }
   h5 { font-size: 1.125rem; }
- 
  }
  
-/* Medium screens - TABLET min-width 641px, medium screens. 1.200 - Minor Third */
+/* Medium screens - 1.200 - Minor Third */
 
 @media only screen and (min-width: 40.063em) 
  {
   h1 { font-size: 2.488rem; }
-/*   h2 { font-size: 2.074rem; } */
+  h2 { font-size: 2.074rem; }
   h3 { font-size: 1.728rem; }
   h4 { font-size: 1.44rem;  }
   h5 { font-size: 1.2rem;   }
- .headers { bottom: 8%; right: 0; text-align: right; width: 80%; }
-
- } 
-/* min-width 641px and max-width 1024px.  */
-
-@media only screen and (min-width: 40.063em) and (max-width: 64em) 
- {
-  h1 { margin-top: 0; font-size: 3.052rem; }
-/*   h2 { font-size: 2.441rem; } */
-  h3 { font-size: 1.953rem; }
-  h4 { font-size: 1.563rem; }
-  h5 { font-size: 1.25rem; }
-  p  { font-size: 0.7rem; letter-spacing: -0.008em; }
  } 
  
-/* Large screens - DESKTOP  min-width 1025px,large screens. 1.333 - Perfect Fourth */
+/* large screens. 1.333 - Perfect Fourth */
+
 @media only screen and (min-width: 64.063em) {
   h1 { font-size: 4.209rem; }
  /*  h2 { font-size: 3.157rem; } */
@@ -166,42 +145,42 @@ audio { right:  4%; top: 24%; }
   h5 { font-size: 1.333rem; }
   p  { font-size: 0.7rem; letter-spacing: -0.008em; }
  }
-@media only screen and (min-width: 64.063em) and (max-width: 90em) { } /* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
-/* XLarge screens  min-width 1441px, xlarge screens */
-@media only screen and (min-width: 90.063em) { } 
-@media only screen and (min-width: 90.063em) and (max-width: 120em) { } /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
-/* XXLarge screens */
-@media only screen and (min-width: 120.063em) { } /* min-width 1921px, xlarge screens */
- 
-/*------------------------------------------*/
- 
-/* Portrait */
-@media screen and (orientation:portrait) { 
-  .headers {bottom: 0; right: 0; width: 64%; }
-  .logo { top: 2%; right: 2%; }
-  h1 { font-size: 1.209rem; }
-   h3 { font-size: 1rem; }
-
-}
-/* Landscape */
-@media screen and (orientation:landscape) { 
-  h1 { font-size: 1.209rem; }
-  h3 { font-size: .8rem; }
-  .headers { bottom: 0; left: 0; text-align: center; width: 100%; padding: 0 4px 0 4px; }
-  main-title { padding: 0 16px; }
-  .logo { top: 7%; }
-}
-/* CSS for iPhone, iPad, and Retina Displays */
-/* Non-Retina */
-@media screen and (-webkit-max-device-pixel-ratio: 1) {
-}
-/* Retina */
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (-o-min-device-pixel-ratio: 3/2),
-only screen and (min--moz-device-pixel-ratio: 1.5),
-only screen and (min-device-pixel-ratio: 1.5) {
-}
- 
 
 
 
+/* **********************************************************************************/
+/* ****************************** /* Retina Displays */
+/* ***********************************************************************************/
+
+/* ****************************** /* iphone 12 pro max */
+@media
+  only screen and (-webkit-min-device-pixel-ratio: 3),
+  only screen and (   min--moz-device-pixel-ratio: 3),
+  only screen and (     -o-min-device-pixel-ratio: 3/1),
+  only screen and (        min-device-pixel-ratio: 3),
+  only screen and (                min-resolution: 458dpi),
+  only screen and (                min-resolution: 3dppx) { 
+    /* Retina styles here */
+}
+
+/* ****************************** /* Retina 2x Media Query*/
+@media
+  only screen and (-webkit-min-device-pixel-ratio: 3),
+  only screen and (   min--moz-device-pixel-ratio: 3),
+  only screen and (     -o-min-device-pixel-ratio: 3/1),
+  only screen and (        min-device-pixel-ratio: 3),
+  only screen and (                min-resolution: 384dpi),
+  only screen and (                min-resolution: 3dppx) { 
+    /* Retina styles here */
+}
+
+/* ****************************** /* Retina 3x Media Query */
+@media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) { 
+    /* Retina styles here */
+}
