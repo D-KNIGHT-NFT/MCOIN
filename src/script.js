@@ -179,9 +179,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       thickness: 0.01,
       specularIntensity: 1,
       specularColor: 0xffffff,
-      envMapIntensity: 1,
-      lightIntensity: 1,
-      exposure: 1
+      envMapIntensity: 1
 });
 
 const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
@@ -249,9 +247,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         thickness: 0,
         specularIntensity: 1,
         specularColor: 0xffffff,
-        envMapIntensity: 1,
-        lightIntensity: 1,
-        exposure: 1
+        envMapIntensity: 1
         });
 
         logo.traverse((o) => {

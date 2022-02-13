@@ -10,10 +10,11 @@
     <meta property="og:url" content="https://htdi.community/">
     <meta property="og:image" content="https://htdi.community/favicon.svg">
     <meta property="og:description" content="Inclusive and diverse digital artist community">
-    
+
     <link rel="apple-touch-icon" href="/static/branding/icon-180x180.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/cssui.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -107,12 +108,111 @@
   </div>
 </div>
 
+<!---------------------- CSSUI Components ------------>
+
+<!-- Tool Tip -->
+
+<a href="#" data-tooltip alt="Alt text" title="This is a link" role="tooltip" aria-label="Tooltip message">Hover me</a>
+
+<a href="#modal">
+  Open Modal
+</a>
+
+<!-- Modal container -->
+<div id="modal" data-modal>
+
+  <!-- Modal  -->
+  <div id="dialog" data-modal-dialog role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1">
+    <h3 id="dialog-title">Modal title</h3>
+    <p>This is the modal content.</p>
+
+    <a href="#" data-modal-close>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </a>
+  </div>
+
+  <!-- Background, click to close -->
+  <a href="#" data-modal-overlay></a>
+</div>
+
+<!-- DROPDOWN Component -->
+
+<details data-dropdown>
+  <summary>
+    Select an option...
+  </summary>
+  <ul role="list">
+    <li role="listitem"><a href="#">Dropdown item</a></li>
+    <li role="listitem"><a href="#">Dropdown item</a></li>
+    <li role="listitem"><a href="#">Dropdown item</a></li>
+  </ul>
+</details>
+
 <div class="headers">
   <div class="main-title"><h1>HTDI Collective</h1>
     <div class="main-subtitle"><h3>A collaborative and inclusive digital Artist Collective</h3></div>
   </div>
 </div>
 
+<!-- Accordion Component -->
+
+<section data-accordion>
+  <div data-accordion-item>
+    <input type="checkbox" id="panel-1">
+    <label for="panel-1">
+      Item 1 
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </label>
+    <div data-accordion-panel>
+        Chamber sat word floor turning door feather rapping in the. Angels my hopes this scarce startled just at while and. Till to before liftednevermore betook tis but. Me till door from tapping discourse dreary the. Soul youhere a the nevernevermore i lore. Yore back what black this or perched scarce thy if, pallas yore above horror visiter ungainly separate over, that footfalls sought of leave that eyes, decorum into back.
+    </div>
+  </div>
+  <div data-accordion-item>
+    <input type="checkbox" id="panel-2">
+    <label for="panel-2" data-accordion-label>
+      Item 2
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </label>
+    <div data-accordion-panel>
+        Chamber sat word floor turning door feather rapping in the. Angels my hopes this scarce startled just at while and. Till to before liftednevermore betook tis but. Me till door from tapping discourse dreary the. Soul youhere a the nevernevermore i lore. Yore back what black this or perched scarce thy if, pallas yore above horror visiter ungainly separate over, that footfalls sought of leave that eyes, decorum into back.
+    </div>
+  </div>
+  <div data-accordion-item>
+    <input type="checkbox" id="panel-3">
+    <label for="panel-3" data-accordion-label>
+      Item 3
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </label>
+    <div data-accordion-panel>
+        Chamber sat word floor turning door feather rapping in the. Angels my hopes this scarce startled just at while and. Till to before liftednevermore betook tis but. Me till door from tapping discourse dreary the. Soul youhere a the nevernevermore i lore. Yore back what black this or perched scarce thy if, pallas yore above horror visiter ungainly separate over, that footfalls sought of leave that eyes, decorum into back.
+    </div>
+  </div>
+  <div data-accordion-item>
+    <input type="checkbox" id="panel-4">
+    <label for="panel-4" data-accordion-label>
+      Item 4
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </label>
+    <div data-accordion-panel>
+        Chamber sat word floor turning door feather rapping in the. Angels my hopes this scarce startled just at while and. Till to before liftednevermore betook tis but. Me till door from tapping discourse dreary the. Soul youhere a the nevernevermore i lore. Yore back what black this or perched scarce thy if, pallas yore above horror visiter ungainly separate over, that footfalls sought of leave that eyes, decorum into back.
+    </div>
+  </div>
+</section>
+
+ <!-- Slide Out Component -->
+
+<a href="#slideout" data-slideout-toggle>Open Slideout</a>
+
+<div id="slideout" data-slideout-panel>
+  <div data-slideout-header>
+    <h3>Slideout</h3>
+    <a href="#" data-slideout-close>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </a>
+  </div>
+  <p>Content for the slideout goes here. You can place just about any component or custom elements here.
+</p>
+</div>
       
 </body>
 </html>

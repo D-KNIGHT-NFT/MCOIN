@@ -107,6 +107,333 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
  /* min-width 1921px, xlarge screens */
  @media only screen and (min-width: 120.063em) { }
 
+
+ /* **********************************************************************************/
+ /* ****************************** /* CSSUI Components
+ /* ***********************************************************************************/
+
+ /* ****************************** /* MODAL */
+
+ [data-modal] {
+   --modal-background: rgb(255, 255, 255);
+   --modal-level: 9999;
+   --modal-max-size: 500px;
+   --modal-overlay-background: rgba(0, 0, 0, .2);
+   --modal-radius: 8px;
+   --modal-size: 80%;
+   --modal-spacing: 1rem;
+
+   visibility: hidden;
+   opacity: 0;
+   transition: opacity .3s ease;
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+
+ [data-modal-overlay] {
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background-color: var(--modal-overlay-background);
+ }
+
+ [data-modal-dialog] {
+   z-index: var(--modal-level);
+   width: var(--modal-size);
+   max-width: var(--modal-max-size);
+   padding: var(--modal-spacing);
+   border-radius: var(--modal-radius);
+   background-color: var(--modal-background);
+   opacity: 0;
+   transform: translateY(-1rem);
+   transition: opacity .3s ease, transform .3s ease;
+   transition-delay: .2s;
+ }
+
+ [data-modal]:target {
+   visibility: visible;
+   opacity: 1;
+   z-index: var(--modal-level);
+ }
+
+ [data-modal]:target [data-modal-dialog] {
+   opacity: 1;
+   transform: translateY(0);
+ }
+
+ [data-modal-close] {
+   position: absolute;
+   top: var(--modal-spacing);
+   right: var(--modal-spacing);
+   color: var(--cssui-gray-darkest);
+ }
+
+ /* ****************************** /* Accordion */
+
+ /* General */
+ [data-accordion] {
+   --accordion-border-color: var(--cssui-gray-lighter);
+   --accordion-panel-background: #fff;
+   --accordion-panel-padding: var(--cssui-padding);
+   --accordion-panel-text-color: var(--cssui-gray-darkest);
+   --accordion-title-background: #fff;
+   --accordion-title-spacing: 1rem;
+   --accordion-title-color: var(--cssui-gray-dark);
+   border: 1px solid var(--accordion-border-color);
+   border-radius: var(--cssui-radius);
+ }
+
+ [data-accordion-item] {
+   width: 100%;
+   overflow: hidden;
+ }
+
+ [data-accordion-item]:not(:last-child) {
+   border-bottom: 1px solid var(--accordion-border-color);
+ }
+
+ [data-accordion-item] > input {
+   position: absolute;
+   z-index: -1;
+   opacity: 0;
+ }
+
+ [data-accordion-item] > label {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: var(--accordion-title-spacing);
+   background: var(--accordion-title-background);
+   color: var(--accordion-title-color);
+   font-weight: 700;
+   cursor: pointer;
+ }
+
+ [data-accordion-item] > label:hover,
+ [data-accordion-item] > input:checked + label  {
+   --accordion-title-color: var(--cssui-gray-darkest);
+   --accordion-title-background: var(--cssui-gray-lighter);
+ }
+
+ [data-accordion-item] > input:checked + label:hover  {
+   --accordion-title-background: var(--cssui-gray-light);
+ }
+
+ /* Accordion Item's Label Focus State */
+ [data-accordion-item] > input:focus + label  {
+   outline: 2px auto #101010;
+   outline: 2px auto Highlight;
+   outline: 2px auto -webkit-focus-ring-color;
+ }
+
+ /* Hide focus ring if focus comes from a pointer device. */
+ [data-accordion-item] > input:focus:not(:focus-visible) + label  {
+   outline: none;
+ }
+
+ [data-accordion-item] > label > svg {
+   transition: all var(--cssui-animation-timing) ease-out;
+ }
+
+ [data-accordion-panel] {
+   max-height: 0;
+   padding: 0 var(--accordion-panel-padding);
+   background: var(--accordion-panel-background);
+   color: var(--accordion-panel-text-color);
+   transition: padding var(--cssui-animation-timing) ease;
+   visibility: hidden;
+ }
+
+ [data-accordion-item] > input:checked + label > svg {
+   transform: rotate(-180deg);
+ }
+
+ [data-accordion-item] > input:checked ~ [data-accordion-panel] {
+   max-height: 100vh;
+   padding: var(--accordion-panel-padding);
+   visibility: visible;
+ }
+
+ /* ****************************** /* DROPDOWN */
+
+ [data-dropdown] {
+   --dropdown-border-radius: var(--cssui-radius);
+   --dropdown-border-color: var(--cssui-gray-light);
+   --dropdown-link-background: var(--cssui-gray-lighter);
+   --drodpwon-link-color: var(--cssui-gray-darkest);
+   --dropdown-panel-background: #fff;
+   --dropdown-padding: var(--cssui-padding);
+   position: relative;
+   width: auto;
+   border: 1px solid var(--dropdown-border-color);
+   border-radius: var(--dropdown-border-radius);
+ }
+
+ [data-dropdown] summary {
+   position: relative;
+   padding: var(--dropdown-padding);
+ }
+
+ [data-dropdown] summary:hover {
+   cursor: pointer;
+   background: var(--cssui-gray-lighter);
+ }
+
+ [data-dropdown] summary::-webkit-details-marker {
+   display: none; 
+ }
+   
+ [data-dropdown] summary:focus {
+   outline-width: 3px;
+ }
+
+ [data-dropdown] summary::after {
+   position: absolute;
+   top: calc(var(--dropdown-padding) * 1.75);
+   right: var(--dropdown-padding);
+   content: "";
+   display: inline-block;
+   margin-left: .255rem;
+   border-top: .3rem solid;
+   border-right: .3rem solid transparent;
+   border-bottom: 0;
+   border-left: .3rem solid transparent;
+   vertical-align: .255rem;
+ }
+
+ [data-dropdown][open] summary::after {
+   transform: rotate(-180deg);
+ }
+
+ [data-dropdown] ul {
+   margin: 0;
+   padding-left: 0;
+   background: var(--dropdown-panel-background);
+   list-style: none;
+ }
+
+ [data-dropdown] li {
+   margin: 0;
+   padding: 0;
+   border-top: var(--dropdown-border, 0) solid var(--dropdown-border-color);
+ }
+
+ [data-dropdown] li > a {
+   display: block;
+   padding: var(--dropdown-padding);
+   color: var(--dropdown-link-color);
+   text-decoration: none;
+ }
+
+ [data-dropdown] li > a:hover {
+   background-color: var(--dropdown-link-background);
+ }
+
+ /* ------------------------------
+ Changing the sliding in animation
+ ------------------------------ */
+
+ /* NOTES: 
+ /* Edit the '--slideout-animation' and '--slideout-position' variables to change the position */
+
+ [data-slideout-panel] {
+   --slideout-animation: left .2s ease-in-out;
+   --slideout-background: #fff;
+   --slideout-shadow-color: #9ca3af;
+   --slideout-padding: 1rem;
+   --slideout-position: -100%;
+   --slideout-size: 33vw;
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   left: var(--slideout-position); 
+   z-index: 9999;
+   /* right: 0;  */
+   visibility: hidden; 
+   width: var(--slideout-size);
+   padding: var(--slideout-padding);
+   background: var(--slideout-background);
+   box-shadow: 0 4px 20px var(--slideout-shadow-color);
+   transition: var(--slideout-animation);
+ }
+
+ [data-slideout-panel]:target {
+   --slideout-position: 0;
+   visibility: visible;
+ }
+
+ [data-slideout-header] {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+ }
+
+ [data-slideout-close] {
+   color: var(--cssui-gray-darkest);
+ }
+
+ /* ****************************** /* Tool Tip */
+
+ [data-tooltip] {
+   --tooltip-background: var(--cssui-gray-darkest);
+   --tooltip-padding: 4px 6px;
+   --tooltip-text-color: var(--cssui-gray-light);
+   --tooltip-fontsize: .75rem;
+   /* --tooltip-radius: 0px */
+
+   position: relative;
+ }
+
+ [data-tooltip]::after,
+ [data-tooltip]::before {
+   opacity: 0;
+   transition: opacity .3s ease;
+ }
+
+ [data-tooltip]::after {
+   position: absolute;
+   bottom: calc(100% + 2px);
+   left: 50%;
+   content: attr(title);
+   display: inline-block;
+   width: auto;
+   padding: var(--tooltip-padding);
+   background-color: var(--tooltip-background);
+   color: var(--tooltip-text-color);
+   font-size: var(--tooltip-fontsize);
+   white-space: nowrap;
+   transform: translateX(-50%);
+   border-radius: var(--tooltip-radius, 0);
+ }
+
+ [data-tooltip]:hover::after,
+ [data-tooltip]:hover::before,
+ [data-tooltip]:focus::after,
+ [data-tooltip]:focus::before {
+   opacity: 1;
+ }
+
+ [data-tooltip]::before {
+   position: absolute;
+   bottom: calc(100% - 2px);
+   left: 50%;
+   content: '';
+  width: 0;
+  height: 0;
+  border-top: 5px solid var(--tooltip-background);
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+   transform: translateX(-50%);
+ }
+
  /* **********************************************************************************/
  /* ****************************** /* CSS for iPhone orientation
  /* ***********************************************************************************/
