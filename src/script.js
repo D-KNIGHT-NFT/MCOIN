@@ -116,7 +116,7 @@ const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
 light.intensity = 104.0
 light.power = 200
 light.distance = 10.0
-light.decay = 2
+light.decay = 0.3
 light.castShadow = false
 light.shadow.camera.zoom = 4;
 light.position.set(0, -0.2, 0)
@@ -126,7 +126,7 @@ const light2 = new THREE.PointLight( 0x7A7194, 0.001, 1000)
 light2.intensity = 104.0
 light2.power = 200
 light2.distance = 10.0
-light2.decay = 2
+light2.decay = 0.3
 light2.castShadow = false
 light2.shadow.camera.zoom = 4;
 light2.position.set(0, 0.2, 0)
@@ -134,22 +134,22 @@ scene.add( light2 )
 
 RectAreaLightUniformsLib.init();
 
-const rectLight1 = new THREE.RectAreaLight( 0x000000, 16, 24, 24 );
+const rectLight1 = new THREE.RectAreaLight( 0x000000, 56, 104, 104 );
 rectLight1.position.set( -1, 0, 0 );
 rectLight1.rotation.set( 0, -45, 0 )
 scene.add( rectLight1 );
 
-const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 104, 24, 24 );
-rectLight2.position.set( 0, 0, -1 );
-rectLight2.rotation.set( 0, -60 ,0 )
-scene.add( rectLight2 );
+// const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 104, 24, 24 );
+// rectLight2.position.set( 0, 0, -1 );
+// rectLight2.rotation.set( 0, -60 ,0 )
+// scene.add( rectLight2 );
 
-const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 16, 24, 24 );
-rectLight3.position.set( 0, 0, 1 );
-rectLight3.rotation.set( 0, 60 ,0 )
-scene.add( rectLight3 );
+// const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 16, 24, 24 );
+// rectLight3.position.set( 0, 0, 1 );
+// rectLight3.rotation.set( 0, 60 ,0 )
+// scene.add( rectLight3 );
 
-const rectLight4 = new THREE.RectAreaLight( 0xc3c3c3 , 16, 24, 24 );
+const rectLight4 = new THREE.RectAreaLight( 0xffffff , 56, 104, 104 );
 rectLight4.position.set( 1, 0, 0 );
 rectLight4.rotation.set( 0, 45 ,0 )
 scene.add( rectLight4 );
@@ -179,18 +179,19 @@ const geometry = new THREE.IcosahedronGeometry(1, 24);
 const glassmaterial = new THREE.MeshPhysicalMaterial(
     { 
       side: THREE.DoubleSide,  
-      // normalMap: normalMapTexture,
-      // normalRepeat: 9,  
-      // clearcoatNormalScale: 9.62, 
-      reflectivity: 0.4, 
-      refractionRatio: 5.985,
-      roughness: 0.02, 
-      transmission: 1, 
-      thickness: 1.5,
-      envMap: environmentMap,
-      // envMapIntensity: 1
-  }
-)
+      color: 0xfafafa,
+      transmission: 1,
+      opacity: 1,
+      metalness: 0,
+      roughness: 0,
+      ior: 2.0,
+      thickness: 0.01,
+      specularIntensity: 1,
+      specularColor: 0xffffff,
+      envMapIntensity: 1,
+      lightIntensity: 1,
+      exposure: 1
+});
 
 const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
 const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x8CB8F1, roughness: 0.4, metalness: 0.8 } );
@@ -247,26 +248,19 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         let logo = gltf.scene;
         let logoMaterial= new THREE.MeshPhysicalMaterial( 
         { 
-          side: THREE.DoubleSide, 
-          transmission: 1,
-          roughness: 0.01,  
-          thickness: 0.01,
-          clearcoat: 1.0,
-          metalness: 0,
-          reflectivity: 1,
-          ior: 3.4,
-          refractionRatio: 4,
-          clearcoatRoughness: 0.2,
-          envMap: environmentMap,
-          envMapIntensity: 1.4,
-          // normalMap: normalMapTexture,
-          // normalRepeat: 3,  
-          // clearcoatNormalScale: 2.62,
-          // attenuationTint: 0x000000,
-          // attenuationDistance: 3.5,
-          // bloomThreshold: 0.85,
-          // bloomStrength: 0.35,
-          // bloomRadius: 0.33,
+        side: THREE.BackSide,    
+        color: 0x000000,
+        transmission: 1,
+        opacity: 0.55,
+        metalness: 0,
+        roughness: 0,
+        ior: 1.5,
+        thickness: 0,
+        specularIntensity: 1,
+        specularColor: 0xffffff,
+        envMapIntensity: 1,
+        lightIntensity: 1,
+        exposure: 1
         });
 
         logo.traverse((o) => {
@@ -296,19 +290,10 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
           clearcoat: 0.1,
           metalness: 0,
           reflectivity: 0.2,
-          ior: 5,
-          refractionRatio: 4,
-          // clearcoatRoughness: 0.4,
+          ior: 2,
+          refractionRatio: 2,
           envMap: environmentMap,
-          envMapIntensity: 1.4,
-          // normalMap: normalMapTexture,
-          // normalRepeat: 3,  
-          // clearcoatNormalScale: 2.62,
-          // attenuationTint: 0x000000,
-          // attenuationDistance: 3.5,
-          // bloomThreshold: 0.85,
-          // bloomStrength: 0.35,
-          // bloomRadius: 0.33,
+          envMapIntensity: 1.0,
         });
 
         htdi.traverse((o) => {
@@ -362,7 +347,7 @@ controls.enableDamping = true
 controls.autoRotate= true
 // controls.enableZoom = false
 controls.autoRotateSpeed = 0.7
-controls.minDistance = 1.6;
+controls.minDistance = 0.6;
 controls.maxDistance = 2;
 controls.target.set( 0, 0, 0 );
 
@@ -402,7 +387,6 @@ const tick = () =>
     controls.update()
 
     // LITTLE GUY ANIMATION
-    // htdi.rotation.y += 0.01
 
     // Fox animation
     if(foxMixer)
