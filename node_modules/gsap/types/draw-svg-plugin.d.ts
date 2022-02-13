@@ -21,7 +21,6 @@ declare namespace gsap.plugins {
      * @param {DrawSVGTarget} element
      * @returns {number} The stroke length
      * @memberof DrawSVGPlugin
-     * @link https://greensock.com/docs/v3/Plugins/DrawSVGPlugin/static.getLength()
      */
     getLength(element: DrawSVGTarget): number;
 
@@ -35,7 +34,6 @@ declare namespace gsap.plugins {
      * @param {DrawSVGTarget} element
      * @returns {number[]} The position array
      * @memberof DrawSVGPlugin
-     * @link https://greensock.com/docs/v3/Plugins/DrawSVGPlugin/static.getPosition()
      */
     getPosition(element: DrawSVGTarget): number[];
   }
@@ -66,24 +64,5 @@ declare module "gsap/dist/DrawSVGPlugin" {
 }
 
 declare module "gsap/all" {
-  export * from "gsap/DrawSVGPlugin";
-}
-
-declare module "gsap-trial/DrawSVGPlugin" {
-  export * from "gsap/DrawSVGPlugin";
-  export { DrawSVGPlugin as default } from "gsap/DrawSVGPlugin";
-}
-
-declare module "gsap-trial/src/DrawSVGPlugin" {
-  export * from "gsap/DrawSVGPlugin";
-  export { DrawSVGPlugin as default } from "gsap/DrawSVGPlugin";
-}
-
-declare module "gsap-trial/dist/DrawSVGPlugin" {
-  export * from "gsap/DrawSVGPlugin";
-  export { DrawSVGPlugin as default } from "gsap/DrawSVGPlugin";
-}
-
-declare module "gsap-trial/all" {
   export * from "gsap/DrawSVGPlugin";
 }

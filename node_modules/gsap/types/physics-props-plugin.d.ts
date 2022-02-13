@@ -4,9 +4,9 @@ declare namespace PhysicsPropsPlugin {
   }
 
   interface Values {
-    acceleration?: gsap.TweenValue;
-    friction?: gsap.TweenValue;
-    velocity?: gsap.TweenValue;
+    acceleration?: number;
+    friction?: number;
+    velocity?: number;
   }
 }
 
@@ -48,24 +48,5 @@ declare module "gsap/dist/PhysicsPropsPlugin" {
 }
 
 declare module "gsap/all" {
-  export * from "gsap/PhysicsPropsPlugin";
-}
-
-declare module "gsap-trial/PhysicsPropsPlugin" {
-  export * from "gsap/PhysicsPropsPlugin";
-  export { PhysicsPropsPlugin as default } from "gsap/PhysicsPropsPlugin";
-}
-
-declare module "gsap-trial/src/PhysicsPropsPlugin" {
-  export * from "gsap/PhysicsPropsPlugin";
-  export { PhysicsPropsPlugin as default } from "gsap/PhysicsPropsPlugin";
-}
-
-declare module "gsap-trial/dist/PhysicsPropsPlugin" {
-  export * from "gsap/PhysicsPropsPlugin";
-  export { PhysicsPropsPlugin as default } from "gsap/PhysicsPropsPlugin";
-}
-
-declare module "gsap-trial/all" {
   export * from "gsap/PhysicsPropsPlugin";
 }

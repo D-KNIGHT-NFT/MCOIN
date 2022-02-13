@@ -63,8 +63,6 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
 #pause { backdrop-filter: blur(5px); background: var(--white04) ;font-family: cy, sans-serif; font-weight: 700; line-height: 1.5; }
 
 
-
-
 /* --------------------------------------------------------------------------------- */
 /* *-> / UI / <-*/
 /* **********************************************************************************/

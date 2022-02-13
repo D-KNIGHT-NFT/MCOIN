@@ -7,7 +7,6 @@ declare namespace TextPlugin {
     padSpace?: boolean;
     newClass?: string;
     oldClass?: string;
-    preserveSpaces?: boolean;
   }
 }
 
@@ -49,24 +48,5 @@ declare module "gsap/dist/TextPlugin" {
 }
 
 declare module "gsap/all" {
-  export * from "gsap/TextPlugin";
-}
-
-declare module "gsap-trial/TextPlugin" {
-  export * from "gsap/TextPlugin";
-  export { TextPlugin as default } from "gsap/TextPlugin";
-}
-
-declare module "gsap-trial/src/TextPlugin" {
-  export * from "gsap/TextPlugin";
-  export { TextPlugin as default } from "gsap/TextPlugin";
-}
-
-declare module "gsap-trial/dist/TextPlugin" {
-  export * from "gsap/TextPlugin";
-  export { TextPlugin as default } from "gsap/TextPlugin";
-}
-
-declare module "gsap-trial/all" {
   export * from "gsap/TextPlugin";
 }

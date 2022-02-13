@@ -46,6 +46,7 @@ declare namespace gsap {
     register(core: typeof gsap): void;
   }
 
+  // interface Plugin extends Partial<PluginStatic>, Partial<PluginScope> {
   interface Plugin extends Partial<PluginStatic> {
     name: string;
     init: PluginInit;
@@ -58,6 +59,7 @@ declare namespace gsap {
   }
 
   interface ModifiersVars {
+    // [key: string]: (value: any, target: object) => any;
     [key: string]: (value: any, target: any) => any;
   }  
 
@@ -68,7 +70,7 @@ declare namespace gsap {
   interface TweenVars {
     attr?: AttrVars;
     modifiers?: ModifiersVars;
-    snap?: string | SnapVars;
+    snap?: SnapVars;
   }
 }
 
@@ -96,6 +98,7 @@ declare namespace gsap.plugins {
   const attr: AttrPluginClass;
   const modifiers: ModifiersPluginClass;
   const snap: SnapPluginClass;
+
 
   // Data types shared between plugins
   type RawPath = number[][]; 

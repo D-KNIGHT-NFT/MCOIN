@@ -12,7 +12,6 @@ declare namespace gsap.core {
     labels: Labels;
     smoothChildTiming: boolean;
     vars: TimelineVars;
-    [key: string]: any; // for gsap.registerEffect({... extendTimeline: true})
 
     constructor(vars?: TimelineVars, time?: number);
 
@@ -32,7 +31,6 @@ declare namespace gsap.core {
      * @param {Position} [position]
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/add()
      */
     add(child: TimelineChild, position?: Position): this;
 
@@ -47,7 +45,6 @@ declare namespace gsap.core {
      * @param {Position} [position]
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/addLabel()
      */
     addLabel(label: string, position?: Position): this;
 
@@ -64,7 +61,6 @@ declare namespace gsap.core {
      * @param {any[]} [params]
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/addPause()
      */
     addPause(position?: Position, callback?: Callback, params?: any[]): this;
 
@@ -81,7 +77,6 @@ declare namespace gsap.core {
      * @param {Position} [position]
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/call()
      */
     call(callback: Callback, params?: any[], position?: Position): this;
 
@@ -96,7 +91,6 @@ declare namespace gsap.core {
      * @param {boolean} labels
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/clear()
      */
     clear(labels?: boolean): this;
 
@@ -110,7 +104,6 @@ declare namespace gsap.core {
      * @param {string} value
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/currentLabel()
      */
     currentLabel(value: string): this;
 
@@ -123,7 +116,6 @@ declare namespace gsap.core {
      *
      * @returns {string} The nearest label
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/currentLabel()
      */
     currentLabel(): string;
 
@@ -137,12 +129,10 @@ declare namespace gsap.core {
      * @param {TweenTarget} targets
      * @param {TweenVars} vars
      * @param {Position} [position]
-     * @returns {Timeline} The timeline
+     * @returns {Tween} Tween instance
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/from()
      */
     from(targets: TweenTarget, vars: TweenVars, position?: Position): this;
-
     /**
      * **Deprecated method signature.** Use the `duration` property instead.
      *
@@ -150,14 +140,13 @@ declare namespace gsap.core {
      * tl.from(".class", 1, { x: 100 }, "+=1"); // adds the tween one second after the end of the timeline
      * ```
      *
-     * @deprecated since version 3.0.0
+     * @deprecated since version 2
      * @param {TweenTarget} targets
      * @param {number} duration - The duration parameter is deprecated. Use the `duration` property instead.
      * @param {TweenVars} vars
      * @param {Position} [position]
-     * @returns {Timeline} The timeline
+     * @returns {Tween} Tween instance
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/from()
      */
     from(targets: TweenTarget, duration: number, vars: TweenVars, position?: Position): this;
 
@@ -172,12 +161,10 @@ declare namespace gsap.core {
      * @param {TweenVars} fromVars
      * @param {TweenVars} toVars
      * @param {Position} [position]
-     * @returns {Timeline} The timeline
+     * @returns {Tween} Tween instance
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/fromTo()
      */
     fromTo(targets: TweenTarget, fromVars: TweenVars, toVars: TweenVars, position?: Position): this;
-
     /**
      * **Deprecated method signature.** Use the `duration` property instead.
      *
@@ -185,31 +172,16 @@ declare namespace gsap.core {
      * tl.fromTo(".class", 1, {x: 0}, { x: 100 }, "+=1"); // adds the tween one second after the end of the timeline
      * ```
      *
-     * @deprecated since version 3.0.0
+     * @deprecated since version 2
      * @param {TweenTarget} targets
      * @param {number} duration - The duration parameter is deprecated. Use the `duration` property instead.
      * @param {TweenVars} fromVars
      * @param {TweenVars} toVars
      * @param {Position} [position]
-     * @returns {Timeline} The timeline
+     * @returns {Tween} Tween instance
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/fromTo()
      */
     fromTo(targets: TweenTarget, duration: number, fromVars: TweenVars, toVars: TweenVars, position?: Position): this;
-    
-    /**
-     * Returns the tween or timeline associated with the provided ID.
-     *
-     * ```js
-     * tl.getById("myTween");
-     * ```
-     *
-     * @param {string} id
-     * @returns {Tween | Timeline} 
-     * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/getById()
-     */
-    getById(id: string): Tween | Timeline;
 
     /**
      * Returns an array containing all the tweens and/or timelines nested in this timeline.
@@ -225,7 +197,6 @@ declare namespace gsap.core {
      * @param {number} [ignoreBeforeTime]
      * @returns {(Tween | Timeline)[]} Array of tweens and timelines
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/getChildren()
      */
     getChildren(nested?: boolean, tweens?: boolean, timelines?: boolean, ignoreBeforeTime?: number): (Tween | Timeline)[]; 
 
@@ -241,7 +212,6 @@ declare namespace gsap.core {
      * @param {boolean} [onlyActive]
      * @returns {Tween[]} Array of tweens
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/getTweensOf()
      */
     getTweensOf(targets: TweenTarget, onlyActive?: boolean): Tween[];
 
@@ -256,7 +226,6 @@ declare namespace gsap.core {
      * @param {number} [time]
      * @returns {string} The next label
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/nextLabel()
      */
     nextLabel(time?: number): string;
 
@@ -271,7 +240,6 @@ declare namespace gsap.core {
      * @param {number} [time]
      * @returns {string} The previous label
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/previousLabel()
      */
     previousLabel(time?: number): string;
 
@@ -284,7 +252,6 @@ declare namespace gsap.core {
      *
      * @returns {Tween | Timeline | Function} The most recent tween, timeline, or callback
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/recent()
      */
     recent(): Tween | Timeline | Function;
 
@@ -299,7 +266,6 @@ declare namespace gsap.core {
      * @param {TimelineChild} value
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/remove()
      */
     remove(value: TimelineChild): this;
 
@@ -313,7 +279,6 @@ declare namespace gsap.core {
      * @param {string} label
      * @returns {number} The time of the removed label
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/removeLabel()
      */
     removeLabel(label: string): number;
 
@@ -327,7 +292,6 @@ declare namespace gsap.core {
      * @param {Position} position
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/removePause()
      */
     removePause(position: Position): this;
 
@@ -343,7 +307,6 @@ declare namespace gsap.core {
      * @param {Position} [position]
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/set()
      */
     set(targets: TweenTarget, vars: TweenVars, position?: Position): this;
 
@@ -359,90 +322,8 @@ declare namespace gsap.core {
      * @param {number} [ignoreBeforeTime]
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/shiftChildren()
      */
     shiftChildren(amount: number, adjustLabels?: boolean, ignoreBeforeTime?: number): this;
-
-    /**
-     * **Deprecated method.** Use the `.from()` method instead.
-     *
-     * @deprecated since version 3.0.0
-     * @param {TweenTarget} targets
-     * @param {TweenVars} vars
-     * @param {Position} position
-     * @returns {Timeline} The timeline
-     * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/from()
-     */
-    staggerFrom(targets: TweenTarget, vars: TweenVars, position?: Position): this;
-
-     /**
-      * **Deprecated method.** Use the `.from()` method instead.
-      * 
-      * @deprecated since version 3.0.0
-      * @param {TweenTarget} targets
-      * @param {number} duration - The duration parameter is deprecated. Use the `duration` property instead.
-      * @param {Timeline} vars
-      * @param {Position} position
-      * @returns {Timeline} The timeline
-      * @memberof Timeline
-      * @link https://greensock.com/docs/v3/GSAP/Timeline/from()
-      */
-     staggerFrom(targets: TweenTarget, duration: number, vars: TweenVars, position?: Position): this;
-
-     /**
-     * **Deprecated method.** Use the `.fromTo()` method instead.
-     *
-     * @deprecated since version 3.0.0
-     * @param {TweenTarget} targets
-     * @param {TweenVars} vars
-     * @param {Position} position
-     * @returns {Timeline} The timeline
-     * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/fromTo()
-     */
-    staggerFromTo(targets: TweenTarget, fromVars: TweenVars, toVars: TweenVars, position?: Position): this;
-
-    /**
-     * **Deprecated method.** Use the `.fromTo()` method instead.
-     * 
-     * @deprecated since version 3.0.0
-     * @param {TweenTarget} targets
-     * @param {number} duration - The duration parameter is deprecated. Use the `duration` property instead.
-     * @param {Timeline} vars
-     * @param {Position} position
-     * @returns {Timeline} The timeline
-     * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/fromTo()
-     */
-    staggerFromTo(targets: TweenTarget, duration: number, fromVars: TweenVars, toVars: TweenVars, position?: Position): this;
-
-    /**
-     * **Deprecated method.** Use the `.to()` method instead.
-     *
-     * @deprecated since version 3.0.0
-     * @param {TweenTarget} targets
-     * @param {TweenVars} vars
-     * @param {Position} position
-     * @returns {Timeline} The timeline
-     * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/to()
-     */
-    staggerTo(targets: TweenTarget, vars: TweenVars, position?: Position): this;
-
-    /**
-     * **Deprecated method.** Use the `.to()` method instead.
-     * 
-     * @deprecated since version 3.0.0
-     * @param {TweenTarget} targets
-     * @param {number} duration - The duration parameter is deprecated. Use the `duration` property instead.
-     * @param {Timeline} vars
-     * @param {Position} position
-     * @returns {Timeline} The timeline
-     * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/to()
-     */
-    staggerTo(targets: TweenTarget, duration: number, vars: TweenVars, position?: Position): this;
 
     /**
      * Creates a tween going TO the given values.
@@ -456,24 +337,21 @@ declare namespace gsap.core {
      * @param {Position} position
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/to()
      */
     to(targets: TweenTarget, vars: TweenVars, position?: Position): this;
-
     /**
      * **Deprecated method signature.** Use the `duration` property instead.
      * 
      * ```js
      * tl.to(".class", 1, {x: 100}, 1);
      * ```
-     * @deprecated since version 3.0.0
+     * @deprecated since version 2
      * @param {TweenTarget} targets
      * @param {number} duration - The duration parameter is deprecated. Use the `duration` property instead.
      * @param {Timeline} vars
      * @param {Position} position
      * @returns {Timeline} The timeline
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/to()
      */
     to(targets: TweenTarget, duration: number, vars: TweenVars, position?: Position): this;
 
@@ -489,7 +367,6 @@ declare namespace gsap.core {
      * @param {TweenVars} [vars]
      * @returns {Tween} The tweenFromTo tween
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/tweenFromTo()
      */
     tweenFromTo(fromPosition: Position, toPosition: Position, vars?: TweenVars): Tween;
 
@@ -504,7 +381,6 @@ declare namespace gsap.core {
      * @param {TweenVars} [vars]
      * @returns {Tween} The tweenTo tween
      * @memberof Timeline
-     * @link https://greensock.com/docs/v3/GSAP/Timeline/tweenTo()
      */
     tweenTo(position: Position, vars?: TweenVars): Tween;
   }

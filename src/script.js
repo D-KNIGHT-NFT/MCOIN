@@ -1,7 +1,7 @@
 import './css/style.css'
 import $ from "jquery";
-import jPlayer from "jplayer";
 import * as THREE from 'three'
+import gsap from 'gsap'
 import { WebGLRenderer } from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
@@ -36,18 +36,9 @@ import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLigh
 
 const canvas = document.querySelector('canvas.webgl')
 
-
 ////////////////////////////////////////////////////////////////////
 // Audio
 ///////////////
-
-// const audioElement = document.getElementById( 'music' );
-
-// if (audioElement.canPlayType('audio/mpeg')) {
-//   audioElement.play();
-//   audioElement.volume = 0.5;
-//   console.log("music on")
-// }
 
 window.onload = function(){
 
@@ -299,6 +290,8 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         htdi.traverse((o) => {
           if (o.isMesh) o.material = singleMaterial;
         });
+
+        // gsap.to(htdi.position, { duration: 10, delay: 2, x: 5 })
 
     }
 )

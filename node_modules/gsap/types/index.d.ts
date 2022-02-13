@@ -1,7 +1,6 @@
 // Type definitions for gsap 3.0
 // Project: https://greensock.com/
-// Definitions by: Jack Doyle <https://github.com/jackdoyle>
-//                 Blake Bowen <https://github.com/OSUblake>
+// Definitions by: Blake Bowen <https://github.com/OSUblake>
 //                 Pedro Tavares <https://github.com/dipscom>
 //                 Zach Saucier <https://github.com/ZachSaucier>
 // Definitions: https://github.com/greensock/GSAP
@@ -16,7 +15,6 @@
 /// <reference path="draw-svg-plugin.d.ts"/>
 /// <reference path="ease.d.ts"/>
 /// <reference path="easel-plugin.d.ts"/>
-/// <reference path="flip.d.ts"/>
 /// <reference path="gs-dev-tools.d.ts"/>
 /// <reference path="gsap-plugins.d.ts"/>
 /// <reference path="gsap-utils.d.ts"/>
@@ -86,41 +84,6 @@ declare module "gsap/all" {
 }
 
 declare module "gsap/src/all" {
-  export * from "gsap/all";
-  export { gsap as default } from "gsap/all";
-}
-
-declare module "gsap-trial" {
-  export * from "gsap/gsap-core";
-  export { gsap as default } from "gsap/gsap-core";
-}
-
-declare module "gsap-trial/src" {
-  export * from "gsap";
-  export { gsap as default } from "gsap";
-}
-
-declare module "gsap-trial/src/index" {
-  export * from "gsap";
-  export { gsap as default } from "gsap";
-}
-
-declare module "gsap-trial/dist" {
-  export * from "gsap";
-  export { gsap as default } from "gsap";
-}
-
-declare module "gsap-trial/dist/gsap" {
-  export * from "gsap";
-  export { gsap as default } from "gsap";
-}
-
-declare module "gsap-trial/all" {
-  export * from "gsap";
-  export { gsap as default } from "gsap";
-}
-
-declare module "gsap-trial/src/all" {
   export * from "gsap/all";
   export { gsap as default } from "gsap/all";
 }
