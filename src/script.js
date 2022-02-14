@@ -350,8 +350,8 @@ controls.enableDamping = true
 controls.autoRotate= true
 // controls.enableZoom = false
 controls.autoRotateSpeed = 0.7
-controls.minDistance = 0.5;
-controls.maxDistance = 0.8;
+controls.minDistance = 0.8;
+controls.maxDistance = 1.5;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
