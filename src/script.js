@@ -103,47 +103,47 @@ const scene = new THREE.Scene()
 // LIGHTS 
 ///////////////
 
-const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
-light.intensity = 104.0
-light.power = 200
-light.distance = 10.0
-light.decay = 0.3
-light.castShadow = false
-light.shadow.camera.zoom = 4;
-light.position.set(0, -0.2, 0)
-scene.add( light )
+// const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
+// light.intensity = 104.0
+// light.power = 200
+// light.distance = 10.0
+// light.decay = 0.3
+// light.castShadow = false
+// light.shadow.camera.zoom = 4;
+// light.position.set(0, -0.2, 0)
+// scene.add( light )
 
-const light2 = new THREE.PointLight( 0x7A7194, 0.001, 1000)
-light2.intensity = 104.0
-light2.power = 200
-light2.distance = 10.0
-light2.decay = 0.3
-light2.castShadow = false
-light2.shadow.camera.zoom = 4;
-light2.position.set(0, 0.2, 0)
-scene.add( light2 )
+// const light2 = new THREE.PointLight( 0x7A7194, 0.001, 1000)
+// light2.intensity = 104.0
+// light2.power = 200
+// light2.distance = 10.0
+// light2.decay = 0.3
+// light2.castShadow = false
+// light2.shadow.camera.zoom = 4;
+// light2.position.set(0, 0.2, 0)
+// scene.add( light2 )
 
-RectAreaLightUniformsLib.init();
+// RectAreaLightUniformsLib.init();
 
-const rectLight1 = new THREE.RectAreaLight( 0x000000, 56, 104, 104 );
-rectLight1.position.set( -1, 0, 0 );
-rectLight1.rotation.set( 0, -45, 0 )
-scene.add( rectLight1 );
+// const rectLight1 = new THREE.RectAreaLight( 0x000000, 56, 104, 104 );
+// rectLight1.position.set( -1, 0, 0 );
+// rectLight1.rotation.set( 0, -45, 0 )
+// scene.add( rectLight1 );
 
-// const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 104, 24, 24 );
-// rectLight2.position.set( 0, 0, -1 );
-// rectLight2.rotation.set( 0, -60 ,0 )
-// scene.add( rectLight2 );
+// // const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 104, 24, 24 );
+// // rectLight2.position.set( 0, 0, -1 );
+// // rectLight2.rotation.set( 0, -60 ,0 )
+// // scene.add( rectLight2 );
 
-// const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 16, 24, 24 );
-// rectLight3.position.set( 0, 0, 1 );
-// rectLight3.rotation.set( 0, 60 ,0 )
-// scene.add( rectLight3 );
+// // const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 16, 24, 24 );
+// // rectLight3.position.set( 0, 0, 1 );
+// // rectLight3.rotation.set( 0, 60 ,0 )
+// // scene.add( rectLight3 );
 
-const rectLight4 = new THREE.RectAreaLight( 0xffffff , 56, 104, 104 );
-rectLight4.position.set( 1, 0, 0 );
-rectLight4.rotation.set( 0, 45 ,0 )
-scene.add( rectLight4 );
+// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 56, 104, 104 );
+// rectLight4.position.set( 1, 0, 0 );
+// rectLight4.rotation.set( 0, 45 ,0 )
+// scene.add( rectLight4 );
 
 // scene.add( new RectAreaLightHelper( rectLight1 ) );
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
@@ -151,7 +151,7 @@ scene.add( rectLight4 );
 
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-1/');
+cubeTextureLoader.setPath('textures/environmentMap/level-2/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
@@ -182,6 +182,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       envMapIntensity: 1
 });
 
+
 const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
 const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x8CB8F1, roughness: 0.4, metalness: 0.8 } );
 const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
@@ -193,6 +194,8 @@ const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0.08)
 glassphere.scale.set(0.34, 0.34, 0.34)
 scene.add(glassphere);
+
+
 /*** Load Fox model **/
 const gltfLoader = new GLTFLoader()
 
@@ -254,6 +257,8 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
           if (o.isMesh) o.material = logoMaterial;
         });
 
+
+
     }
 )
 
@@ -263,7 +268,7 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         // gltf.scene.scale.set(0.0055, 0.0055, 0.0055)
         const htdi = gltf.scene
         htdi.scale.set(0.0005, 0.0005, 0.0005)
-        htdi.position.set(0, 0, 0.5)
+        htdi.position.set(0, 0, 0.2)
         htdi.rotation.set(0, 0,  0)
         scene.add(htdi)
 
@@ -280,12 +285,21 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
           ior: 2,
           refractionRatio: 2,
           envMap: environmentMap,
-          envMapIntensity: 1.0,
+          envMapIntensity: 0.7,
         });
 
         htdi.traverse((o) => {
           if (o.isMesh) o.material = singleMaterial;
         });
+
+        // Animations
+
+        gsap.to( htdi.rotation, {
+            duration: 60, 
+            ease: "none", 
+            y: "+=180",
+            scale: 2,
+            repeat: -1});
 
         // gsap.to(htdi.position, { duration: 10, delay: 2, x: 5 })
 
@@ -336,8 +350,8 @@ controls.enableDamping = true
 controls.autoRotate= true
 // controls.enableZoom = false
 controls.autoRotateSpeed = 0.7
-controls.minDistance = 0.6;
-controls.maxDistance = 2;
+controls.minDistance = 0.5;
+controls.maxDistance = 0.8;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
