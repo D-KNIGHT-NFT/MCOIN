@@ -73,7 +73,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
   .logo-img { position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; top: 2%; right: 2%; border-radius: 8px; }
   .social-cont { position: fixed; z-index: 50000; display: flex; flex-flow: row nowrap; }
   .headers { display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 2%;  user-select: none; }
-  .main-title { color: var(--black1); padding: 8px; text-align: right; }
+  .main-title { color: var(--white04); padding: 8px; text-align: right; }
   .main-subtitle { padding: 8px; background: var(--primary-red); color: var(--black1);}
 }
 
