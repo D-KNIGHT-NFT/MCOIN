@@ -27,6 +27,7 @@ ol,ul { list-style: none; }
  :root {
   --primary-red: hsla(8, 72%, 52%, 1);
   --primary-yellow: hsla(76, 98%, 50%, 1);
+  --primary-blue: hsla(180, 100%, 50%, 1);
   --neutral1: hsla(127, 4%, 60%, 1);
   --neutral04: hsla(127, 4%, 60%, 0.4);
   --white1: hsla(100, 100%, 100%, 1.0);
@@ -372,7 +373,7 @@ ol,ul { list-style: none; }
  .foggy { position: absolute; top: 10%; right:  40%; z-index: 1000; }
 
  /* **********************************************************************************/
- /* *********//*/ Audio Player/*/
+ /* *********//*/ Foggy FX/*/
  /* ***********************************************************************************/
 
  .foggy {
@@ -393,6 +394,10 @@ ol,ul { list-style: none; }
    pointer-events: none;
  }
 
+ /* **********************************************************************************/
+ /* *********//*/ Audio Player /*/
+ /* ***********************************************************************************/
+
  #htdi-player {
  }
 
@@ -404,7 +409,7 @@ ol,ul { list-style: none; }
  }
 
  #play, 
- #pause { backdrop-filter: blur(5px); background: var(--white04) ;font-family: cy, sans-serif; font-weight: 700; line-height: 1.5; }
+ #pause { backdrop-filter: blur(5px); color:  var(--primary-red); background: var(--white04) ;font-family: cy, sans-serif; font-weight: 400; line-height: 1.5; }
 
 
  /* --------------------------------------------------------------------------------- */
@@ -416,9 +421,11 @@ ol,ul { list-style: none; }
    canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
    .logo-img { position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; top: 2%; right: 2%; border-radius: 8px; }
    .social-cont { position: fixed; z-index: 50001; display: flex; flex-flow: column nowrap; }
-   .headers { display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 2%;  user-select: none; }
-   .main-title { color: var(--white08); padding: 8px; text-align: right; }
-   .main-subtitle { padding: 8px; background: var(--primary-red); color: var(--black1);}
+   .headers, .headers02{ display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 2%;  user-select: none; }
+   .headers02 { left: 1%; bottom: 12%;  user-select: none }
+   .main-title, .main-title02 { color: var(--white08); padding: 8px; text-align: left; }
+   .main-subtitle, .main-subtitle02 { padding: 8px; background: var(--primary-red); color: var(--black1);}
+   .main-subtitle02 { background: var(--primary-blue); }
 
    #modal { position:  fixed; bottom: 8px;left: 8px; z-index: 50000; background: var(--white8); }
  }
@@ -498,7 +505,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h5 { font-size: 1.125rem; }
  }
  
-/* Medium screens - 1.200 - Minor Third */
+/* Medium screens - TABLET min-width 641px  1.200 - Minor Third */
 
 @media only screen and (min-width: 40.063em) 
  {
@@ -509,17 +516,16 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h5 { font-size: 1.2rem;   }
  } 
  
-/* large screens. 1.333 - Perfect Fourth */
+/* large screens. 1.333 - DESKTOP  min-width 1025px Perfect Fourth */
 
 @media only screen and (min-width: 64.063em) {
   h1 { font-size: 4.209rem; }
- /*  h2 { font-size: 3.157rem; } */
+  h2 { font-size: 3.157rem; }
   h3 { font-size: 2.369rem; }
   h4 { font-size: 1.777rem; }
   h5 { font-size: 1.333rem; }
   p  { font-size: 0.7rem; letter-spacing: -0.008em; }
  }
-
 
 
 /* **********************************************************************************/
@@ -558,4 +564,20 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   only screen and (                min-resolution: 192dpi),
   only screen and (                min-resolution: 2dppx) { 
     /* Retina styles here */
+}
+
+@media only screen and (orientation:portrait) { 
+  /* classes */
+
+  /* texts */
+  h1 { font-size: 1.209rem; }
+  h3 { font-size: 1rem; }
+}
+
+/* Landscape */
+
+@media only screen and (orientation:landscape) { 
+  h1 { font-size: 1.209rem; }
+  h3 { font-size: .8rem; }
+  #htdi-player { top: 64px; left: 40px; }
 }
