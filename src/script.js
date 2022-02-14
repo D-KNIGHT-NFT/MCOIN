@@ -75,22 +75,6 @@ window.onload = function(){
    });
 
    audioElement.volume = 0.5;
-   // // display progress
-
-   // audioElement.addEventListener('timeupdate', function() {
-   //    //sets the percentage
-   //    bar.style.width = parseInt(((audioElement.currentTime / audioElement.duration) * 100), 10) + "%";
-   // });
-
-   // progress.addEventListener('click', function(e) {
-
-   //   // calculate the normalized position clicked
-   //   var clickPosition = (e.pageX  - this.offsetLeft) / this.offsetWidth;
-   //   var clickTime = clickPosition * audioElement.duration;
-
-   //   // move the playhead to the correct position
-   //   audioElement.currentTime = clickTime;
-   // });
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -149,6 +133,21 @@ const scene = new THREE.Scene()
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
 // scene.add( new RectAreaLightHelper( rectLight3 ) );
 
+////////////////////////////////////////////////////////////////////
+// PARTICLES 
+///////////////
+
+const particlesGeometry = new THREE.BufferGeometry()
+const count = 5000
+
+const positions = new Float32Array(count * 3) // Multiply by 3 because each position is composed of 3 values (x, y, z)
+
+for(let i = 0; i < count * 3; i++) // Multiply by 3 for same reason
+{
+    positions[i] = (Math.random() - 0.5) * 10 // Math.random() - 0.5 to have a random value between -0.5 and +0.5
+}
+
+particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)) // Create the Three.js BufferAttribute and specify that each information is composed of 3 values
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 cubeTextureLoader.setPath('textures/environmentMap/level-2/');
@@ -199,8 +198,11 @@ gsap.fromTo(object.el, object.duration, {
 const geometry = new THREE.IcosahedronGeometry(1, 24);
 const glassmaterial = new THREE.MeshPhysicalMaterial(
     { 
-      side: THREE.DoubleSide,  
-      color: 0xfafafa,
+      side: THREE.DoubleSide,
+      precision: "highp",
+      alphaTest: 1.0,
+      color: 0xeaeaea,
+      fog: false,
       transmission: 1,
       opacity: 1,
       metalness: 0,
@@ -209,12 +211,17 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       thickness: 0.01,
       specularIntensity: 1,
       specularColor: 0xffffff,
+      envMap: environmentMap,
       envMapIntensity: 1.0
 });
 
-
 const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
-const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x0C08F0, roughness: 0.1, metalness: 0.8 } );
+const matStdFloor = new THREE.MeshStandardMaterial( { 
+    color: 0x0C08F0, 
+    roughness: 0.1, 
+    metalness: 0.6,
+    shadowSide: 8
+});
 const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
 mshStdFloor.position.set(0, -0.79, 0)
 scene.add( mshStdFloor );
@@ -229,7 +236,6 @@ scene.add(glassphere);
 /*** Load Fox model **/
 const gltfLoader = new GLTFLoader()
 
-/*** Models */
 
 let foxMixer = null
 
@@ -256,7 +262,6 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
     }
 )
 
-
 // /*** Load HTDI Logo model **/
 gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
     {
@@ -273,6 +278,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         side: THREE.BackSide,    
         color: 0xffffff,
         transmission: 1,
+        vertexColors: true,
         opacity: 0.55,
         metalness: 0,
         roughness: 0.01,
@@ -286,7 +292,6 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         logo.traverse((o) => {
           if (o.isMesh) o.material = logoMaterial;
         });
-
     }
 )
 
@@ -323,13 +328,10 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         // Animations
 
         gsap.to( htdi.rotation, {
-            duration: 90, 
+            duration: 100, 
             ease: "none", 
             y: "+=180",
-            scale: 2,
             repeat: -1});
-
-        // gsap.to(htdi.position, { duration: 10, delay: 2, x: 5 })
 
     }
 )
