@@ -139,7 +139,7 @@ const scene = new THREE.Scene()
 
 // Geometry
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 200000
+const count = 50000
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 0.05
@@ -458,13 +458,17 @@ const tick = () =>
     // particles.scale.x = elapsedTime * 0.01
     // particles.scale.Y = elapsedTime * 0.01
     // particles.scale.Z = elapsedTime * 0.01
+    particles.rotation.y = elapsedTime * 0.1
 
     for(let i = 0; i < count; i++)
        {
-           const i3 = i * 3
+           let i3 = i * 1
 
-           particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(elapsedTime)
+            const x = particlesGeometry.attributes.position.array[i3]
+            particlesGeometry.attributes.position.array[i3 + 0.01] = Math.sin(elapsedTime + x)
+
        }
+       particlesGeometry.attributes.position.needsUpdate = true 
 
 
     // Fox animation

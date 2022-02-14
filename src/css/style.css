@@ -365,6 +365,12 @@ ol,ul { list-style: none; }
  }
 
  /* **********************************************************************************/
+ /* *********//*/ Animations/*/
+ /* ***********************************************************************************/
+
+ .logo-img:hover {}
+
+ /* **********************************************************************************/
  /* *********//*/ POSITIONS & Z-INDEX /*/
  /* ***********************************************************************************/
 
@@ -409,7 +415,7 @@ ol,ul { list-style: none; }
  }
 
  #play, 
- #pause { backdrop-filter: blur(5px); color:  var(--primary-red); background: var(--white04) ;font-family: cy, sans-serif; font-weight: 400; line-height: 1.5; }
+ #pause { border-radius: 56px; padding:  2px 0 8px 0;backdrop-filter: blur(5px); color:  var(--white08); background: var(--black08) ;font-family: cy, sans-serif; font-weight: 400; line-height: 1.5; }
 
 
  /* --------------------------------------------------------------------------------- */
@@ -420,16 +426,13 @@ ol,ul { list-style: none; }
  {
    canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
    .logo-img { position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; top: 2%; right: 2%; border-radius: 8px; }
-   .social-cont { position: fixed; z-index: 50001; display: flex; flex-flow: column nowrap; }
    .headers, .headers02{ display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 2%;  user-select: none; }
    .headers02 { left: 1%; bottom: 12%;  user-select: none }
    .main-title, .main-title02 { color: var(--white08); padding: 8px; text-align: left; }
    .main-subtitle, .main-subtitle02 { padding: 8px; background: var(--primary-red); color: var(--black1);}
    .main-subtitle02 { background: var(--primary-blue); }
-
    #modal { position:  fixed; bottom: 8px;left: 8px; z-index: 50000; background: var(--white8); }
  }
-
 
  /* max-width 640px, mobile-only styles. */
  @media only screen and (max-width: 40em) 
@@ -581,3 +584,5 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h3 { font-size: .8rem; }
   #htdi-player { top: 64px; left: 40px; }
 }
+
+
