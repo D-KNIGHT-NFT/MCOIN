@@ -369,7 +369,7 @@ ol,ul { list-style: none; }
 
  canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
  #htdi-player { position: absolute; top: 64px; right: 160px; z-index: 1000; }
- .foggy { position: absolute; top: 10%; right:  40%; z-index: 10100; }
+ .foggy { position: absolute; top: 10%; right:  40%; z-index: 1000; }
 
  /* **********************************************************************************/
  /* *********//*/ Audio Player/*/
@@ -390,6 +390,7 @@ ol,ul { list-style: none; }
    left: 10%; right: 5%; 
    margin: auto;
    user-select: none;
+   pointer-events: none;
  }
 
  #htdi-player {
