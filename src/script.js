@@ -162,6 +162,36 @@ scene.background = environmentMap
 
 scene.fog = new THREE.FogExp2( 0xffffff, 0.53);
 
+////////////////////// HTML FOGGY /////////////////////
+
+let object = {
+  el: '.fog-cloud',
+  duration: 20
+}
+
+gsap.fromTo(object.el, object.duration, {
+  opacity: 5,
+  y: '+=180',
+  x: 0,
+  scale: 2.5,
+  transformOrigin: 'left'
+}, {
+  opacity: 0,
+  y: '-=180',
+  x: Math.PI * 2,
+  modifiers: {
+    x: function(x) {
+      return Math.sin(parseFloat(x)) * -30 + "px";
+    }
+  },
+  scale: 0,
+  stagger: {
+    each: object.duration / document.querySelectorAll(object.el).length, 
+    repeat: -1
+  }
+});
+
+
 ////////////////////////////////////////////////////////////////////
 // MESHES + LOADERS
 ///////////////

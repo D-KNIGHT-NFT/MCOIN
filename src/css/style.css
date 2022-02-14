@@ -37,79 +37,6 @@ ol,ul { list-style: none; }
   --black08: hsla(0, 0%, 0%, 0.8);
  }
 
-/* **********************************************************************************/
-/* *********//*/ POSITIONS & Z-INDEX /*/
-/* ***********************************************************************************/
-
-canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
-#htdi-player { position: absolute; top: 64px; right: 160px; z-index: 1000; }
-
-/* **********************************************************************************/
-/* *********//*/ Audio Player/*/
-/* ***********************************************************************************/
-
-
-#htdi-player {
-}
-
-#controls {
-  display: flex;
-  flex-flow: column wrap;
-  width: 180px;
-  font-family: cy, sans-serif;
-}
-
-#play, 
-#pause { backdrop-filter: blur(5px); background: var(--white04) ;font-family: cy, sans-serif; font-weight: 700; line-height: 1.5; }
-
-
-/* --------------------------------------------------------------------------------- */
-/* *-> / UI / <-*/
-/* **********************************************************************************/
-
-@media only screen 
-{
-  canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
-  .logo-img { position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; top: 2%; right: 2%; border-radius: 8px; }
-  .social-cont { position: fixed; z-index: 50001; display: flex; flex-flow: column nowrap; }
-  .headers { display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 2%;  user-select: none; }
-  .main-title { color: var(--white08); padding: 8px; text-align: right; }
-  .main-subtitle { padding: 8px; background: var(--primary-red); color: var(--black1);}
-
-  #modal { position:  fixed; bottom: 8px;left: 8px; z-index: 50000; background: var(--white8); }
-}
-
-
-/* max-width 640px, mobile-only styles. */
-@media only screen and (max-width: 40em) 
- {
-  .social-cont { top: 8px;left: 8px; }
-  #htdi-player { position: absolute; top: 64px; left: 8px; z-index: 1000; }
-
-
- }
-
- /* Medium screens - TABLET min-width 641px  */
- @media only screen and (min-width: 40.063em) 
- {
-
-
- }
-
- /* Large screens - DESKTOP  min-width 1025px */
- @media only screen and (min-width: 64.063em) 
- {
-
-
- }
-
- /* XLarge screens  min-width 1441px, xlarge screens */
- @media only screen and (min-width: 90.063em) { } 
-
- /* min-width 1921px, xlarge screens */
- @media only screen and (min-width: 120.063em) { }
-
-
  /* **********************************************************************************/
  /* ****************************** /* CSSUI Components
  /* ***********************************************************************************/
@@ -435,6 +362,96 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
   border-left: 6px solid transparent;
    transform: translateX(-50%);
  }
+
+ /* **********************************************************************************/
+ /* *********//*/ POSITIONS & Z-INDEX /*/
+ /* ***********************************************************************************/
+
+ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
+ #htdi-player { position: absolute; top: 64px; right: 160px; z-index: 1000; }
+ .foggy { position: absolute; top: 10%; right:  40%; z-index: 10100; }
+
+ /* **********************************************************************************/
+ /* *********//*/ Audio Player/*/
+ /* ***********************************************************************************/
+
+ .foggy {
+   width: 800px;
+   height: 200px;
+   user-select: none;
+ }
+
+ .fog-cloud {
+   opacity: 0;
+   width: 400px;
+   border-radius: 100%;
+   height: 200px;
+   position: relative;
+   left: 10%; right: 5%; 
+   margin: auto;
+   user-select: none;
+ }
+
+ #htdi-player {
+ }
+
+ #controls {
+   display: flex;
+   flex-flow: column wrap;
+   width: 180px;
+   font-family: cy, sans-serif;
+ }
+
+ #play, 
+ #pause { backdrop-filter: blur(5px); background: var(--white04) ;font-family: cy, sans-serif; font-weight: 700; line-height: 1.5; }
+
+
+ /* --------------------------------------------------------------------------------- */
+ /* *-> / UI / <-*/
+ /* **********************************************************************************/
+
+ @media only screen 
+ {
+   canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
+   .logo-img { position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; top: 2%; right: 2%; border-radius: 8px; }
+   .social-cont { position: fixed; z-index: 50001; display: flex; flex-flow: column nowrap; }
+   .headers { display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 2%;  user-select: none; }
+   .main-title { color: var(--white08); padding: 8px; text-align: right; }
+   .main-subtitle { padding: 8px; background: var(--primary-red); color: var(--black1);}
+
+   #modal { position:  fixed; bottom: 8px;left: 8px; z-index: 50000; background: var(--white8); }
+ }
+
+
+ /* max-width 640px, mobile-only styles. */
+ @media only screen and (max-width: 40em) 
+  {
+   .social-cont { top: 8px;left: 8px; }
+   #htdi-player { position: absolute; top: 64px; left: 8px; z-index: 1000; }
+
+
+  }
+
+  /* Medium screens - TABLET min-width 641px  */
+  @media only screen and (min-width: 40.063em) 
+  {
+
+
+  }
+
+  /* Large screens - DESKTOP  min-width 1025px */
+  @media only screen and (min-width: 64.063em) 
+  {
+
+
+  }
+
+  /* XLarge screens  min-width 1441px, xlarge screens */
+  @media only screen and (min-width: 90.063em) { } 
+
+  /* min-width 1921px, xlarge screens */
+  @media only screen and (min-width: 120.063em) { }
+
 
  /* **********************************************************************************/
  /* ****************************** /* CSS for iPhone orientation
