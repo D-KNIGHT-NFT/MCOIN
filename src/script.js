@@ -268,7 +268,7 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         // gltf.scene.scale.set(0.0055, 0.0055, 0.0055)
         const htdi = gltf.scene
         htdi.scale.set(0.0005, 0.0005, 0.0005)
-        htdi.position.set(0, 0, 0.2)
+        htdi.position.set(0, 0, 0.5)
         htdi.rotation.set(0, 0,  0)
         scene.add(htdi)
 
@@ -295,7 +295,7 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         // Animations
 
         gsap.to( htdi.rotation, {
-            duration: 60, 
+            duration: 90, 
             ease: "none", 
             y: "+=180",
             scale: 2,
