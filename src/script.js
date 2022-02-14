@@ -160,7 +160,7 @@ environmentMap.envMapIntensity = 1.0
 scene.environment = environmentMap
 scene.background = environmentMap
 
-scene.fog = new THREE.FogExp2( 0xffffff, 0.53);
+scene.fog = new THREE.FogExp2( 0xffffff, 0.13);
 
 ////////////////////// HTML FOGGY /////////////////////
 
@@ -214,7 +214,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 
 
 const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
-const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x8CB8F1, roughness: 0.4, metalness: 0.8 } );
+const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x0C08F0, roughness: 0.1, metalness: 0.8 } );
 const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
 mshStdFloor.position.set(0, -0.79, 0)
 scene.add( mshStdFloor );
@@ -378,8 +378,8 @@ controls.enableDamping = true
 controls.autoRotate= true
 // controls.enableZoom = false
 controls.autoRotateSpeed = 0.7
-controls.minDistance = 0.8;
-controls.maxDistance = 1.5;
+controls.minDistance = 0.5;
+controls.maxDistance = 3.5;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
