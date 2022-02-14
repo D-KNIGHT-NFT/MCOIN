@@ -137,10 +137,20 @@ const scene = new THREE.Scene()
 // PARTICLES 
 ///////////////
 
+// Geometry
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 5000
+const count = 50000
+const particlesMaterial = new THREE.PointsMaterial()
+particlesMaterial.size = 0.02
+particlesMaterial.sizeAttenuation = true
+particlesMaterial.color = new THREE.Color('#ff88cc')
+
+const particles = new THREE.Points(particlesGeometry, particlesMaterial)
+scene.add(particles)
 
 const positions = new Float32Array(count * 3) // Multiply by 3 because each position is composed of 3 values (x, y, z)
+
+// particlesMaterial.size = 0.1
 
 for(let i = 0; i < count * 3; i++) // Multiply by 3 for same reason
 {
@@ -148,6 +158,24 @@ for(let i = 0; i < count * 3; i++) // Multiply by 3 for same reason
 }
 
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)) // Create the Three.js BufferAttribute and specify that each information is composed of 3 values
+
+const textureLoader = new THREE.TextureLoader()
+const particleTexture = textureLoader.load('/textures/particles/stars/star_07.png')
+
+// particlesMaterial.map = particleTexture
+
+particlesMaterial.transparent = true
+particlesMaterial.alphaMap = particleTexture
+// particlesMaterial.alphaTest = 0.001
+// particlesMaterial.depthTest = false
+particlesMaterial.depthWrite = false
+
+
+
+
+////////////////////////////////////////////////////////////////////
+// Enviroment Cube
+///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 cubeTextureLoader.setPath('textures/environmentMap/level-2/');
@@ -161,7 +189,9 @@ scene.background = environmentMap
 
 scene.fog = new THREE.FogExp2( 0xffffff, 0.13);
 
-////////////////////// HTML FOGGY /////////////////////
+////////////////////////////////////////////////////////////////////
+// HTML FOG
+///////////////
 
 let object = {
   el: '.fog-cloud',
