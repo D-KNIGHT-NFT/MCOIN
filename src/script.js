@@ -160,7 +160,7 @@ environmentMap.envMapIntensity = 1.0
 scene.environment = environmentMap
 scene.background = environmentMap
 
-scene.fog = new THREE.FogExp2( 0x000000, 0.53);
+scene.fog = new THREE.FogExp2( 0xffffff, 0.53);
 
 ////////////////////////////////////////////////////////////////////
 // MESHES + LOADERS
@@ -241,23 +241,21 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         let logoMaterial= new THREE.MeshPhysicalMaterial( 
         { 
         side: THREE.BackSide,    
-        color: 0x000000,
+        color: 0xffffff,
         transmission: 1,
         opacity: 0.55,
         metalness: 0,
-        roughness: 0,
-        ior: 1.5,
+        roughness: 0.01,
+        ior: 4.0,
         thickness: 0,
         specularIntensity: 1,
         specularColor: 0xffffff,
-        envMapIntensity: 1
+        envMapIntensity: 1.0
         });
 
         logo.traverse((o) => {
           if (o.isMesh) o.material = logoMaterial;
         });
-
-
 
     }
 )
