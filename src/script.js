@@ -179,7 +179,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       thickness: 0.01,
       specularIntensity: 1,
       specularColor: 0xffffff,
-      envMapIntensity: 1
+      envMapIntensity: 1.0
 });
 
 
@@ -191,8 +191,8 @@ scene.add( mshStdFloor );
 
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0, 0.08)
-glassphere.scale.set(0.34, 0.34, 0.34)
+glassphere.position.set(0, 0, 0)
+glassphere.scale.set(0.4, 0.4, 0.4)
 scene.add(glassphere);
 
 
