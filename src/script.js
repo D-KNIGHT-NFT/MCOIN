@@ -139,7 +139,7 @@ const scene = new THREE.Scene()
 
 // Geometry
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 50000
+const count = 30000
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 0.05

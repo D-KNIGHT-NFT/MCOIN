@@ -16,7 +16,7 @@ article,aside,details,figcaption,figure,footer,header,nav,section { display: blo
 
 input[type="radio"] { display: none; place-content: center; -webkit-appearance: none;appearance: none; }
 html { font-size: 100%; color: var(--black1); overflow: hidden;} /*16px*/
-body { line-height: 1.2; }
+body { height:  100vh; display:  flex; justify-content: center; align-items: center; line-height: 1.2; }
 blockquote,q { quotes: none; }
 ol,ul { list-style: none; }
 
@@ -364,11 +364,6 @@ ol,ul { list-style: none; }
    transform: translateX(-50%);
  }
 
- /* **********************************************************************************/
- /* *********//*/ Animations/*/
- /* ***********************************************************************************/
-
- .logo-img:hover {}
 
  /* **********************************************************************************/
  /* *********//*/ POSITIONS & Z-INDEX /*/
@@ -425,15 +420,27 @@ ol,ul { list-style: none; }
  @media only screen 
  {
    canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
-   .logo-img { position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; top: 2%; right: 2%; border-radius: 8px; }
+   .logo-img { display:  flex; flex-direction: column; align-items:  center; position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; top: 2%; right: 2%; border-radius: 8px; }
+   .logo-img img{ filter: grayscale(); width: 160px; height: 160px; border-radius: 50%; border:  6px solid var(--white08);box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5); margin-bottom:  1rem; transition: filter 0.4s ease-in-out;  }
+   .subtitle { font-family: cy, sans-serif; font-size: 2rem; color: var(--white08); position: relative;}
    .headers, .headers02{ display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 2%;  user-select: none; }
    .headers02 { left: 1%; bottom: 12%;  user-select: none }
    .main-title, .main-title02 { color: var(--white08); padding: 8px; text-align: left; }
    .main-subtitle, .main-subtitle02 { padding: 8px; background: var(--primary-red); color: var(--black1);}
    .main-subtitle02 { background: var(--primary-blue); }
-   #modal { position:  fixed; bottom: 8px;left: 8px; z-index: 50000; background: var(--white8); }
+   #modal { position:  fixed; bottom: 8%;left: 8px; z-index: 50000; background: var(--white8); }
+   #data-dropdown { position:  fixed; top: 8px;left: 80px; z-index: 50000; background: var(--white8); }
  }
+ /* **********************************************************************************/
+ /* *********//*/ Animations/*/
+ /* ***********************************************************************************/
 
+ .logo-img:hover { cursor: pointer; }
+ .logo-img:hover img { filter: none; }
+
+.subtitle::after {  position: absolute; content: ""; width: 0%; height: 4px; background-color: var(--white08); left: 50%; bottom: -10px; transition: all 0.4s ease-in-out;
+} 
+.logo-img:hover .subtitle::after { width: 100%; left:  0; }
  /* max-width 640px, mobile-only styles. */
  @media only screen and (max-width: 40em) 
   {
@@ -506,6 +513,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h3 { font-size: 1.424rem; }
   h4 { font-size: 1.266rem; }
   h5 { font-size: 1.125rem; }
+  .subtitle { font-size: 0.7rem; }
  }
  
 /* Medium screens - TABLET min-width 641px  1.200 - Minor Third */
@@ -517,8 +525,8 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h3 { font-size: 1.728rem; }
   h4 { font-size: 1.44rem;  }
   h5 { font-size: 1.2rem;   }
- } 
- 
+  p .subtitle { font-size: 0.7rem; }
+ }
 /* large screens. 1.333 - DESKTOP  min-width 1025px Perfect Fourth */
 
 @media only screen and (min-width: 64.063em) {
@@ -544,7 +552,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   only screen and (                min-resolution: 458dpi),
   only screen and (                min-resolution: 3dppx) 
 { 
-  .social-cont { top: 8px;left: 8px; flex-flow: row wrap; }
+  .logo-img { width: 160px; height: 160px; }
 }
 
 /* ****************************** /* Retina 2x Media Query*/
