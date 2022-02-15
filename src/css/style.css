@@ -26,8 +26,10 @@ ol,ul { list-style: none; }
 
  :root {
   --primary-red: hsla(8, 72%, 52%, 1);
+  --primary-red04: hsla(8, 72%, 52%, 0.4);
   --primary-yellow: hsla(76, 98%, 50%, 1);
   --primary-blue: hsla(180, 100%, 50%, 1);
+  --primary-blue04: hsla(180, 100%, 50%, 0.4);
   --neutral1: hsla(127, 4%, 60%, 1);
   --neutral04: hsla(127, 4%, 60%, 0.4);
   --white1: hsla(100, 100%, 100%, 1.0);
@@ -439,8 +441,8 @@ ol,ul { list-style: none; }
    .headers { display: flex; flex-flow: row nowrap; user-select: none; }
    .headers02 { display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 1%;  user-select: none;left: 1%;  padding-bottom: 16px; }
    .main-title, .main-title02 { color: var(--white08); padding: 8px; text-align: left; }
-   .main-subtitle, .main-subtitle02 { padding: 8px; background: var(--primary-red); color: var(--black1);}
-   .main-subtitle02 { background: var(--primary-blue); font-weight: 300; }
+   .main-subtitle, .main-subtitle02 { padding: 8px; background: var(--primary-red04); color: var(--white);}
+   .main-subtitle02 { background: var(--primary-blue04); font-weight: 300; color: var(----black1);}
 
    /* *********//*/ CSSUI  /*/
    #modal { position:  fixed; bottom: 8%;left: 8px; z-index: 50000; background: var(--white8); }
@@ -454,9 +456,8 @@ ol,ul { list-style: none; }
  /* max-width 640px, mobile-only styles. */
  @media only screen and (max-width: 40em) 
   {
-
-  }
-
+    .header-actions { flex-flow:  column wrap ;top: 24%; left:  1%;   padding:  24px 4px 16px 4px; align-content: flex-end; justify-content: right;   }
+}
   /* Medium screens - TABLET min-width 641px  */
   @media only screen and (min-width: 40.063em) 
   {
@@ -520,8 +521,8 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h3 { font-size: 1.180rem; }
   h4 { font-size: 1.266rem; }
   h5 { font-size: 1.125rem; }
-  .subtitle { font-size: 0.7rem; font-weight: 300; }
-  #ms02 { font-weight: 300; }
+  .main-subtitle, #ms02{ font-size: 0.7rem; font-weight: 300; }
+  .main-subtitle02 { color: var(--black1); }
  }
  
 /* Medium screens - TABLET min-width 641px  1.200 - Minor Third */
@@ -533,7 +534,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   h3 { font-size: 1.728rem; }
   h4 { font-size: 1.44rem;  }
   h5 { font-size: 1.2rem;   }
-  p .subtitle { font-size: 0.7rem; }
+  p main-subtitle { font-size: 0.7rem; }
  }
 /* large screens. 1.333 - DESKTOP  min-width 1025px Perfect Fourth */
 
@@ -560,7 +561,6 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   only screen and (                min-resolution: 458dpi),
   only screen and (                min-resolution: 3dppx) 
 { 
-  .logo-img { width: 160px; height: 160px; }
 }
 
 /* ****************************** /* Retina 2x Media Query*/
@@ -591,6 +591,10 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
   /* texts */
   h1 { font-size: 1.209rem; }
   h3 { font-size: 1rem; }
+  .main-subtitle, #ms02{ font-size: 0.7rem; font-weight: 300; }
+  .main-subtitle02 { color: var(--black1); }
+  .logo-img { width: 80px; height: 80px; }
+  .subititle { font-size: 0.5rem; }
 }
 
 /* Landscape */
@@ -598,6 +602,10 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
 @media only screen and (orientation:landscape) { 
   h1 { font-size: 1.209rem; }
   h3 { font-size: .8rem; }
+  .main-subtitle, #ms02{ font-size: 0.7rem; font-weight: 300; }
+  .main-subtitle02 { color: var(--black1); }
+  .logo-img { width: 96px; height: 96px; }
+  .subititle { font-size: 0.5rem; }
 
 }
 
