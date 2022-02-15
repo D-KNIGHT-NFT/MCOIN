@@ -65,9 +65,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
    --drodpwon-link-color: var(--primary-red04);
    --dropdown-panel-background: var(--black02);
    --dropdown-padding: var(--cssui-padding);
-   position: relative;
-   width: auto;
-   border: 1px solid var(--border-color);
+   width: 4vw;
    border-radius: var(--cssui-radius);
    font-size: 0.77rem;
    color: var(--white1);
@@ -179,48 +177,6 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
  }
  */
 
- /* ------------------------------
- Changing the sliding in animation
- ------------------------------ */
-
- /* NOTES: 
- /* Edit the '--slideout-animation' and '--slideout-position' variables to change the position */
-
- [data-slideout-panel] {
-   --slideout-animation: left .2s ease-in-out;
-   --slideout-background: #fff;
-   --slideout-shadow-color: #9ca3af;
-   --slideout-padding: 1rem;
-   --slideout-position: -100%;
-   --slideout-size: 33vw;
-   position: fixed;
-   top: 0;
-   bottom: 0;
-   left: var(--slideout-position); 
-   z-index: 9999;
-   /* right: 0;  */
-   visibility: hidden; 
-   width: var(--slideout-size);
-   padding: var(--slideout-padding);
-   background: var(--slideout-background);
-   box-shadow: 0 4px 20px var(--slideout-shadow-color);
-   transition: var(--slideout-animation);
- }
-
- [data-slideout-panel]:target {
-   --slideout-position: 0;
-   visibility: visible;
- }
-
- [data-slideout-header] {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
- }
-
- [data-slideout-close] {
-   color: var(--cssui-gray-darkest);
- }
 
  /* ****************************** /* Tool Tip */
 
@@ -317,19 +273,17 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
    .logo-img:hover .subtitle::after { width: 100%; left:  0; }
    .subtitle { font-family: cy, sans-serif; font-size: 0.7rem; color: var(--white08); position: relative; padding: var(--cssui-padding);}
     /* *********//*/ Audio Player /*/
-   .header-actions { display: flex; flex-flow: row nowrap; align-items: center;  align-content: space-between; justify-content: center; position: fixed; z-index: 50000; border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding); top: 2%; left: 2%; }
-   .header-menu, .header-sound, .header-theme { display: flex; flex-flow: row nowrap; align-items: center;  align-content: space-between; justify-content: center; background: var(--white02);border-radius: var(--cssui-radius); padding: var(--cssui-padding);  }
-   .header-sound { flex-flow: column nowrap; }
+   .header-actions { width:  90vw; display: flex; flex-flow: row wrap; align-content: flex-start; justify-content: space-evenly; gap: 24px; position: fixed; z-index: 50000; border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding); top: 2%; left: 2%; }
+   .header-sound { display: flex; flex-flow: row nowrap; align-items: flex-start; gap: 24px;}
    #icon { padding: var(--cssui-padding); margin: 8px 8px 0 4px; border-radius: var(--cssui-radius); border:  1px solid var(--black1);}
    #icon:hover { visibility: visible; background: var(--black02);}
    /* *********//*/ Theme Icons + Theme Container  /*/
 
    /* *********//*/ TEXT  /*/
    .headers { display: flex; flex-flow: row nowrap; user-select: none; border-radius: var(--cssui-radius); padding: var(--cssui-padding); position: fixed;left: 1%; bottom: 1%; z-index: 50000;}
-   .headers02 { display: flex; flex-flow: row nowrap; user-select: none; padding: var(--cssui-padding); border-radius: var(--cssui-radius);}
-   .main-title, .main-title02 { color: var(--white08); padding: var(--cssui-padding); text-align: left; border-radius: var(--cssui-radius); }
-   .main-subtitle, .main-subtitle02 { padding: var(--cssui-padding); background: var(--primary-red04); color: var(--white); }
-   .main-subtitle02 { background: var(--primary -blue); }
+   .main-title { color: var(--white08); padding: var(--cssui-padding); text-align: left; border-radius: var(--cssui-radius); }
+   .main-subtitle { padding: var(--cssui-padding); background: var(--primary-red04); color: var(--white); }
+
  }
 
    /* *********//*/ CSSUI  /*/
@@ -341,12 +295,14 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
  /* max-width 640px, mobile-only styles. */
  @media only screen and (max-width: 40em) 
   {
-    .header-actions, .theme-container { flex-flow:  column wrap ;top: 2%; left:  2%;   padding:  var(--cssui-padding); align-content: flex-end; justify-content: right;   }
+    .header-actions  { width: 12vw;flex-flow:  column wrap ;  padding:  var(--cssui-padding);   }
+    .header-sound { flex-flow: column nowrap ; }
 }
   /* Medium screens - TABLET min-width 641px  */
   @media only screen and (min-width: 40.063em) 
   {
-    .header-actions, .theme-container { flex-flow:  column wrap ;top: 2%; left:  2%;   padding:  var(--cssui-padding); align-content: flex-end; justify-content: right;   }
+    .header-actions { width:  4vw; flex-flow:  column wrap ; padding:  var(--cssui-padding);  }
+    .header-sound { flex-flow: column nowrap ; }
 
 
   }
@@ -354,7 +310,8 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
   /* Large screens - DESKTOP  min-width 1025px */
   @media only screen and (min-width: 64.063em) 
   {
-
+    .header-actions, .theme-container { width: 16vw; flex-flow:  row nowrap ; padding:  var(--cssui-padding); }
+    .header-sound { flex-flow: row nowrap ; }
 
   }
 
@@ -403,8 +360,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
   h3 { font-size: 1.180rem; }
   h4 { font-size: 1.266rem; }
   h5 { font-size: 1.125rem; }
-  .main-subtitle, #ms02{ font-size: 0.7rem; font-weight: 300; }
-  .main-subtitle02 { color: var(--black1); }
+  .main-subtitle { font-size: 0.8rem; font-weight: 300; }
  }
  
 /* Medium screens - TABLET min-width 641px  1.200 - Minor Third */
@@ -416,7 +372,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
   h3 { font-size: 1.728rem; }
   h4 { font-size: 1.44rem;  }
   h5 { font-size: 1.2rem;   }
-  p main-subtitle { font-size: 0.7rem; }
+  p main-subtitle { font-size: 0.8rem; }
  }
 /* large screens. 1.333 - DESKTOP  min-width 1025px Perfect Fourth */
 
@@ -484,8 +440,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
 @media only screen and (orientation:landscape) { 
   h1 { font-size: 1.209rem; }
   h3 { font-size: .8rem; }
-  .main-subtitle, #ms02{ font-size: 0.7rem; font-weight: 300; }
-  .main-subtitle02 { color: var(--black1); }
+  .main-subtitle, #ms02{ font-size: 0.8rem; font-weight: 300; }
   .logo-img { width: 96px; height: 96px; }
   .subititle { font-size: 0.5rem; }
 
