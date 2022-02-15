@@ -138,12 +138,12 @@ const scene = new THREE.Scene()
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 10000
+const count = 20000
 
 const particlesMaterial = new THREE.PointsMaterial()
-particlesMaterial.size = 0.12
+particlesMaterial.size = 0.05
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#ff88cc')
+particlesMaterial.color = new THREE.Color('#31FF9C')
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -165,7 +165,7 @@ particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 
 const textureLoader = new THREE.TextureLoader()
 const particleTexture = textureLoader.load('/textures/particles/stars/star_07.png')
 
-// particlesMaterial.map = particleTexture
+particlesMaterial.map = particleTexture
 
 particlesMaterial.transparent = true
 particlesMaterial.alphaMap = particleTexture
@@ -173,7 +173,7 @@ particlesMaterial.alphaMap = particleTexture
 // particlesMaterial.depthTest = false
 particlesMaterial.depthWrite = false
 particlesMaterial.blending = THREE.AdditiveBlending
-particlesMaterial.vertexColors = true
+// particlesMaterial.vertexColors = true
 
 
 
