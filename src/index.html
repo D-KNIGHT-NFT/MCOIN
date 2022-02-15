@@ -21,6 +21,10 @@
 
   <canvas id class="webgl"></canvas>
 
+  <!-- Tool Tip -->
+
+  <a href="#" data-tooltip alt="Alt text" title="This is a link" role="tooltip" aria-label="Tooltip message">Hover me</a>
+
   <!---------------------- Music  ------------>
   <audio loop id="music" preload="metadata">
     <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
@@ -29,6 +33,64 @@
     <!-- place fallback here as <audio> supporting browsers will ignore it -->
     <a href="audiofile.mp3">audiofile.mp3</a>
   </audio>
+
+   <details data-dropdown>
+     <summary>🌙</summary>
+     <ul role="list">
+       <li role="listitem"><a href="#"><img srcset="
+       ../static/UI/Icon/32x32/sun@4x.png 4x,
+       ../static/UI/Icon/32x32/sun@3x.png 3x,
+       ../static/UI/Icon/32x32/sun@2x.png 2x,
+       ../static/UI/Icon/32x32/sun.svg
+       " 
+       src= "../static/UI/Icon/32x32/sun.png"/></a></li>
+       <li role="listitem"><a href="#">
+         <img srcset="
+       ../static/UI/Icon/32x32/New-Moon@4x.png 4x,
+       ../static/UI/Icon/32x32/New-Moon@3x.png 3x,
+       ../static/UI/Icon/32x32/New-Moon@2x.png 2x,
+       ../static/UI/Icon/32x32/New-Moon.svg
+       " 
+       src= "../static/UI/Icon/32x32/New-Moon.png"/></a></li>
+       <li role="listitem"><a href="#">
+         <img srcset="
+       ../static/UI/Icon/32x32/Satellites@4x.png 4x,
+       ../static/UI/Icon/32x32/Satellites@3x.png 3x,
+       ../static/UI/Icon/32x32/Satellites@2x.png 2x,
+       ../static/UI/Icon/32x32/Satellites.svg
+       " 
+       src= "../static/UI/Icon/32x32/Satellites.png"/>
+     </a></li>
+       <li role="listitem"><a href="#"><img srcset="
+       ../static/UI/Icon/32x32/Werewolf@4x.png 4x,
+       ../static/UI/Icon/32x32/Werewolf@3x.png 3x,
+       ../static/UI/Icon/32x32/Werewolf@2x.png 2x,
+       ../static/UI/Icon/32x32/Werewolf.svg
+       " 
+       src= "../static/UI/Icon/32x32/Werewolf.png"/></a></li>
+       <li role="listitem"><a href="#"><img srcset="
+       ../static/UI/Icon/32x32/Lullaby@4x.png 4x,
+       ../static/UI/Icon/32x32/Lullaby@3x.png 3x,
+       ../static/UI/Icon/32x32/Lullaby@2x.png 2x,
+       ../static/UI/Icon/32x32/Lullaby.svg
+       " 
+       src= "../static/UI/Icon/32x32/Lullaby.png"/></a></li>
+       <li role="listitem"><a href="#"><img srcset="
+       ../static/UI/Icon/32x32/moon_stars@4x.png 4x,
+       ../static/UI/Icon/32x32/moon_stars@3x.png 3x,
+       ../static/UI/Icon/32x32/moon_stars@2x.png 2x,
+       ../static/UI/Icon/32x32/moon_stars.svg
+       " 
+       src= "../static/UI/Icon/32x32/moon_stars.png"/></a></li>
+       <li role="listitem"><a href="#"><img srcset="
+       ../static/UI/Icon/32x32/Keep-Dry@4x.png 4x,
+       ../static/UI/Icon/32x32/Keep-Dry@3x.png 3x,
+       ../static/UI/Icon/32x32/Keep-Dry@2x.png 2x,
+       ../static/UI/Icon/32x32/Keep-Dry.svg
+       " 
+       src= "../static/UI/Icon/32x32/Keep-Dry.png"/></a></li>
+     </ul>
+   </details>
 
 <header class="header-actions">
   <div class="header-menu">
@@ -44,65 +106,6 @@
     </div>
   </div>
   <!-- DROPDOWN Component -->
-  <div class="heather-theme">
-  <details data-dropdown>
-    <summary>🌙</summary>
-    <ul role="list">
-      <li role="listitem"><a href="#"><img srcset="
-      ../static/UI/Icon/32x32/sun@4x.png 4x,
-      ../static/UI/Icon/32x32/sun@3x.png 3x,
-      ../static/UI/Icon/32x32/sun@2x.png 2x,
-      ../static/UI/Icon/32x32/sun.svg
-      " 
-      src= "../static/UI/Icon/32x32/sun.png"/></a></li>
-      <li role="listitem"><a href="#">
-        <img srcset="
-      ../static/UI/Icon/32x32/New-Moon@4x.png 4x,
-      ../static/UI/Icon/32x32/New-Moon@3x.png 3x,
-      ../static/UI/Icon/32x32/New-Moon@2x.png 2x,
-      ../static/UI/Icon/32x32/New-Moon.svg
-      " 
-      src= "../static/UI/Icon/32x32/New-Moon.png"/></a></li>
-      <li role="listitem"><a href="#">
-        <img srcset="
-      ../static/UI/Icon/32x32/Satellites@4x.png 4x,
-      ../static/UI/Icon/32x32/Satellites@3x.png 3x,
-      ../static/UI/Icon/32x32/Satellites@2x.png 2x,
-      ../static/UI/Icon/32x32/Satellites.svg
-      " 
-      src= "../static/UI/Icon/32x32/Satellites.png"/>
-    </a></li>
-      <li role="listitem"><a href="#"><img srcset="
-      ../static/UI/Icon/32x32/Werewolf@4x.png 4x,
-      ../static/UI/Icon/32x32/Werewolf@3x.png 3x,
-      ../static/UI/Icon/32x32/Werewolf@2x.png 2x,
-      ../static/UI/Icon/32x32/Werewolf.svg
-      " 
-      src= "../static/UI/Icon/32x32/Werewolf.png"/></a></li>
-      <li role="listitem"><a href="#"><img srcset="
-      ../static/UI/Icon/32x32/Lullaby@4x.png 4x,
-      ../static/UI/Icon/32x32/Lullaby@3x.png 3x,
-      ../static/UI/Icon/32x32/Lullaby@2x.png 2x,
-      ../static/UI/Icon/32x32/Lullaby.svg
-      " 
-      src= "../static/UI/Icon/32x32/Lullaby.png"/></a></li>
-      <li role="listitem"><a href="#"><img srcset="
-      ../static/UI/Icon/32x32/moon_stars@4x.png 4x,
-      ../static/UI/Icon/32x32/moon_stars@3x.png 3x,
-      ../static/UI/Icon/32x32/moon_stars@2x.png 2x,
-      ../static/UI/Icon/32x32/moon_stars.svg
-      " 
-      src= "../static/UI/Icon/32x32/moon_stars.png"/></a></li>
-      <li role="listitem"><a href="#"><img srcset="
-      ../static/UI/Icon/32x32/Keep-Dry@4x.png 4x,
-      ../static/UI/Icon/32x32/Keep-Dry@3x.png 3x,
-      ../static/UI/Icon/32x32/Keep-Dry@2x.png 2x,
-      ../static/UI/Icon/32x32/Keep-Dry.svg
-      " 
-      src= "../static/UI/Icon/32x32/Keep-Dry.png"/></a></li>
-    </ul>
-  </details>
- </div>
  <div class="header-sound">
    <div id="sound" class="icon"><a href="#">
      <img srcset="
@@ -162,66 +165,54 @@
     </a>
     <p class="subtitle">BioLink</p>
     </div>
+    <div class="modal-button">
+      <a href="#modal">Manifesto</a>
+    </div>
  </header>
-</body>
+
+ <!-- Modal containers -->
+ <div class="modal-button"><a href="#modal"></a></div>
+
+ <div id="modal" data-modal>
+   <!-- Modal  -->
+   <div id="dialog" data-modal-dialog role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1">
+     <h2 id="dialog-title">HTDI Manifesto</h2>
+     <p>Under Review</p>
+
+     <a href="#" data-modal-close>
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+     </a>
+   </div>
+   <!-- Background, click to close -->
+   <a href="#" data-modal-overlay></a>
+ </div>
 
 
-  <!---------------------- FOG ELEMENT ------------>
-  <div class="foggy">
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
-    <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+   <!---------------------- FOG ELEMENT ------------>
+   <div class="foggy">
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
+     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+   </div>
 
-
-  </div>
-
-
-<!---------------------- CSSUI Components ------------>
-
-<!-- Tool Tip -->
-
-<a href="#" data-tooltip alt="Alt text" title="This is a link" role="tooltip" aria-label="Tooltip message">Hover me</a>
-
-
-<!-- Modal container -->
-
-<a href="#modal">
-  Open Modal
-</a>
-
-<div id="modal" data-modal>
-
-  <!-- Modal  -->
-  <div id="dialog" data-modal-dialog role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1">
-    <h3 id="dialog-title">Modal title</h3>
-    <p>This is the modal content.</p>
-
-    <a href="#" data-modal-close>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </a>
-  </div>
-
-  <!-- Background, click to close -->
-  <a href="#" data-modal-overlay></a>
-</div>
       
 </body>
 </html>

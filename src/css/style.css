@@ -114,18 +114,18 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
  }
  /* ****************************** /* ACORDION */
 
-/* 
+
  [data-modal] {
-   --modal-background: var(--white02);
-   --modal-max-size: 500px;
-   --modal-overlay-background: rgba(0, 0, 0, .2);
-   --modal-radius: 8px;
+   --modal-background: var(--white08);
+   --modal-max-size: 40vw;
+   --modal-overlay-background: var(--black08);
+   --modal-radius: 4px;
    --modal-size: 80%;
    --modal-spacing: 1rem;
 
    visibility: hidden;
    opacity: 0;
-   transition: opacity .5s ease-in-out;
+   transition: opacity .8s ease-in-out;
    position: fixed;
    top: 0;
    right: 0;
@@ -161,7 +161,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
  [data-modal]:target {
    visibility: visible;
    opacity: 1;
-   z-index: var(--modal-level);
+   z-index: 60000;
  }
 
  [data-modal]:target [data-modal-dialog] {
@@ -175,7 +175,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
    right: var(--modal-spacing);
    color: var(--cssui-gray-darkest);
  }
- */
+
 
 
  /* ****************************** /* Tool Tip */
@@ -272,12 +272,20 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
    .subtitle::after {  position: absolute; content: ""; width: 0%; height: 4px; background-color: var(--white08); left: 50%; bottom: -10px; transition: all 0.4s ease-in-out;} 
    .logo-img:hover .subtitle::after { width: 100%; left:  0; }
    .subtitle { font-family: cy, sans-serif; font-size: 0.7rem; color: var(--white08); position: relative; padding: var(--cssui-padding);}
+
+    /* *********//*/ Left top bar /*/
+   .header-actions { width:  90vw; display: flex; flex-flow: row wrap; align-content: flex-start; justify-content: space-between; gap: 32px; position: fixed; z-index: 50000; top: 2%; left: 2%; }
+
     /* *********//*/ Audio Player /*/
-   .header-actions { width:  90vw; display: flex; flex-flow: row wrap; align-content: flex-start; justify-content: space-evenly; gap: 24px; position: fixed; z-index: 50000; border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding); top: 2%; left: 2%; }
-   .header-sound { display: flex; flex-flow: row nowrap; align-items: flex-start; gap: 24px;}
-   #icon { padding: var(--cssui-padding); margin: 8px 8px 0 4px; border-radius: var(--cssui-radius); border:  1px solid var(--black1);}
-   #icon:hover { visibility: visible; background: var(--black02);}
+   .header-sound { display: flex; flex-flow: row nowrap; align-items: flex-start; gap: 24px; border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding); }
+   
+    /* *********//*/ Themes /*/
+   details {  display:  flex; flex-direction: column; align-items: flex-end; position: fixed; z-index: 50000; top: 2%; right: 25%; border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding); margin: 16px;  }
+   .header-menu { border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding);  }
+   .icon { padding: var(--cssui-padding); margin: 8px 8px 0 4px; border-radius: var(--cssui-radius); border:  1px solid var(--black1);}
+   .icon:hover { visibility: visible; background: var(--black02);}
    /* *********//*/ Theme Icons + Theme Container  /*/
+   #dialog { position: fixed; z-index: 50000; top: 23%; right: 23%; }
 
    /* *********//*/ TEXT  /*/
    .headers { display: flex; flex-flow: row nowrap; user-select: none; border-radius: var(--cssui-radius); padding: var(--cssui-padding); position: fixed;left: 1%; bottom: 1%; z-index: 50000;}
@@ -332,7 +340,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
    /* classes */
 
    /* texts */
-   h1 { font-size: 1.209rem; }
+   h1 { font-size: 1.509rem; }
    h3 { font-size: 1rem; }
  }
 
@@ -355,7 +363,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
 
 @media only screen and (max-width: 40em) 
  {
-  h1 { font-size: 1.802rem; }
+  h1 { font-size: 2.802rem; }
   h2 { font-size: 1.302rem; }
   h3 { font-size: 1.180rem; }
   h4 { font-size: 1.266rem; }
@@ -427,7 +435,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
   /* classes */
 
   /* texts */
-  h1 { font-size: 1.209rem; }
+  h1 { font-size: 2.25rem; }
   h3 { font-size: 1rem; }
   .main-subtitle, #ms02{ font-size: 0.7rem; font-weight: 300; }
   .main-subtitle02 { color: var(--black1); }
@@ -438,7 +446,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
 /* Landscape */
 
 @media only screen and (orientation:landscape) { 
-  h1 { font-size: 1.209rem; }
+  h1 { font-size: 2.3rem; }
   h3 { font-size: .8rem; }
   .main-subtitle, #ms02{ font-size: 0.8rem; font-weight: 300; }
   .logo-img { width: 96px; height: 96px; }
