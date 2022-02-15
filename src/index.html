@@ -14,7 +14,6 @@
     <link rel="apple-touch-icon" href="/static/branding/icon-180x180.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/cssui.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -31,7 +30,8 @@
     <a href="audiofile.mp3">audiofile.mp3</a>
   </audio>
 
-  <header class="header-actions">
+<header class="header-actions">
+  <header class="header-menu">
     <div id="menu" class="icon"><a href="#">
       <img srcset="
       ../static/UI/Icon/32x32/menu@4.png 4x,
@@ -42,7 +42,9 @@
       src= "../static/UI/Icon/32x32/menu.png"/>
     </a><p hidden class="caption">Menu</p>
     </div>
+  </header>
 
+  <header class="header-sound">
     <div id="sound" class="icon"><a href="#">
       <img srcset="
       ../static/UI/Icon/32x32/sound@4.png 4x,
@@ -53,7 +55,6 @@
       src= "../static/UI/Icon/32x32/sound.png"/>
     </a><p hidden class="caption">sound</p>
     </div>
-
     <span id="loading">loading</span>
     <div id="play" class="icon">
       <a href="#"><img srcset=
@@ -75,13 +76,76 @@
       ../static/UI/Icon/32x32/pause.svg 
       " 
       src= "../static/UI/Icon/32x32/pause.png"/>
-     </a><p hidden class="caption">Sound</p>
+     </a><p class="caption">Sound</p>
     </div>
-  </div>
- </div>
+   </header>
+  <!-- DROPDOWN Component -->
+  <details data-dropdown>
+    <summary>Theme</summary>
+    <ul role="list">
+      <li role="listitem"><a href="#"><img srcset="
+      ../static/UI/Icon/32x32/sun@4x.png 4x,
+      ../static/UI/Icon/32x32/sun@3x.png 3x,
+      ../static/UI/Icon/32x32/sun@2x.png 2x,
+      ../static/UI/Icon/32x32/sun.svg
+      " 
+      src= "../static/UI/Icon/32x32/sun.png"/></a></li>
+      <li role="listitem"><a href="#">
+        <img srcset="
+      ../static/UI/Icon/32x32/New-Moon@4x.png 4x,
+      ../static/UI/Icon/32x32/New-Moon@3x.png 3x,
+      ../static/UI/Icon/32x32/New-Moon@2x.png 2x,
+      ../static/UI/Icon/32x32/New-Moon.svg
+      " 
+      src= "../static/UI/Icon/32x32/New-Moon.png"/></a></li>
+      <li role="listitem"><a href="#">
+        <img srcset="
+      ../static/UI/Icon/32x32/Satellites@4x.png 4x,
+      ../static/UI/Icon/32x32/Satellites@3x.png 3x,
+      ../static/UI/Icon/32x32/Satellites@2x.png 2x,
+      ../static/UI/Icon/32x32/Satellites.svg
+      " 
+      src= "../static/UI/Icon/32x32/Satellites.png"/>
+    </a></li>
+      <li role="listitem"><a href="#"><img srcset="
+      ../static/UI/Icon/32x32/Werewolf@4x.png 4x,
+      ../static/UI/Icon/32x32/Werewolf@3x.png 3x,
+      ../static/UI/Icon/32x32/Werewolf@2x.png 2x,
+      ../static/UI/Icon/32x32/Werewolf.svg
+      " 
+      src= "../static/UI/Icon/32x32/Werewolf.png"/></a></li>
+      <li role="listitem"><a href="#"><img srcset="
+      ../static/UI/Icon/32x32/Lullaby@4x.png 4x,
+      ../static/UI/Icon/32x32/Lullaby@3x.png 3x,
+      ../static/UI/Icon/32x32/Lullaby@2x.png 2x,
+      ../static/UI/Icon/32x32/Lullaby.svg
+      " 
+      src= "../static/UI/Icon/32x32/Lullaby.png"/></a></li>
+      <li role="listitem"><a href="#"><img srcset="
+      ../static/UI/Icon/32x32/moon_stars@4x.png 4x,
+      ../static/UI/Icon/32x32/moon_stars@3x.png 3x,
+      ../static/UI/Icon/32x32/moon_stars@2x.png 2x,
+      ../static/UI/Icon/32x32/moon_stars.svg
+      " 
+      src= "../static/UI/Icon/32x32/moon_stars.png"/></a></li>
+      <li role="listitem"><a href="#"><img srcset="
+      ../static/UI/Icon/32x32/Keep-Dry@4x.png 4x,
+      ../static/UI/Icon/32x32/Keep-Dry@3x.png 3x,
+      ../static/UI/Icon/32x32/Keep-Dry@2x.png 2x,
+      ../static/UI/Icon/32x32/Keep-Dry.svg
+      " 
+      src= "../static/UI/Icon/32x32/Keep-Dry.png"/></a></li>
+    </ul>
+  </details>
+ </header>
 </header>
 
   <!---------------------- Headers ------------>
+  <div class="headers">
+    <div class="main-title"><h1>HTDI Collective</h1>
+      <div class="main-subtitle"><h3>A collaborative and inclusive digital Artist Collective</h3></div>
+    </div>
+  </div>
 
   <header class="header-info">
     <div class="logo-img">
@@ -95,19 +159,11 @@
       ../static/UI/Icon/logo/logo.png 1x
       " 
       src= "../static/UI/Icon/logo/logo.png"/>
-    </a><p class="subtitle">Bio-Link</p>
-    </div>
-    <div class="headers">
-      <div class="main-title"><h1>HTDI Collective</h1>
-        <div class="main-subtitle"><h3>A collaborative and inclusive digital Artist Collective</h3></div>
-      </div>
-    </div>
-    <div class="headers02">
-      <div class="main-title02"><h1>Happy Valentine's !</h1>
-        <div class="main-subtitle02"><h2 id="ms02"> No matter what, I Hope you loving yourself specially today!</h2></div>
-      </div>
+    </a>
+    <p class="subtitle">BioLink</p>
     </div>
  </header>
+</body>
 
 
   <!---------------------- FOG ELEMENT ------------>
@@ -166,65 +222,6 @@
   <!-- Background, click to close -->
   <a href="#" data-modal-overlay></a>
 </div>
-
-<!-- DROPDOWN Component -->
-
-<details data-dropdown>
-  <summary>
-    Select an option...
-  </summary>
-  <ul role="list">
-    <li role="listitem"><a href="#">Dropdown item</a></li>
-    <li role="listitem"><a href="#">Dropdown item</a></li>
-    <li role="listitem"><a href="#">Dropdown item</a></li>
-  </ul>
-</details>
-
-
-<!-- Accordion Component -->
-
-<section data-accordion>
-  <div data-accordion-item>
-    <input type="checkbox" id="panel-1">
-    <label for="panel-1">
-      Item 1 
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    </label>
-    <div data-accordion-panel>
-        Chamber sat word floor turning door feather rapping in the. Angels my hopes this scarce startled just at while and. Till to before liftednevermore betook tis but. Me till door from tapping discourse dreary the. Soul youhere a the nevernevermore i lore. Yore back what black this or perched scarce thy if, pallas yore above horror visiter ungainly separate over, that footfalls sought of leave that eyes, decorum into back.
-    </div>
-  </div>
-  <div data-accordion-item>
-    <input type="checkbox" id="panel-2">
-    <label for="panel-2" data-accordion-label>
-      Item 2
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    </label>
-    <div data-accordion-panel>
-        Chamber sat word floor turning door feather rapping in the. Angels my hopes this scarce startled just at while and. Till to before liftednevermore betook tis but. Me till door from tapping discourse dreary the. Soul youhere a the nevernevermore i lore. Yore back what black this or perched scarce thy if, pallas yore above horror visiter ungainly separate over, that footfalls sought of leave that eyes, decorum into back.
-    </div>
-  </div>
-  <div data-accordion-item>
-    <input type="checkbox" id="panel-3">
-    <label for="panel-3" data-accordion-label>
-      Item 3
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    </label>
-    <div data-accordion-panel>
-        Chamber sat word floor turning door feather rapping in the. Angels my hopes this scarce startled just at while and. Till to before liftednevermore betook tis but. Me till door from tapping discourse dreary the. Soul youhere a the nevernevermore i lore. Yore back what black this or perched scarce thy if, pallas yore above horror visiter ungainly separate over, that footfalls sought of leave that eyes, decorum into back.
-    </div>
-  </div>
-  <div data-accordion-item>
-    <input type="checkbox" id="panel-4">
-    <label for="panel-4" data-accordion-label>
-      Item 4
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    </label>
-    <div data-accordion-panel>
-        Chamber sat word floor turning door feather rapping in the. Angels my hopes this scarce startled just at while and. Till to before liftednevermore betook tis but. Me till door from tapping discourse dreary the. Soul youhere a the nevernevermore i lore. Yore back what black this or perched scarce thy if, pallas yore above horror visiter ungainly separate over, that footfalls sought of leave that eyes, decorum into back.
-    </div>
-  </div>
-</section>
 
  <!-- Slide Out Component -->
 

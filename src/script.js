@@ -49,7 +49,6 @@ window.onload = function(){
 
    function displayControls() {
       loading.style.display = "none";
-      play.style.display = "flexShrink";
    }
 
    // check that the media is ready before displaying the controls
@@ -137,34 +136,34 @@ const scene = new THREE.Scene()
 // PARTICLES 
 ///////////////
 
-// Geometry
+// Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
 const count = 30000
 
 const particlesMaterial = new THREE.PointsMaterial()
-particlesMaterial.size = 0.05
+particlesMaterial.size = 0.12
 particlesMaterial.sizeAttenuation = true
-// particlesMaterial.color = new THREE.Color('#ff88cc')
+particlesMaterial.color = new THREE.Color('#ff88cc')
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
 
 const positions = new Float32Array(count * 3) // Multiply by 3 because each position is composed of 3 values (x, y, z)
-const colors = new Float32Array(count * 3)
+// const colors = new Float32Array(count * 3)
 
 // particlesMaterial.size = 0.1
 
 for(let i = 0; i < count * 3; i++) // Multiply by 3 for same reason
 {
     positions[i] = (Math.random() - 0.5) * 10 // Math.random() - 0.5 to have a random value between -0.5 and +0.5
-    colors[i] = Math.random()
+    // colors[i] = Math.random()
 }
 
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)) // Create the Three.js BufferAttribute and specify that each information is composed of 3 values
-particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+// particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors))
 
 const textureLoader = new THREE.TextureLoader()
-const particleTexture = textureLoader.load('/textures/particles/stars/symbol_01.png')
+const particleTexture = textureLoader.load('/textures/particles/stars/star_07.png')
 
 // particlesMaterial.map = particleTexture
 
