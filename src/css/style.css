@@ -27,7 +27,7 @@
  --cssui-animation-rotate: rotate(-180deg);
  --cssui-animation-timing: .25s ease-in-out;
  --cssui-font-family: cy,-apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
- --cssui-padding: 0.4rem;
+ --cssui-padding: 0.5rem;
  --cssui-radius: 8px;
 }
 
@@ -65,7 +65,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
    --drodpwon-link-color: var(--primary-red04);
    --dropdown-panel-background: var(--black02);
    --dropdown-padding: var(--cssui-padding);
-   width: 4vw;
+   width: 8vw;
    border-radius: var(--cssui-radius);
    font-size: 0.77rem;
    color: var(--white1);
@@ -278,7 +278,7 @@ canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
 
     /* *********//*/ Audio Player /*/
    .header-sound { display: flex; flex-flow: row nowrap; align-items: flex-start; gap: 24px; border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding); }
-   
+
     /* *********//*/ Themes /*/
    details {  display:  flex; flex-direction: column; align-items: flex-end; position: fixed; z-index: 50000; top: 2%; right: 25%; border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding); margin: 16px;  }
    .header-menu { border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding);  }
