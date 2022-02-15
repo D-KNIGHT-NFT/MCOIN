@@ -370,7 +370,6 @@ ol,ul { list-style: none; }
  /* ***********************************************************************************/
 
  canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
- #htdi-player { position: absolute; top: 64px; right: 160px; z-index: 1000; }
  .foggy { position: absolute; top: 10%; right:  40%; z-index: 1000; }
 
  /* **********************************************************************************/
@@ -399,18 +398,6 @@ ol,ul { list-style: none; }
  /* *********//*/ Audio Player /*/
  /* ***********************************************************************************/
 
- #htdi-player {
- }
-
- #controls {
-   display: flex;
-   flex-flow: column wrap;
-   width: 180px;
-   font-family: cy, sans-serif;
- }
-
- #play, 
- #pause { border-radius: 56px; padding:  2px 0 8px 0;backdrop-filter: blur(5px); color:  var(--white08); background: var(--black08) ;font-family: cy, sans-serif; font-weight: 400; line-height: 1.5; }
 
 
  /* --------------------------------------------------------------------------------- */
@@ -420,14 +407,42 @@ ol,ul { list-style: none; }
  @media only screen 
  {
    canvas { position: absolute; top: 0; left: 0; z-index: 1000; }
-   .logo-img { display:  flex; flex-direction: column; align-items:  center; position: fixed; z-index: 50000; background: var(--black08); padding-top: 8px; top: 2%; right: 2%; border-radius: 8px; }
-   .logo-img img{ filter: grayscale(); width: 160px; height: 160px; border-radius: 50%; border:  6px solid var(--white08);box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5); margin-bottom:  1rem; transition: filter 0.4s ease-in-out;  }
-   .subtitle { font-family: cy, sans-serif; font-size: 2rem; color: var(--white08); position: relative;}
-   .headers, .headers02{ display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 2%;  user-select: none; }
-   .headers02 { left: 1%; bottom: 12%;  user-select: none }
+
+   /* *********//*/ logo  /*/
+   .header-info { display:  flex; flex-direction: row-reverse; align-items: flex-start; position: fixed; z-index: 50000; background: var(--black08); padding: 8px; top: 2%; right: 2%; border-radius: 8px;}
+   .logo-img { display:  flex; flex-direction: column; align-items:  center; }
+   .logo-img img{ filter: grayscale(); width: 104px; height: 104px; border-radius: 50%; border:  4px solid var(--white08);box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5); margin-bottom:  0.1rem; transition: filter 0.4s ease-in-out;  }
+   .logo-img:hover { cursor: pointer; }
+   .logo-img:hover img { filter: none; }
+   .subtitle::after {  position: absolute; content: ""; width: 0%; height: 4px; background-color: var(--white08); left: 50%; bottom: -10px; transition: all 0.4s ease-in-out;} 
+   .logo-img:hover .subtitle::after { width: 100%; left:  0; }
+   .subtitle { font-family: cy, sans-serif; font-size: 1.2rem; color: var(--white08); position: relative;}
+
+    /* *********//*/ Audio Player /*/
+   .header-actions { 
+    display: flex; 
+    flex-flow: row nowrap; 
+    align-items: baseline; 
+    align-content: space-between;
+    justify-content: center; 
+    position: fixed; 
+    z-index: 50000; 
+    background: var(--white02);
+    border-radius: 104px; 
+    padding: 8px 24px 0 24px; 
+    top: 2%;
+    left: 2%; }
+   #icon { padding: 32px 4px 0 0; margin: 8px 8px 0 4px; border-radius: 50%; border:  1px solid var(--black1);}
+   #icon:hover { visibility: visible; background: var(--black02);}
+
+   /* *********//*/ TEXT  /*/
+   .headers { display: flex; flex-flow: row nowrap; user-select: none; }
+   .headers02 { display: flex; flex-flow: row nowrap; position: fixed; z-index: 50000; right: 1%; bottom: 1%;  user-select: none;left: 1%;  padding-bottom: 16px; }
    .main-title, .main-title02 { color: var(--white08); padding: 8px; text-align: left; }
    .main-subtitle, .main-subtitle02 { padding: 8px; background: var(--primary-red); color: var(--black1);}
-   .main-subtitle02 { background: var(--primary-blue); }
+   .main-subtitle02 { background: var(--primary-blue); font-weight: 300; }
+
+   /* *********//*/ CSSUI  /*/
    #modal { position:  fixed; bottom: 8%;left: 8px; z-index: 50000; background: var(--white8); }
    #data-dropdown { position:  fixed; top: 8px;left: 80px; z-index: 50000; background: var(--white8); }
  }
@@ -435,18 +450,10 @@ ol,ul { list-style: none; }
  /* *********//*/ Animations/*/
  /* ***********************************************************************************/
 
- .logo-img:hover { cursor: pointer; }
- .logo-img:hover img { filter: none; }
 
-.subtitle::after {  position: absolute; content: ""; width: 0%; height: 4px; background-color: var(--white08); left: 50%; bottom: -10px; transition: all 0.4s ease-in-out;
-} 
-.logo-img:hover .subtitle::after { width: 100%; left:  0; }
  /* max-width 640px, mobile-only styles. */
  @media only screen and (max-width: 40em) 
   {
-   .social-cont { top: 8px;left: 8px; }
-   #htdi-player { position: absolute; top: 64px; left: 8px; z-index: 1000; }
-
 
   }
 
@@ -490,7 +497,7 @@ ol,ul { list-style: none; }
  @media only screen and (orientation:landscape) { 
    h1 { font-size: 1.209rem; }
    h3 { font-size: .8rem; }
-   #htdi-player { top: 64px; left: 40px; }
+  
  }
 
 /* **********************************************************************************/
@@ -498,22 +505,23 @@ ol,ul { list-style: none; }
 /* ***********************************************************************************/
 
 /* BASE TEXT STYLES */
-p,h2, h3, h4, h5 { font-family: cy,sans-serif; font-weight: 400;font-style: normal; margin: 0; }
+p,h2, h3, h4, h5 { font-family: cy,sans-serif; font-weight: 300;font-style: normal; margin: 0; }
 h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
 
 @media only screen {}
 @media only print {}
 
-/* Small screens 1.125 - Major Second.  */
+/* Small screens 1.125 */
 
 @media only screen and (max-width: 40em) 
  {
   h1 { font-size: 1.802rem; }
-  h2 { font-size: 1.602rem; }
-  h3 { font-size: 1.424rem; }
+  h2 { font-size: 1.302rem; }
+  h3 { font-size: 1.180rem; }
   h4 { font-size: 1.266rem; }
   h5 { font-size: 1.125rem; }
-  .subtitle { font-size: 0.7rem; }
+  .subtitle { font-size: 0.7rem; font-weight: 300; }
+  #ms02 { font-weight: 300; }
  }
  
 /* Medium screens - TABLET min-width 641px  1.200 - Minor Third */
@@ -590,7 +598,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
 @media only screen and (orientation:landscape) { 
   h1 { font-size: 1.209rem; }
   h3 { font-size: .8rem; }
-  #htdi-player { top: 64px; left: 40px; }
+
 }
 
 

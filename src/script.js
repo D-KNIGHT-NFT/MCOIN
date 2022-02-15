@@ -49,7 +49,7 @@ window.onload = function(){
 
    function displayControls() {
       loading.style.display = "none";
-      play.style.display = "block";
+      play.style.display = "flexShrink";
    }
 
    // check that the media is ready before displaying the controls
