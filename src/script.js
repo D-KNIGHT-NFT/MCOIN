@@ -2,6 +2,7 @@ import './css/style.css'
 import $ from "jquery";
 import * as THREE from 'three'
 import gsap from 'gsap'
+import { easePack } from 'gsap'
 import { WebGLRenderer } from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
@@ -216,7 +217,6 @@ scene.fog = new THREE.FogExp2( 0xffffff, 0.13);
 //     repeat: -1
 //   }
 // });
-
 
 ////////////////////////////////////////////////////////////////////
 // MESHES + LOADERS
