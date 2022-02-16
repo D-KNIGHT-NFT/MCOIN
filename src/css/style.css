@@ -55,8 +55,12 @@
  --paddingM: 0.5rem;
  --paddingL: 0.75rem;
  --paddingXL: 1rem;
+ --paddingXXL: 2rem;
 
  --radius: 4px;
+ --radiusx2: 8px;
+ --radiusx4: 16px;
+ --radiusx8: 32px;
  --radius50: 50%;
  --margin:  0.75rem;
  --border: 0.5px solid var(--yellow);
@@ -65,6 +69,14 @@
  --gapM: 8px;
  --gapL: 16px;
  --gapXL:24px;
+
+ --size: 60%;
+
+ --maxSize-s: 20vw;
+ --maxSize-m: 40vw;
+ --maxSize-l: 80vw;
+ --maxSize-XL: 96vw;
+
 }
 
 /* **********************************************************************************/
@@ -81,13 +93,24 @@ article,aside,details,figcaption,figure,footer,header,nav,section { display: blo
 * { box-sizing: border-box; }
 
 input[type="radio"] { display: none; place-content: center; -webkit-appearance: none;appearance: none; }
-html { font-size: 100%; color: var(--black); overflow: hidden;} /*16px*/
+
+html { font-size: 100%; color: var(--white); overflow: hidden;} /*16px*/
+
 body { height:  100vh; display:  flex; justify-content: center; align-items: center; line-height: 1.2; }
+
 blockquote,q { quotes: none; }
+
 ol,ul { list-style: none; }
+
+a:hover { text-decoration: none; color: var(--purple); }
+a:focus { text-decoration: none; color: var(--); }
+a:active{ text-decoration: none; color: var(--white); }
+a:visited{ text-decoration: none; color: inherit; }
+
 canvas {  background: var(--black);position: absolute; top: 0; left: 0; z-index: 1000; }
 
 /* ****************************** Text Styles */
+
 p, h3  { font-family: cy, sans-serif; font-weight: 300; font-style: normal; margin: 0; }
 h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
 
@@ -96,9 +119,16 @@ h3 { font-size: 1.1rem; }
 h2 { font-size: 1.4rem; }
 h1 { font-size: 1.7rem; }
 
-/* ****************************** COMPONENT */
-/* ****************************** THEMES */
+/* ****************************** Icon Sizes */
+
 .icon-theme { width: 24px; height: 24px; }
+
+/* ************************************************* */
+/* ************************************ COMPONENTS   */
+/* ************************************************* */
+
+/* ############# component Themes dropdown */
+
 
 details { font-family: cy,sans-serif; font-size: 0.7rem; color: var(--white); background: var(--black04);padding: var(--paddingS); position: fixed; z-index: 50000; top: 2%; left: 24%; border: var(--border); border-radius: var(--radius); padding: var(--paddingS); }
 [data-dropdown] summary { padding: var(--paddingM); }
@@ -121,71 +151,17 @@ details { font-family: cy,sans-serif; font-size: 0.7rem; color: var(--white); ba
 /* Desktop --> min-width 1921px */
 @media only screen and (min-width: 120.063em) {}
 
+/* ############# component Modal pop Up */
 
-
-[data-modal] {
- --modal-background: var(--white08);
- --modal-max-size: 40vw;
- --modal-overlay-background: var(--black08);
- --modal-radius: 4px;
- --modal-size: 80%;
- --modal-spacing: 1rem;
-
- visibility: hidden;
- opacity: 0;
- transition: opacity .8s ease-in-out;
- position: fixed;
- top: 0;
- right: 0;
- bottom: 0;
- left: 0;
- display: flex;
- align-items: center;
- justify-content: center;
-}
-
-[data-modal-overlay] {
- position: fixed;
- top: 0;
- right: 0;
- bottom: 0;
- left: 0;
- background-color: var(--modal-overlay-background);
-}
-
-[data-modal-dialog] {
- z-index: var(--modal-level);
- width: var(--modal-size);
- max-width: var(--modal-max-size);
- padding: var(--modal-spacing);
- border-radius: var(--modal-radius);
- background-color: var(--modal-background);
- opacity: 0;
- transform: translateY(-1rem);
- transition: opacity .3s ease, transform .3s ease;
- transition-delay: .2s;
-}
-
-[data-modal]:target {
- visibility: visible;
- opacity: 1;
- z-index: 60000;
-}
-
-[data-modal]:target [data-modal-dialog] {
- opacity: 1;
- transform: translateY(0);
-}
-
- [data-modal-close] {
-   position: absolute;
-   top: var(--modal-spacing);
-   right: var(--modal-spacing);
-   color: var(--cssui-gray-darkest);
+[data-modal] { visibility: hidden; opacity: 0; transition: opacity 1s ease-in-out; position: fixed;top: 0;right: 0;bottom: 0;left: 0; display: flex; align-items: center; justify-content: center; }
+[data-modal-overlay] { position: fixed;top: 0;right: 0;bottom: 0; left: 0; background-color: var(--black08); }
+[data-modal-dialog] { z-index: var(--modal-level); width: var(--size); max-width: var(--maxSize-XL);padding: var(--paddingXXL); border-radius: var(--radiusx4); background-color: var(--purple04);opacity: 0; transform: translateY(-4rem);transition: opacity 1.5s ease-in-out, transform .5s ease-out; transition-delay: .2s; }
+[data-modal]:target {visibility: visible; opacity: 1; z-index: 60000; }
+[data-modal]:target [data-modal-dialog] { opacity: 1; transform: translateY(0); }
+[data-modal-close] { position: absolute; top: 1%; right: 1%; color: var(--yellow);
  }
-
-
-
+#dialog-title { padding-bottom: var(--paddingXL); }
+#dialog-text { font-family: cy, sans-serif; padding-bottom: var(--paddingL); }
  /* ****************************** /* Tool Tip */
 
  [data-tooltip] {
