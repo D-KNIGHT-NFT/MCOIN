@@ -86,25 +86,25 @@ const scene = new THREE.Scene()
 // LIGHTS 
 ///////////////
 
-// const light = new THREE.PointLight( 0x7A7194, 0.001, 1000)
-// light.intensity = 104.0
-// light.power = 200
-// light.distance = 10.0
-// light.decay = 0.3
-// light.castShadow = false
-// light.shadow.camera.zoom = 4;
-// light.position.set(0, -0.2, 0)
-// scene.add( light )
+const light = new THREE.PointLight( 0x7A7194, 0.001, 5000)
+light.intensity = 104.0
+light.power = 200
+light.distance = 10.0
+light.decay = 0.3
+light.castShadow = false
+light.shadow.camera.zoom = 4;
+light.position.set(0, -0.2, 0)
+scene.add( light )
 
-// const light2 = new THREE.PointLight( 0x7A7194, 0.001, 1000)
-// light2.intensity = 104.0
-// light2.power = 200
-// light2.distance = 10.0
-// light2.decay = 0.3
-// light2.castShadow = false
-// light2.shadow.camera.zoom = 4;
-// light2.position.set(0, 0.2, 0)
-// scene.add( light2 )
+const light2 = new THREE.PointLight( 0x7A7194, 0.001, 5000)
+light2.intensity = 104.0
+light2.power = 200
+light2.distance = 10.0
+light2.decay = 0.3
+light2.castShadow = false
+light2.shadow.camera.zoom = 4;
+light2.position.set(0, 0.2, 0)
+scene.add( light2 )
 
 // RectAreaLightUniformsLib.init();
 

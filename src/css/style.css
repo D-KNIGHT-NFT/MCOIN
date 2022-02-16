@@ -167,40 +167,19 @@ details { font-family: cy,sans-serif; font-size: 0.7rem; color: var(--white); ba
 
 [data-tooltip] { position: relative; }
 [data-tooltip]::after,[data-tooltip]::before { opacity: 0; transition: opacity .5s ease-in-out;}
-[data-tooltip]::after { position: absolute; bottom: calc(100% - 40px); left: 90%; content: attr(title); display: inline-block; width: 100%; padding: var(--paddingM);background-color: var(--black08); color: var(--purple08);font-size: 0.7rem;white-space: nowrap;transform: translateX(-50%);border-radius: var(--radiusx2); }
+[data-tooltip]::after { position: absolute; bottom: calc(100% - 40px); left: 90%; content: attr(title); display: inline-block; width: 100%; padding: var(--paddingM);background-color: var(--black08); color: var(--white08);font-size: 0.7rem;white-space: nowrap;transform: translateX(-50%);border-radius: var(--radiusx2); }
 [data-tooltip]:hover::after,
 [data-tooltip]:hover::before,
 [data-tooltip]:focus::after,
 [data-tooltip]:focus::before { opacity: 1; }
 [data-tooltip]::before { position: absolute; bottom: calc(100% - 2px); left: 50%; content: ''; width: 0; height: 0; border-top: 5px solid var(--black); border-right: 6px solid transparent; border-left: 6px solid transparent; transform: translateX(-50%); }
 
- /* **********************************************************************************/
- /* *********//*/ POSITIONS & Z-INDEX /*/
- /* ***********************************************************************************/
-
- .foggy { position: absolute; top: 10%; right:  40%; z-index: 1000; }
-
- /* **********************************************************************************/
- /* *********//*/ Foggy FX/*/
- /* ***********************************************************************************/
-
- .foggy {
-   width: 800px;
-   height: 200px;
-   user-select: none;
- }
-
- .fog-cloud {
-   opacity: 0;
-   width: 400px;
-   border-radius: 100%;
-   height: 200px;
-   position: relative;
-   left: 10%; right: 5%; 
-   margin: auto;
-   user-select: none;
-   pointer-events: none;
- }
+/* ***********************************************************************************/
+/* *********//*/ LEGACY Foggy FX *****************************************************/
+/* ***********************************************************************************/
+/* .foggy { position: absolute; top: 10%; right:  40%; z-index: 1000; }
+.foggy { width: 800px; height: 200px; user-select: none; }
+.fog-cloud { opacity: 0;width: 400px; border-radius: 100%; height: 200px; position: relative; left: 10%; right: 5%; margin: auto;user-select: none;pointer-events: none; } */
 
 
  @media only screen  {
