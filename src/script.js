@@ -86,25 +86,18 @@ const scene = new THREE.Scene()
 // LIGHTS 
 ///////////////
 
-const light = new THREE.PointLight( 0x7A7194, 0.001, 5000)
-light.intensity = 104.0
-light.power = 200
-light.distance = 10.0
-light.decay = 0.3
-light.castShadow = false
-light.shadow.camera.zoom = 4;
-light.position.set(0, -0.2, 0)
-scene.add( light )
+const light1 = new THREE.PointLight( 0xff0040, 2, 50 );
+scene.add( light1 );
 
-const light2 = new THREE.PointLight( 0x7A7194, 0.001, 5000)
-light2.intensity = 104.0
-light2.power = 200
-light2.distance = 10.0
-light2.decay = 0.3
-light2.castShadow = false
-light2.shadow.camera.zoom = 4;
-light2.position.set(0, 0.2, 0)
-scene.add( light2 )
+const light2 = new THREE.PointLight( 0x0040ff, 2, 50 );
+scene.add( light2 );
+
+const light3 = new THREE.PointLight( 0x80ff80, 2, 50 );
+scene.add( light3 );
+
+const light4 = new THREE.PointLight( 0xffaa00, 2, 50 );
+scene.add( light4 );
+
 
 // RectAreaLightUniformsLib.init();
 
@@ -138,7 +131,7 @@ scene.add( light2 )
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 100
+const count = 200
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 0.5
@@ -194,35 +187,35 @@ scene.background = environmentMap
 scene.fog = new THREE.FogExp2( 0xffffff, 0.13);
 
 ////////////////////////////////////////////////////////////////////
-// HTML FOG
+// HTML LEGACY FOG
 ///////////////
 
-let object = {
-  el: '.fog-cloud',
-  duration: 20
-}
+// let object = {
+//   el: '.fog-cloud',
+//   duration: 20
+// }
 
-gsap.fromTo(object.el, object.duration, {
-  opacity: 5,
-  y: '+=180',
-  x: 0,
-  scale: 2.5,
-  transformOrigin: 'left'
-}, {
-  opacity: 0,
-  y: '-=180',
-  x: Math.PI * 2,
-  modifiers: {
-    x: function(x) {
-      return Math.sin(parseFloat(x)) * -30 + "px";
-    }
-  },
-  scale: 0,
-  stagger: {
-    each: object.duration / document.querySelectorAll(object.el).length, 
-    repeat: -1
-  }
-});
+// gsap.fromTo(object.el, object.duration, {
+//   opacity: 5,
+//   y: '+=180',
+//   x: 0,
+//   scale: 2.5,
+//   transformOrigin: 'left'
+// }, {
+//   opacity: 0,
+//   y: '-=180',
+//   x: Math.PI * 2,
+//   modifiers: {
+//     x: function(x) {
+//       return Math.sin(parseFloat(x)) * -30 + "px";
+//     }
+//   },
+//   scale: 0,
+//   stagger: {
+//     each: object.duration / document.querySelectorAll(object.el).length, 
+//     repeat: -1
+//   }
+// });
 
 
 ////////////////////////////////////////////////////////////////////
@@ -251,10 +244,9 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 
 const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
 const matStdFloor = new THREE.MeshStandardMaterial( { 
-    color: 0x0C08F0, 
-    roughness: 0.1, 
-    metalness: 0.6,
-    shadowSide: 8
+    color: 0xA5DB2F, 
+    roughness: 0.4, 
+    metalness: 0.1,
 });
 const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
 mshStdFloor.position.set(0, -0.79, 0)
@@ -468,6 +460,23 @@ const tick = () =>
 
        }
        particlesGeometry.attributes.position.needsUpdate = true 
+
+    // LIGHT ANIMATIONS
+    light1.position.x = Math.sin( elapsedTime * 0.7 ) * 30
+    light1.position.y = Math.cos( elapsedTime * 0.5 ) * 40;
+    light1.position.z = Math.cos( elapsedTime * 0.3 ) * 30;
+
+    light2.position.x = Math.cos( elapsedTime * 0.3 ) * 30;
+    light2.position.y = Math.sin( elapsedTime * 0.5 ) * 40;
+    light2.position.z = Math.sin( elapsedTime * 0.7 ) * 30;
+
+    light3.position.x = Math.sin( elapsedTime * 0.7 ) * 30;
+    light3.position.y = Math.cos( elapsedTime * 0.3 ) * 40;
+    light3.position.z = Math.sin( elapsedTime * 0.5 ) * 30;
+
+    light4.position.x = Math.sin( elapsedTime * 0.3 ) * 30;
+    light4.position.y = Math.cos( elapsedTime * 0.7 ) * 40;
+    light4.position.z = Math.sin( elapsedTime * 0.5 ) * 30;
 
 
     // Fox animation
