@@ -21,10 +21,6 @@
 
   <canvas id class="webgl"></canvas>
 
-  <!-- Tool Tip -->
-
-  <a href="#" data-tooltip alt="Alt text" title="This is a link" role="tooltip" aria-label="Tooltip message">Hover me</a>
-
   <!---------------------- Music  ------------>
   <audio loop id="music" preload="metadata">
     <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
@@ -35,10 +31,13 @@
   </audio>
 
    <details data-dropdown>
-     <summary>  Themes</summary>
+     <summary>Themes</summary>
+
      <ul role="list">
+
        <li role="listitem">Sunny<a href="#">
-        <img srcset="
+        <img class="icon-theme"
+        srcset="
        ../static/UI/Icon/32x32/sun@4x.png 4x,
        ../static/UI/Icon/32x32/sun@3x.png 3x,
        ../static/UI/Icon/32x32/sun@2x.png 2x,
@@ -46,8 +45,11 @@
        " 
        src= "../static/UI/Icon/32x32/sun.png"/></a>
      </li>
+
+
      <li role="listitem">Moon<a href="#">
-         <img srcset="
+         <img class="icon-theme"
+         srcset="
        ../static/UI/Icon/32x32/New-Moon@4x.png 4x,
        ../static/UI/Icon/32x32/New-Moon@3x.png 3x,
        ../static/UI/Icon/32x32/New-Moon@2x.png 2x,
@@ -55,8 +57,11 @@
        " 
        src= "../static/UI/Icon/32x32/New-Moon.png"/></a>
      </li>
+
+
      <li role="listitem">Spacey<a href="#">
-         <img srcset="
+         <img class="icon-theme"
+         srcset="
        ../static/UI/Icon/32x32/Satellites@4x.png 4x,
        ../static/UI/Icon/32x32/Satellites@3x.png 3x,
        ../static/UI/Icon/32x32/Satellites@2x.png 2x,
@@ -64,7 +69,10 @@
        " 
        src= "../static/UI/Icon/32x32/Satellites.png"/></a>
      </li>
-     <li role="listitem">Wolf<a href="#"><img srcset="
+
+
+     <li role="listitem">Wolf<a href="#"><img class="icon-theme"
+      srcset="
        ../static/UI/Icon/32x32/Werewolf@4x.png 4x,
        ../static/UI/Icon/32x32/Werewolf@3x.png 3x,
        ../static/UI/Icon/32x32/Werewolf@2x.png 2x,
@@ -72,41 +80,53 @@
        " 
        src= "../static/UI/Icon/32x32/Werewolf.png"/></a>
      </li>
-     <li role="listitem">Lullaby<a href="#"><img srcset="
+
+
+     <li role="listitem">Lullaby<a href="#"><img class="icon-theme"
+      srcset="
        ../static/UI/Icon/32x32/Lullaby@4x.png 4x,
        ../static/UI/Icon/32x32/Lullaby@3x.png 3x,
        ../static/UI/Icon/32x32/Lullaby@2x.png 2x,
        ../static/UI/Icon/32x32/Lullaby.svg
        " 
-       src= "../static/UI/Icon/32x32/Lullaby.png"/></a></li>
-       <li role="listitem">Starry Night<a href="#"><img srcset="
+       src= "../static/UI/Icon/32x32/Lullaby.png"/></a>
+     </li>
+
+
+       <li role="listitem">Starry Night<a href="#"><img class="icon-theme"
+        srcset="
        ../static/UI/Icon/32x32/moon_stars@4x.png 4x,
        ../static/UI/Icon/32x32/moon_stars@3x.png 3x,
        ../static/UI/Icon/32x32/moon_stars@2x.png 2x,
        ../static/UI/Icon/32x32/moon_stars.svg
        " 
-       src= "../static/UI/Icon/32x32/moon_stars.png"/></a></li>
-       <li role="listitem">Rainy<a href="#"><img srcset="
+       src= "../static/UI/Icon/32x32/moon_stars.png"/></a>
+     </li>
+
+
+       <li role="listitem">Rainy<a href="#"><img class="icon-theme"
+        srcset="
        ../static/UI/Icon/32x32/Keep-Dry@4x.png 4x,
        ../static/UI/Icon/32x32/Keep-Dry@3x.png 3x,
        ../static/UI/Icon/32x32/Keep-Dry@2x.png 2x,
        ../static/UI/Icon/32x32/Keep-Dry.svg
        " 
-       src= "../static/UI/Icon/32x32/Keep-Dry.png"/></a></li>
+       src= "../static/UI/Icon/32x32/Keep-Dry.png"/></a>
+     </li>
+
      </ul>
    </details>
 
 <header class="header-actions">
   <div class="header-menu">
-    <div id="menu" class="icon"><a href="#">
+    <a href="#" data-tooltip alt="Alt text" title="Menu" role="tooltip" aria-label="Tooltip message"> <div id="menu" class="icon"><a href="#">
       <img srcset="
       ../static/UI/Icon/32x32/menu@4.png 4x,
       ../static/UI/Icon/32x32/menu@3x.png 3x,
       ../static/UI/Icon/32x32/menu@2x.png 2x,
       ../static/UI/Icon/32x32/menu.svg
       " 
-      src= "../static/UI/Icon/32x32/menu.png"/>
-    </a><p hidden class="caption">Menu</p>
+      src= "../static/UI/Icon/32x32/menu.png"/></a>
     </div>
   </div>
  <div class="header-sound">
@@ -166,7 +186,7 @@
       " 
       src= "../static/UI/Icon/logo/logo.png"/>
     </a>
-    <p class="subtitle">BioLink</p>
+    <p class="subtitle">HTDI</p>
     </div>
     <div class="modal-button">
       <a href="#modal">Manifesto</a>
@@ -189,7 +209,6 @@
    <!-- Background, click to close -->
    <a href="#" data-modal-overlay></a>
  </div>
-
 
    <!---------------------- FOG ELEMENT ------------>
    <div class="foggy">
