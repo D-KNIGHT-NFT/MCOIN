@@ -3,6 +3,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;900&family=Shanti&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Federant&display=swap');
 
+
+/* **********************************************************************************/
+/* *********//*/ CSS RESETS /*/
+/* ***********************************************************************************/
+
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strong,sub,sup,var,
+b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,
+aside,canvas,details,embed,figure,figcaption,footer,header,nav,output,ruby,section,
+summary,time,mark,audio,video { margin: 0; padding: 0; border: 0; font: inherit; vertical-align: baseline; font-family: cy, sans-serif; }
+
+article,aside,details,figcaption,figure,footer,header,nav,section { display: block; }
+
+* { box-sizing: border-box; }
+
+input[type="radio"] { display: none; place-content: center; -webkit-appearance: none;appearance: none; }
+
+html { font-size: 100%; color: var(--white); overflow: hidden;} /*16px*/
+
+body { height:  100vh; display:  flex; justify-content: center; align-items: center; line-height: 1.2; }
+
+blockquote,q { quotes: none; }
+
+ol,ul { list-style: none; }
+
+a:hover { text-decoration: none; color: var(--purple); }
+a:focus { text-decoration: none; color: var(--); }
+a:active{ text-decoration: none; color: var(--white); }
+a:visited{ text-decoration: none; color: inherit; }
+
+canvas {  background: var(--black);position: absolute; top: 0; left: 0; z-index: 1000; }
+
 /* **********************************************************************************/
 /* *********//*/ ROOT /*/
 /* ***********************************************************************************/
@@ -79,36 +110,6 @@
 
 }
 
-/* **********************************************************************************/
-/* *********//*/ CSS RESETS /*/
-/* ***********************************************************************************/
-
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strong,sub,sup,var,
-b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,
-aside,canvas,details,embed,figure,figcaption,footer,header,nav,output,ruby,section,
-summary,time,mark,audio,video { margin: 0; padding: 0; border: 0; font: inherit; vertical-align: baseline; font-family: cy, sans-serif; }
-
-article,aside,details,figcaption,figure,footer,header,nav,section { display: block; }
-
-* { box-sizing: border-box; }
-
-input[type="radio"] { display: none; place-content: center; -webkit-appearance: none;appearance: none; }
-
-html { font-size: 100%; color: var(--white); overflow: hidden;} /*16px*/
-
-body { height:  100vh; display:  flex; justify-content: center; align-items: center; line-height: 1.2; }
-
-blockquote,q { quotes: none; }
-
-ol,ul { list-style: none; }
-
-a:hover { text-decoration: none; color: var(--purple); }
-a:focus { text-decoration: none; color: var(--); }
-a:active{ text-decoration: none; color: var(--white); }
-a:visited{ text-decoration: none; color: inherit; }
-
-canvas {  background: var(--black);position: absolute; top: 0; left: 0; z-index: 1000; }
-
 /* ****************************** Text Styles */
 
 p, h3  { font-family: cy, sans-serif; font-weight: 300; font-style: normal; margin: 0; }
@@ -130,7 +131,7 @@ h1 { font-size: 1.7rem; }
 /* ############# component Themes dropdown */
 
 
-details { font-family: cy,sans-serif; font-size: 0.7rem; color: var(--white); background: var(--black04);padding: var(--paddingS); position: fixed; z-index: 50000; top: 2%; left: 24%; border: var(--border); border-radius: var(--radius); padding: var(--paddingS); }
+details { font-family: cy,sans-serif; font-size: 0.7rem; color: var(--white); background: var(--black08);padding: var(--paddingS); position: fixed; z-index: 60000; top: 2%; left: 24%; border: var(--border); border-radius: var(--radius); padding: var(--paddingS); }
 [data-dropdown] summary { padding: var(--paddingM); }
 [data-dropdown] summary, li:hover {cursor: pointer; background-color: var(--purple04);}
 [data-dropdown] summary::-webkit-details-marker { display: none; }
@@ -158,64 +159,20 @@ details { font-family: cy,sans-serif; font-size: 0.7rem; color: var(--white); ba
 [data-modal-dialog] { z-index: var(--modal-level); width: var(--size); max-width: var(--maxSize-XL);padding: var(--paddingXXL); border-radius: var(--radiusx4); background-color: var(--purple04);opacity: 0; transform: translateY(-4rem);transition: opacity 1.5s ease-in-out, transform .5s ease-out; transition-delay: .2s; }
 [data-modal]:target {visibility: visible; opacity: 1; z-index: 60000; }
 [data-modal]:target [data-modal-dialog] { opacity: 1; transform: translateY(0); }
-[data-modal-close] { position: absolute; top: 1%; right: 1%; color: var(--yellow);
- }
+[data-modal-close] { position: absolute; top: 1%; right: 1%; color: var(--yellow);}
 #dialog-title { padding-bottom: var(--paddingXL); }
 #dialog-text { font-family: cy, sans-serif; padding-bottom: var(--paddingL); }
- /* ****************************** /* Tool Tip */
 
- [data-tooltip] {
-   --tooltip-background: var(--cssui-gray-darkest);
-   --tooltip-padding: 4px 6px;
-   --tooltip-text-color: var(--cssui-gray-light);
-   --tooltip-fontsize: .75rem;
-   /* --tooltip-radius: 0px */
+/* ############# component Tool Tip */
 
-   position: relative;
- }
-
- [data-tooltip]::after,
- [data-tooltip]::before {
-   opacity: 0;
-   transition: opacity .3s ease;
- }
-
- [data-tooltip]::after {
-   position: absolute;
-   bottom: calc(100% + 2px);
-   left: 50%;
-   content: attr(title);
-   display: inline-block;
-   width: auto;
-   padding: var(--tooltip-padding);
-   background-color: var(--tooltip-background);
-   color: var(--tooltip-text-color);
-   font-size: var(--tooltip-fontsize);
-   white-space: nowrap;
-   transform: translateX(-50%);
-   border-radius: var(--tooltip-radius, 0);
- }
-
- [data-tooltip]:hover::after,
- [data-tooltip]:hover::before,
- [data-tooltip]:focus::after,
- [data-tooltip]:focus::before {
-   opacity: 1;
- }
-
- [data-tooltip]::before {
-   position: absolute;
-   bottom: calc(100% - 2px);
-   left: 50%;
-   content: '';
-  width: 0;
-  height: 0;
-  border-top: 5px solid var(--tooltip-background);
-  border-right: 6px solid transparent;
-  border-left: 6px solid transparent;
-   transform: translateX(-50%);
- }
-
+[data-tooltip] { position: relative; }
+[data-tooltip]::after,[data-tooltip]::before { opacity: 0; transition: opacity .5s ease-in-out;}
+[data-tooltip]::after { position: absolute; bottom: calc(100% - 40px); left: 90%; content: attr(title); display: inline-block; width: 100%; padding: var(--paddingM);background-color: var(--black08); color: var(--purple08);font-size: 0.7rem;white-space: nowrap;transform: translateX(-50%);border-radius: var(--radiusx2); }
+[data-tooltip]:hover::after,
+[data-tooltip]:hover::before,
+[data-tooltip]:focus::after,
+[data-tooltip]:focus::before { opacity: 1; }
+[data-tooltip]::before { position: absolute; bottom: calc(100% - 2px); left: 50%; content: ''; width: 0; height: 0; border-top: 5px solid var(--black); border-right: 6px solid transparent; border-left: 6px solid transparent; transform: translateX(-50%); }
 
  /* **********************************************************************************/
  /* *********//*/ POSITIONS & Z-INDEX /*/

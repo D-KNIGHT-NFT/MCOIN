@@ -138,10 +138,10 @@ const scene = new THREE.Scene()
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 10000
+const count = 100
 
 const particlesMaterial = new THREE.PointsMaterial()
-particlesMaterial.size = 0.05
+particlesMaterial.size = 0.5
 particlesMaterial.sizeAttenuation = true
 particlesMaterial.color = new THREE.Color('#31FF9C')
 
