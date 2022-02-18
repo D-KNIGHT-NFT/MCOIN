@@ -32,6 +32,7 @@ a:focus { text-decoration: none; color: var(--); }
 a:active{ text-decoration: none; color: var(--white); }
 a:visited{ text-decoration: none; color: inherit; }
 
+
 canvas {  background: var(--black);position: absolute; top: 0; left: 0; z-index: 1000; }
 
 /* **********************************************************************************/
