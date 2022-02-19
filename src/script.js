@@ -197,7 +197,7 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-1/');
+cubeTextureLoader.setPath('textures/environmentMap/level-2/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
@@ -324,9 +324,10 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         { 
         side: THREE.BackSide,    
         color: 0xffffff,
+        //wireframe: true,
         transmission: 1,
-        vertexColors: true,
-        opacity: 0.55,
+        // vertexColors: true,
+        // opacity: 0.55,
         metalness: 0,
         roughness: 0.01,
         ior: 4.0,

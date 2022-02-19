@@ -131,7 +131,7 @@ h1 { font-size: 1.7rem; }
 
 /* ############# component Themes dropdown */
 
-.dropdowns { display:  flex; flex-direction: column; font-family: cy,sans-serif; font-size: 1rem; color: var(--white); background: var(--black08); position: fixed; z-index: 60000; top: 4%; left: 2%;  border: var(--border); border-radius: var(--radius); padding: var(--paddingM);  }
+.dropdowns { display:  flex; flex-direction: row; font-family: cy,sans-serif; font-size: 1rem; color: var(--white);  position: fixed; z-index: 60000; top: 4%; left: 2%; border-radius: var(--radius); padding: var(--paddingM);  }
 [data-dropdown] summary { padding: var(--paddingM); }
 [data-dropdown] summary, li:hover {cursor: pointer; background-color: var(--purple04);}
 [data-dropdown] summary::-webkit-details-marker { display: none; }
