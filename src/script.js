@@ -30,21 +30,6 @@ import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLigh
 // svg
 ///////////////
 
-var draw = SVG().addTo('body').size(900, 900)
-
-
-function centerMain(){ gsap.set('.main', {x:'50%', xPercent:-50, y:'50%', yPercent:-50}); }
-window.onresize = centerMain;
-
-window.onmousemove = (e)=> {
-  let winPercent = { x:e.clientX/window.innerWidth, y:e.clientY/window.innerHeight },
-      distFromCenter = 1 - Math.abs((e.clientX - window.innerWidth/2)/window.innerWidth*2);
-  
-  gsap.timeline({defaults:{duration:0.5, overwrite:'auto'}})
-      .to('.card',        {rotation:-7+9*winPercent.x}, 0)
-      .to('.fillLight',   {opacity:distFromCenter}, 0)  
-      .to('.bg',          {x:100-200*winPercent.x, y:20-40*winPercent.y}, 0) 
-}
 
 /*** Base */
 
@@ -121,27 +106,27 @@ const light4 = new THREE.PointLight( 0xffaa00, 2, 50 );
 scene.add( light4 );
 
 
-// RectAreaLightUniformsLib.init();
+RectAreaLightUniformsLib.init();
 
-// const rectLight1 = new THREE.RectAreaLight( 0x000000, 56, 104, 104 );
-// rectLight1.position.set( -1, 0, 0 );
-// rectLight1.rotation.set( 0, -45, 0 )
-// scene.add( rectLight1 );
+const rectLight1 = new THREE.RectAreaLight( 0x000000, 0.8, 104, 104 );
+rectLight1.position.set( 0, 0, -1 );
+rectLight1.rotation.set( 0, 0, 0 )
+scene.add( rectLight1 );
 
-// // const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 104, 24, 24 );
-// // rectLight2.position.set( 0, 0, -1 );
-// // rectLight2.rotation.set( 0, -60 ,0 )
-// // scene.add( rectLight2 );
+// const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 6, 24, 24 );
+// rectLight2.position.set( 0, 0, -1 );
+// rectLight2.rotation.set( 0, -45 ,0 )
+// scene.add( rectLight2 );
 
-// // const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 16, 24, 24 );
-// // rectLight3.position.set( 0, 0, 1 );
-// // rectLight3.rotation.set( 0, 60 ,0 )
-// // scene.add( rectLight3 );
+// const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 6, 24, 24 );
+// rectLight3.position.set( 0, 0, 1 );
+// rectLight3.rotation.set( 0, 45 ,0 )
+// scene.add( rectLight3 );
 
-// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 56, 104, 104 );
-// rectLight4.position.set( 1, 0, 0 );
-// rectLight4.rotation.set( 0, 45 ,0 )
-// scene.add( rectLight4 );
+const rectLight4 = new THREE.RectAreaLight( 0xffffff , 0.8, 104, 104 );
+rectLight4.position.set( 0, 0, 1 );
+rectLight4.rotation.set( 0, 0 ,0 )
+scene.add( rectLight4 );
 
 // scene.add( new RectAreaLightHelper( rectLight1 ) );
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
@@ -158,7 +143,7 @@ const count = 500
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 0.5
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#31FF9C')
+// particlesMaterial.color = new THREE.Color('#31FF9C')
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -201,12 +186,12 @@ cubeTextureLoader.setPath('textures/environmentMap/level-2/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
-environmentMap.envMapIntensity = 1.0
+environmentMap.envMapIntensity = 100.0
 
 scene.environment = environmentMap
 scene.background = environmentMap
 
-scene.fog = new THREE.FogExp2( 0xffffff, 0.13);
+scene.fog = new THREE.FogExp2( 0xfafafa, 0.72);
 
 ////////////////////////////////////////////////////////////////////
 // HTML LEGACY FOG
@@ -263,15 +248,18 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       envMapIntensity: 1.0
 });
 
-const geoFloor = new THREE.BoxGeometry( 1, 0.1, 1 );
-const matStdFloor = new THREE.MeshStandardMaterial( { 
-    color: 0xA5DB2F, 
-    roughness: 0.4, 
-    metalness: 0.1,
-});
-const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
-mshStdFloor.position.set(0, -0.79, 0)
-scene.add( mshStdFloor );
+// const geoFloor = new THREE.BoxGeometry( 1, 0.01, 1 );
+// const matStdFloor = new THREE.MeshStandardMaterial( { 
+//     color: 0x000000, 
+//     roughness: 0, 
+//     metalness: 0,
+//     opacity: 0.5,
+//     envMap: environmentMap,
+//     envMapIntensity: 1.0
+// });
+// const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
+// mshStdFloor.position.set(0, -0.79, 0)
+// scene.add( mshStdFloor );
 
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
