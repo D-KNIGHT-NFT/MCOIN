@@ -153,7 +153,7 @@ scene.add( light4 );
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 200
+const count = 500
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 0.5
