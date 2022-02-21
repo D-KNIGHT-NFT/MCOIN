@@ -131,9 +131,9 @@ h1 { font-size: 1.7rem; }
 
 /* ############# component Themes dropdown */
 
-.dropdowns { display:  flex; flex-direction: row; font-family: cy,sans-serif; font-size: 1rem; color: var(--white);  position: fixed; z-index: 60000; top: 4%; left: 2%  ; border-radius: var(--radius); padding: var(--paddingM);  }
+.dropdowns { display:  flex; flex-direction: row; font-family: cy,sans-serif; font-size: 1rem; color: var(--black);  position: fixed; z-index: 1001; top: 4%; left: 2%  ; border-radius: var(--radius); padding: var(--paddingM);  }
 [data-dropdown] summary { padding: var(--paddingM); }
-[data-dropdown] summary, li:hover {cursor: pointer; background-color: var(--purple04);}
+[data-dropdown] summary, li:hover {cursor: pointer; background-color: var(--yellow08);}
 [data-dropdown] summary::-webkit-details-marker { display: none; }
 [data-dropdown] summary:focus { outline-width: 0.5px; }
 [data-dropdown] ul { background: none; list-style: none; }
@@ -142,7 +142,7 @@ h1 { font-size: 1.7rem; }
 [data-dropdown] li > a:hover {background-color: var(--white04); border-radius: var(--radius);}
 
 /* max-width 640px, mobile-only styles. */
-@media only screen and (max-width: 40em) { details#info-themes {  z-index:  60000;top: 32%; left: 2%; }, details#info-modals {  z-index:  60000;top: 32%; right: 2%; } }
+@media only screen and (max-width: 40em) { details#info-themes {  z-index:  1001;top: 32%; left: 2%; }, details#info-modals {  z-index:  1001;top: 32%; right: 2%; } }
 /* Tablet --> min-width 641px  */
 @media only screen and (min-width: 40.063em) {}
 /* Desktop --> min-width 1025px */
@@ -194,10 +194,8 @@ h1 { font-size: 1.7rem; }
 .subtitle { font-family: cy, sans-serif; font-size: 0.7rem; color: var(--white08); position: relative; padding: var(--cssui-padding);}
 
 /* *********//*/ Left top bar /*/
-.music-player { width:  90vw; display: flex; flex-flow: row wrap; align-content: flex-start; justify-content: space-between; gap: 32px; position: fixed; z-index: 50000; top: 12%; right: 2%; }
+.music-player { width:  90vw; display: flex; flex-flow: row wrap; align-content: flex-start; justify-content: space-between; gap: 32px; position: fixed; z-index: 50000; top: 12%; right: 1%; }
 
-/* *********//*/ Audio Player /*/
-.header-sound { display: flex; flex-flow: row nowrap; align-items: flex-start; gap: 24px; border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding); }
 
 /* *********//*/ Themes /*/
 .header-menu { border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding);  }
@@ -207,7 +205,7 @@ h1 { font-size: 1.7rem; }
 #dialog { position: fixed; z-index: 50000; top: 23%; right: 23%; }
 
 /* *********//*/ TEXT  /*/
-.headers { display: flex; flex-flow: row nowrap; user-select: none; border-radius: var(--cssui-radius); padding: var(--cssui-padding); position: fixed;left: 1%; bottom: 1%; z-index: 50000;}
+.headers { display: flex; flex-flow: row nowrap; user-select: none; border-radius: var(--cssui-radius); padding: var(--cssui-padding); position: fixed;left: 2%; bottom: 2%; z-index: 50000;}
 .main-title { color: var(--white08); padding: var(--cssui-padding); text-align: left; border-radius: var(--cssui-radius); }
 .main-subtitle { padding: var(--cssui-padding); background: var(--primary-red04); color: var(--white); }
 

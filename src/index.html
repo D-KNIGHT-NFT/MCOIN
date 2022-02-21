@@ -20,7 +20,27 @@
 
 <body>
 
+  <!---------------------- Canvas Web GL ------------>
   <canvas id class="webgl"></canvas>
+
+  <!---------------------- HEADERS ------------>
+
+   <header class="header-info">
+     <div class="logo-img">
+       <a href="https://htdicollective.bio.link"
+       target="_blank">
+       <img srcset="
+       ../static/UI/Icon/logo/logo@4x.png 4x,
+       ../static/UI/Icon/logo/logo@3x.png 3x,
+       ../static/UI/Icon/logo/logo@2x.png 2x,
+       ../static/UI/Icon/logo/logo@075x.png 0.75x,
+       ../static/UI/Icon/logo/logo.png 1x
+       " 
+       src= "../static/UI/Icon/logo/logo.png"/>
+     </a>
+     <p class="subtitle">HTDI</p>
+     </div>
+  </header>
 
   <!---------------------- Music  ------------>
   <audio loop id="music" preload="metadata">
@@ -165,22 +185,6 @@
     </div>
   </div>
 
-  <header class="header-info">
-    <div class="logo-img">
-      <a href="https://htdicollective.bio.link"
-      target="_blank">
-      <img srcset="
-      ../static/UI/Icon/logo/logo@4x.png 4x,
-      ../static/UI/Icon/logo/logo@3x.png 3x,
-      ../static/UI/Icon/logo/logo@2x.png 2x,
-      ../static/UI/Icon/logo/logo@075x.png 0.75x,
-      ../static/UI/Icon/logo/logo.png 1x
-      " 
-      src= "../static/UI/Icon/logo/logo.png"/>
-    </a>
-    <p class="subtitle">HTDI</p>
-    </div>
- </header>
 
  <!-- Modal containers -->
 
@@ -204,7 +208,7 @@
 <div id="dialog" data-modal-dialog role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1">
  
  <h2 id="dialog-title">An Inclusive Space</h2>
- <p id="dialog-text">Our engage members</p>
+ <p id="dialog-text">Our engaging community members</p>
 
  <a href="#" data-modal-close>
   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
