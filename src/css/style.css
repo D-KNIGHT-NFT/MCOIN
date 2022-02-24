@@ -155,7 +155,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 
 /* *********//*/ LOGO Container/*/
 .logo-img { display:  flex; flex-direction: column; align-items:  center; justify-content: center; position: fixed; z-index: 1010; padding: var(--padding);  top: 2%; right: 2%; }
-.logo-img img{ filter: grayscale(); /* width: 120px; height: 120px;  */transition: filter 0.4s ease-in-out;  }
+.logo-img img{ filter: grayscale(); width: 120px; height: 120px; transition: filter 0.4s ease-in-out;  }
 .logo-img:hover { cursor: pointer; }
 .logo-img:hover img { filter: none; }
 .subtitle::after {  position: absolute; content: ""; width: 0%; height: 4px; background-color: var(--yellow); left: 50%; bottom: -10px; transition: all 0.4s ease-in-out;} 
@@ -191,8 +191,8 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 @media only screen and (orientation:portrait) { .music-player{ bottom: 0 ; } }
 @media only screen and (orientation:landscape) {.music-player{ flex-direction: column; gap: 24px;} }
 
-/* ############# component Glass Overlay*/
-.glass-container {  position: absolute; z-index: 1100; max-width: 94vw; min-height: 30vh; display: grid; place-items: center; padding: var(--padding); }
+/* ############# GLASS MODAL CONTAINER*/
+.glass-container {  position: absolute; z-index: 1100; max-width: 94vw; min-height: 100vh; display: grid; place-items: center; padding: var(--padding); }
 
 .overlay { width: 100%; padding: 8rem 6rem; display: flex; align-items: center; background: var(--black08);box-shadow: var(--shadow); border-radius: var(--radiusx8); border: var(--border); }
 
@@ -211,6 +211,8 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 .overlay__btn--transparent { background: transparent; color: var(--neutral); border: var(--solid); margin-right: 0.75rem; outline: none; }
 
 .overlay__btn-emoji { margin-left: 0.75rem; }
+
+.icon-close { position: relative; top: 1%; right: 1%; color: var(--yellow);}
 
 
 @media only screen and (max-width: 1140px){ .overlay { padding: 8rem 4rem;} }
@@ -245,7 +247,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 /* ############# component Modal pop Up */
 
 [data-modal] { visibility: hidden; opacity: 0; transition: opacity 1s ease-in-out; position: fixed;top: 0;right: 0;bottom: 0;left: 0; display: flex; align-items: center; justify-content: center; }
-[data-modal-overlay] { position: fixed;top: 0;right: 0;bottom: 0; left: 0; background-color: var(--black08); }
+[data-modal-overlay] { position: fixed; background-color: var(--black08); }
 [data-modal-dialog] { z-index: 60000x; width: var(--size); max-width: var(--maxSize-XL);padding: var(--paddingXXL); border-radius: var(--radiusx4); background-color: var(--purple04);opacity: 0; transform: translateY(-4rem);transition: opacity 1.5s ease-in-out, transform .5s ease-out; transition-delay: .2s; }
 [data-modal]:target {visibility: visible; opacity: 1; z-index: 60000; }
 [data-modal]:target [data-modal-dialog] { opacity: 1; transform: translateY(0); }
@@ -258,7 +260,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 
 [data-tooltip] { position: relative; }
 [data-tooltip]::after,[data-tooltip]::before { opacity: 0; transition: opacity .5s ease-in-out;}
-[data-tooltip]::after { position: absolute; bottom: calc(100% - 40px); left: 90%; content: attr(title); display: inline-block; width: 100%; padding: var(--paddingM);background-color: var(--black08); color: var(--white08);font-size: 0.7rem;white-space: nowrap;transform: translateX(-50%);border-radius: var(--radiusx2); }
+[data-tooltip]::after { position: absolute; bottom: calc(100% - 4px); left: 90%; content: attr(title); display: inline-block; width: 100%; padding: var(--paddingM);background-color: var(--black08); color: var(--white08);font-size: 0.7rem;white-space: nowrap;transform: translateX(-50%);border-radius: var(--radiusx2); }
 [data-tooltip]:hover::after,
 [data-tooltip]:hover::before,
 [data-tooltip]:focus::after,
