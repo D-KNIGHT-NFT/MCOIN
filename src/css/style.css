@@ -85,6 +85,7 @@ a:visited{ text-decoration: none; color: inherit; }
  /* COMMONS **********************************/
 
 /* BOX-SHADOWS */
+ --shine: 0 0.75rem 2rem 0 var(--white02); 
  --shadow: 0 0.75rem 2rem 0 var(--black02); 
 
  /* Animation */
@@ -98,6 +99,7 @@ a:visited{ text-decoration: none; color: inherit; }
  --paddingL: 0.75rem;
  --paddingXL: 1rem;
  --paddingXXL: 2rem;
+ --padding2XXL: 4rem;
 
  --radius: 4px;
  --radiusx2: 8px;
@@ -154,7 +156,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 
 
 /* *********//*/ LOGO Container/*/
-.logo-img { display:  flex; flex-direction: column; align-items:  center; justify-content: center; position: fixed; z-index: 1010; padding: var(--padding);  top: 2%; right: 2%; }
+.logo-img { display:  flex; flex-direction: column; align-items:  center; justify-content: center; position: fixed; z-index: 1010; padding: var(--padding);  top: 2%; right: 1%; }
 .logo-img img{ filter: grayscale(); width: 120px; height: 120px; transition: filter 0.4s ease-in-out;  }
 .logo-img:hover { cursor: pointer; }
 .logo-img:hover img { filter: none; }
@@ -172,11 +174,11 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 /* Desktop --> min-width 1921px */
 @media only screen and (min-width: 120.063em) {}
 /* Desktop --> iPhone Orientation */
-@media only screen and (orientation:landscape) { img.logo-icon { width: 88px; height: 88px; top: 1%; right: 0; } .subtitle { font-size: 1rem; } }
+@media only screen and (orientation:landscape) { img.logo-icon { width: 88px; height: 88px; top: 0; right: 0; } .subtitle { font-size: 1rem; } }
 @media only screen and (orientation:portrait) {  img.logo-icon { width: 64px; height: 64px;} .subtitle { font-size: 1rem; } }
 
 /* *********//*/ MUSIC PLAYER /*/
-.music-player { max-width:  90vw; display: flex; align-items: center; justify-content: center; gap: 40px; background: var(--black06);box-shadow: var(--shadow); padding: var(--paddingXL); border:  var(--border); border-radius:  var(--radiusx8);position: fixed; z-index: 1010; bottom: 1%; right: 1%; }
+.music-player { max-width:  90vw; display: flex; align-items: center; justify-content: center; gap: 40px; background: var(--black06);box-shadow: var(--shadow); padding: var(--paddingXL); border:  var(--border); border-radius:  var(--radiusx8);position: fixed; z-index: 1010; bottom: 2%; right: 1%; }
 
 @media only screen and (max-width: 40em) { .music-player{ gap: 24px;} }
 /* Tablet --> min-width 641px  */
@@ -188,19 +190,19 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 /* Desktop --> min-width 1921px */
 @media only screen and (min-width: 120.063em) {}
 /* Desktop --> iPhone Orientation */
-@media only screen and (orientation:portrait) { .music-player{ bottom: 0 ; } }
+@media only screen and (orientation:portrait) { .music-player{ bottom: 2% ; } }
 @media only screen and (orientation:landscape) {.music-player{ flex-direction: column; gap: 24px;} }
 
 /* ############# GLASS MODAL CONTAINER*/
-.glass-container {  position: absolute; z-index: 1100; top: 0 ;max-width: 94vw; min-height: 100vh; display: grid; place-items: center; padding: var(--padding); }
+.glass-container {  position: absolute; z-index: 1010; top: 0 ;max-width: 90vw; min-height: 100vh; display: grid; place-items: center; padding: var(--padding); }
 
-.overlay { width: 100%; padding: 8rem 6rem; display: flex; align-items: center; background: var(--black08);box-shadow: var(--shadow); border-radius: var(--radiusx8); border: var(--border); }
+.overlay { width: 100%; padding: var(--padding2XXL); display: flex; align-items: center; background: var(--white02);box-shadow: var(--shine); border-radius: var(--radiusx8); border: var(--border); }
 
 .overlay__inner { max-width: 36rem; }
 
 .overlay__title { font-size: 1.875rem; line-height: 2.75rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 2rem }
 
-.overlay__description { font-size: 1rem; line-height: 1.75rem; margin-bottom: 3rem; margin-top: 2rem; }
+.overlay__description { font-size: 1rem; line-height: 1.75rem; margin-bottom: 3rem; margin-top: 2rem; color: var(--white); }
 
 .overlay__btns { width: 100%; max-width: 40rem; display: flex }
 
@@ -223,7 +225,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 
 /* ############# component Themes dropdown */
 
-.dropdowns { display:  flex; flex-flow: row nowrap; font-family: cy,sans-serif; width:  100%; font-size: 0.7rem; color: var(--black);  position: fixed; z-index: 1005; bottom: 0% ; border-radius: 0.5rem; padding: var(--paddingM);  }
+.dropdowns { display:  flex; flex-flow: column nowrap; font-family: cy,sans-serif; max-width: 100%; font-size: 0.8rem; color: var(--black);  position: fixed; z-index: 1010; left: 2%;bottom: 2% ; border-radius: 0.5rem; padding: var(--paddingM);  }
 [data-dropdown] summary { padding: var(--paddingM); }
 [data-dropdown] summary, li:hover {cursor: pointer; background-color: var(--white08);}
 [data-dropdown] summary::-webkit-details-marker { display: none; }
@@ -260,7 +262,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 
 [data-tooltip] { position: relative; }
 [data-tooltip]::after,[data-tooltip]::before { opacity: 0; transition: opacity .5s ease-in-out;}
-[data-tooltip]::after { position: absolute; bottom: calc(100% - 4px); left: 90%; content: attr(title); display: inline-block; width: 100%; padding: var(--paddingM);background-color: var(--black08); color: var(--white08);font-size: 0.7rem;white-space: nowrap;transform: translateX(-50%);border-radius: var(--radiusx2); }
+[data-tooltip]::after { position: absolute; bottom: calc(100% - 4px); left: 10%; content: attr(title); display: inline-block; width: 10%; padding: var(--paddingM);background-color: var(--black08); color: var(--white08);font-size: 0.7rem;white-space: nowrap;transform: translateX(-50%);border-radius: var(--radiusx2); }
 [data-tooltip]:hover::after,
 [data-tooltip]:hover::before,
 [data-tooltip]:focus::after,
@@ -275,13 +277,6 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 .foggy { width: 800px; height: 200px; user-select: none; }
 .fog-cloud { opacity: 0;width: 400px; border-radius: 100%; height: 200px; position: relative; left: 10%; right: 5%; margin: auto;user-select: none;pointer-events: none; } */
 
-
-/* *********//*/ Themes /*/
-.header-menu { border: 1px solid var(--primary-blue04); background: var(--black04); border-radius: var(--cssui-radius); padding: var(--cssui-padding);  }
-.icon { padding: var(--cssui-padding); margin: 8px 8px 0 4px; border-radius: var(--cssui-radius); border:  1px solid var(--black1);}
-.icon:hover { visibility: visible; background: var(--black02);}
-/* *********//*/ Theme Icons + Theme Container  /*/
-#dialog { position: fixed; z-index: 1020; top: 23%; right: 23%; }
 
 
 /* max-width 640px, mobile-only styles. */

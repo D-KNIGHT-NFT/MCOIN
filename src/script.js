@@ -84,7 +84,7 @@ class Orb {
     this.xOff = random(0, 1000);
     this.yOff = random(0, 1000);
     // how quickly the noise/self similar random values step through time
-    this.inc = 0.002;
+    this.inc = 0.005;
 
     // PIXI.Graphics is used to draw 2d primitives (in this case a circle) to the canvas
     this.graphics = new PIXI.Graphics();
@@ -101,13 +101,13 @@ class Orb {
   setBounds() {
     // how far from the { x, y } origin can each orb move
     const maxDist =
-        window.innerWidth < 1000 ? window.innerWidth / 3 : window.innerWidth / 5;
+        window.innerWidth < 1000 ? window.innerWidth / 5 : window.innerWidth / 5;
     // the { x, y } origin for each orb (the bottom right of the screen)
     const originX = window.innerWidth / 2;
     const originY =
         window.innerWidth < 1000
         ? window.innerHeight
-        : window.innerHeight / 2;
+        : window.innerHeight / 1.375;
 
     // allow each orb to move x distance away from it's { x, y }origin
     return {
@@ -167,7 +167,7 @@ class ColorPalette {
     this.complimentaryHue1 = this.hue + 30;
     this.complimentaryHue2 = this.hue + 60;
     // define a fixed saturation and lightness
-    this.saturation = 95;
+    this.saturation = 80;
     this.lightness = 40;
 
     // define a base color
@@ -321,12 +321,12 @@ const light4 = new THREE.PointLight( 0xffaa00, 2, 500 );
 scene.add( light4 );
 
 
-RectAreaLightUniformsLib.init();
+// RectAreaLightUniformsLib.init();
 
-const rectLight1 = new THREE.RectAreaLight( 0x000000, 0.8, 104, 104 );
-rectLight1.position.set( 1, 0, -1 );
-rectLight1.rotation.set( 0, 0, 0 )
-scene.add( rectLight1 );
+// const rectLight1 = new THREE.RectAreaLight( 0x000000, 0.8, 104, 104 );
+// rectLight1.position.set( 1, 0, -1 );
+// rectLight1.rotation.set( 0, 0, 0 )
+// scene.add( rectLight1 );
 
 // const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 6, 24, 24 );
 // rectLight2.position.set( 0, 0, -1 );
@@ -338,10 +338,10 @@ scene.add( rectLight1 );
 // rectLight3.rotation.set( 0, 45 ,0 )
 // scene.add( rectLight3 );
 
-const rectLight4 = new THREE.RectAreaLight( 0xffffff , 0.8, 104, 104 );
-rectLight4.position.set( -1, 0, 1 );
-rectLight4.rotation.set( 0, 0 ,0 )
-scene.add( rectLight4 );
+// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 0.8, 104, 104 );
+// rectLight4.position.set( -1, 0, 1 );
+// rectLight4.rotation.set( 0, 0 ,0 )
+// scene.add( rectLight4 );
 
 // scene.add( new RectAreaLightHelper( rectLight1 ) );
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
@@ -406,7 +406,7 @@ environmentMap.envMapIntensity = 100.0
 scene.environment = environmentMap
 scene.background = environmentMap
 
-scene.fog = new THREE.FogExp2( 0xfafafa, 0.72);
+// scene.fog = new THREE.FogExp2( 0xfafafa, 0.72);
 
 ////////////////////////////////////////////////////////////////////
 // HTML LEGACY FOG
@@ -525,18 +525,19 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         let logo = gltf.scene;
         let logoMaterial= new THREE.MeshPhysicalMaterial( 
         { 
-        side: THREE.BackSide,    
+        side: THREE.DoubleSide,    
         color: 0xffffff,
         //wireframe: true,
         transmission: 1,
-        // vertexColors: true,
+        vertexColors: true,
         // opacity: 0.55,
         metalness: 0,
-        roughness: 0.01,
+        roughness: 0,
         ior: 4.0,
         thickness: 0,
         specularIntensity: 1,
         specularColor: 0xffffff,
+        envMap: environmentMap,
         envMapIntensity: 1.0
         });
 
@@ -557,10 +558,11 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         scene.add(htdi)
 
     
-        let singleMaterial= new THREE.MeshPhysicalMaterial( 
+        let singleMaterial= new THREE.MeshLambertMaterial( 
         { 
           side: THREE.DoubleSide, 
-          transmission: 1,
+          refractionRatio: 0.985,
+          reflectivity: 0.9,
           roughness: 0.01,  
           thickness: 0.01,
           clearcoat: 0.1,
@@ -617,7 +619,7 @@ window.addEventListener('resize', () =>
 ///////////////
 
 const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height, 0.2, 100)
-camera.position.set( 0, 0, 4)
+camera.position.set( 0, 0, -4)
 
 scene.add(camera)
 
@@ -628,7 +630,7 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enable = false
 controls.enableDamping = true
-controls.autoRotate= false
+controls.autoRotate= true
 // controls.enableZoom = false
 controls.autoRotateSpeed = 0.7
 controls.minDistance = 0.8;
@@ -675,6 +677,8 @@ const tick = () =>
     // particles.scale.Y = elapsedTime * 0.01
     // particles.scale.Z = elapsedTime * 0.01
     particles.rotation.y = elapsedTime * 0.1
+    particles.rotation.x = elapsedTime * 0.1
+    particles.rotation.z = elapsedTime * 0.04
 
     for(let i = 0; i < count; i++)
        {
