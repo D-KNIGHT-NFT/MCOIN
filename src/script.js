@@ -322,27 +322,27 @@ const light4 = new THREE.PointLight( 0xffaa00, 2, 500 );
 scene.add( light4 );
 
 
-// RectAreaLightUniformsLib.init();
+RectAreaLightUniformsLib.init();
 
-// const rectLight1 = new THREE.RectAreaLight( 0x000000, 0.8, 104, 104 );
+// const rectLight1 = new THREE.RectAreaLight( 0xD6B201, 0.8, 104, 104 );
 // rectLight1.position.set( 1, 0, -1 );
 // rectLight1.rotation.set( 0, 0, 0 )
 // scene.add( rectLight1 );
 
-// const rectLight2 = new THREE.RectAreaLight( 0xD93B27 , 6, 24, 24 );
-// rectLight2.position.set( 0, 0, -1 );
-// rectLight2.rotation.set( 0, -45 ,0 )
-// scene.add( rectLight2 );
+const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 0.8, 104, 104 );
+rectLight2.position.set( 0, 0, -1 );
+rectLight2.rotation.set( 0, 90 ,0 )
+scene.add( rectLight2 );
 
 // const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 6, 24, 24 );
 // rectLight3.position.set( 0, 0, 1 );
 // rectLight3.rotation.set( 0, 45 ,0 )
 // scene.add( rectLight3 );
 
-// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 0.8, 104, 104 );
-// rectLight4.position.set( -1, 0, 1 );
-// rectLight4.rotation.set( 0, 0 ,0 )
-// scene.add( rectLight4 );
+const rectLight4 = new THREE.RectAreaLight( 0xffffff , 0.8, 104, 104 );
+rectLight4.position.set( -1, 0, 1 );
+rectLight4.rotation.set( 0, 0 ,0 )
+scene.add( rectLight4 );
 
 // scene.add( new RectAreaLightHelper( rectLight1 ) );
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
