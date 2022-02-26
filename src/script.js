@@ -559,20 +559,14 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         scene.add(htdi)
 
     
-        let singleMaterial= new THREE.MeshPhysicalMaterial( 
+        let singleMaterial= new THREE.MeshLambertMaterial( 
         { 
           side: THREE.DoubleSide, 
           refractionRatio: 0.985,
           reflectivity: 0.9,
-          roughness: 0.01,  
-          thickness: 0.01,
-          clearcoat: 0.1,
-          metalness: 0,
           reflectivity: 0.2,
-          ior: 2,
           refractionRatio: 2,
-          envMap: environmentMap,
-          envMapIntensity: 0.7,
+          envMap: environmentMap
         });
 
         htdi.traverse((o) => {

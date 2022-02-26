@@ -16,17 +16,17 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/a63faa7a4a1a02edeeddee78e/acd531e12b7b63ffd559d6824.js");</script>
-    <script type="text/javascript"> function toggleGlass(){  var myGlass = document.getElementById('glassCard'); var displaySetting = myGlass.style.display; if (displaySetting == 'block') {  myGlass.style.display = 'none';} else { myGlass.style.display = 'block';} }</script>
+    <script type="text/javascript"> function toggle(){  var myGlass = document.getElementById('glassCard'); var myOrbs = document.getElementById('orbs-display'); var displaySetting = myGlass.style.display; if (displaySetting == 'block') {  myGlass.style.display = 'none'; myOrbs.style.display = 'none'} else { myGlass.style.display = 'block';} }</script>
 </head>
 
 <body>
 
   <!---------------------- Canvas Web GL ------------>
-  <canvas class="orb-canvas"></canvas>
+  <canvas class="orb-canvas" id="orbs-display"></canvas>
   <canvas class="webgl"></canvas>
   
   <!--------------------- Glass Modal -->
-  <div id="glassCard" onclick="toggleGlass()">
+  <div id="glassCard" onclick="toggle()">
     <div class="overlay">
       <div class="overlay__inner">
          <div class="icon-close" data-tooltip alt="close" title="close" role="tooltip" aria-label="Tooltip message"><a href="#">
