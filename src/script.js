@@ -102,13 +102,13 @@ class Orb {
   setBounds() {
     // how far from the { x, y } origin can each orb move
     const maxDist =
-        window.innerWidth < 1000 ? window.innerWidth / 5 : window.innerWidth / 5;
+        window.innerWidth < 1000 ? window.innerWidth / 2 : window.innerWidth / 2;
     // the { x, y } origin for each orb (the bottom right of the screen)
     const originX = window.innerWidth / 2;
     const originY =
         window.innerWidth < 1000
         ? window.innerHeight
-        : window.innerHeight / 1.375;
+        : window.innerHeight / 1;
 
     // allow each orb to move x distance away from it's { x, y }origin
     return {
@@ -169,7 +169,7 @@ class ColorPalette {
     this.complimentaryHue2 = this.hue + 60;
     // define a fixed saturation and lightness
     this.saturation = 80;
-    this.lightness = 40;
+    this.lightness = 80;
 
     // define a base color
     this.baseColor = hsl(this.hue, this.saturation, this.lightness);
@@ -246,7 +246,6 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   });
 }
 
-
 ////////////////////////////////////////////////////////////////////
 // DEBUGGER 
 ///////////////
@@ -296,7 +295,7 @@ window.onload = function(){
       play.style.display = "block";
    });
 
-   audioElement.volume = 0.5;
+   audioElement.volume = 0.3;
 }
 
 ////////////////////////////////////////////////////////////////////

@@ -182,7 +182,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 /* ************************************ MUSIC PLAYER   */
 /* ************************************************* */
 .music-player { max-width:  90vw; display: flex; align-items: center; justify-content: center; gap: 40px; background: var(--black06);box-shadow: var(--shadow); padding: var(--paddingXL); border:  var(--border); border-radius:  var(--radiusx8);position: fixed; z-index: 1010; bottom: 2%; right: 1%; }
-
+#loading {font-size: 0.5rem;}
 @media only screen and (max-width: 40em) { .music-player{ gap: 24px;} }
 /* Tablet --> min-width 641px  */
 @media only screen and (min-width: 40.063em) {}
@@ -199,8 +199,8 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 /* ************************************************* */
 /* ************************************ GLASS MODAL  */
 /* ************************************************* */
-#glassCard {  position: absolute; z-index: 1010; top: 30% ;max-width: 90vw; min-height: 100vh; display: block; padding: var(--padding); }
-.overlay { width: 100%; padding: var(--padding2XXL); display: flex; align-items: center; background: var(--black04);box-shadow: var(--shine); border-radius: var(--radiusx8); border: var(--border); }
+#glassCard {  position: absolute; z-index: 1011; top: 20% ;min-width: 90vw; max-height: 100vh; display: block; padding: var(--padding); }
+.overlay { width: 100%; padding: var(--padding2XXL); display: flex; align-items: center; background: var(--black08);box-shadow: var(--shine); border-radius: var(--radiusx8); border: var(--border); }
 .overlay__inner { max-width: 36rem; }
 .overlay__title { font-size: 1.875rem; line-height: 2.75rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 2rem }
 .overlay__description { font-size: 1rem; line-height: 1.75rem; margin-bottom: 3rem; margin-top: 2rem; color: var(--white); }
@@ -215,7 +215,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 @media only screen and (max-width: 840px) { .overlay { padding: 4rem; height: auto;} .overlay__title { font-size: 1.25rem; line-height: 2rem; margin-bottom: 1.5rem;} .overlay__description { font-size: 0.875rem; line-height: 1.5rem; margin-bottom: 2.5rem;} }
 @media only screen and (max-width: 600px) { .overlay { padding: var(--paddingXXL);} .overlay__btns { flex-wrap: wrap;} .overlay__btn { width: 100%; font-size: 0.75rem; margin-right: 0;} .overlay__btn:first-child { margin-bottom: 1rem;} }
 @media only screen and (orientation:portrait) {  }
-@media only screen and (orientation:landscape) { .overlay { padding: var(--paddingXXL)} .overlay__description { font-size: 0.7rem;  margin-bottom: 1rem; margin-top: 1rem;} }
+@media only screen and (orientation:landscape) { .overlay { padding: var(--paddingXXL)} .overlay__description { font-size: 0.7rem;  margin-bottom: 1rem; margin-top: 1rem;} #glassCard{ top: 5%; } }
 
 /* ************************************************* */
 /* ************************************ DROPDOWN  */
@@ -248,7 +248,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 
 [data-modal] { visibility: hidden; opacity: 0; transition: opacity 1s ease-in-out; position: fixed;top: 0;right: 0;bottom: 0;left: 0; display: flex; align-items: center; justify-content: center; }
 [data-modal-overlay] { position: fixed; background-color: var(--black08); }
-[data-modal-dialog] { z-index: 60000x; width: var(--size); max-width: var(--maxSize-XL);padding: var(--paddingXXL); border-radius: var(--radiusx4); background-color: var(--purple04);opacity: 0; transform: translateY(-4rem);transition: opacity 1.5s ease-in-out, transform .5s ease-out; transition-delay: .2s; }
+[data-modal-dialog] { z-index: 60000; width: var(--size); max-width: var(--maxSize-XL);padding: var(--paddingXXL); border-radius: var(--radiusx4); background-color: var(--purple04);opacity: 0; transform: translateY(-4rem);transition: opacity 1.5s ease-in-out, transform .5s ease-out; transition-delay: .2s; }
 [data-modal]:target {visibility: visible; opacity: 1; z-index: 60000; }
 [data-modal]:target [data-modal-dialog] { opacity: 1; transform: translateY(0); }
 [data-modal-close] { position: absolute; top: 1%; right: 1%; color: var(--yellow);}
@@ -262,7 +262,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 
 [data-tooltip] { position: relative; }
 [data-tooltip]::after,[data-tooltip]::before { opacity: 0; transition: opacity .5s ease-in-out;}
-[data-tooltip]::after { position: absolute; bottom: calc(100% - 4px); left: 10%; content: attr(title); display: inline-block; width: 10%; padding: var(--paddingM);background-color: var(--black08); color: var(--white08);font-size: 0.7rem;white-space: nowrap;transform: translateX(-50%);border-radius: var(--radiusx2); }
+[data-tooltip]::after { position: absolute; bottom: calc(100% - 4px); right: 50%; content: attr(title); display: inline-block; width: 30%; padding: var(--paddingM);background-color: var(--black08); color: var(--white08);font-size: 0.7rem;white-space: nowrap;transform: translateX(-50%);border-radius: var(--radiusx2); }
 [data-tooltip]:hover::after,
 [data-tooltip]:hover::before,
 [data-tooltip]:focus::after,
