@@ -5,6 +5,7 @@ import { SVG, extend as SVGextend, Element as SVGElement } from '@svgdotjs/svg.j
 import gsap from 'gsap'
 import { easePack } from 'gsap'
 import { WebGLRenderer } from "three";
+import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls.js';
@@ -131,7 +132,7 @@ class Orb {
     this.x = map(xNoise, -1, 1, this.bounds["x"].min, this.bounds["x"].max);
     this.y = map(yNoise, -1, 1, this.bounds["y"].min, this.bounds["y"].max);
     // map scaleNoise (between -1 and 1) to a scale value somewhere between half of the orb's original size, and 100% of it's original size
-    this.scale = map(scaleNoise, -1, 1, 0.5, 1);
+    this.scale = map(scaleNoise, -1, 1, -1, 1);
 
     // step through "time"
     this.xOff += this.inc;
@@ -397,7 +398,7 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-1/');
+cubeTextureLoader.setPath('textures/environmentMap/level-2/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
