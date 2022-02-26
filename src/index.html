@@ -50,7 +50,7 @@
   </div>
 
   <!---------------------- Music  ------------>
-  <audio loop id="music" preload="metadata">
+  <audio autoplay loop id="music" preload="metadata">
     <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
     <source src="/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg">
     <!-- place fallback here as <audio> supporting browsers will ignore it -->
@@ -68,7 +68,7 @@
        src= "../static/UI/Icon/32x32/sound.png"/>
     </div>
 
-    <span id="loading">loading</span>
+    <span id="loading">playing</span>
 
     <div id="play" class="button-icon" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
       <img srcset="
