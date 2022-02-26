@@ -335,7 +335,7 @@ scene.add( light3 );
 const light4 = new THREE.PointLight( 0xffaa00, 2, 500 );
 scene.add( light4 );
 
-
+const ambientLight = new THREE.AmbientLight( 0xD6B201, 1.2)
 RectAreaLightUniformsLib.init();
 
 // const rectLight1 = new THREE.RectAreaLight( 0xD6B201, 0.8, 104, 104 );
@@ -345,7 +345,7 @@ RectAreaLightUniformsLib.init();
 
 const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
 rectLight2.position.set( 1, 0, -1 );
-rectLight2.rotation.set( 0, 90 ,0 )
+rectLight2.rotation.set( 0, 360 ,0 )
 scene.add( rectLight2 );
 
 // const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 6, 24, 24 );
@@ -368,7 +368,7 @@ scene.add( rectLight4 );
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 500
+const count = 777
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
@@ -493,7 +493,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0, -0.02)
+glassphere.position.set(0, 0, -0.002)
 glassphere.scale.set(0.6, 0.35, 0.6)
 scene.add(glassphere);
 
@@ -533,7 +533,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         // Model
 
         gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
-        gltf.scene.position.set(0, -0.8, 0.28)
+        gltf.scene.position.set(0, -0.8, 0.4)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
@@ -639,6 +639,8 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enable = false
 controls.enableDamping = true
+controls.dampingFactor = 0.05;
+controls.enablePan = false;
 controls.autoRotate= true
 // controls.enableZoom = false
 controls.autoRotateSpeed = 1
@@ -670,8 +672,8 @@ const composer = new EffectComposer( renderer );
 const renderPass = new RenderPass( scene, camera );
 composer.addPass( renderPass );
 
-const glitchPass = new GlitchPass();
-composer.addPass( glitchPass );
+// const glitchPass = new GlitchPass();
+// composer.addPass( glitchPass );
 
 ////////////////////////////////////////////////////////////////////
 // ANIMATION 
@@ -691,12 +693,12 @@ const tick = () =>
     controls.update()
 
     // Update Particles
-    particles.position.x = elapsedTime * 0.001
-    particles.position.Y = elapsedTime * 0.001
-    particles.position.Z = elapsedTime * 0.001
-    particles.rotation.y = elapsedTime * 0.1
-    particles.rotation.x = elapsedTime * 0.8
-    particles.rotation.z = elapsedTime * 0.04
+    // particles.scale.x = elapsedTime * 0.01
+    // particles.scale.Y = elapsedTime * 0.1
+    // particles.scale.Z = elapsedTime * 0.001
+    particles.rotation.y = elapsedTime * 0.024
+    particles.rotation.x = elapsedTime * 0.008
+    particles.rotation.z = elapsedTime * 0.048
 
     for(let i = 0; i < count; i++)
        {
