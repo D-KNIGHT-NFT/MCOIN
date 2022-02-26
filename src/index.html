@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/a63faa7a4a1a02edeeddee78e/acd531e12b7b63ffd559d6824.js");</script>
+    <script type="text/javascript"> function toggleGlass(){  var myGlass = document.getElementById('glassCard'); var displaySetting = myGlass.style.display; if (displaySetting == 'block') {  myGlass.style.display = 'none';} else { myGlass.style.display = 'block';} }</script>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
   <canvas class="webgl"></canvas>
   
   <!--------------------- Glass Modal -->
-  <div class="glass-container">
+  <div id="glassCard" onclick="toggleGlass()">
     <div class="overlay">
       <div class="overlay__inner">
          <div class="icon-close" data-tooltip alt="close" title="close" role="tooltip" aria-label="Tooltip message"><a href="#">

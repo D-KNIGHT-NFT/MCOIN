@@ -559,7 +559,7 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         scene.add(htdi)
 
     
-        let singleMaterial= new THREE.MeshLambertMaterial( 
+        let singleMaterial= new THREE.MeshPhysicalMaterial( 
         { 
           side: THREE.DoubleSide, 
           refractionRatio: 0.985,

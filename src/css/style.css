@@ -199,7 +199,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 /* ************************************************* */
 /* ************************************ GLASS MODAL  */
 /* ************************************************* */
-.glass-container {  position: absolute; z-index: 1010; top: 0 ;max-width: 90vw; min-height: 100vh; display: grid; place-items: center; padding: var(--padding); }
+#glassCard {  position: absolute; z-index: 1010; top: 30% ;max-width: 90vw; min-height: 100vh; display: block; padding: var(--padding); }
 .overlay { width: 100%; padding: var(--padding2XXL); display: flex; align-items: center; background: var(--black04);box-shadow: var(--shine); border-radius: var(--radiusx8); border: var(--border); }
 .overlay__inner { max-width: 36rem; }
 .overlay__title { font-size: 1.875rem; line-height: 2.75rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 2rem }
