@@ -85,11 +85,11 @@ class Orb {
     this.xOff = random(0, 1000);
     this.yOff = random(0, 1000);
     // how quickly the noise/self similar random values step through time
-    this.inc = 0.005;
+    this.inc = 0.002;
 
     // PIXI.Graphics is used to draw 2d primitives (in this case a circle) to the canvas
     this.graphics = new PIXI.Graphics();
-    this.graphics.alpha = 0.425;
+    this.graphics.alpha = 0.625;
 
     // 250ms after the last window resize event, recalculate orb positions.
     window.addEventListener(
@@ -102,13 +102,13 @@ class Orb {
   setBounds() {
     // how far from the { x, y } origin can each orb move
     const maxDist =
-        window.innerWidth < 1000 ? window.innerWidth / 2 : window.innerWidth / 2;
+        window.innerWidth < 240 ? window.innerWidth / 2 : window.innerWidth / 2;
     // the { x, y } origin for each orb (the bottom right of the screen)
     const originX = window.innerWidth / 2;
     const originY =
         window.innerWidth < 1000
         ? window.innerHeight
-        : window.innerHeight / 1;
+        : window.innerHeight / 2;
 
     // allow each orb to move x distance away from it's { x, y }origin
     return {
@@ -164,11 +164,11 @@ class ColorPalette {
 
   setColors() {
     // pick a random hue somewhere between 220 and 360
-    this.hue = ~~random(0, 360);
+    this.hue = ~~random(0, 660);
     this.complimentaryHue1 = this.hue + 30;
     this.complimentaryHue2 = this.hue + 60;
     // define a fixed saturation and lightness
-    this.saturation = 80;
+    this.saturation = 100;
     this.lightness = 80;
 
     // define a base color
@@ -356,17 +356,17 @@ const particlesGeometry = new THREE.BufferGeometry()
 const count = 500
 
 const particlesMaterial = new THREE.PointsMaterial()
-particlesMaterial.size = 0.5
+particlesMaterial.size = 2.2
 particlesMaterial.sizeAttenuation = true
-// particlesMaterial.color = new THREE.Color('#31FF9C')
+particlesMaterial.color = new THREE.Color('#31FF9C')
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
 
 const positions = new Float32Array(count * 3) // Multiply by 3 because each position is composed of 3 values (x, y, z)
-// const colors = new Float32Array(count * 3)
+const colors = new Float32Array(count * 3)
 
-// particlesMaterial.size = 0.1
+particlesMaterial.size = 0.2
 
 for(let i = 0; i < count * 3; i++) // Multiply by 3 for same reason
 {
@@ -375,7 +375,7 @@ for(let i = 0; i < count * 3; i++) // Multiply by 3 for same reason
 }
 
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)) // Create the Three.js BufferAttribute and specify that each information is composed of 3 values
-// particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors))
+particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors))
 
 const textureLoader = new THREE.TextureLoader()
 const particleTexture = textureLoader.load('/textures/particles/stars/star_07.png')
@@ -478,7 +478,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0, 0)
+glassphere.position.set(0, 0, -0.02)
 glassphere.scale.set(0.4, 0.4, 0.4)
 scene.add(glassphere);
 
@@ -613,7 +613,7 @@ window.addEventListener('resize', () =>
 ///////////////
 
 const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height, 0.2, 100)
-camera.position.set( 0, 0, -4)
+camera.position.set( 2, 2, 8)
 
 scene.add(camera)
 
@@ -626,9 +626,9 @@ controls.enable = false
 controls.enableDamping = true
 controls.autoRotate= true
 // controls.enableZoom = false
-controls.autoRotateSpeed = 0.7
-controls.minDistance = 0.8;
-controls.maxDistance = 1.5;
+controls.autoRotateSpeed = 1
+controls.minDistance = 0.6;
+controls.maxDistance = 4;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////

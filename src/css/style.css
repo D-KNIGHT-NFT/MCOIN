@@ -17,9 +17,9 @@ article,aside,details,figcaption,figure,footer,header,nav,section { display: blo
 
 * { box-sizing: border-box; }
 
-input[type="radio"] { display: none; place-content: center; -webkit-appearance: none;appearance: none; }
+input[type="radio"] { display: none; place-content: center; -webkit-appearance: none; appearance: none; }
 
-html { font-size: 100%; color: var(--white); overflow: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } /*16px*/
+html { font-size: 100%; color: var(--white); overflow-y: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } /*16px*/
 
 body { height:  100vh; display:  flex; justify-content: center; align-items: center; line-height: 1.2; }
 
@@ -28,7 +28,7 @@ blockquote,q { quotes: none; }
 ol,ul { list-style: none; }
 
 a:hover { text-decoration: none; color: var(--purple); }
-a:focus { text-decoration: none; color: var(--); }
+a:focus { text-decoration: none; color: var(--yellow); }
 a:active{ text-decoration: none; color: var(--white); }
 a:visited{ text-decoration: none; color: inherit; }
 
@@ -181,7 +181,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 /* ************************************************* */
 /* ************************************ MUSIC PLAYER   */
 /* ************************************************* */
-.music-player { max-width:  90vw; display: flex; align-items: center; justify-content: center; gap: 40px; background: var(--black06);box-shadow: var(--shadow); padding: var(--paddingXL); border:  var(--border); border-radius:  var(--radiusx8);position: fixed; z-index: 1010; bottom: 2%; right: 1%; }
+.music-player { max-width:  90vw; display: flex; align-items: center; justify-content: center; gap: 40px; background: var(--black);box-shadow: var(--shadow); padding: var(--paddingXL); border:  var(--border); border-radius:  var(--radiusx8);position: fixed; z-index: 1010; bottom: 2%; right: 1%; }
 #loading {font-size: 0.5rem;}
 @media only screen and (max-width: 40em) { .music-player{ gap: 24px;} }
 /* Tablet --> min-width 641px  */
@@ -199,7 +199,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 /* ************************************************* */
 /* ************************************ GLASS MODAL  */
 /* ************************************************* */
-#glassCard {  position: absolute; z-index: 1011; top: 20% ;min-width: 90vw; max-height: 100vh; display: block; padding: var(--padding); }
+#glassCard {  position: absolute; z-index: 1011; min-width: 80vw; max-height: 80vh; display: block; padding: var(--padding); }
 .overlay { width: 100%; padding: var(--padding2XXL); display: flex; align-items: center; background: var(--black08);box-shadow: var(--shine); border-radius: var(--radiusx8); border: var(--border); }
 .overlay__inner { max-width: 36rem; }
 .overlay__title { font-size: 1.875rem; line-height: 2.75rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 2rem }
@@ -215,7 +215,7 @@ nav { display: flex; align-items: center; justify-content: center; background: v
 @media only screen and (max-width: 840px) { .overlay { padding: 4rem; height: auto;} .overlay__title { font-size: 1.25rem; line-height: 2rem; margin-bottom: 1.5rem;} .overlay__description { font-size: 0.875rem; line-height: 1.5rem; margin-bottom: 2.5rem;} }
 @media only screen and (max-width: 600px) { .overlay { padding: var(--paddingXXL);} .overlay__btns { flex-wrap: wrap;} .overlay__btn { width: 100%; font-size: 0.75rem; margin-right: 0;} .overlay__btn:first-child { margin-bottom: 1rem;} }
 @media only screen and (orientation:portrait) {  }
-@media only screen and (orientation:landscape) { .overlay { padding: var(--paddingXXL)} .overlay__description { font-size: 0.7rem;  margin-bottom: 1rem; margin-top: 1rem;} #glassCard{ top: 5%; } }
+@media only screen and (orientation:landscape) { .overlay { padding: var(--paddingXXL)} .overlay__description { font-size: 0.7rem;  margin-bottom: 1rem; margin-top: 1rem;} #glassCard{ top: 3%; } }
 
 /* ************************************************* */
 /* ************************************ DROPDOWN  */
