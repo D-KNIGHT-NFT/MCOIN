@@ -1,8 +1,12 @@
 import './css/style.css'
+
+// Main Libraries
 import $ from "jquery";
 import * as THREE from 'three'
+import * as PIXI from "pixi.js"
 import { SVG, extend as SVGextend, Element as SVGElement } from '@svgdotjs/svg.js'
 import gsap from 'gsap'
+
 import { easePack } from 'gsap'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -12,9 +16,15 @@ import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonCont
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
+
+// POST-PROCESSING
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
+
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
@@ -25,7 +35,6 @@ import { InteractiveGroup } from 'three/examples/jsm/interactive/InteractiveGrou
 import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory.js';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
 import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
-import * as PIXI from "pixi.js";
 import { KawaseBlurFilter } from "@pixi/filter-kawase-blur";
 import SimplexNoise from "simplex-noise";
 import hsl from "hsl-to-hex";
@@ -79,7 +88,7 @@ class Orb {
     this.fill = fill;
 
     // the original radius of the orb, set relative to window height
-    this.radius = random(window.innerHeight / 6, window.innerHeight / 3);
+    this.radius = random(window.innerHeight / 3, window.innerHeight / 3);
 
     // starting points in "time" for the noise/self similar random values
     this.xOff = random(0, 1000);
@@ -89,7 +98,7 @@ class Orb {
 
     // PIXI.Graphics is used to draw 2d primitives (in this case a circle) to the canvas
     this.graphics = new PIXI.Graphics();
-    this.graphics.alpha = 0.625;
+    this.graphics.alpha = 0.925;
 
     // 250ms after the last window resize event, recalculate orb positions.
     window.addEventListener(
@@ -102,7 +111,7 @@ class Orb {
   setBounds() {
     // how far from the { x, y } origin can each orb move
     const maxDist =
-        window.innerWidth < 240 ? window.innerWidth / 2 : window.innerWidth / 2;
+        window.innerWidth < 1000 ? window.innerWidth / 2 : window.innerWidth / 2;
     // the { x, y } origin for each orb (the bottom right of the screen)
     const originX = window.innerWidth / 2;
     const originY =
@@ -169,7 +178,7 @@ class ColorPalette {
     this.complimentaryHue2 = this.hue + 60;
     // define a fixed saturation and lightness
     this.saturation = 100;
-    this.lightness = 80;
+    this.lightness = 60;
 
     // define a base color
     this.baseColor = hsl(this.hue, this.saturation, this.lightness);
@@ -297,6 +306,12 @@ window.onload = function(){
 
    audioElement.volume = 0.3;
 }
+////////////////////////////////////////////////////////////////////
+// RAYCASTER + MOUSE
+///////////////////////////////////////////////////////////////////
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
 
 ////////////////////////////////////////////////////////////////////
 // SCENE
@@ -328,8 +343,8 @@ RectAreaLightUniformsLib.init();
 // rectLight1.rotation.set( 0, 0, 0 )
 // scene.add( rectLight1 );
 
-const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 0.8, 104, 104 );
-rectLight2.position.set( 0, 0, -1 );
+const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
+rectLight2.position.set( 1, 0, -1 );
 rectLight2.rotation.set( 0, 90 ,0 )
 scene.add( rectLight2 );
 
@@ -338,7 +353,7 @@ scene.add( rectLight2 );
 // rectLight3.rotation.set( 0, 45 ,0 )
 // scene.add( rectLight3 );
 
-const rectLight4 = new THREE.RectAreaLight( 0xffffff , 0.8, 104, 104 );
+const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
 rectLight4.position.set( -1, 0, 1 );
 rectLight4.rotation.set( 0, 0 ,0 )
 scene.add( rectLight4 );
@@ -401,7 +416,7 @@ cubeTextureLoader.setPath('textures/environmentMap/level-2/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
-environmentMap.envMapIntensity = 100.0
+environmentMap.envMapIntensity = 10.0
 
 scene.environment = environmentMap
 scene.background = environmentMap
@@ -460,7 +475,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       specularIntensity: 1,
       specularColor: 0xffffff,
       envMap: environmentMap,
-      envMapIntensity: 1.0
+      envMapIntensity: 2.0
 });
 
 // const geoFloor = new THREE.BoxGeometry( 1, 0.01, 1 );
@@ -479,7 +494,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, -0.02)
-glassphere.scale.set(0.4, 0.4, 0.4)
+glassphere.scale.set(0.6, 0.35, 0.6)
 scene.add(glassphere);
 
 
@@ -650,12 +665,21 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // EFFECT COMPOSER -> POST-PRODUCTION
 ///////////////
 
-const clock = new THREE.Clock()
-let previousTime = 0
+const composer = new EffectComposer( renderer );
+
+const renderPass = new RenderPass( scene, camera );
+composer.addPass( renderPass );
+
+const glitchPass = new GlitchPass();
+composer.addPass( glitchPass );
 
 ////////////////////////////////////////////////////////////////////
 // ANIMATION 
 ///////////////
+
+const clock = new THREE.Clock()
+let previousTime = 0
+
 
 const tick = () =>
 {
@@ -667,11 +691,11 @@ const tick = () =>
     controls.update()
 
     // Update Particles
-    // particles.scale.x = elapsedTime * 0.01
-    // particles.scale.Y = elapsedTime * 0.01
-    // particles.scale.Z = elapsedTime * 0.01
+    particles.position.x = elapsedTime * 0.001
+    particles.position.Y = elapsedTime * 0.001
+    particles.position.Z = elapsedTime * 0.001
     particles.rotation.y = elapsedTime * 0.1
-    particles.rotation.x = elapsedTime * 0.1
+    particles.rotation.x = elapsedTime * 0.8
     particles.rotation.z = elapsedTime * 0.04
 
     for(let i = 0; i < count; i++)
@@ -708,7 +732,7 @@ const tick = () =>
         foxMixer.update(deltaTime)
     }
     // Render
-    renderer.render(scene, camera)
+    composer.render(scene, camera)
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
