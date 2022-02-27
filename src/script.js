@@ -306,12 +306,8 @@ window.onload = function(){
 
    audioElement.volume = 0.3;
 }
-////////////////////////////////////////////////////////////////////
-// RAYCASTER + MOUSE
-///////////////////////////////////////////////////////////////////
 
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
+
 
 ////////////////////////////////////////////////////////////////////
 // SCENE
@@ -323,52 +319,44 @@ const scene = new THREE.Scene()
 // LIGHTS 
 ///////////////
 
+// Common Lights Between Scenes
+
+RectAreaLightUniformsLib.init(); // Initiator Rect Area Lights
+
+// Lights Inside Glass Bubble 
+
 const light1 = new THREE.PointLight( 0xff0040, 2, 500 );
 scene.add( light1 );
-
 const light2 = new THREE.PointLight( 0x0040ff, 2, 500 );
 scene.add( light2 );
-
 const light3 = new THREE.PointLight( 0x80ff80, 2, 500 );
 scene.add( light3 );
-
 const light4 = new THREE.PointLight( 0xffaa00, 2, 500 );
 scene.add( light4 );
 
+
+//////////////////////////////////////////////////////////// Lightning Scene Space Launcher
+
+// const ambientLight = new THREE.AmbientLight( 0x18FEFE, 1.2)
+
+// const rectLight2 = new THREE.RectAreaLight( 0x18FEFE, 1.2 );
+// rectLight2.position.set( 1, 0, -1 );
+// rectLight2.rotation.set( 0, 360 ,0 )
+// scene.add( rectLight2 );
+
+// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
+// rectLight4.position.set( -1, 0, 1 );
+// rectLight4.rotation.set( 0, 0 ,0 )
+// scene.add( rectLight4 );
+
+///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
+
 const ambientLight = new THREE.AmbientLight( 0xD6B201, 1.2)
-
-const light = new THREE.DirectionalLight( 0xD6B201, 1.6 );
-light.position.set( 1, 1, 1 );
-light.castShadow = true;
-light.shadow.mapSize.width = 2048;
-light.shadow.mapSize.height = 2048;
-
-const d = 10;
-
-light.shadow.camera.left = - d;
-light.shadow.camera.right = d;
-light.shadow.camera.top = d;
-light.shadow.camera.bottom = - d;
-light.shadow.camera.far = 1000;
-
-scene.add( light );
-
-RectAreaLightUniformsLib.init();
-
-// const rectLight1 = new THREE.RectAreaLight( 0xD6B201, 0.8, 104, 104 );
-// rectLight1.position.set( 1, 0, -1 );
-// rectLight1.rotation.set( 0, 0, 0 )
-// scene.add( rectLight1 );
 
 const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
 rectLight2.position.set( 1, 0, -1 );
 rectLight2.rotation.set( 0, 360 ,0 )
 scene.add( rectLight2 );
-
-// const rectLight3 = new THREE.RectAreaLight( 0xB9FD02, 6, 24, 24 );
-// rectLight3.position.set( 0, 0, 1 );
-// rectLight3.rotation.set( 0, 45 ,0 )
-// scene.add( rectLight3 );
 
 const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
 rectLight4.position.set( -1, 0, 1 );
@@ -377,7 +365,21 @@ scene.add( rectLight4 );
 
 // scene.add( new RectAreaLightHelper( rectLight1 ) );
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
-// scene.add( new RectAreaLightHelper( rectLight3 ) );
+
+const directionaLight = new THREE.DirectionalLight( 0xD6B201, 1.6 );
+directionaLight.position.set( 1, 1, 1 );
+directionaLight.castShadow = true;
+directionaLight.shadow.mapSize.width = 2048;
+directionaLight.shadow.mapSize.height = 2048;
+
+const d = 10;
+
+directionaLight.shadow.camera.left = - d;
+directionaLight.shadow.camera.right = d;
+directionaLight.shadow.camera.top = d;
+directionaLight.shadow.camera.bottom = - d;
+directionaLight.shadow.camera.far = 1000;
+scene.add( directionaLight );
 
 ////////////////////////////////////////////////////////////////////
 // PARTICLES 
@@ -676,6 +678,8 @@ renderer.toneMapping = THREE.CineonToneMapping
 renderer.toneMappingExposure = 0.3
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
+renderer.domElement.style.touchAction = 'none';
+renderer.domElement.addEventListener( 'pointermove', onPointerMove );
 renderer.setClearColor('#211d20')
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -686,11 +690,16 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 const composer = new EffectComposer( renderer );
 
-const renderPass = new RenderPass( scene, camera );
-composer.addPass( renderPass );
-
 const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
-composer.addPass( outlinePass );
+outlinePass.edgeStrength= 3.0
+outlinePass.edgeGlow= 0.0
+outlinePass.edgeThickness= 1.0
+outlinePass.pulsePeriod= 0
+outlinePass.rotate= false
+outlinePass.usePatternTexture= false
+
+const renderPass = new RenderPass( scene, camera );
+composer.addPass( renderPass, outlinePass );
 
 const textureLoader2 = new THREE.TextureLoader();
 textureLoader2.load( 'textures/pattern-outliner.png', function ( texture ) {
@@ -700,8 +709,45 @@ texture.wrapS = THREE.RepeatWrapping;
 texture.wrapT = THREE.RepeatWrapping;
 
 } )
+
+const effectFXAA = new ShaderPass( FXAAShader );
+effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
+composer.addPass( effectFXAA );
+
 // const glitchPass = new GlitchPass();
 // composer.addPass( glitchPass );
+
+////////////////////////////////////////////////////////////////////
+// RAYCASTER + MOUSE
+///////////////////////////////////////////////////////////////////
+const mouse = new THREE.Vector2();
+const raycaster = new THREE.Raycaster();
+raycaster.setFromCamera( mouse, camera );
+
+
+
+let selectedObjects = [];
+
+function checkIntersection() {
+
+    const intersects = raycaster.intersectObject( scene, true );
+    const selectedObject = intersects[ 0 ].object;
+    selectedObjects.push( selectedObject );
+    outlinePass.selectedObject = addSelectedObjects;
+
+}
+
+function onPointerMove( event ) {
+
+    if ( event.isPrimary === false ) return;
+
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+    checkIntersection();
+
+}
+
 
 ////////////////////////////////////////////////////////////////////
 // ANIMATION 
