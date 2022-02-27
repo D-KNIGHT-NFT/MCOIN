@@ -266,7 +266,10 @@ h1 { font-size: 1.7rem; }
   border-radius: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
-
+.icon-close {
+  position: absolute;
+  right: 4%;
+}
 .overlay__inner {
   max-width: 36rem;
 }
@@ -281,6 +284,7 @@ h1 { font-size: 1.7rem; }
 
 .overlay__description {
   font-size: 1rem;
+  font-weight: 400;
   line-height: 1.75rem;
   margin-bottom: 3rem;
 }
