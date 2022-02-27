@@ -336,6 +336,23 @@ const light4 = new THREE.PointLight( 0xffaa00, 2, 500 );
 scene.add( light4 );
 
 const ambientLight = new THREE.AmbientLight( 0xD6B201, 1.2)
+
+const light = new THREE.DirectionalLight( 0xD6B201, 1.6 );
+light.position.set( 1, 1, 1 );
+light.castShadow = true;
+light.shadow.mapSize.width = 2048;
+light.shadow.mapSize.height = 2048;
+
+const d = 10;
+
+light.shadow.camera.left = - d;
+light.shadow.camera.right = d;
+light.shadow.camera.top = d;
+light.shadow.camera.bottom = - d;
+light.shadow.camera.far = 1000;
+
+scene.add( light );
+
 RectAreaLightUniformsLib.init();
 
 // const rectLight1 = new THREE.RectAreaLight( 0xD6B201, 0.8, 104, 104 );
@@ -493,7 +510,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0, -0.002)
+glassphere.position.set(0, 0.05, 0.05)
 glassphere.scale.set(0.6, 0.35, 0.6)
 scene.add(glassphere);
 
@@ -672,6 +689,17 @@ const composer = new EffectComposer( renderer );
 const renderPass = new RenderPass( scene, camera );
 composer.addPass( renderPass );
 
+const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
+composer.addPass( outlinePass );
+
+const textureLoader2 = new THREE.TextureLoader();
+textureLoader2.load( 'textures/pattern-outliner.png', function ( texture ) {
+
+outlinePass.patternTexture = texture;
+texture.wrapS = THREE.RepeatWrapping;
+texture.wrapT = THREE.RepeatWrapping;
+
+} )
 // const glitchPass = new GlitchPass();
 // composer.addPass( glitchPass );
 
