@@ -89,7 +89,7 @@ class Orb {
     this.fill = fill;
 
     // the original radius of the orb, set relative to window height
-    this.radius = random(window.innerHeight / 3, window.innerHeight / 3);
+    this.radius = random(window.innerHeight / 1, window.innerHeight / 1);
 
     // starting points in "time" for the noise/self similar random values
     this.xOff = random(0, 1000);
@@ -99,7 +99,7 @@ class Orb {
 
     // PIXI.Graphics is used to draw 2d primitives (in this case a circle) to the canvas
     this.graphics = new PIXI.Graphics();
-    this.graphics.alpha = 0.925;
+    this.graphics.alpha = 0.6;
 
     // 250ms after the last window resize event, recalculate orb positions.
     window.addEventListener(
@@ -112,13 +112,13 @@ class Orb {
   setBounds() {
     // how far from the { x, y } origin can each orb move
     const maxDist =
-        window.innerWidth < 1000 ? window.innerWidth / 2 : window.innerWidth / 2;
+        window.innerWidth < 1000 ? window.innerWidth / 4 : window.innerWidth / 4;
     // the { x, y } origin for each orb (the bottom right of the screen)
-    const originX = window.innerWidth / 2;
+    const originX = window.innerWidth / 4;
     const originY =
         window.innerWidth < 1000
         ? window.innerHeight
-        : window.innerHeight / 2;
+        : window.innerHeight / 8;
 
     // allow each orb to move x distance away from it's { x, y }origin
     return {
@@ -142,7 +142,7 @@ class Orb {
     this.x = map(xNoise, -1, 1, this.bounds["x"].min, this.bounds["x"].max);
     this.y = map(yNoise, -1, 1, this.bounds["y"].min, this.bounds["y"].max);
     // map scaleNoise (between -1 and 1) to a scale value somewhere between half of the orb's original size, and 100% of it's original size
-    this.scale = map(scaleNoise, -1, 1, -1, 1);
+    this.scale = map(scaleNoise, -1, 1, 0, 1);
 
     // step through "time"
     this.xOff += this.inc;
@@ -178,8 +178,8 @@ class ColorPalette {
     this.complimentaryHue1 = this.hue + 30;
     this.complimentaryHue2 = this.hue + 60;
     // define a fixed saturation and lightness
-    this.saturation = 100;
-    this.lightness = 60;
+    this.saturation = 80;
+    this.lightness = 50;
 
     // define a base color
     this.baseColor = hsl(this.hue, this.saturation, this.lightness);
@@ -231,7 +231,7 @@ const colorPalette = new ColorPalette();
 // Create orbs
 const orbs = [];
 
-for (let i = 0; i < 40; i++) {
+for (let i = 0; i < 60; i++) {
   // each orb will be black, just for now
   const orb = new Orb(colorPalette.randomColor());
   pixieApp.stage.addChild(orb.graphics);
@@ -359,7 +359,7 @@ rectLight2.position.set( 1, 0, -1 );
 rectLight2.rotation.set( 0, 360 ,0 )
 scene.add( rectLight2 );
 
-const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
+const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2, 56, 56);
 rectLight4.position.set( -1, 0, 1 );
 rectLight4.rotation.set( 0, 0 ,0 )
 scene.add( rectLight4 );
@@ -367,8 +367,8 @@ scene.add( rectLight4 );
 // scene.add( new RectAreaLightHelper( rectLight1 ) );
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
 
-const directionaLight = new THREE.DirectionalLight( 0xD6B201, 1.6 );
-directionaLight.position.set( 1, 1, 1 );
+const directionaLight = new THREE.DirectionalLight( 0xD6B201, 2.2 );
+directionaLight.position.set( 0, 0.5, -1 );
 directionaLight.castShadow = true;
 directionaLight.shadow.mapSize.width = 2048;
 directionaLight.shadow.mapSize.height = 2048;
@@ -379,7 +379,7 @@ directionaLight.shadow.camera.left = - d;
 directionaLight.shadow.camera.right = d;
 directionaLight.shadow.camera.top = d;
 directionaLight.shadow.camera.bottom = - d;
-directionaLight.shadow.camera.far = 1000;
+directionaLight.shadow.camera.far = 2000;
 scene.add( directionaLight );
 
 ////////////////////////////////////////////////////////////////////
@@ -442,37 +442,6 @@ scene.environment = environmentMap
 scene.background = environmentMap
 
 // scene.fog = new THREE.FogExp2( 0xfafafa, 0.72);
-
-////////////////////////////////////////////////////////////////////
-// HTML LEGACY FOG
-///////////////
-
-// let object = {
-//   el: '.fog-cloud',
-//   duration: 20
-// }
-
-// gsap.fromTo(object.el, object.duration, {
-//   opacity: 5,
-//   y: '+=180',
-//   x: 0,
-//   scale: 2.5,
-//   transformOrigin: 'left'
-// }, {
-//   opacity: 0,
-//   y: '-=180',
-//   x: Math.PI * 2,
-//   modifiers: {
-//     x: function(x) {
-//       return Math.sin(parseFloat(x)) * -30 + "px";
-//     }
-//   },
-//   scale: 0,
-//   stagger: {
-//     each: object.duration / document.querySelectorAll(object.el).length, 
-//     repeat: -1
-//   }
-// });
 
 ////////////////////////////////////////////////////////////////////
 // MESHES + LOADERS
@@ -647,7 +616,7 @@ window.addEventListener('resize', () =>
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height, 0.2, 100)
+const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.2, 100)
 camera.position.set( 2, 2, 8)
 
 scene.add(camera)
@@ -679,7 +648,7 @@ renderer.toneMapping = THREE.CineonToneMapping
 renderer.toneMappingExposure = 0.3
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.domElement.style.touchAction = 'none';
+// renderer.domElement.style.touchAction = 'none';
 renderer.domElement.addEventListener( 'pointermove', onPointerMove );
 renderer.setClearColor('#211d20')
 renderer.setSize(sizes.width, sizes.height)

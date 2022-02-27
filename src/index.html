@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/a63faa7a4a1a02edeeddee78e/acd531e12b7b63ffd559d6824.js");</script>
-    <script type="text/javascript"> function toggle(){  var myGlass = document.getElementById('modal--glass'); var myOrbs = document.getElementById('orbs-display'); var displaySetting = myGlass.style.display; if (displaySetting == 'block') {  myGlass.style.display = 'none'; myOrbs.style.display = 'none'} else { myGlass.style.display = 'block';} }</script>
+    <script type="text/javascript"> function toggle(){  var myGlass = document.getElementById('overlay'); var myOrbs = document.getElementById('orbs-display'); var displaySetting = myGlass.style.display; if (displaySetting == 'block') {  myGlass.style.display = 'none'; myOrbs.style.display = 'none'} else { myGlass.style.display = 'block';} }</script>
 </head>
 
 <body>
@@ -27,106 +27,16 @@
   <!---------------------- Canvas Web GL (z-index: 1000 )------------>
   <canvas class="webgl"></canvas>
 
-   <!----------------- Modal containers  (z-index: 2000 )-----------> 
-
-   <!-- Modal 01 EXAMPLE -->
-
- <!--  <div id="modal--01" data-modal>
-    <div id="dialog" data-modal-dialog role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1">
-     
-     <h2 id="dialog-title">An intentional and inclusive digital Artist Collective. A community of allies promoting diversity  and equality on the Metaverse through their Art.<br>Our Manifesto</h2>
-     <p id="dialog-text"></p>
-
-     <a href="#" data-modal-close>
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-      <line x1="18" y1="6" x2="6" y2="18"></line>
-      <line x1="6" y1="6" x2="18" y2="18"></line></svg>
-     </a>
-    </div> -->
-     <!-- Background, click to close -->
-     <!-- <a href="#" data-modal-overlay></a>
-  </div> -->
-
-  <!--------------------- Glass Modal -->
-
-  <div id="modal--glass" onclick="toggle()">
-    <div class="overlay">
-      <div class="overlay__inner">
-         <div class="icon-close" data-tooltip alt="close" title="close" role="tooltip" aria-label="Tooltip message"><a href="#">
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line></svg>
-         </a>
-       </div>
-        <div class="Overlay__title"><div><strong>Community Art Highlight</strong></div></div>
-        <h2>Limbus</h2>
-        <h4 class="main__title">by D-Knight</h4>
-        <p class="overlay__description">A shifting in reality. An obscured crossroad. The undefined state of unplanned banishment. A catalyst: deep intuition. An inner journey of ancient wisdom and connected minds. A curious child and a wise raven exchange. An oniric environment for intentional creation and recreation. One of many stories of resilience and self determination. The conquer of equality and equity within the diversity. A sisterhood. A broterhood. Free souls and their path from exile to seek and connect. Find creative allyships to debug the hard issues.<br>A "living" space, imperfect but transparent, no hidden wolves, just a lone one. An ever evolving and adapting community through their shared values and collaborative means. that evolves daily by community values.
-        <br>An Intraverse more than a Metaverse, which requires no wallet, just pure and intentional ideals. A truth seeking space to share knowledge and passion for code and digital graphic arts without the "fomo" or greed.(Join us Soon on WebXR / VR)</p>
-        <!-- Buttons -->
-        <div class="overlay__btns">
-          <button class="overlay__btn overlay__btn--transparent">HTDI Metaverse VR (WIP)<span class="overlay__btn-emoji">✧</span></button>
-          <button class="overlay__btn overlay__btn--colors"><span>1st Artists Cohort (Q2)</span><span class="overlay__btn-emoji">✧</span></button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-   <!----------------- Main Container  (z-index: 2000 )----------->  
-
-  <div class="container">
-
-    <h1 class="title--main">HTDI Collective</h1>
-    <input type="button" value="Manifesto" onclick=""/>
-    <input type="button" value="Community" onclick=""/>
-    <input type="button" value="Allyship" onclick=""/>
-    <input type="button" value="Equity" onclick=""/>
-
-    <!---------------------- Music  ------------>
-    <audio loop id="music" preload="metadata">
-      <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
-      <source src="/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg">
-      <!-- place fallback here as <audio> supporting browsers will ignore it -->
-      <a href="audiofile.mp3">audiofile.mp3</a>
-    </audio>
-     <!---------------------- Music Player ------------>
-    <header class="music-player">
-     <div class="button-icon" id="sound" data-tooltip alt="Alt text" title="'Lucid Space' by Joseph_Beg" role="tooltip" aria-label="Tooltip message">
-      <img srcset="
-         ../static/UI/Icon/32x32/sound@4.png 4x,
-         ../static/UI/Icon/32x32/sound@3x.png 3x,
-         ../static/UI/Icon/32x32/sound@2x.png 2x,
-         ../static/UI/Icon/32x32/sound.svg
-         " 
-         src= "../static/UI/Icon/32x32/sound.png"/>
-      </div>
-
-      <span id="loading">loading</span>
-
-      <div id="play" class="button-icon" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
-        <img srcset="
-         ../static/UI/Icon/32x32/play@4.png 4x,
-         ../static/UI/Icon/32x32/play@3x.png 3x,
-         ../static/UI/Icon/32x32/play@2x.png 2x,
-         ../static/UI/Icon/32x32/play.svg
-         " 
-         src= "../static/UI/Icon/32x32/play.png"/>
-      </div>
-
-      <div id="pause" class="button-icon" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
-        <img srcset="
-         ../static/UI/Icon/32x32/pause@4.png 4x,
-         ../static/UI/Icon/32x32/pause@3x.png 3x,
-         ../static/UI/Icon/32x32/pause@2x.png 2x,
-         ../static/UI/Icon/32x32/pause.svg 
-         " 
-         src= "../static/UI/Icon/32x32/pause.png"/>
-      </div>
-    </header>
+  <!---------------------- Music  ------------>
+  <audio loop id="music" preload="metadata">
+  <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
+  <source src="/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg">
+  <!-- place fallback here as <audio> supporting browsers will ignore it -->
+  <a href="audiofile.mp3">audiofile.mp3</a>
+  </audio>
 
     <!---------------------- Navigation Bar------------>
-   <nav>
+   <nav class="nav">
     <div class="button-icon" id="menu" data-tooltip alt="Alt text" title="Options" role="tooltip" aria-label="Tooltip message">
       <img srcset="
         ../static/UI/Icon/32x32/menu@4.png 4x,
@@ -136,12 +46,10 @@
         " 
         src= "../static/UI/Icon/32x32/menu.png"/>
     </div>
-   </nav>
 
-     <div class="logo-img">
-       <a href="https://htdicollective.bio.link"
-       target="_blank">
-       <img class="logo-icon" data-tooltip alt="Alt text" title="bio links" role="tooltip" aria-label="Tooltip message" srcset="
+     <div class="htdi--logo">
+       <a href="https://htdicollective.bio.link" target="_blank">
+       <img class="htdi--mark" data-tooltip alt="Alt text" title="bio links" role="tooltip" aria-label="Tooltip message" srcset="
        ../static/UI/Icon/logo/logo@4x.png 4x,
        ../static/UI/Icon/logo/logo@3x.png 3x,
        ../static/UI/Icon/logo/logo@2x.png 2x,
@@ -149,13 +57,79 @@
        ../static/UI/Icon/logo/logo.png 1x
        " 
        src= "../static/UI/Icon/logo/logo.png"/>
-     </a><h4 class="subtitle">HTDI</h4>
+     </a>
      </div>
+     <h1 class="subtitle">HTDI Collective</h1>
+  </nav>
+ 
+  <div class="container">
+
+  <div id="overlay" onclick="toggle()">
+    <div class="icon-close">
+     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+     <line x1="18" y1="6" x2="6" y2="18"></line>
+     <line x1="6" y1="6" x2="18" y2="18"></line></svg></a>
+    </div>
+    <!-- Overlay inner wrapper -->
+    <div class="overlay__inner">
+      <!-- Title -->
+      <div class="overlay__title">
+        <div>Community Art Highlight</div>
+        <h1>Limbus</h1>
+        <h3>by D-Knight</h3>
+      </div>
+      <!-- Description -->
+      <p class="overlay__description">A shifting in reality. An obscured crossroad. The undefined state of unplanned banishment. A catalyst: deep intuition. An inner journey of ancient wisdom and connected minds. A curious child and a wise raven exchange. An oniric environment for intentional creation and recreation. One of many stories of resilience and self determination. The conquer of equality and equity within the diversity. A sisterhood. A broterhood. Find creative allyships to debug the hard issues.<br>A "living" space, imperfect but transparent. An ever evolving and adapting community through their shared values and collaborative means.An Intraverse more than a Metaverse, which requires no wallet, just pure and intentional ideals. A truth seeking space to share knowledge and passion for code and digital graphic arts without the "fomo" or greed.(Join us Soon on WebXR / VR)</p>
+      <!-- Buttons -->
+      <div class="overlay__btns">
+        <button class="overlay__btn overlay__btn--transparent">Metaverse VR (WIP)</button>
+        <button class="overlay__btn overlay__btn--colors"><span>1st Artists Cohort (Q2)</span><span class="overlay__btn-emoji">✧</span></button>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div> <!-- CLOSING CONTAINER -->
+
+ <!---------------------- Music Player ------------>
+<footer class="music-player">
+ <div class="button-icon" id="sound" data-tooltip alt="Alt text" title="'Lucid Space' by Joseph_Beg" role="tooltip" aria-label="Tooltip message">
+  <img srcset="
+     ../static/UI/Icon/32x32/sound@4.png 4x,
+     ../static/UI/Icon/32x32/sound@3x.png 3x,
+     ../static/UI/Icon/32x32/sound@2x.png 2x,
+     ../static/UI/Icon/32x32/sound.svg
+     " 
+     src= "../static/UI/Icon/32x32/sound.png"/>
+  </div>
+
+  <span id="loading">loading</span>
+
+  <div id="play" class="button-icon" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
+    <img srcset="
+     ../static/UI/Icon/32x32/play@4.png 4x,
+     ../static/UI/Icon/32x32/play@3x.png 3x,
+     ../static/UI/Icon/32x32/play@2x.png 2x,
+     ../static/UI/Icon/32x32/play.svg
+     " 
+     src= "../static/UI/Icon/32x32/play.png"/>
+  </div>
+
+  <div id="pause" class="button-icon" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
+    <img srcset="
+     ../static/UI/Icon/32x32/pause@4.png 4x,
+     ../static/UI/Icon/32x32/pause@3x.png 3x,
+     ../static/UI/Icon/32x32/pause@2x.png 2x,
+     ../static/UI/Icon/32x32/pause.svg 
+     " 
+     src= "../static/UI/Icon/32x32/pause.png"/>
+  </div>
+  </footer>
 
     <!---------------------- Dropdowns  ------------>
-    <div class="dropdowns">
-    <!-- <details ID="info-modals" data-dropdown>
-      <summary> ✧ What's HTDI? </summary>
+  <!--   <div class="dropdowns">
+    <details ID="info-modals" data-dropdown>
+      <summary>✧About</summary>
       <ul role="list">
         <li class="modal-button" role="listitem">Manifesto<a href="#modal-01" ></a></li>
         <li class="modal-button" role="listitem">Community<a href="#modal-02" ></a></li>
@@ -163,56 +137,46 @@
         <li class="modal-button" role="listitem">Equity<a href="#modal-04" ></a></li>
         <li class="modal-button" role="listitem">Say Hi<a href="#modal-05" ></a></li>
       </ul>
-    </details> -->
-   <details id ="info-themes" data-dropdown>
-     <summary> ✧ Allymbus Rooms(WIP) ✧ </summary>
-
+    </details>
+    <details id ="info-themes" data-dropdown>
+     <summary>✧WIP✧</summary>
      <ul role="list">
-
-     <li role="listitem">Moon<a href="#"><img class="icon-theme" srcset=
-      "
-       ../static/UI/Icon/32x32/New-Moon@4x.png 4x,
-       ../static/UI/Icon/32x32/New-Moon@3x.png 3x,
-       ../static/UI/Icon/32x32/New-Moon@2x.png 2x,
-       ../static/UI/Icon/32x32/New-Moon.svg
-       " 
-       src= "../static/UI/Icon/32x32/New-Moon.png"/></a>
-     </li>
-
-
-     <li role="listitem">Spacey<a href="#"><img class="icon-theme" srcset=
-      "
-       ../static/UI/Icon/32x32/Satellites@4x.png 4x,
-       ../static/UI/Icon/32x32/Satellites@3x.png 3x,
-       ../static/UI/Icon/32x32/Satellites@2x.png 2x,
-       ../static/UI/Icon/32x32/Satellites.svg
-       " 
-       src= "../static/UI/Icon/32x32/Satellites.png"/></a>
-     </li>
-
-
-     <li role="listitem">Wolf<a href="#"><img class="icon-theme" srcset=
-      "
-       ../static/UI/Icon/32x32/Werewolf@4x.png 4x,
-       ../static/UI/Icon/32x32/Werewolf@3x.png 3x,
-       ../static/UI/Icon/32x32/Werewolf@2x.png 2x,
-       ../static/UI/Icon/32x32/Werewolf.svg
-       " 
-       src= "../static/UI/Icon/32x32/Werewolf.png"/></a>
-     </li>
-
-
-     <li role="listitem">Lullaby<a href="#"><img class="icon-theme" srcset=
-      "
-       ../static/UI/Icon/32x32/Lullaby@4x.png 4x,
-       ../static/UI/Icon/32x32/Lullaby@3x.png 3x,
-       ../static/UI/Icon/32x32/Lullaby@2x.png 2x,
-       ../static/UI/Icon/32x32/Lullaby.svg
-       " 
-       src= "../static/UI/Icon/32x32/Lullaby.png"/></a>
-     </li>
-
-
+       <li role="listitem">Moon<a href="#"><img class="icon-theme" srcset=
+        "
+         ../static/UI/Icon/32x32/New-Moon@4x.png 4x,
+         ../static/UI/Icon/32x32/New-Moon@3x.png 3x,
+         ../static/UI/Icon/32x32/New-Moon@2x.png 2x,
+         ../static/UI/Icon/32x32/New-Moon.svg
+         " 
+         src= "../static/UI/Icon/32x32/New-Moon.png"/></a>
+       </li>
+       <li role="listitem">Spacey<a href="#"><img class="icon-theme" srcset=
+        "
+         ../static/UI/Icon/32x32/Satellites@4x.png 4x,
+         ../static/UI/Icon/32x32/Satellites@3x.png 3x,
+         ../static/UI/Icon/32x32/Satellites@2x.png 2x,
+         ../static/UI/Icon/32x32/Satellites.svg
+         " 
+         src= "../static/UI/Icon/32x32/Satellites.png"/></a>
+       </li>
+       <li role="listitem">Wolf<a href="#"><img class="icon-theme" srcset=
+        "
+         ../static/UI/Icon/32x32/Werewolf@4x.png 4x,
+         ../static/UI/Icon/32x32/Werewolf@3x.png 3x,
+         ../static/UI/Icon/32x32/Werewolf@2x.png 2x,
+         ../static/UI/Icon/32x32/Werewolf.svg
+         " 
+         src= "../static/UI/Icon/32x32/Werewolf.png"/></a>
+       </li>
+       <li role="listitem">Lullaby<a href="#"><img class="icon-theme" srcset=
+        "
+         ../static/UI/Icon/32x32/Lullaby@4x.png 4x,
+         ../static/UI/Icon/32x32/Lullaby@3x.png 3x,
+         ../static/UI/Icon/32x32/Lullaby@2x.png 2x,
+         ../static/UI/Icon/32x32/Lullaby.svg
+         " 
+         src= "../static/UI/Icon/32x32/Lullaby.png"/></a>
+       </li>
        <li role="listitem">Starry Night<a href="#"><img class="icon-theme" srcset=
         "
        ../static/UI/Icon/32x32/moon_stars@4x.png 4x,
@@ -221,9 +185,7 @@
        ../static/UI/Icon/32x32/moon_stars.svg
        " 
        src= "../static/UI/Icon/32x32/moon_stars.png"/></a>
-     </li>
-
-
+       </li>
        <li role="listitem">Rainy<a href="#"><img class="icon-theme" srcset=
         "
        ../static/UI/Icon/32x32/Keep-Dry@4x.png 4x,
@@ -232,38 +194,101 @@
        ../static/UI/Icon/32x32/Keep-Dry.svg
        " 
        src= "../static/UI/Icon/32x32/Keep-Dry.png"/></a>
-     </li>
-     </ul>
-   </details>
-  </div>
+       </li>
+      </ul>
+    </details>
+    </div> -->
 
-</div> <!-- CLOSING CONTAINER -->
+  <!----------------- Modal containers  (z-index: 2000 )-----------> 
 
+  <!-- Modal 01 EXAMPLE -->
 
-   <!---------------------- FOG LEGACY  ------------>
-  <!--  <div class="foggy">
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
-     <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+<!--  <div id="modal--01" data-modal>
+   <div id="dialog" data-modal-dialog role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1">
+    
+    <h2 id="dialog-title">An intentional and inclusive digital Artist Collective. A community of allies promoting diversity  and equality on the Metaverse through their Art.<br>Our Manifesto</h2>
+    <p id="dialog-text"></p>
+
+    <a href="#" data-modal-close>
+     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+     <line x1="18" y1="6" x2="6" y2="18"></line>
+     <line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </a>
    </div> -->
+    <!-- Background, click to close -->
+    <!-- <a href="#" data-modal-overlay></a>
+ </div> -->
+
+
+
+
+
+ <!---------------------- FOG LEGACY  ------------>
+
+ <!-- CSS
+ .foggy { position: absolute; top: 10%; right:  40%; z-index: 1000; }
+ .foggy { width: 800px; height: 200px; user-select: none; }
+ .fog-cloud { opacity: 0;width: 400px; border-radius: 100%; height: 200px; position: relative; left: 10%; right: 5%; margin: auto;user-select: none;pointer-events: none; } */
+-->
+
+
+<!--  HTML
+<div class="foggy">
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
+   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
+ </div> -->
+
+ <!-- JS
+  ////////////////////////////////////////////////////////////////////
+  // HTML LEGACY FOG
+  ///////////////
+
+  // let object = {
+  //   el: '.fog-cloud',
+  //   duration: 20
+  // }
+
+  // gsap.fromTo(object.el, object.duration, {
+  //   opacity: 5,
+  //   y: '+=180',
+  //   x: 0,
+  //   scale: 2.5,
+  //   transformOrigin: 'left'
+  // }, {
+  //   opacity: 0,
+  //   y: '-=180',
+  //   x: Math.PI * 2,
+  //   modifiers: {
+  //     x: function(x) {
+  //       return Math.sin(parseFloat(x)) * -30 + "px";
+  //     }
+  //   },
+  //   scale: 0,
+  //   stagger: {
+  //     each: object.duration / document.querySelectorAll(object.el).length, 
+  //     repeat: -1
+  //   }
+  // });
+-->
 
       
 </body>
