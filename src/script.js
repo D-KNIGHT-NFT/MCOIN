@@ -41,6 +41,7 @@ import hsl from "hsl-to-hex";
 import debounce from "debounce";
 
 
+
 ////////////////////////////////////////////////////////////////////
 // svg / Pixie 
 ///////////////
@@ -351,7 +352,7 @@ scene.add( light4 );
 
 ///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
 
-const ambientLight = new THREE.AmbientLight( 0xD6B201, 1.2)
+const ambientLight = new THREE.AmbientLight( 0xD6B201, 1.6)
 
 const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
 rectLight2.position.set( 1, 0, -1 );
