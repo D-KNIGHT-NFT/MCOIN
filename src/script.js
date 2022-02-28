@@ -6,7 +6,6 @@ import * as THREE from 'three'
 import * as PIXI from "pixi.js"
 import { SVG, extend as SVGextend, Element as SVGElement } from '@svgdotjs/svg.js'
 import gsap from 'gsap'
-
 import { easePack } from 'gsap'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -16,17 +15,19 @@ import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonCont
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
-
 // POST-PROCESSING
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
-import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
 
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
@@ -311,8 +312,16 @@ window.onload = function(){
 
 
 ////////////////////////////////////////////////////////////////////
-// SCENE
+// SCENE & CONSTS
 ///////////////
+
+const ENTIRE_SCENE = 0, BLOOM_SCENE = 1;
+
+const bloomLayer = new THREE.Layers();
+bloomLayer.set( BLOOM_SCENE );
+
+const darkMaterial = new THREE.MeshBasicMaterial( { color: 'black' } );
+const materials = {};
 
 const scene = new THREE.Scene()
 
@@ -631,7 +640,7 @@ controls.enableDamping = true
 controls.dampingFactor = 0.05;
 controls.enablePan = false;
 controls.autoRotate= true
-// controls.enableZoom = false
+controls.enableZoom = true
 controls.autoRotateSpeed = 1
 controls.minDistance = 1;
 controls.maxDistance = 20;
@@ -649,7 +658,7 @@ renderer.toneMappingExposure = 0.3
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 // renderer.domElement.style.touchAction = 'none';
-renderer.domElement.addEventListener( 'pointermove', onPointerMove );
+// renderer.domElement.addEventListener( 'pointermove', onPointerMove );
 renderer.setClearColor('#211d20')
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -657,32 +666,48 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 ////////////////////////////////////////////////////////////////////
 // EFFECT COMPOSER -> POST-PRODUCTION
 ///////////////
+const finalComposer = new EffectComposer( renderer );
+const renderScene = new RenderPass( scene, camera );
 
-const composer = new EffectComposer( renderer );
+finalComposer.addPass( renderScene );
 
-const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
-outlinePass.edgeStrength= 3.0
-outlinePass.edgeGlow= 0.0
-outlinePass.edgeThickness= 1.0
-outlinePass.pulsePeriod= 0
-outlinePass.rotate= false
-outlinePass.usePatternTexture= false
 
-const renderPass = new RenderPass( scene, camera );
-composer.addPass( renderPass, outlinePass );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.8, 1.0, 0.85 );
+finalComposer.addPass( bloomPass );
 
-const textureLoader2 = new THREE.TextureLoader();
-textureLoader2.load( 'textures/pattern-outliner.png', function ( texture ) {
+const raycaster = new THREE.Raycaster();
 
-outlinePass.patternTexture = texture;
-texture.wrapS = THREE.RepeatWrapping;
-texture.wrapT = THREE.RepeatWrapping;
+const mouse = new THREE.Vector2();
 
-} )
+// const bloomPass = new BloomPass(
+//     1,    // strength
+//     25,   // kernel size
+//     4,    // sigma ?
+//     256,  // blur render target resolution
+// );
+// composer.addPass(bloomPass);
 
-const effectFXAA = new ShaderPass( FXAAShader );
-effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
-composer.addPass( effectFXAA );
+// const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
+// outlinePass.edgeStrength= 3.0
+// outlinePass.edgeGlow= 0.0
+// outlinePass.edgeThickness= 1.0
+// outlinePass.pulsePeriod= 0
+// outlinePass.rotate= false
+// outlinePass.usePatternTexture= false
+
+// composer.addPass( outlinePass );
+
+// const textureLoader2 = new THREE.TextureLoader();
+// textureLoader2.load( 'textures/pattern-outliner.png', function ( texture ) {
+
+// outlinePass.patternTexture = texture;
+// texture.wrapS = THREE.RepeatWrapping;
+// texture.wrapT = THREE.RepeatWrapping;
+// } ) 
+
+// const effectFXAA = new ShaderPass( FXAAShader );
+// effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
+// composer.addPass( effectFXAA );
 
 // const glitchPass = new GlitchPass();
 // composer.addPass( glitchPass );
@@ -690,33 +715,33 @@ composer.addPass( effectFXAA );
 ////////////////////////////////////////////////////////////////////
 // RAYCASTER + MOUSE
 ///////////////////////////////////////////////////////////////////
-const mouse = new THREE.Vector2();
-const raycaster = new THREE.Raycaster();
-raycaster.setFromCamera( mouse, camera );
+// const mouse = new THREE.Vector2();
+// const raycaster = new THREE.Raycaster();
+// raycaster.setFromCamera( mouse, camera );
 
 
 
-let selectedObjects = [];
+// let selectedObjects = [];
 
-function checkIntersection() {
+// function checkIntersection() {
 
-    const intersects = raycaster.intersectObject( scene, true );
-    const selectedObject = intersects[ 0 ].object;
-    selectedObjects.push( selectedObject );
-    outlinePass.selectedObject = addSelectedObjects;
+//     const intersects = raycaster.intersectObject( scene, true );
+//     const selectedObject = intersects[ 0 ].object;
+//     selectedObjects.push( selectedObject );
+//     outlinePass.selectedObject = addSelectedObjects;
 
-}
+// }
 
-function onPointerMove( event ) {
+// function onPointerMove( event ) {
 
-    if ( event.isPrimary === false ) return;
+//     if ( event.isPrimary === false ) return;
 
-    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+//     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+//     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-    checkIntersection();
+//     checkIntersection();
 
-}
+// }
 
 
 ////////////////////////////////////////////////////////////////////
@@ -778,7 +803,7 @@ const tick = () =>
         foxMixer.update(deltaTime)
     }
     // Render
-    composer.render(scene, camera)
+    finalComposer.render(scene, camera)
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
