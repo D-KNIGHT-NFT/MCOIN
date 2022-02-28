@@ -633,8 +633,8 @@ controls.enablePan = false;
 controls.autoRotate= true
 // controls.enableZoom = false
 controls.autoRotateSpeed = 1
-controls.minDistance = 0.6;
-controls.maxDistance = 4;
+controls.minDistance = 1;
+controls.maxDistance = 20;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
