@@ -14,6 +14,7 @@ import * as dat from 'lil-gui'
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls.js';
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import Proton from "proton-engine";
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
 // POST-PROCESSING
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -23,6 +24,8 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
+import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js';
+import { SobelOperatorShader } from 'three/examples/jsm/shaders/SobelOperatorShader.js';
 
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
@@ -40,7 +43,6 @@ import { KawaseBlurFilter } from "@pixi/filter-kawase-blur";
 import SimplexNoise from "simplex-noise";
 import hsl from "hsl-to-hex";
 import debounce from "debounce";
-
 
 
 ////////////////////////////////////////////////////////////////////
@@ -260,8 +262,13 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 ////////////////////////////////////////////////////////////////////
 // DEBUGGER 
 ///////////////
+// const params = { enable: true; };
+// // const debugObject = {}
+
 // const gui = new dat.GUI()
-// const debugObject = {}
+// gui.add(params, 'enable')
+// gui.open()
+
 
 ////////////////////////////////////////////////////////////////////
 // Canvas & UI
@@ -315,14 +322,6 @@ window.onload = function(){
 // SCENE & CONSTS
 ///////////////
 
-const ENTIRE_SCENE = 0, BLOOM_SCENE = 1;
-
-const bloomLayer = new THREE.Layers();
-bloomLayer.set( BLOOM_SCENE );
-
-const darkMaterial = new THREE.MeshBasicMaterial( { color: 'black' } );
-const materials = {};
-
 const scene = new THREE.Scene()
 
 ////////////////////////////////////////////////////////////////////
@@ -361,7 +360,7 @@ scene.add( light4 );
 
 ///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
 
-const ambientLight = new THREE.AmbientLight( 0xD6B201, 1.6)
+const ambientLight = new THREE.AmbientLight( 0xD6B201, 5.6)
 
 const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
 rectLight2.position.set( 1, 0, -1 );
@@ -402,7 +401,7 @@ const count = 777
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#31FF9C')
+particlesMaterial.color = new THREE.Color('#31FF9C') //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -566,7 +565,7 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         // gltf.scene.scale.set(0.0055, 0.0055, 0.0055)
         const htdi = gltf.scene
         htdi.scale.set(0.0005, 0.0005, 0.0005)
-        htdi.position.set(0, 0, 0.5)
+        htdi.position.set(0, 0, 0.9)
         htdi.rotation.set(0, 0,  0)
         scene.add(htdi)
 
@@ -619,13 +618,17 @@ window.addEventListener('resize', () =>
     // Update renderer
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+    // Sobel Effect
+    effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
+    effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
 })
 
 ////////////////////////////////////////////////////////////////////
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.2, 100)
+const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.2, 1000)
 camera.position.set( 2, 2, 8)
 
 scene.add(camera)
@@ -643,7 +646,7 @@ controls.autoRotate= true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
 controls.minDistance = 1;
-controls.maxDistance = 20;
+controls.maxDistance = 16;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
@@ -666,18 +669,23 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 ////////////////////////////////////////////////////////////////////
 // EFFECT COMPOSER -> POST-PRODUCTION
 ///////////////
+
 const finalComposer = new EffectComposer( renderer );
 const renderScene = new RenderPass( scene, camera );
-
 finalComposer.addPass( renderScene );
 
-
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.8, 1.0, 0.85 );
+/////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.9 , 2.0, 0.8 );
 finalComposer.addPass( bloomPass );
 
-const raycaster = new THREE.Raycaster();
 
-const mouse = new THREE.Vector2();
+// const effectGrayScale = new ShaderPass( LuminosityShader );
+// finalComposer.addPass( effectGrayScale );
+
+// let effectSobel = new ShaderPass( SobelOperatorShader );
+// effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
+// effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
+// finalComposer.addPass( effectSobel );
 
 // const bloomPass = new BloomPass(
 //     1,    // strength
@@ -687,30 +695,29 @@ const mouse = new THREE.Vector2();
 // );
 // composer.addPass(bloomPass);
 
-// const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
-// outlinePass.edgeStrength= 3.0
-// outlinePass.edgeGlow= 0.0
-// outlinePass.edgeThickness= 1.0
-// outlinePass.pulsePeriod= 0
-// outlinePass.rotate= false
-// outlinePass.usePatternTexture= false
+const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
+outlinePass.edgeStrength= 8.0
+outlinePass.edgeGlow= 2.5
+outlinePass.edgeThickness= 1.0
+outlinePass.pulsePeriod= 0
+outlinePass.rotate= true
+outlinePass.usePatternTexture= false
 
-// composer.addPass( outlinePass );
+finalComposer.addPass( outlinePass );
 
-// const textureLoader2 = new THREE.TextureLoader();
-// textureLoader2.load( 'textures/pattern-outliner.png', function ( texture ) {
+// const patternTexture = textureLoader.load( 'textures/pattern-outliner.png', texture)
 
 // outlinePass.patternTexture = texture;
 // texture.wrapS = THREE.RepeatWrapping;
 // texture.wrapT = THREE.RepeatWrapping;
-// } ) 
 
-// const effectFXAA = new ShaderPass( FXAAShader );
-// effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
-// composer.addPass( effectFXAA );
+
+const effectFXAA = new ShaderPass( FXAAShader );
+effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
+finalComposer.addPass( effectFXAA );
 
 // const glitchPass = new GlitchPass();
-// composer.addPass( glitchPass );
+// finalComposer.addPass( glitchPass );
 
 ////////////////////////////////////////////////////////////////////
 // RAYCASTER + MOUSE

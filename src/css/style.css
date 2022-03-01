@@ -140,7 +140,7 @@ h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; 
 p  { font-size: 0.8rem; }
 h3 { font-size: 1.1rem; }
 h2 { font-size: 1.4rem; }
-h1 { font-size: 1.7rem; }
+h1 { font-size: 1.4rem; }
 
 /* ****************************** Icon Sizes */
 
@@ -156,6 +156,12 @@ h1 { font-size: 1.7rem; }
  color: var(--dark-color);
 }
 
+.subtitle {
+  padding: 0;
+  margin:  0;
+  line-height: 0.2
+}
+
 /* ************************************************* */
 /* ************************************ NAVBAR  */
 /* ************************************************* */
@@ -165,7 +171,7 @@ h1 { font-size: 1.7rem; }
   align-items: center; 
   justify-content: flex-start; 
   background: var(--black08); 
-  padding: var(--paddingS); 
+
   width:  100%;
   border:  var(--border); 
   position: fixed;
