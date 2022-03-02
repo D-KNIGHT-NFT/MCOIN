@@ -155,9 +155,7 @@ h1 { font-size: 1.4rem; }
   align-items: center; 
   justify-content: flex-start; 
   background: var(--black); 
-
   width:  100%;
-  border:  var(--border); 
   position: fixed;
   top: 0;
   left: 0;
@@ -235,7 +233,7 @@ h1 { font-size: 1.4rem; }
 }
 
 .overlay {
-  max-width: 90%;
+  width: 100%;
   max-height: 640px;
   padding: var(--paddingXXL);
   display: flex;
@@ -243,16 +241,15 @@ h1 { font-size: 1.4rem; }
   background: var(--white04);
   box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
   border-radius: 2rem;
-  border: var(--border);
-  border: 1px solid rgba(255, 255, 255, 0.125);
 }
 .icon-close {
   position: absolute;
-  right: 4%;
+  right: 6%;
 }
 .overlay__inner {
   max-width: 36rem;
   border: var(--border);
+  padding: var(--paddingL);
 }
 
 .overlay__title {
@@ -378,7 +375,6 @@ h1 { font-size: 1.4rem; }
   gap: 40px; 
   background: var(--black);
   padding: var(--paddingS); 
-  border:  var(--border); 
   position: fixed;
   bottom: 0;
   left: 0; 
