@@ -112,7 +112,7 @@ a:visited{ text-decoration: none; color: inherit; }
 
  --dot: 4px dotted var(--yellow);
  --solid: 2px solid var(--yellow);
---border: 1px solid var(--white);
+ --border: 1px solid var(--white);
 
  --gapS: 4px;
  --gapM: 8px;
@@ -134,13 +134,13 @@ canvas.orb-canvas {z-index: -1; position: fixed; top: 0; left: 0; width: 100vw; 
 canvas#orbs-display {display:  block;}
 /* ****************************** Text Styles */
 
-p, h3  { font-family: cy, sans-serif; font-weight: 300; font-style: normal; margin: 0; }
-h1, h2 { font-family: "Orbitron", sans-serif; font-weight: 900; margin: 0 auto; }
+p, h3, h2 { font-family: cy, sans-serif; font-weight: 300; font-style: normal; margin: 0; }
+h1 { font-family: "Orbitron", sans-serif; font-weight: 900; line-height:  1.75;margin: 0 auto; }
 
 p  { font-size: 0.8rem; }
 h3 { font-size: 1.1rem; }
 h2 { font-size: 1.4rem; }
-h1 { font-size: 1.4rem; }
+h1 { font-size: 2.2rem; }
 
 /* ****************************** Icon Sizes */
 
@@ -165,7 +165,7 @@ h1 { font-size: 1.4rem; }
   display: flex; 
   flex-flow: row nowrap;
   align-items: center; 
-  justify-content: flex-end; 
+  justify-content: center; 
 }
 
 .htdi--logo img{ 
@@ -207,10 +207,10 @@ h1 { font-size: 1.4rem; }
 /* ************************************************* */
 
 .container {
- max-width: 1920px;
- min-height: 100vh;
+ width: 100vw;
+ height: 100vh;
  display: grid;
- grid-template-areas: left overlay overlay right;
+ grid-template-areas: left overlay right;
  grid-auto-columns: 1fr 2fr 1fr;
  place-items: center;
  font-family: var(--font-family);
@@ -222,14 +222,14 @@ h1 { font-size: 1.4rem; }
   height: 100%;
   width:  auto;
   background: var(--yellow);
-  border: var(--border);
+  border-right: var(--border);
 }
 .right {
   display: flex;
   height: 100%;
   width:  auto;
   background: var(--yellow);
-  border: var(--border);
+  border-left: var(--border);
 }
 
 .overlay {
@@ -238,33 +238,40 @@ h1 { font-size: 1.4rem; }
   padding: var(--paddingXXL);
   display: flex;
   align-items: center;
-  background: var(--white04);
-  box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
-  border-radius: 2rem;
 }
 .icon-close {
-  position: absolute;
-  right: 6%;
+  position: relative;
+  margin-right: 16px;
+  margin-top: 16px;
+  padding: var(--paddingXL);
+  float:  right;
+  border-radius: 0 0.8rem 0 0;
+  background: var(--black);
 }
 .overlay__inner {
-  max-width: 36rem;
+  max-width: 48rem;
   border: var(--border);
   padding: var(--paddingL);
+  margin: var(--margin);
+  background: var(--white04);
+  box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
 }
 
 .overlay__title {
-  font-size: 1.875rem;
-  line-height: 2.75rem;
-  font-weight: 700;
   letter-spacing: -0.025em;
-  margin-bottom: 2rem;
+  padding: var(--padding);
+  border-bottom: var(--border);
 }
 
 .overlay__description {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.75rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1.4rem;
+  margin-top: 1.4rem;
+  text-align: left;
+  padding: var(--padding);
 }
 
 .overlay__btns {
@@ -320,9 +327,6 @@ h1 { font-size: 1.4rem; }
 }
 
 @media only screen and (max-width: 840px) {
-  body {
-    padding: 1.5rem;
-  }
 
   .overlay {
     padding: 4rem;
@@ -332,23 +336,24 @@ h1 { font-size: 1.4rem; }
   .overlay__title {
     font-size: 1.25rem;
     line-height: 2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .overlay__description {
     font-size: 0.875rem;
     line-height: 1.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .overlay {
-    padding: 1.5rem;
+    padding: 2rem;
   }
 
   .overlay__btns {
     flex-wrap: wrap;
+    gap: 1px;
   }
 
   .overlay__btn {
