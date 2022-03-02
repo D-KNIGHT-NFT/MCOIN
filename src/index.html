@@ -28,7 +28,7 @@
   <!---------------------- Canvas Web GL (z-index: 1000 )------------>
   <canvas class="webgl"></canvas>
 
-  <!---------------------- Music  ------------>
+  <!---------------------- Music data  ------------>
   <audio loop id="music" preload="metadata">
   <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
   <source src="/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg">
@@ -36,7 +36,7 @@
   <a href="audiofile.mp3">audiofile.mp3</a>
   </audio>
 
-    <!---------------------- Navigation Bar------------>
+  <!---------------------- Navigation Bar------------>
    <nav class="nav">
      <div class="htdi--logo">
        <a href="https://htdicollective.bio.link" target="_blank">
@@ -53,7 +53,9 @@
      <h1 class="subtitle">HTDI Collective</h1>
   </nav>
  
-  <div class="container">
+ <!---------------------- Container ------------>
+<div class="container">
+  <div class="left"></div>
 
   <div id="overlay" onclick="toggle()">
     <div class="icon-close">
@@ -78,12 +80,11 @@
         <button class="overlay__btn overlay__btn--colors"><span>1st Artists Cohort (Q2)</span><span class="overlay__btn-emoji">✧</span></button>
       </div>
     </div>
-  </div>
-
-  </div>
+  </div>  
+  <div class="right"></div>
 </div> <!-- CLOSING CONTAINER -->
 
- <!---------------------- Music Player ------------>
+ <!---------------------- Footer Music Player ------------>
 <footer class="music-player">
  <div class="button-icon" id="menu" data-tooltip alt="Alt text" title="Options" role="tooltip" aria-label="Tooltip message">
   <img srcset="
