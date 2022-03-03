@@ -56,7 +56,7 @@ view: document.querySelector(".orb-canvas"),
 // auto adjust size to fit the current window
 resizeTo: window,
 // transparent background, we will be creating a gradient background later using CSS
-transparent: true
+// transparent: true
 });
 
 pixieApp.stage.filters = [new KawaseBlurFilter(30, 10, true)];
@@ -159,6 +159,7 @@ class Orb {
 
     // clear anything currently drawn to graphics
     this.graphics.clear();
+    this.graphics.backgroundAlpha;
 
     // tell graphics to fill any shapes drawn after this with the orb's fill color
     this.graphics.beginFill(this.fill);
@@ -440,7 +441,7 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-3/');
+cubeTextureLoader.setPath('textures/environmentMap/level-2/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
@@ -491,7 +492,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0.05, 0.05)
-glassphere.scale.set(0.6, 0.35, 0.6)
+glassphere.scale.set(0.7, 0.35, 0.7)
 scene.add(glassphere);
 
 
@@ -537,20 +538,21 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         let logo = gltf.scene;
         let logoMaterial= new THREE.MeshPhysicalMaterial( 
         { 
-        side: THREE.DoubleSide,    
-        color: 0xffffff,
-        //wireframe: true,
+        side: THREE.DoubleSide,
+        precision: "highp",
+        alphaTest: 1.0,
+        color: 0x000000,
+        fog: false,
         transmission: 1,
-        vertexColors: true,
-        // opacity: 0.55,
+        opacity: 1,
         metalness: 0,
         roughness: 0,
-        ior: 4.0,
-        thickness: 0,
+        ior: 2.0,
+        thickness: 0.01,
         specularIntensity: 1,
         specularColor: 0xffffff,
         envMap: environmentMap,
-        envMapIntensity: 0.7
+        envMapIntensity: 2.0
         });
 
         logo.traverse((o) => {
@@ -660,8 +662,8 @@ window.addEventListener('resize', () =>
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.2, 1000)
-camera.position.set( 2, 2, 4)
+const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.1, 1000)
+camera.position.set( 0, 0, 6)
 
 scene.add(camera)
 
@@ -707,7 +709,7 @@ const renderScene = new RenderPass( scene, camera );
 finalComposer.addPass( renderScene );
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 2.9 , 1.4, 0.6 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.2 , 0.0001, 0.01 );
 finalComposer.addPass( bloomPass );
 
 
@@ -729,10 +731,10 @@ finalComposer.addPass( bloomPass );
 
 // const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
 // outlinePass.edgeStrength= 8.0
-// outlinePass.edgeGlow= 2.5
+// outlinePass.edgeGlow= 9.5
 // outlinePass.edgeThickness= 1.0
 // outlinePass.pulsePeriod= 0.2
-// outlinePass.rotate= true
+// outlinePass.rotate= false
 // outlinePass.usePatternTexture= false
 
 // finalComposer.addPass( outlinePass );
