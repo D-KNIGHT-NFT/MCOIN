@@ -401,7 +401,7 @@ const count = 777
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#ffffff') //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('#31FF9C') //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -651,8 +651,8 @@ window.addEventListener('resize', () =>
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
     // Sobel Effect
-    effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
-    effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
+    // effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
+    // effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
 })
 
 ////////////////////////////////////////////////////////////////////
@@ -706,17 +706,17 @@ const renderScene = new RenderPass( scene, camera );
 finalComposer.addPass( renderScene );
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 2.9 , 1.0, 0.8 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 2.9 , 1.4, 0.6 );
 finalComposer.addPass( bloomPass );
 
 
 // const effectGrayScale = new ShaderPass( LuminosityShader );
 // finalComposer.addPass( effectGrayScale );
 
-let effectSobel = new ShaderPass( SobelOperatorShader );
-effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
-effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
-finalComposer.addPass( effectSobel );
+// let effectSobel = new ShaderPass( SobelOperatorShader );
+// effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
+// effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
+// finalComposer.addPass( effectSobel );
 
 // const bloomPass = new BloomPass(
 //     1,    // strength
