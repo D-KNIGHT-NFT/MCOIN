@@ -440,7 +440,7 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-2/');
+cubeTextureLoader.setPath('textures/environmentMap/level-3/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
@@ -577,7 +577,8 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
           reflectivity: 0.9,
           reflectivity: 0.2,
           refractionRatio: 2,
-          envMap: environmentMap
+          envMap: environmentMap,
+          envMapIntensity: 1.0
         });
 
         htdi.traverse((o) => {
