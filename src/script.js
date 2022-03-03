@@ -401,7 +401,7 @@ const count = 777
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#31FF9C') //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('#ffffff') //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -550,7 +550,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         specularIntensity: 1,
         specularColor: 0xffffff,
         envMap: environmentMap,
-        envMapIntensity: 1.0
+        envMapIntensity: 0.7
         });
 
         logo.traverse((o) => {
@@ -595,6 +595,37 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
     }
 )
 
+// const loader = new THREE.ObjectLoader();
+
+// loader.load(
+//     // resource URL
+//     "static/models/json/model.json",
+
+//     // onLoad callback
+//     // Here the loaded data is assumed to be an object
+//     function ( obj ) {
+//         // Add the loaded object to the scene
+//         scene.add( obj );
+//     },
+
+//     // onProgress callback
+//     function ( xhr ) {
+//         console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+//     },
+
+//     // onError callback
+//     function ( err ) {
+//         console.error( 'An error happened' );
+//     }
+// );
+
+
+// // Alternatively, to parse a previously loaded JSON structure
+// const object = loader.parse( a_json_object );
+// object.position.set(0, 0, 0)
+
+// scene.add( object );
+
 
 ////////////////////////////////////////////////////////////////////
 // WINDOW SIZES + ASPECT
@@ -629,7 +660,7 @@ window.addEventListener('resize', () =>
 ///////////////
 
 const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.2, 1000)
-camera.position.set( 2, 2, 8)
+camera.position.set( 2, 2, 4)
 
 scene.add(camera)
 
@@ -675,17 +706,17 @@ const renderScene = new RenderPass( scene, camera );
 finalComposer.addPass( renderScene );
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.9 , 1.0, 0.8 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 2.9 , 1.0, 0.8 );
 finalComposer.addPass( bloomPass );
 
 
 // const effectGrayScale = new ShaderPass( LuminosityShader );
 // finalComposer.addPass( effectGrayScale );
 
-// let effectSobel = new ShaderPass( SobelOperatorShader );
-// effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
-// effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
-// finalComposer.addPass( effectSobel );
+let effectSobel = new ShaderPass( SobelOperatorShader );
+effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
+effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
+finalComposer.addPass( effectSobel );
 
 // const bloomPass = new BloomPass(
 //     1,    // strength
@@ -695,15 +726,15 @@ finalComposer.addPass( bloomPass );
 // );
 // composer.addPass(bloomPass);
 
-const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
-outlinePass.edgeStrength= 8.0
-outlinePass.edgeGlow= 2.5
-outlinePass.edgeThickness= 1.0
-outlinePass.pulsePeriod= 0
-outlinePass.rotate= true
-outlinePass.usePatternTexture= false
+// const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
+// outlinePass.edgeStrength= 8.0
+// outlinePass.edgeGlow= 2.5
+// outlinePass.edgeThickness= 1.0
+// outlinePass.pulsePeriod= 0.2
+// outlinePass.rotate= true
+// outlinePass.usePatternTexture= false
 
-finalComposer.addPass( outlinePass );
+// finalComposer.addPass( outlinePass );
 
 // const patternTexture = textureLoader.load( 'textures/pattern-outliner.png', texture)
 
