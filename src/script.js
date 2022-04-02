@@ -243,7 +243,7 @@ for (let i = 0; i < 60; i++) {
   orbs.push(orb);
 }
 
-// Animate!
+// ACCESIBILITY
 if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   pixieApp.ticker.add(() => {
     // update and render each orb, each frame. app.ticker attempts to run at 60fps
@@ -316,8 +316,6 @@ window.onload = function(){
 
    audioElement.volume = 0.3;
 }
-
-
 
 ////////////////////////////////////////////////////////////////////
 // SCENE & CONSTS
@@ -662,7 +660,7 @@ window.addEventListener('resize', () =>
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.1, 1000)
+const camera = new THREE.PerspectiveCamera(100, sizes.width / sizes.height, 0.1, 1000)
 camera.position.set( 0, 0, 6)
 
 scene.add(camera)
@@ -672,15 +670,15 @@ scene.add(camera)
 ///////////////
 
 const controls = new OrbitControls(camera, canvas)
-controls.enable = false
+controls.enable = true
 controls.enableDamping = true
 controls.dampingFactor = 0.05;
 controls.enablePan = false;
 controls.autoRotate= true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
-controls.minDistance = 1;
-controls.maxDistance = 16;
+controls.minDistance = 0.9;
+controls.maxDistance = 2;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
