@@ -222,7 +222,6 @@ h1 { font-size: 1.6rem; }
  margin: 10%;
  font-family: var(--font-family);
  color: var(--dark-color);
- border: var(--border);
 }
 .left {
   display: flex;
