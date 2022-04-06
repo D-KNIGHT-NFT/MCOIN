@@ -263,12 +263,6 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 ////////////////////////////////////////////////////////////////////
 // DEBUGGER 
 ///////////////
-// const params = { enable: true; };
-// // const debugObject = {}
-
-// const gui = new dat.GUI()
-// gui.add(params, 'enable')
-// gui.open()
 
 
 ////////////////////////////////////////////////////////////////////
@@ -345,31 +339,31 @@ scene.add( light4 );
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-// const ambientLight = new THREE.AmbientLight( 0x18FEFE, 1.2)
+const ambientLight = new THREE.AmbientLight( 0x18FEFE, 1.2)
 
-// const rectLight2 = new THREE.RectAreaLight( 0x18FEFE, 1.2 );
-// rectLight2.position.set( 1, 0, -1 );
-// rectLight2.rotation.set( 0, 360 ,0 )
-// scene.add( rectLight2 );
-
-// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
-// rectLight4.position.set( -1, 0, 1 );
-// rectLight4.rotation.set( 0, 0 ,0 )
-// scene.add( rectLight4 );
-
-///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
-
-const ambientLight = new THREE.AmbientLight( 0xD6B201, 5.6)
-
-const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
+const rectLight2 = new THREE.RectAreaLight( 0x18FEFE, 1.2 );
 rectLight2.position.set( 1, 0, -1 );
 rectLight2.rotation.set( 0, 360 ,0 )
 scene.add( rectLight2 );
 
-const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2, 56, 56);
+const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
 rectLight4.position.set( -1, 0, 1 );
 rectLight4.rotation.set( 0, 0 ,0 )
 scene.add( rectLight4 );
+
+///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
+
+// const ambientLight = new THREE.AmbientLight( 0xD6B201, 5.6)
+
+// const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
+// rectLight2.position.set( 1, 0, -1 );
+// rectLight2.rotation.set( 0, 360 ,0 )
+// scene.add( rectLight2 );
+
+// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2, 56, 56);
+// rectLight4.position.set( -1, 0, 1 );
+// rectLight4.rotation.set( 0, 0 ,0 )
+// scene.add( rectLight4 );
 
 // scene.add( new RectAreaLightHelper( rectLight1 ) );
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
@@ -464,7 +458,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       fog: false,
       transmission: 1,
       opacity: 1,
-      metalness: 0,
+      metalness: 0.1,
       roughness: 0,
       ior: 2.0,
       thickness: 0.01,
@@ -473,19 +467,6 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       envMap: environmentMap,
       envMapIntensity: 2.0
 });
-
-// const geoFloor = new THREE.BoxGeometry( 1, 0.01, 1 );
-// const matStdFloor = new THREE.MeshStandardMaterial( { 
-//     color: 0x000000, 
-//     roughness: 0, 
-//     metalness: 0,
-//     opacity: 0.5,
-//     envMap: environmentMap,
-//     envMapIntensity: 1.0
-// });
-// const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
-// mshStdFloor.position.set(0, -0.79, 0)
-// scene.add( mshStdFloor );
 
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
@@ -514,7 +495,7 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
                 object.castShadow = true;
             }
         } );
-        scene.add( fox)
+        scene.add( fox )
 
         // Animation
         foxMixer = new THREE.AnimationMixer(gltf.scene)
@@ -573,12 +554,10 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         let singleMaterial= new THREE.MeshLambertMaterial( 
         { 
           side: THREE.DoubleSide, 
-          refractionRatio: 0.985,
-          reflectivity: 0.9,
           reflectivity: 0.2,
-          refractionRatio: 2,
+          refractionRatio: 0.1,
           envMap: environmentMap,
-          envMapIntensity: 1.0
+          envMapIntensity: 0.4
         });
 
         htdi.traverse((o) => {
@@ -586,12 +565,19 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         });
 
         // Animations
-
         gsap.to( htdi.rotation, {
             duration: 100, 
             ease: "none", 
             y: "+=180",
             repeat: -1});
+        gsap.to( htdi.scale, {
+            duration: 10, 
+            ease: "none", 
+            y: "+=180",
+            x: "+=180",
+            z: "+=180",
+            repeat: 0});
+      
 
     }
 )
