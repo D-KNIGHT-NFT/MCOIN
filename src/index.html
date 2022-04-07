@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +36,10 @@
   </audio>
 
   <!---------------------- Navigation Bar------------>
-   <nav class="nav">
+
+
+
+
      <div class="htdi--logo">
        <a href="https://htdicollective.bio.link" target="_blank">
        <img class="htdi--mark" data-tooltip alt="Alt text" title="bio links" role="tooltip" aria-label="Tooltip message" srcset="
@@ -50,8 +52,6 @@
        src= "../static/UI/Icon/logo/logo.png"/>
      </a>
      </div>
-     <h1 class="subtitle">HTDI Collective</h1>
-  </nav>
  
  <!---------------------- Container ------------>
 <div class="container">
@@ -82,6 +82,25 @@
 
  <!---------------------- Footer Music Player ------------>
 <footer class="music-player">
+
+  <h1 class="title">HTDI</h1>
+
+<!---------------------- Navigation Bar------------>
+  <div class="navigation">
+    <ol>
+      <li><a href="#01">1</a></li>
+      <li><a href="#02">2</a></li>
+      <li><a href="#03">3</a></li>
+      <li><a href="#04">4</a></li>
+      <li><a href="#05">5</a></li>
+      <li><a href="#06">6</a></li>
+      <li><a href="#07">7</a></li>
+      <li><a href="#08">8</a></li>
+    </ol>
+  </div>
+  <!---------------------- music Control------------>
+
+  <div class="buttons-music">
  <div class="button-icon" id="menu" data-tooltip alt="Alt text" title="Options" role="tooltip" aria-label="Tooltip message">
   <img srcset="
     ../static/UI/Icon/32x32/menu@4.png 4x,
@@ -122,11 +141,13 @@
      " 
      src= "../static/UI/Icon/32x32/pause.png"/>
   </div>
+</div>
 
   </footer>
 
     <!---------------------- Dropdowns  ------------>
-  <!--   <div class="dropdowns">
+
+    <div class="dropdowns">
     <details ID="info-modals" data-dropdown>
       <summary>✧About</summary>
       <ul role="list">
@@ -137,8 +158,9 @@
         <li class="modal-button" role="listitem">Say Hi<a href="#modal-05" ></a></li>
       </ul>
     </details>
+  <div class="dropdown-themes">
     <details id ="info-themes" data-dropdown>
-     <summary>✧WIP✧</summary>
+     <summary>✧ Themes ✧</summary>
      <ul role="list">
        <li role="listitem">Moon<a href="#"><img class="icon-theme" srcset=
         "
@@ -196,30 +218,7 @@
        </li>
       </ul>
     </details>
-    </div> -->
-
-  <!----------------- Modal containers  (z-index: 2000 )-----------> 
-
-  <!-- Modal 01 EXAMPLE -->
-
-<!--  <div id="modal--01" data-modal>
-   <div id="dialog" data-modal-dialog role="dialog" aria-modal="true" aria-labelledby="dialog-title" tabindex="-1">
-    
-    <h2 id="dialog-title">An intentional and inclusive digital Artist Collective. A community of allies promoting diversity  and equality on the Metaverse through their Art.<br>Our Manifesto</h2>
-    <p id="dialog-text"></p>
-
-    <a href="#" data-modal-close>
-     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-     <line x1="18" y1="6" x2="6" y2="18"></line>
-     <line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </a>
-   </div> -->
-    <!-- Background, click to close -->
-    <!-- <a href="#" data-modal-overlay></a>
- </div> -->
-
-
-
+    </div>
 
 
  <!---------------------- FOG LEGACY  ------------>

@@ -365,23 +365,23 @@ scene.add( rectLight4 );
 // rectLight4.rotation.set( 0, 0 ,0 )
 // scene.add( rectLight4 );
 
-// scene.add( new RectAreaLightHelper( rectLight1 ) );
-// scene.add( new RectAreaLightHelper( rectLight2 ) );
+// // scene.add( new RectAreaLightHelper( rectLight1 ) );
+// // scene.add( new RectAreaLightHelper( rectLight2 ) );
 
-const directionaLight = new THREE.DirectionalLight( 0xD6B201, 2.2 );
-directionaLight.position.set( 0, 0.5, -1 );
-directionaLight.castShadow = true;
-directionaLight.shadow.mapSize.width = 2048;
-directionaLight.shadow.mapSize.height = 2048;
+// const directionaLight = new THREE.DirectionalLight( 0xD6B201, 2.2 );
+// directionaLight.position.set( 0, 0.5, -1 );
+// directionaLight.castShadow = true;
+// directionaLight.shadow.mapSize.width = 2048;
+// directionaLight.shadow.mapSize.height = 2048;
 
-const d = 10;
+// const d = 10;
 
-directionaLight.shadow.camera.left = - d;
-directionaLight.shadow.camera.right = d;
-directionaLight.shadow.camera.top = d;
-directionaLight.shadow.camera.bottom = - d;
-directionaLight.shadow.camera.far = 2000;
-scene.add( directionaLight );
+// directionaLight.shadow.camera.left = - d;
+// directionaLight.shadow.camera.right = d;
+// directionaLight.shadow.camera.top = d;
+// directionaLight.shadow.camera.bottom = - d;
+// directionaLight.shadow.camera.far = 2000;
+// scene.add( directionaLight );
 
 ////////////////////////////////////////////////////////////////////
 // PARTICLES 
@@ -442,7 +442,22 @@ environmentMap.envMapIntensity = 10.0
 scene.environment = environmentMap
 scene.background = environmentMap
 
+////////////////////////////////////////////////////////////////////
+// Enviroment & Background alternatives
+///////////////
+
+// scene.environment = environmentMap
+// scene.background = new THREE.Color( 0xf020f0 );
+
+// scene.environment = environmentMap
+// scene.background = new THREE.Color( 0xf020f0 );
+// scene.fog = new THREE.Fog( scene.background, 0.1, 1 );
+
+// scene.environment = environmentMap
+// scene.background = new THREE.Color( 0xf020f0 );
 // scene.fog = new THREE.FogExp2( 0xfafafa, 0.72);
+
+// scene.fog = new THREE.FogExp2( 0xf020f0, 0.72);
 
 ////////////////////////////////////////////////////////////////////
 // MESHES + LOADERS
@@ -471,7 +486,8 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0.05, 0.05)
-glassphere.scale.set(0.7, 0.35, 0.7)
+// glassphere.scale.set(0.7, 0.35, 0.7) //flatter Bubble
+glassphere.scale.set(0.7, 0.7, 0.7)
 scene.add(glassphere);
 
 
@@ -509,8 +525,8 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
     {
         // Model
 
-        gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
-        gltf.scene.position.set(0, -0.8, 0.4)
+        gltf.scene.scale.set(0.018, 0.018, 0.018)
+        gltf.scene.position.set(0, 0, 0)
         gltf.scene.rotation.set(0, 0,  0)
         scene.add(gltf.scene)
 
@@ -519,14 +535,14 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         { 
         side: THREE.DoubleSide,
         precision: "highp",
+        emissive: 0.4,
         alphaTest: 1.0,
-        color: 0x000000,
+        color: 0xffffff,
         fog: false,
-        transmission: 1,
-        opacity: 1,
+        transmission: 1.0,
         metalness: 0,
         roughness: 0,
-        ior: 2.0,
+        ior: 1.0,
         thickness: 0.01,
         specularIntensity: 1,
         specularColor: 0xffffff,
@@ -537,6 +553,16 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         logo.traverse((o) => {
           if (o.isMesh) o.material = logoMaterial;
         });
+
+        // Animations
+        gsap.to( logo.rotation, {
+            duration: 1000, 
+            ease: "none", 
+            y: "+=180",
+            x: "+=180",
+            z: "+=180",
+            repeat: -1});
+        
     }
 )
 
@@ -545,8 +571,8 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         // Model BIG SIZE
         // gltf.scene.scale.set(0.0055, 0.0055, 0.0055)
         const htdi = gltf.scene
-        htdi.scale.set(0.0005, 0.0005, 0.0005)
-        htdi.position.set(0, 0, 0.9)
+        htdi.scale.set(0.005, 0.005, 0.005)
+        htdi.position.set(0, 0, 0.2)
         htdi.rotation.set(0, 0,  0)
         scene.add(htdi)
 
@@ -555,9 +581,8 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         { 
           side: THREE.DoubleSide, 
           reflectivity: 0.2,
-          refractionRatio: 0.1,
+          refractionRatio: 0.4,
           envMap: environmentMap,
-          envMapIntensity: 0.4
         });
 
         htdi.traverse((o) => {
@@ -570,17 +595,11 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
             ease: "none", 
             y: "+=180",
             repeat: -1});
-        gsap.to( htdi.scale, {
-            duration: 10, 
-            ease: "none", 
-            y: "+=180",
-            x: "+=180",
-            z: "+=180",
-            repeat: 0});
       
 
     }
 )
+
 
 // const loader = new THREE.ObjectLoader();
 
@@ -693,7 +712,7 @@ const renderScene = new RenderPass( scene, camera );
 finalComposer.addPass( renderScene );
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.6 , 0.0001, 0.01 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.45 , 0.0001, 0.01 );
 finalComposer.addPass( bloomPass );
 
 
@@ -705,23 +724,23 @@ finalComposer.addPass( bloomPass );
 // effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
 // finalComposer.addPass( effectSobel );
 
-// const bloomPass = new BloomPass(
-//     1,    // strength
-//     25,   // kernel size
-//     4,    // sigma ?
-//     256,  // blur render target resolution
+// const bloomPass2 = new BloomPass(
+//     0.5,    // strength
+//     2,   // kernel size
+//     1,    // sigma ?
+//     2048,  // blur render target resolution
 // );
-// composer.addPass(bloomPass);
+// finalComposer.addPass(bloomPass2);
 
-// const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
-// outlinePass.edgeStrength= 8.0
-// outlinePass.edgeGlow= 9.5
-// outlinePass.edgeThickness= 1.0
-// outlinePass.pulsePeriod= 0.2
-// outlinePass.rotate= false
-// outlinePass.usePatternTexture= false
+const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
+outlinePass.edgeStrength= 80.0
+outlinePass.edgeGlow= 9.5
+outlinePass.edgeThickness= 1.0
+outlinePass.pulsePeriod= 0.2
+outlinePass.rotate= false
+outlinePass.usePatternTexture= false
 
-// finalComposer.addPass( outlinePass );
+finalComposer.addPass( outlinePass );
 
 // const patternTexture = textureLoader.load( 'textures/pattern-outliner.png', texture)
 
@@ -740,33 +759,6 @@ finalComposer.addPass( effectFXAA );
 ////////////////////////////////////////////////////////////////////
 // RAYCASTER + MOUSE
 ///////////////////////////////////////////////////////////////////
-// const mouse = new THREE.Vector2();
-// const raycaster = new THREE.Raycaster();
-// raycaster.setFromCamera( mouse, camera );
-
-
-
-// let selectedObjects = [];
-
-// function checkIntersection() {
-
-//     const intersects = raycaster.intersectObject( scene, true );
-//     const selectedObject = intersects[ 0 ].object;
-//     selectedObjects.push( selectedObject );
-//     outlinePass.selectedObject = addSelectedObjects;
-
-// }
-
-// function onPointerMove( event ) {
-
-//     if ( event.isPrimary === false ) return;
-
-//     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-//     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-//     checkIntersection();
-
-// }
 
 
 ////////////////////////////////////////////////////////////////////
