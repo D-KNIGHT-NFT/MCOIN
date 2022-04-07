@@ -35,12 +35,148 @@
   <a href="audiofile.mp3">audiofile.mp3</a>
   </audio>
 
-  <!---------------------- Navigation Bar------------>
+<!---------------------- header card ------------>
 
+ <header class="header">
+  <nav class="header__nav">
+    <ul class="header__list">
 
+      <!---------------------- Hamburger  ------------>
 
+      <li class="header__item">
+      <div class="button-icon" id="menu" data-tooltip alt="Alt text" title="Options" role="tooltip" aria-label="Tooltip message">
+       <img srcset="
+         ../static/UI/Icon/32x32/menu@4.png 4x,
+         ../static/UI/Icon/32x32/menu@3x.png 3x,
+         ../static/UI/Icon/32x32/menu@2x.png 2x,
+         ../static/UI/Icon/32x32/menu.svg
+         " 
+         src= "../static/UI/Icon/32x32/menu.png"/>
+      </div>
+    </li>
 
-     <div class="htdi--logo">
+      <li class="header__item">
+        <a href="#" class="header__link js-header__link"><span class="js-header__link-inner">Home</span></a>
+      </li>
+
+        <!---------------------- Dropdowns  ------------>
+
+        <li class="header__item">
+          <a href="#" class="header__link js-header__link"><span class="js-header__link-inner" id="info-modals" data-dropdown>About
+           <!--  <ul role="list">
+                  <li class="modal-button" role="listitem">Manifesto<a href="#" ></a></li>
+                  <li class="modal-button" role="listitem">Community<a href="#" ></a></li>
+                  <li class="modal-button" role="listitem">Allyships<a href="#" ></a></li>
+                  <li class="modal-button" role="listitem">Equity<a href="#" ></a></li>
+                  <li class="modal-button" role="listitem">Say Hi<a href="#" ></a></li>
+                </ul> -->
+            </span></a>
+          </li>
+
+      <li class="header__item">
+        <a href="#" class="header__link js-header__link"><span class="js-header__link-inner" id="info-modals" data-dropdown>Themes
+         <!-- <ul role="list">
+           <li role="listitem">Moon<a href="#"><img class="icon-theme" srcset=
+            "
+             ../static/UI/Icon/32x32/New-Moon@4x.png 4x,
+             ../static/UI/Icon/32x32/New-Moon@3x.png 3x,
+             ../static/UI/Icon/32x32/New-Moon@2x.png 2x,
+             ../static/UI/Icon/32x32/New-Moon.svg
+             " 
+             src= "../static/UI/Icon/32x32/New-Moon.png"/></a>
+           </li>
+           <li role="listitem">Spacey<a href="#"><img class="icon-theme" srcset=
+            "
+             ../static/UI/Icon/32x32/Satellites@4x.png 4x,
+             ../static/UI/Icon/32x32/Satellites@3x.png 3x,
+             ../static/UI/Icon/32x32/Satellites@2x.png 2x,
+             ../static/UI/Icon/32x32/Satellites.svg
+             " 
+             src= "../static/UI/Icon/32x32/Satellites.png"/></a>
+           </li>
+           <li role="listitem">Wolf<a href="#"><img class="icon-theme" srcset=
+            "
+             ../static/UI/Icon/32x32/Werewolf@4x.png 4x,
+             ../static/UI/Icon/32x32/Werewolf@3x.png 3x,
+             ../static/UI/Icon/32x32/Werewolf@2x.png 2x,
+             ../static/UI/Icon/32x32/Werewolf.svg
+             " 
+             src= "../static/UI/Icon/32x32/Werewolf.png"/></a>
+           </li>
+           <li role="listitem">Lullaby<a href="#"><img class="icon-theme" srcset=
+            "
+             ../static/UI/Icon/32x32/Lullaby@4x.png 4x,
+             ../static/UI/Icon/32x32/Lullaby@3x.png 3x,
+             ../static/UI/Icon/32x32/Lullaby@2x.png 2x,
+             ../static/UI/Icon/32x32/Lullaby.svg
+             " 
+             src= "../static/UI/Icon/32x32/Lullaby.png"/></a>
+           </li>
+           <li role="listitem">Starry Night<a href="#"><img class="icon-theme" srcset=
+            "
+           ../static/UI/Icon/32x32/moon_stars@4x.png 4x,
+           ../static/UI/Icon/32x32/moon_stars@3x.png 3x,
+           ../static/UI/Icon/32x32/moon_stars@2x.png 2x,
+           ../static/UI/Icon/32x32/moon_stars.svg
+           " 
+           src= "../static/UI/Icon/32x32/moon_stars.png"/></a>
+           </li>
+           <li role="listitem">Rainy<a href="#"><img class="icon-theme" srcset=
+            "
+           ../static/UI/Icon/32x32/Keep-Dry@4x.png 4x,
+           ../static/UI/Icon/32x32/Keep-Dry@3x.png 3x,
+           ../static/UI/Icon/32x32/Keep-Dry@2x.png 2x,
+           ../static/UI/Icon/32x32/Keep-Dry.svg
+           " 
+           src= "../static/UI/Icon/32x32/Keep-Dry.png"/></a>
+           </li>
+          </ul> -->
+        </span></a>
+      </li>
+
+      <li class="header__item">
+        <a href="#" class="header__link js-header__link"><span class="js-header__link-inner">Works</span></a>
+      </li>
+
+      <li class="header__item">
+        <a href="#" class="header__link js-header__link"><span class="js-header__link-inner">Contact</span></a>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="cursor js-cursor">
+  <div class="cursor__pointer js-cursor__pointer"></div>
+</div> 
+
+<!-- <div class="dark-light">
+  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="10.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+</div> -->
+
+<!--   <div class="app overlay" onclick="toggle()">
+      <div class="icon-close">
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+       <line x1="18" y1="6" x2="6" y2="18"></line>
+       <line x1="6" y1="6" x2="18" y2="18"></line>
+     </svg>
+   </div>
+   <div class="overlay__inner">
+     <div class="overlay__title"><h1>WIP</h1></div>
+    <div class="header">
+       <div class="header-menu">
+         <a class="menu-link is-active" href="#">Apps</a>
+         <a class="menu-link notify" href="#">Your work</a>
+         <a class="menu-link" href="#">Discover</a>
+         <a class="menu-link notify" href="#">Market</a>
+       </div>
+     </div>
+ </div>
+</div> -->
+
+  <!---------------------- logo------------>
+
+     <!-- <div class="htdi--logo">
        <a href="https://htdicollective.bio.link" target="_blank">
        <img class="htdi--mark" data-tooltip alt="Alt text" title="bio links" role="tooltip" aria-label="Tooltip message" srcset="
        ../static/UI/Icon/logo/logo@4x.png 4x,
@@ -51,7 +187,7 @@
        " 
        src= "../static/UI/Icon/logo/logo.png"/>
      </a>
-     </div>
+     </div> -->
  
  <!---------------------- Container ------------>
 <div class="container">
@@ -101,15 +237,6 @@
   <!---------------------- music Control------------>
 
   <div class="buttons-music">
- <div class="button-icon" id="menu" data-tooltip alt="Alt text" title="Options" role="tooltip" aria-label="Tooltip message">
-  <img srcset="
-    ../static/UI/Icon/32x32/menu@4.png 4x,
-    ../static/UI/Icon/32x32/menu@3x.png 3x,
-    ../static/UI/Icon/32x32/menu@2x.png 2x,
-    ../static/UI/Icon/32x32/menu.svg
-    " 
-    src= "../static/UI/Icon/32x32/menu.png"/>
- </div>
  <div class="button-icon" id="sound" data-tooltip alt="Alt text" title="'Lucid Space' by Joseph_Beg" role="tooltip" aria-label="Tooltip message">
   <img srcset="
      ../static/UI/Icon/32x32/sound@4.png 4x,
@@ -144,81 +271,6 @@
 </div>
 
   </footer>
-
-    <!---------------------- Dropdowns  ------------>
-
-    <div class="dropdowns">
-    <details ID="info-modals" data-dropdown>
-      <summary>✧About</summary>
-      <ul role="list">
-        <li class="modal-button" role="listitem">Manifesto<a href="#modal-01" ></a></li>
-        <li class="modal-button" role="listitem">Community<a href="#modal-02" ></a></li>
-        <li class="modal-button" role="listitem">Allyships<a href="#modal-03" ></a></li>
-        <li class="modal-button" role="listitem">Equity<a href="#modal-04" ></a></li>
-        <li class="modal-button" role="listitem">Say Hi<a href="#modal-05" ></a></li>
-      </ul>
-    </details>
-  <div class="dropdown-themes">
-    <details id ="info-themes" data-dropdown>
-     <summary>✧ Themes ✧</summary>
-     <ul role="list">
-       <li role="listitem">Moon<a href="#"><img class="icon-theme" srcset=
-        "
-         ../static/UI/Icon/32x32/New-Moon@4x.png 4x,
-         ../static/UI/Icon/32x32/New-Moon@3x.png 3x,
-         ../static/UI/Icon/32x32/New-Moon@2x.png 2x,
-         ../static/UI/Icon/32x32/New-Moon.svg
-         " 
-         src= "../static/UI/Icon/32x32/New-Moon.png"/></a>
-       </li>
-       <li role="listitem">Spacey<a href="#"><img class="icon-theme" srcset=
-        "
-         ../static/UI/Icon/32x32/Satellites@4x.png 4x,
-         ../static/UI/Icon/32x32/Satellites@3x.png 3x,
-         ../static/UI/Icon/32x32/Satellites@2x.png 2x,
-         ../static/UI/Icon/32x32/Satellites.svg
-         " 
-         src= "../static/UI/Icon/32x32/Satellites.png"/></a>
-       </li>
-       <li role="listitem">Wolf<a href="#"><img class="icon-theme" srcset=
-        "
-         ../static/UI/Icon/32x32/Werewolf@4x.png 4x,
-         ../static/UI/Icon/32x32/Werewolf@3x.png 3x,
-         ../static/UI/Icon/32x32/Werewolf@2x.png 2x,
-         ../static/UI/Icon/32x32/Werewolf.svg
-         " 
-         src= "../static/UI/Icon/32x32/Werewolf.png"/></a>
-       </li>
-       <li role="listitem">Lullaby<a href="#"><img class="icon-theme" srcset=
-        "
-         ../static/UI/Icon/32x32/Lullaby@4x.png 4x,
-         ../static/UI/Icon/32x32/Lullaby@3x.png 3x,
-         ../static/UI/Icon/32x32/Lullaby@2x.png 2x,
-         ../static/UI/Icon/32x32/Lullaby.svg
-         " 
-         src= "../static/UI/Icon/32x32/Lullaby.png"/></a>
-       </li>
-       <li role="listitem">Starry Night<a href="#"><img class="icon-theme" srcset=
-        "
-       ../static/UI/Icon/32x32/moon_stars@4x.png 4x,
-       ../static/UI/Icon/32x32/moon_stars@3x.png 3x,
-       ../static/UI/Icon/32x32/moon_stars@2x.png 2x,
-       ../static/UI/Icon/32x32/moon_stars.svg
-       " 
-       src= "../static/UI/Icon/32x32/moon_stars.png"/></a>
-       </li>
-       <li role="listitem">Rainy<a href="#"><img class="icon-theme" srcset=
-        "
-       ../static/UI/Icon/32x32/Keep-Dry@4x.png 4x,
-       ../static/UI/Icon/32x32/Keep-Dry@3x.png 3x,
-       ../static/UI/Icon/32x32/Keep-Dry@2x.png 2x,
-       ../static/UI/Icon/32x32/Keep-Dry.svg
-       " 
-       src= "../static/UI/Icon/32x32/Keep-Dry.png"/></a>
-       </li>
-      </ul>
-    </details>
-    </div>
 
 
  <!---------------------- FOG LEGACY  ------------>
