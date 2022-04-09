@@ -310,36 +310,6 @@ window.onload = function(){
 
    audioElement.volume = 0.3;
 }
-////////////////////////////////////////////////////////////////////
-// CURSOR Animation
-///////////////
-
- const linkInner = document.querySelectorAll(".js-header__link-inner");
- const cursor = document.querySelector(".js-cursor");
- const cursorPointer = document.querySelector(".js-cursor__pointer");
-
- const textSticky = (e) => {
-   const xMove = (e.offsetX / e.target.offsetWidth) * (25 * 2) - 25;
-   const yMove = (e.offsetY / e.target.offsetHeight) * (25 * 2) - 25;
-
-   for(let i = 0; i < linkInner.length; i++) {
-     e.target.style.transform = `translate(${xMove}px, ${yMove}px)`;
-     cursorPointer.classList.add("is-active");
-   }
- };
-
- window.addEventListener("mousemove", (e) => {
-   cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
- });
-
- for(let i = 0;i < linkInner.length;i++) {
-  linkInner[i].addEventListener("mousemove", textSticky);
-  linkInner[i].addEventListener("mouseenter", textSticky);
-  linkInner[i].addEventListener("mouseleave", (e) => {
-    e.target.style.transform = "";
-    cursorPointer.classList.remove("is-active");
-})
-};
 
 
 ////////////////////////////////////////////////////////////////////
