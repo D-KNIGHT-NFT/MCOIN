@@ -311,7 +311,7 @@ window.onload = function(){
    audioElement.volume = 0.3;
 }
 ////////////////////////////////////////////////////////////////////
-// Navigation main glass card
+// CURSOR Animation
 ///////////////
 
  const linkInner = document.querySelectorAll(".js-header__link-inner");
@@ -333,13 +333,15 @@ window.onload = function(){
  });
 
  for(let i = 0;i < linkInner.length;i++) {
-   linkInner[i].addEventListener("mousemove", textSticky);
+  linkInner[i].addEventListener("mousemove", textSticky);
   linkInner[i].addEventListener("mouseenter", textSticky);
   linkInner[i].addEventListener("mouseleave", (e) => {
     e.target.style.transform = "";
     cursorPointer.classList.remove("is-active");
 })
 };
+
+
 ////////////////////////////////////////////////////////////////////
 // SCENE & CONSTS
 ///////////////
@@ -475,18 +477,23 @@ scene.background = environmentMap
 // Enviroment & Background alternatives
 ///////////////
 
+////////////////////
 // scene.environment = environmentMap
 // scene.background = new THREE.Color( 0xf020f0 );
+////////////////////
 
 // scene.environment = environmentMap
 // scene.background = new THREE.Color( 0xf020f0 );
 // scene.fog = new THREE.Fog( scene.background, 0.1, 1 );
+////////////////////
 
 // scene.environment = environmentMap
 // scene.background = new THREE.Color( 0xf020f0 );
 // scene.fog = new THREE.FogExp2( 0xfafafa, 0.72);
+////////////////////
 
 // scene.fog = new THREE.FogExp2( 0xf020f0, 0.72);
+////////////////////
 
 ////////////////////////////////////////////////////////////////////
 // MESHES + LOADERS
@@ -500,7 +507,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       alphaTest: 1.0,
       color: 0xeaeaea,
       fog: false,
-      transmission: 1,
+      transmission: 1.0,
       opacity: 1,
       metalness: 0.1,
       roughness: 0,
@@ -516,7 +523,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0.05, 0.05)
 // glassphere.scale.set(0.7, 0.35, 0.7) //flatter Bubble
-glassphere.scale.set(0.7, 0.7, 0.7)
+glassphere.scale.set(0.6, 0.6, 0.6)
 scene.add(glassphere);
 
 
@@ -629,39 +636,6 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
     }
 )
 
-
-// const loader = new THREE.ObjectLoader();
-
-// loader.load(
-//     // resource URL
-//     "static/models/json/model.json",
-
-//     // onLoad callback
-//     // Here the loaded data is assumed to be an object
-//     function ( obj ) {
-//         // Add the loaded object to the scene
-//         scene.add( obj );
-//     },
-
-//     // onProgress callback
-//     function ( xhr ) {
-//         console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-//     },
-
-//     // onError callback
-//     function ( err ) {
-//         console.error( 'An error happened' );
-//     }
-// );
-
-
-// // Alternatively, to parse a previously loaded JSON structure
-// const object = loader.parse( a_json_object );
-// object.position.set(0, 0, 0)
-
-// scene.add( object );
-
-
 ////////////////////////////////////////////////////////////////////
 // WINDOW SIZES + ASPECT
 ///////////////
@@ -711,8 +685,8 @@ controls.enablePan = false;
 controls.autoRotate= true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
-controls.minDistance = 0.9;
-controls.maxDistance = 2;
+controls.minDistance = 0.4;
+controls.maxDistance = 3;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
