@@ -469,6 +469,8 @@ scene.background = environmentMap
 // MESHES + LOADERS
 ///////////////
 
+
+
 const geometry = new THREE.IcosahedronGeometry(1, 24);
 const glassmaterial = new THREE.MeshPhysicalMaterial(
     { 
@@ -508,7 +510,7 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
         // Model
         const fox = gltf.scene
         fox.scale.set(0.0019, 0.0019, 0.0019)
-        fox.position.set(0, -0.1, 0)
+        fox.position.set(0, 0, 0)
         fox.rotation.set(0, 0,  0)
 
         fox.traverse( function ( object ) {
@@ -578,8 +580,8 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         // gltf.scene.scale.set(0.0055, 0.0055, 0.0055)
         const htdi = gltf.scene
         htdi.scale.set(0.005, 0.005, 0.005)
-        htdi.position.set(0, 0, 0.2)
-        htdi.rotation.set(0, 0,  0)
+        htdi.position.set(0, 0.07, 0.2)
+        htdi.rotation.set(0, 0, 0)
         scene.add(htdi)
 
     
