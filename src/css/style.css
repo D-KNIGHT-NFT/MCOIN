@@ -350,6 +350,12 @@ h1 { font-size: 1.6rem; }
    overflow: hidden;
    border-radius: inherit;
 }
+
+.outer:nth-last-of-type(odd) {
+  backdrop-filter: none;
+
+}
+
 .inner {
    transform: translateY(-10vmin) translateZ(0px);
    position: absolute;
@@ -378,13 +384,12 @@ h1 { font-size: 1.6rem; }
 /* ************************************ CONTAINER  */
 /* ************************************************* */
 #overlay {
-  display: block;
-  animation: fade 3s ease-out;
+  animation: fade 3s ease;
 }
 
 @keyframes fade {
-  from { opacity:  1; }
-  to { opacity: 0; }
+  from { opacity:  0; }
+  to { opacity: 1; }
 }
 
 .marquee {
@@ -425,13 +430,11 @@ h1 { font-size: 1.6rem; }
   display: flex;
   height: 100%;
   width:  auto;
-  background: var(--yellow);
 }
 .right {
   display: flex;
   height: 100%;
   width:  auto;
-  background: var(--yellow);
 
 }
 .overlay {

@@ -340,49 +340,53 @@ scene.add( light4 );
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-const ambientLight = new THREE.AmbientLight( 0x18FEFE, 1.2)
+// const ambientLight = new THREE.AmbientLight( 0x8322c9, 10);
+// ambientLight.position.set( 0, 8, 0 );
+// scene.add(ambientLight);
 
-const rectLight2 = new THREE.RectAreaLight( 0x18FEFE, 1.2 );
-rectLight2.position.set( 1, 0, -1 );
-rectLight2.rotation.set( 0, 360 ,0 )
-scene.add( rectLight2 );
-
-const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
-rectLight4.position.set( -1, 0, 1 );
-rectLight4.rotation.set( 0, 0 ,0 )
-scene.add( rectLight4 );
-
-///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
-
-// const ambientLight = new THREE.AmbientLight( 0xD6B201, 5.6)
-
-// const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
+// const rectLight2 = new THREE.RectAreaLight( 0x18FEFE, 1.2 );
 // rectLight2.position.set( 1, 0, -1 );
 // rectLight2.rotation.set( 0, 360 ,0 )
 // scene.add( rectLight2 );
 
-// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2, 56, 56);
+// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
 // rectLight4.position.set( -1, 0, 1 );
 // rectLight4.rotation.set( 0, 0 ,0 )
 // scene.add( rectLight4 );
 
-// // scene.add( new RectAreaLightHelper( rectLight1 ) );
-// // scene.add( new RectAreaLightHelper( rectLight2 ) );
+///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
 
-// const directionaLight = new THREE.DirectionalLight( 0xD6B201, 2.2 );
-// directionaLight.position.set( 0, 0.5, -1 );
-// directionaLight.castShadow = true;
-// directionaLight.shadow.mapSize.width = 2048;
-// directionaLight.shadow.mapSize.height = 2048;
+const ambientLight = new THREE.AmbientLight( 0xD6B201, 5.6)
+ambientLight.position.set( 0, 8, 0 );
+scene.add(ambientLight);
 
-// const d = 10;
+const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
+rectLight2.position.set( 1, 0, -1 );
+rectLight2.rotation.set( 0, 360 ,0 )
+scene.add( rectLight2 );
 
-// directionaLight.shadow.camera.left = - d;
-// directionaLight.shadow.camera.right = d;
-// directionaLight.shadow.camera.top = d;
-// directionaLight.shadow.camera.bottom = - d;
-// directionaLight.shadow.camera.far = 2000;
-// scene.add( directionaLight );
+const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2, 56, 56);
+rectLight4.position.set( -1, 0, 1 );
+rectLight4.rotation.set( 0, 0 ,0 )
+scene.add( rectLight4 );
+
+// scene.add( new RectAreaLightHelper( rectLight1 ) );
+// scene.add( new RectAreaLightHelper( rectLight2 ) );
+
+const directionaLight = new THREE.DirectionalLight( 0xD6B201, 2.2 );
+directionaLight.position.set( 0, 0.5, -1 );
+directionaLight.castShadow = true;
+directionaLight.shadow.mapSize.width = 2048;
+directionaLight.shadow.mapSize.height = 2048;
+
+const d = 10;
+
+directionaLight.shadow.camera.left = - d;
+directionaLight.shadow.camera.right = d;
+directionaLight.shadow.camera.top = d;
+directionaLight.shadow.camera.bottom = - d;
+directionaLight.shadow.camera.far = 2000;
+scene.add( directionaLight );
 
 ////////////////////////////////////////////////////////////////////
 // PARTICLES 
@@ -415,7 +419,7 @@ particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 
 particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors))
 
 const textureLoader = new THREE.TextureLoader()
-const particleTexture = textureLoader.load('/textures/particles/stars/star_07.png')
+const particleTexture = textureLoader.load('/textures/particles/stars/star_05.png')
 
 particlesMaterial.map = particleTexture
 
@@ -434,7 +438,7 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-1/');
+cubeTextureLoader.setPath('textures/environmentMap/level-5/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
