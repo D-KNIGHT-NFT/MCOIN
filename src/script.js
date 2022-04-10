@@ -359,7 +359,7 @@ scene.add( light4 );
 const ambientLight = new THREE.AmbientLight( 0xD6B201, 5.6)
 ambientLight.position.set( 0, 8, 0 );
 scene.add(ambientLight);
-
+  
 const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
 rectLight2.position.set( 1, 0, -1 );
 rectLight2.rotation.set( 0, 360 ,0 )
@@ -399,7 +399,7 @@ const count = 777
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#31FF9C') //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('0xffffff') //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -419,7 +419,7 @@ particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 
 particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors))
 
 const textureLoader = new THREE.TextureLoader()
-const particleTexture = textureLoader.load('/textures/particles/stars/star_05.png')
+const particleTexture = textureLoader.load('/textures/particles/stars/star_07.png')
 
 particlesMaterial.map = particleTexture
 
@@ -691,7 +691,7 @@ const renderScene = new RenderPass( scene, camera );
 finalComposer.addPass( renderScene );
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.45 , 0.0001, 0.01 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.55 , 0.0001, 0.01 );
 finalComposer.addPass( bloomPass );
 
 

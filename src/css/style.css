@@ -351,9 +351,8 @@ h1 { font-size: 1.6rem; }
    border-radius: inherit;
 }
 
-.outer:nth-last-of-type(odd) {
-  backdrop-filter: none;
-
+.outer:nth-last-of-type(odd) .outer::after{
+  backdrop-filter: blur(56px);
 }
 
 .inner {
