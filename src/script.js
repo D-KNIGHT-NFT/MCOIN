@@ -43,6 +43,8 @@ import { KawaseBlurFilter } from "@pixi/filter-kawase-blur";
 import SimplexNoise from "simplex-noise";
 import hsl from "hsl-to-hex";
 import debounce from "debounce";
+ 
+
 
 
 ////////////////////////////////////////////////////////////////////
@@ -51,17 +53,14 @@ import debounce from "debounce";
 
 // Create PixiJS app
 const pixieApp = new PIXI.Application({
-// render to <canvas class="orb-canvas"></canvas>
-view: document.querySelector(".orb-canvas"),
-// auto adjust size to fit the current window
-resizeTo: window,
-// transparent background, we will be creating a gradient background later using CSS
-// transparent: true
+  view: document.querySelector(".orb-canvas"),
+  resizeTo: window
 });
 
 pixieApp.stage.filters = [new KawaseBlurFilter(30, 10, true)];
 
-// UTILITY JS FUNCTIONS
+// JS UTILITY FUNCTIONS
+
 // return a random number within a range
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -177,30 +176,27 @@ class ColorPalette {
   }
 
   setColors() {
-    // pick a random hue somewhere between 220 and 360
     this.hue = ~~random(0, 660);
     this.complimentaryHue1 = this.hue + 30;
     this.complimentaryHue2 = this.hue + 60;
-    // define a fixed saturation and lightness
+
     this.saturation = 80;
     this.lightness = 50;
 
-    // define a base color
     this.baseColor = hsl(this.hue, this.saturation, this.lightness);
-    // define a complimentary color, 30 degress away from the base
+
     this.complimentaryColor1 = hsl(
       this.complimentaryHue1,
       this.saturation,
       this.lightness
     );
-    // define a second complimentary color, 60 degrees away from the base
+
     this.complimentaryColor2 = hsl(
       this.complimentaryHue2,
       this.saturation,
       this.lightness
     );
 
-    // store the color choices in an array so that a random one can be picked later
     this.colorChoices = [
       this.baseColor,
       this.complimentaryColor1,
@@ -259,6 +255,33 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     orb.render();
   });
 }
+
+let object = {
+  el: '.orb-canvas',
+  duration: 20
+}
+
+gsap.fromTo(object.el, object.duration, {
+  opacity: 5,
+  y: '+=180',
+  x: 0,
+  scale: 2,
+  transformOrigin: 'center'
+}, {
+  opacity: 0,
+  y: '-=180',
+  x: Math.PI * 2,
+  modifiers: {
+    x: function(x) {
+      return Math.sin(parseFloat(x)) * -30 + "px";
+    }
+  },
+  scale: 0,
+  stagger: {
+    each: object.duration / document.querySelectorAll(object.el).length, 
+    repeat: 0
+  }
+});
 
 ////////////////////////////////////////////////////////////////////
 // DEBUGGER 
@@ -340,35 +363,35 @@ scene.add( light4 );
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-// const ambientLight = new THREE.AmbientLight( 0x8322c9, 10);
-// ambientLight.position.set( 0, 8, 0 );
-// scene.add(ambientLight);
-
-// const rectLight2 = new THREE.RectAreaLight( 0x18FEFE, 1.2 );
-// rectLight2.position.set( 1, 0, -1 );
-// rectLight2.rotation.set( 0, 360 ,0 )
-// scene.add( rectLight2 );
-
-// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
-// rectLight4.position.set( -1, 0, 1 );
-// rectLight4.rotation.set( 0, 0 ,0 )
-// scene.add( rectLight4 );
-
-///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
-
-const ambientLight = new THREE.AmbientLight( 0xD6B201, 5.6)
+const ambientLight = new THREE.AmbientLight( 0x8322c9, 30);
 ambientLight.position.set( 0, 8, 0 );
 scene.add(ambientLight);
-  
-const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
+
+const rectLight2 = new THREE.RectAreaLight( 0x18FEFE, 1.2 );
 rectLight2.position.set( 1, 0, -1 );
 rectLight2.rotation.set( 0, 360 ,0 )
 scene.add( rectLight2 );
 
-const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2, 56, 56);
+const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2 );
 rectLight4.position.set( -1, 0, 1 );
 rectLight4.rotation.set( 0, 0 ,0 )
 scene.add( rectLight4 );
+
+///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
+
+// const ambientLight = new THREE.AmbientLight( 0xD6B201, 5.6)
+// ambientLight.position.set( 0, 8, 0 );
+// scene.add(ambientLight);
+  
+// const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
+// rectLight2.position.set( 1, 0, -1 );
+// rectLight2.rotation.set( 0, 360 ,0 )
+// scene.add( rectLight2 );
+
+// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2, 56, 56);
+// rectLight4.position.set( -1, 0, 1 );
+// rectLight4.rotation.set( 0, 0 ,0 )
+// scene.add( rectLight4 );
 
 // scene.add( new RectAreaLightHelper( rectLight1 ) );
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
@@ -394,12 +417,12 @@ scene.add( directionaLight );
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 777
+const count = 99
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('0xffffff') //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('0xf0040') //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -438,11 +461,11 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-5/');
+cubeTextureLoader.setPath('textures/environmentMap/level-1/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
-environmentMap.envMapIntensity = 10.0
+environmentMap.envMapIntensity = 1.0
 
 scene.environment = environmentMap
 scene.background = environmentMap
@@ -476,12 +499,14 @@ scene.background = environmentMap
 
 
 const geometry = new THREE.IcosahedronGeometry(1, 24);
+const geometryS = new THREE.SphereGeometry(1, 128, 128);
+
 const glassmaterial = new THREE.MeshPhysicalMaterial(
     { 
       side: THREE.DoubleSide,
       precision: "highp",
       alphaTest: 1.0,
-      color: 0xeaeaea,
+      color: 0xffffff,
       fog: false,
       transmission: 1.0,
       opacity: 1,
@@ -496,17 +521,31 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 });
 
 
-const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0.05, 0.05)
+// const glassphere = new THREE.Mesh(geometry, glassmaterial);
+const glassphere2 = new THREE.Mesh(geometryS, glassmaterial);
+
+// glassphere.position.set(0, 0, 0)
+glassphere2.position.set(0, 0, 0)
 // glassphere.scale.set(0.7, 0.35, 0.7) //flatter Bubble
-glassphere.scale.set(0.6, 0.6, 0.6)
-scene.add(glassphere);
+
+// glassphere.scale.set(0.6, 0.6, 0.6)
+glassphere2.scale.set(0.5, 0.5, 0.5)
+// scene.add(glassphere);
+scene.add(glassphere2);
+
+// Animations
+gsap.to( glassphere2.rotation, {
+    duration: 50, 
+    ease: "none", 
+    y: "+=180",
+    x: "+=180",
+    z: "+=180",
+    repeat: -1
+});
 
 
 /*** Load Fox model **/
 const gltfLoader = new GLTFLoader()
-
-
 let foxMixer = null
 
 gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) =>
@@ -602,6 +641,7 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         });
 
         // Animations
+
         gsap.to( htdi.rotation, {
             duration: 100, 
             ease: "none", 
@@ -661,8 +701,8 @@ controls.enablePan = false;
 controls.autoRotate= true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
-controls.minDistance = 0.4;
-controls.maxDistance = 3;
+controls.minDistance = 0.3;
+controls.maxDistance = 8;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
@@ -676,8 +716,6 @@ renderer.toneMapping = THREE.CineonToneMapping
 renderer.toneMappingExposure = 0.3
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-// renderer.domElement.style.touchAction = 'none';
-// renderer.domElement.addEventListener( 'pointermove', onPointerMove );
 renderer.setClearColor('#211d20')
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -691,41 +729,17 @@ const renderScene = new RenderPass( scene, camera );
 finalComposer.addPass( renderScene );
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.55 , 0.0001, 0.01 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.55 , 0.0011, 0.05 );
 finalComposer.addPass( bloomPass );
 
 
-// const effectGrayScale = new ShaderPass( LuminosityShader );
-// finalComposer.addPass( effectGrayScale );
+const effectGrayScale = new ShaderPass( LuminosityShader );
+finalComposer.addPass( effectGrayScale );
 
 // let effectSobel = new ShaderPass( SobelOperatorShader );
 // effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
 // effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
 // finalComposer.addPass( effectSobel );
-
-// const bloomPass2 = new BloomPass(
-//     0.5,    // strength
-//     2,   // kernel size
-//     1,    // sigma ?
-//     2048,  // blur render target resolution
-// );
-// finalComposer.addPass(bloomPass2);
-
-const outlinePass = new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), scene, camera );
-outlinePass.edgeStrength= 80.0
-outlinePass.edgeGlow= 9.5
-outlinePass.edgeThickness= 1.0
-outlinePass.pulsePeriod= 0.2
-outlinePass.rotate= false
-outlinePass.usePatternTexture= false
-
-finalComposer.addPass( outlinePass );
-
-// const patternTexture = textureLoader.load( 'textures/pattern-outliner.png', texture)
-
-// outlinePass.patternTexture = texture;
-// texture.wrapS = THREE.RepeatWrapping;
-// texture.wrapT = THREE.RepeatWrapping;
 
 
 const effectFXAA = new ShaderPass( FXAAShader );
@@ -747,7 +761,6 @@ finalComposer.addPass( effectFXAA );
 const clock = new THREE.Clock()
 let previousTime = 0
 
-
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
@@ -757,23 +770,21 @@ const tick = () =>
     // Update controls
     controls.update()
 
+    //Icosaedron Update
+    
+
     // Update Particles
-    // particles.scale.x = elapsedTime * 0.01
-    // particles.scale.Y = elapsedTime * 0.1
-    // particles.scale.Z = elapsedTime * 0.001
     particles.rotation.y = elapsedTime * 0.024
     particles.rotation.x = elapsedTime * 0.008
     particles.rotation.z = elapsedTime * 0.048
 
-    for(let i = 0; i < count; i++)
-       {
-           let i3 = i * 1
+    for (let i = 0; i < count; i++) {
+         let i3 = i * 1
+         const x = particlesGeometry.attributes.position.array[i3]
+         particlesGeometry.attributes.position.array[i3 + 0.01] = Math.sin(elapsedTime + x)
 
-            const x = particlesGeometry.attributes.position.array[i3]
-            particlesGeometry.attributes.position.array[i3 + 0.01] = Math.sin(elapsedTime + x)
-
-       }
-       particlesGeometry.attributes.position.needsUpdate = true 
+     }
+     particlesGeometry.attributes.position.needsUpdate = true 
 
     // LIGHT ANIMATIONS
     light1.position.x = Math.sin( elapsedTime * 0.7 ) * 30

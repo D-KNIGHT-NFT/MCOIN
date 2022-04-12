@@ -1,247 +1,192 @@
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>HTDI Collective</title>
-    <meta name="description" content="Limbus Collection vol.01 - Project Anja">
-    <meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0" />
-    <meta property="og:title" content="✧ HTDI Collective ♘">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.htdi.community/">
-    <meta property="og:image" content="https://htdi.community/favicon.svg">
-    <meta property="og:description" content="Inclusive and diverse digital artist community">
-
-    <link rel="apple-touch-icon" href="/static/branding/icon-180x180.png">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/style.css">
-
-    <!---------------------- Mailchimp  (z-index: 1001 )------------>
-
-    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/a63faa7a4a1a02edeeddee78e/acd531e12b7b63ffd559d6824.js");
-    </script>
-    <script type="text/javascript"> 
-      function toggle(){  
-      var myGlass = document.getElementById('overlay'); 
-      var myOrbs = document.getElementById('orbs-display'); 
-      var displaySetting = myGlass.style.display; 
-        if (displaySetting == 'block') 
-        {  
-        myGlass.style.display = 'none'; 
-        myOrbs.style.display = 'none';
-        } else { 
-        myGlass.style.display = 'block';}
-      }
-    </script>
-
+  <meta charset="UTF-8">
+  <title>HTDI Collective</title>
+  <meta name="description" content="Limbus Collection vol.01 - Project Anja">
+  <meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0" />
+  <meta property="og:title" content="✧ HTDI Collective ♘">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.htdi.community/">
+  <meta property="og:image" content="https://htdi.community/favicon.svg">
+  <meta property="og:description" content="Inclusive and diverse digital artist community">
+  <link rel="apple-touch-icon" href="/static/branding/icon-180x180.png">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <!---------------------- Mailchimp  (z-index: 1001 )------------>
+  <script id="mcjs">
+  ! function(c, h, i, m, p) { m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p) }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/a63faa7a4a1a02edeeddee78e/acd531e12b7b63ffd559d6824.js");
+  </script>
+  <script type="text/javascript">
+  function toggle() {
+    var myGlass = document.getElementById('overlay');
+    var myOrbs = document.getElementById('orbs-display');
+    var displaySetting = myGlass.style.display;
+    if (displaySetting == 'block') {
+      myGlass.style.display = 'none';
+      myOrbs.style.display = 'none';
+    } else {
+      myGlass.style.display = 'block';
+    }
+  }
+  </script>
 </head>
+
 <body>
-
-  <!---------------------- Canvas Pixie (z-index: 1001 )------------>
+  
+  <!---------------------- Canvas Pixie ------------>
   <canvas class="orb-canvas" id="orbs-display"></canvas>
-
-  <!---------------------- Canvas Web GL (z-index: 1000 )------------>
+  <!---------------------- Canvas Web GL ------------>
   <canvas class="webgl"></canvas>
-
   <!---------------------- Music data  ------------>
   <audio loop id="music" preload="metadata">
-  <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
-  <source src="/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg">
-  <!-- place fallback here as <audio> supporting browsers will ignore it -->
-  <a href="audiofile.mp3">audiofile.mp3</a>
+    <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
+    <source src="/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg">
+    <!-- place fallback here as <audio> supporting browsers will ignore it -->
+    <a href="audiofile.mp3">audiofile.mp3</a>
   </audio>
-
- <!---------------------- Container ------------>
-
-<div class="container" id="overlay" onclick="toggle()">
-  <div class="left"></div>
-
-  <div id="overl">
+  <!---------------------- Container ------------>
+  <div class="container" id="overlay" onclick="toggle()">
     <div class="icon-close">
-     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-     <line x1="18" y1="6" x2="6" y2="18"></line>
-     <line x1="6" y1="6" x2="18" y2="18"></line></svg></a>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
     </div>
     <!-- Overlay inner wrapper -->
-    <div class="overlay__inner">
-    
+    <div class="lines"></div>
+    <div class="wrapper">
       <!-- Description -->
-
-      <p class="overlay__description">A shifting in reality. An obscured crossroad. The undefined state of unplanned banishment. A catalyst: deep intuition. An inner journey of ancient wisdom and connected minds. A curious child and a wise raven exchange. An oniric environment for intentional creation and recreation. Stories of resilience and self-determination. Conquer equality and equity within diversity. A "humanhood" to find creative allyships to debug complex issues.
-      A "living" space, imperfect but transparent. An ever-evolving community through shared values and collaborative means.An Intraverse more than a Metaverse, which requires no wallet, just pure and intentional ideals. A truth-seeking space to share knowledge and passion for code and digital art. (Soon on WebXR / VR).</p>
-      <!-- Buttons -->
+      <h2 class="overlay__description">A shifting in reality. An obscured crossroad. The undefined state of unplanned banishment. A catalyst: deep intuition. An inner journey of ancient wisdom and connected minds. A curious child and a wise raven exchange. An oniric environment for intentional creation and recreation. Stories of resilience and self-determination. Conquer equality and equity within diversity. A "humanhood" to find creative allyships to debug complex issues.
+        A "living" space, imperfect but transparent. An ever-evolving community through shared values and collaborative means.An Intraverse more than a Metaverse, which requires no wallet, just pure and intentional ideals. A truth-seeking space to share knowledge and passion for code and digital art. (Soon on WebXR / VR).</h2>
+      <!-- Button -->
       <div class="overlay__btns">
         <button class="overlay__btn overlay__btn--transparent">Kindly enjoy the WIP</button>
       </div>
     </div>
   </div>  
-  <div class="right"></div>
-</div> <!-- CLOSING CONTAINER -->
-
- <!---------------------- Footer Music Player ------------>
-
-<footer class="music-player">
-
-<!---------------------- music Control------------>
-
-
-<div class="buttons-music">
-
-  <div class="marquee2">
-    <div class="track2">
-      <div class="content2">&nbsp;Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧  Lucid_Space-Joseph_Beg ✧  Lucid_Space-Joseph_Beg ✧  Lucid_Space-Joseph_Beg ✧  Lucid_Space-Joseph_Beg ✧  Lucid_Space-Joseph_Beg ✧ </div>
-    </div>
-  </div>
-
-  <div class="button-icon" id="sound" data-tooltip alt="Alt text" title="'Lucid Space' by Joseph_Beg" role="tooltip" aria-label="Tooltip message">
-    <img srcset="
+    <!---------------------- Footer Music Player ------------>
+    <footer class="music-player">
+      <!---------------------- music Control------------>
+      <div class="buttons-music">
+        <div class="marquee2">
+          <div class="track2">
+            <div class="content2">&nbsp;Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ </div>
+          </div>
+        </div>
+        <div class="button-icon" id="sound" data-tooltip alt="Alt text" title="'Lucid Space' by Joseph_Beg" role="tooltip" aria-label="Tooltip message">
+          <img srcset="
      ../static/UI/Icon/32x32/sound@4.png 4x,
      ../static/UI/Icon/32x32/sound@3x.png 3x,
      ../static/UI/Icon/32x32/sound@2x.png 2x,
      ../static/UI/Icon/32x32/sound.svg
      " src="../static/UI/Icon/32x32/sound.png" />
-  </div>
-  <span id="loading">loading</span>
-  <div id="play" class="button-icon" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
-    <img srcset="
+        </div>
+        <span id="loading">loading</span>
+        <div id="play" class="button-icon" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
+          <img srcset="
      ../static/UI/Icon/32x32/play@4.png 4x,
      ../static/UI/Icon/32x32/play@3x.png 3x,
      ../static/UI/Icon/32x32/play@2x.png 2x,
      ../static/UI/Icon/32x32/play.svg
      " src="../static/UI/Icon/32x32/play.png" />
-  </div>
-  <div id="pause" class="button-icon" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
-    <img srcset="
+        </div>
+        <div id="pause" class="button-icon" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
+          <img srcset="
      ../static/UI/Icon/32x32/pause@4.png 4x,
      ../static/UI/Icon/32x32/pause@3x.png 3x,
      ../static/UI/Icon/32x32/pause@2x.png 2x,
      ../static/UI/Icon/32x32/pause.svg 
      " src="../static/UI/Icon/32x32/pause.png" />
-  </div>
-</div>
-</footer>
-
- <!---------------------- PORTALS ------------> 
-
-<div id="wrap">
-  
-  <div class="cell">
-    <div class="door">
-      <div class="outer">
-        <div class="inner">
-          <div class="cavern"></div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cell">
-    <div class="door">
-      <div class="outer">
-        <div class="inner">
-          <div class="cavern"></div>
+    </footer>
+    <!---------------------- PORTALS ------------>
+    <div id="wrap">
+      <div class="cell">
+        <div class="door">
+          <div class="outer">
+            <div class="inner" id="in01">
+              <div class="cavern"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cell">
-    <div class="door">
-      <div class="outer">
-        <div class="inner">
-          <div class="cavern"></div>
+      <div class="cell">
+        <div class="door">
+          <div class="outer">
+            <div class="inner" id="in02">
+              <div class="cavern"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cell">
-    <div class="door">
-      <div class="outer">
-        <div class="inner">
-          <div class="cavern"></div>
+      <div class="cell">
+        <div class="door">
+          <div class="outer">
+            <div class="inner" id="in03">
+              <div class="cavern"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cell">
-    <div class="door">
-      <div class="outer">
-        <div class="inner">
-          <div class="cavern"></div>
+      <div class="cell">
+        <div class="door">
+          <div class="outer">
+            <div class="inner" id="in04">
+              <div class="cavern"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cell">
-    <div class="door">
-      <div class="outer">
-        <div class="inner">
-          <div class="cavern"></div>
+      <div class="cell">
+        <div class="door">
+          <div class="outer">
+            <div class="inner" id="in05">
+              <div class="cavern"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cell">
-    <div class="door">
-      <div class="outer">
-        <div class="inner">
-          <div id="g01"></div>
+      <div class="cell">
+        <div class="door">
+          <div class="outer">
+            <div class="inner" id="in06">
+              <div class="cavern"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cell">
-    <div class="door">
-      <div class="outer">
-        <div class="inner">
-          <div class="cavern"></div>
+      <div class="cell">
+        <div class="door">
+          <div class="outer">
+            <div class="inner" id="in07">
+              <div id="g01"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cell">
-    <div class="door">
-      <div class="outer">
-        <div class="inner">
-          <div class="cavern"></div>
+      <div class="cell">
+        <div class="door">
+          <div class="outer">
+            <div class="inner" id="in08">
+              <div class="cavern"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
- <!---------------------- FOG LEGACY  ------------>
-
- <!-- CSS
- .foggy { position: absolute; top: 10%; right:  40%; z-index: 1000; }
- .foggy { width: 800px; height: 200px; user-select: none; }
- .fog-cloud { opacity: 0;width: 400px; border-radius: 100%; height: 200px; position: relative; left: 10%; right: 5%; margin: auto;user-select: none;pointer-events: none; } */
--->
-
-
-<!--  HTML
-<div class="foggy">
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div> 
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_02.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_03.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_05.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_06.png"></div>
-   <div class="fog-cloud"><a href="#"></a><img src="../static/textures/particles/fog/fog_01.png"></div>
- </div> -->
-
- <!-- JS
+      <div class="cell">
+        <div class="door">
+          <div class="outer">
+            <div class="inner" id="in09">
+              <div class="cavern"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!---------------------- FOG LEGACY  ------------>
+      <!-- JS
   ////////////////////////////////////////////////////////////////////
   // HTML LEGACY FOG
   ///////////////
@@ -273,8 +218,6 @@
   //   }
   // });
 -->
-
-
-      
 </body>
+
 </html>
