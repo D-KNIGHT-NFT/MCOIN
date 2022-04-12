@@ -18,23 +18,10 @@
   <script id="mcjs">
   ! function(c, h, i, m, p) { m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p) }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/a63faa7a4a1a02edeeddee78e/acd531e12b7b63ffd559d6824.js");
   </script>
-  <script type="text/javascript">
-  function toggle() {
-    var myGlass = document.getElementById('overlay');
-    var myOrbs = document.getElementById('orbs-display');
-    var displaySetting = myGlass.style.display;
-    if (displaySetting == 'block') {
-      myGlass.style.display = 'none';
-      myOrbs.style.display = 'none';
-    } else {
-      myGlass.style.display = 'block';
-    }
-  }
-  </script>
 </head>
 
 <body>
-  
+
   <!---------------------- Canvas Pixie ------------>
   <canvas class="orb-canvas" id="orbs-display"></canvas>
   <!---------------------- Canvas Web GL ------------>
@@ -47,8 +34,8 @@
     <a href="audiofile.mp3">audiofile.mp3</a>
   </audio>
   <!---------------------- Container ------------>
-  <div class="container" id="overlay" onclick="toggle()">
-    <div class="icon-close">
+  <div class="container" id="overlay">
+    <div class="icon-close" id="cross--close" >
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -102,122 +89,111 @@
         </div>
       </div>
     </footer>
-    <!---------------------- PORTALS ------------>
-    <div id="wrap">
-      <div class="cell">
-        <div class="door">
-          <div class="outer">
-            <div class="inner" id="in01">
-              <div class="cavern"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cell">
-        <div class="door">
-          <div class="outer">
-            <div class="inner" id="in02">
-              <div class="cavern"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cell">
-        <div class="door">
-          <div class="outer">
-            <div class="inner" id="in03">
-              <div class="cavern"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cell">
-        <div class="door">
-          <div class="outer">
-            <div class="inner" id="in04">
-              <div class="cavern"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cell">
-        <div class="door">
-          <div class="outer">
-            <div class="inner" id="in05">
-              <div class="cavern"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cell">
-        <div class="door">
-          <div class="outer">
-            <div class="inner" id="in06">
-              <div class="cavern"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cell">
-        <div class="door">
-          <div class="outer">
-            <div class="inner" id="in07">
-              <div id="g01"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cell">
-        <div class="door">
-          <div class="outer">
-            <div class="inner" id="in08">
-              <div class="cavern"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cell">
-        <div class="door">
-          <div class="outer">
-            <div class="inner" id="in09">
-              <div class="cavern"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!---------------------- FOG LEGACY  ------------>
-      <!-- JS
-  ////////////////////////////////////////////////////////////////////
-  // HTML LEGACY FOG
-  ///////////////
 
-  // let object = {
-  //   el: '.fog-cloud',
-  //   duration: 20
-  // }
+    <!---------------------- GRID ------------>
 
-  // gsap.fromTo(object.el, object.duration, {
-  //   opacity: 5,
-  //   y: '+=180',
-  //   x: 0,
-  //   scale: 2.5,
-  //   transformOrigin: 'left'
-  // }, {
-  //   opacity: 0,
-  //   y: '-=180',
-  //   x: Math.PI * 2,
-  //   modifiers: {
-  //     x: function(x) {
-  //       return Math.sin(parseFloat(x)) * -30 + "px";
-  //     }
-  //   },
-  //   scale: 0,
-  //   stagger: {
-  //     each: object.duration / document.querySelectorAll(object.el).length, 
-  //     repeat: -1
-  //   }
-  // });
--->
+    <div class="parent">
+    <div class="div1">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="div2">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+     </div>
+    <div class="div3">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div4">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div5">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div6">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div7">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div8">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div9">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>
+
 </body>
 
 </html>

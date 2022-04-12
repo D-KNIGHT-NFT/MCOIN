@@ -47,6 +47,11 @@ import debounce from "debounce";
 
 
 
+
+document.getElementById("cross--close").onclick = () => {
+    document.getElementById("overlay").style.display = "none";
+}
+
 ////////////////////////////////////////////////////////////////////
 // svg / Pixie 
 ///////////////
@@ -258,7 +263,7 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 
 let object = {
   el: '.orb-canvas',
-  duration: 20
+  duration: 8
 }
 
 gsap.fromTo(object.el, object.duration, {
@@ -417,7 +422,7 @@ scene.add( directionaLight );
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 99
+const count = 777
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
@@ -633,7 +638,7 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
           side: THREE.DoubleSide, 
           reflectivity: 0.2,
           refractionRatio: 0.4,
-          envMap: environmentMap,
+          emissive: 0.9
         });
 
         htdi.traverse((o) => {
@@ -729,12 +734,12 @@ const renderScene = new RenderPass( scene, camera );
 finalComposer.addPass( renderScene );
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.55 , 0.0011, 0.05 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.65 , 0.0011, 0.05 );
 finalComposer.addPass( bloomPass );
 
 
-const effectGrayScale = new ShaderPass( LuminosityShader );
-finalComposer.addPass( effectGrayScale );
+// const effectGrayScale = new ShaderPass( LuminosityShader );
+// finalComposer.addPass( effectGrayScale );
 
 // let effectSobel = new ShaderPass( SobelOperatorShader );
 // effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
