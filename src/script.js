@@ -26,7 +26,6 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
 import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js';
 import { SobelOperatorShader } from 'three/examples/jsm/shaders/SobelOperatorShader.js';
-
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
@@ -47,6 +46,10 @@ import debounce from "debounce";
 
 
 
+
+document.getElementById("cross--close-grid").onclick = () => {
+    document.getElementById("grid").style.display = "none";
+}
 
 document.getElementById("cross--close").onclick = () => {
     document.getElementById("overlay").style.display = "none";
@@ -447,7 +450,7 @@ particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 
 particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors))
 
 const textureLoader = new THREE.TextureLoader()
-const particleTexture = textureLoader.load('/textures/particles/stars/star_07.png')
+const particleTexture = textureLoader.load('/textures/particles/stars/star_03.png')
 
 particlesMaterial.map = particleTexture
 
@@ -466,7 +469,7 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-1/');
+cubeTextureLoader.setPath('textures/environmentMap/level-3/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
@@ -508,22 +511,31 @@ const geometryS = new THREE.SphereGeometry(1, 128, 128);
 
 const glassmaterial = new THREE.MeshPhysicalMaterial(
     { 
-      side: THREE.DoubleSide,
-      precision: "highp",
-      alphaTest: 1.0,
-      color: 0xffffff,
-      fog: false,
+      reflectivity: 1.0,
       transmission: 1.0,
-      opacity: 1,
-      metalness: 0.1,
       roughness: 0,
-      ior: 2.0,
-      thickness: 0.01,
-      specularIntensity: 1,
-      specularColor: 0xffffff,
-      envMap: environmentMap,
-      envMapIntensity: 2.0
+      metalness: 0,
+      clearcoat: 0.3,
+      clearcoatRoughness: 0.25,
+      color: new THREE.Color(0xffffff),
+      ior: 1.5,
+      // side: THREE.DoubleSide,
+      // precision: "highp",
+      // alphaTest: 1.0,
+      // color: 0xffffff,
+      // fog: false,
+      // transmission: 1.0,
+      // opacity: 1,
+      // metalness: 0.1,
+      // roughness: 0,
+      // ior: 2.0,
+      // thickness: 0.01,
+      // specularIntensity: 1,
+      // specularColor: 0xffffff,
+      // envMap: environmentMap,
+      // envMapIntensity: 2.0
 });
+glassmaterial.thickness = 30.0
 
 
 // const glassphere = new THREE.Mesh(geometry, glassmaterial);
@@ -589,22 +601,31 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
         let logo = gltf.scene;
         let logoMaterial= new THREE.MeshPhysicalMaterial( 
         { 
-        side: THREE.DoubleSide,
-        precision: "highp",
-        emissive: 0.4,
-        alphaTest: 1.0,
-        color: 0xffffff,
-        fog: false,
-        transmission: 1.0,
-        metalness: 0,
-        roughness: 0,
-        ior: 1.0,
-        thickness: 0.01,
-        specularIntensity: 1,
-        specularColor: 0xffffff,
-        envMap: environmentMap,
-        envMapIntensity: 2.0
+          reflectivity: 1.0,
+          transmission: 1.0,
+          roughness: 0,
+          metalness: 0,
+          clearcoat: 0.3,
+          clearcoatRoughness: 0.25,
+          color: new THREE.Color(0xffffff),
+          ior: 1.5,
+        // side: THREE.DoubleSide,
+        // precision: "highp",
+        // emissive: 0.4,
+        // alphaTest: 1.0,
+        // color: 0xffffff,
+        // fog: false,
+        // transmission: 1.0,
+        // metalness: 0,
+        // roughness: 0,
+        // ior: 1.0,
+        // thickness: 0.01,
+        // specularIntensity: 1,
+        // specularColor: 0xffffff,
+        // envMap: environmentMap,
+        // envMapIntensity: 2.0
         });
+        logoMaterial.thickness =   50.0
 
         logo.traverse((o) => {
           if (o.isMesh) o.material = logoMaterial;
@@ -734,7 +755,7 @@ const renderScene = new RenderPass( scene, camera );
 finalComposer.addPass( renderScene );
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.65 , 0.0011, 0.05 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.15 , 0.0011, 0.05 );
 finalComposer.addPass( bloomPass );
 
 

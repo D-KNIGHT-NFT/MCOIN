@@ -162,9 +162,73 @@ h3 { font-size: 1.1rem; }
 h2 { font-size: 1.4rem; }
 h1 { font-size: 1.6rem; }
 
+/* ****************************** Text Hovers */
+h1::before {  
+  transform: scaleX(0);
+  transform-origin: bottom right;
+}
+
+h1:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+h1::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  inset: 0 0 0 0;
+  background: hsl(200 100% 80%);
+  z-index: -1;
+  transition: transform .3s ease;
+}
+
+.neon-red {
+  --neon: hsl(355 100% 95%);
+  --neon-glow: hsl(355 98% 40%);
+}
+
+.neon-blue {
+  --neon: hsl(192 100% 95%);
+  --neon-glow: hsl(194 100% 40%);
+}
+
+h1 > i {
+  color: var(--neon);
+  text-shadow: 
+    0 0 20px var(--neon-glow),
+    0 0 2.5vmin var(--neon-glow),
+    0 0 5vmin var(--neon-glow),
+    0 0 10vmin var(--neon-glow),
+    0 0 15vmin var(--neon-glow);
+}
+
+@media (dynamic-range: high) {
+  .neon-red {
+    --neon-glow: color(display-p3 1 0 0);
+  }
+  
+  .neon-blue {
+    --neon-glow: color(display-p3 0 0.75 1);
+  }
+  
+  h1 > i {
+    text-shadow: 
+      0 0 2.5vmin var(--neon-glow),
+      0 0 10vmin var(--neon-glow),
+      0 0 15vmin var(--neon-glow);
+  }
+}
+
+
 /* ****************************** Icon Sizes */
 
 .icon-theme { width: 24px; height: 24px; }
+
+/* ************************************************* */
+/* ************************************ UI  */
+/* ************************************************* */
 
 /************************************* Grid*/
 
@@ -182,7 +246,94 @@ column-gap: 0px;
 row-gap: 0px;
 pointer-events: none;
 padding: 5rem 0.8rem;
+}
 
+.div1 { grid-area: 1 / 1 / 2 / 2  }
+.div2 { grid-area: 1 / 5 / 2 / 6; }
+.div3 { grid-area: 3 / 5 / 4 / 6; }
+.div4 { grid-area: 3 / 1 / 4 / 2; }
+.div5 { grid-area: 5 / 1 / 6 / 2; }
+.div6 { grid-area: 5 / 3 / 6 / 4; }
+.div7 { grid-area: 5 / 5 / 6 / 6; }
+.div8 { grid-area: 3 / 3 / 4 / 4; }
+.div9 { grid-area: 1 / 3 / 2 / 4; }
+
+
+.cell { position: relative;}
+.cell:nth-of-type(even) .door::after {content: "⚙︎"; font-size: 8vmin;}
+.cell:nth-of-type(odd) .door::after {content: "⚙︎"; font-size: 8vmin;}
+
+.door {
+   width: 54vmin;
+   height: 71vmin;
+   position: absolute;
+   box-shadow: 0 0 0 1vmin var(--black), 0 0 0 calc(1vmin + 8px) var(--w), 0 0 0 10vmin var(--black);
+   box-sizing: border-box;
+  border-radius: 70vmin 70vmin 0 0 ;
+  transform: translate(-50%, -50%) scale(0.3) translateZ(0px);
+  top: 50%;
+  left: 50%;
+  background-color: var(--yellow04);
+}
+.door::before,.door::after {
+   content: "◉";
+   color: var(--w);
+   font-size: 6vmin;
+   justify-content: center;
+   align-items: center;
+   border-radius: 100%;
+   display: flex;
+   position: absolute;
+   box-sizing: border-box;
+   width: 8vmin;
+   height: 8vmin;
+   left: -10.5vmin;
+   top: calc(50% - 4vmin);
+   bottom: -10vmin;
+   animation: spin 20s linear infinite;
+}
+ @keyframes spin {
+   to {
+     transform: rotate(360deg);
+  }
+}
+.door::after { left: auto; right: -10.5vmin;}
+
+.outer {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   left: 0;
+   top: 0;
+   background: var(--t);
+   overflow: hidden;
+   border-radius: inherit;
+}
+
+.inner {
+   transform: translateY(-10vmin) translateZ(0px);
+   position: absolute;
+   width: 115%;
+   height: 140%;
+   left: -5%;
+   top: -5%;
+}
+
+.title {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  padding: 24px;
+}
+
+.ui-frame {
+position: fixed;
+z-index:  1;
+top: 0;
+left: 0;
+height:  100%;
+width: 100%;
 background: linear-gradient(to bottom,
 /* central Horizontal */  
   var(--t) calc(50% - 0.5px), 
@@ -205,26 +356,9 @@ background: linear-gradient(to bottom,
     var(--w) calc(50% - 0.5px), 
     var(--w) calc(50% + 0.5px), 
     var(--t) calc(50% + 0.5px));
-
  box-shadow: inset 0 0 0 8vmin var(--black), inset 0 0 0 calc(8vmin + 1px) var(--w);
+ pointer-events: none;
 }
-
-.div1 { grid-area: 1 / 1 / 2 / 2  }
-.div2 { grid-area: 1 / 5 / 2 / 6; }
-.div3 { grid-area: 3 / 5 / 4 / 6; }
-.div4 { grid-area: 3 / 1 / 4 / 2; }
-.div5 { grid-area: 5 / 1 / 6 / 2; }
-.div6 { grid-area: 5 / 3 / 6 / 4; }
-.div7 { grid-area: 5 / 5 / 6 / 6; }
-.div8 { grid-area: 3 / 3 / 4 / 4; }
-.div9 { grid-area: 1 / 3 / 2 / 4; }
-
-.div9,.div8,.div7,
-.div6,.div5,.div4,
-.div3,.div2,
-.div1 { 
-
-  }
 
 
 /* ************************************************* */
@@ -293,100 +427,11 @@ background: linear-gradient(to bottom,
   to { transform: translateX(-50%); }
 }
 
-/* ************************************************* */
-/* ************************************ MAIN MENU  */
-/* ************************************************* */
-
-
-.cell {position: relative;}
-
-
-.cell:nth-of-type(even) .door::after {
-   content: "⚙︎";
-   font-size: 8vmin;
-}
-
-.cell:nth-of-type(odd) .door::after {
-   content: "⚙︎";
-   font-size: 8vmin;
-}
-
-.door {
-   width: 54vmin;
-   height: 71vmin;
-   position: absolute;
-   box-shadow: 0 0 0 1vmin var(--black), 0 0 0 calc(1vmin + 8px) var(--w), 0 0 0 10vmin var(--black);
-   box-sizing: border-box;
-  border-radius: 70vmin 70vmin 0 0 ;
-   transform: translate(-50%, -50%) scale(0.3) translateZ(0px);
-   top: 50%;
-   left: 50%;
-   background-color: var(--yellow04);
-}
-.door::before,.door::after {
-   content: "◉";
-   color: var(--w);
-   font-size: 6vmin;
-   justify-content: center;
-   align-items: center;
-   border-radius: 100%;
-   display: flex;
-   position: absolute;
-   box-sizing: border-box;
-   width: 8vmin;
-   height: 8vmin;
-   left: -10.5vmin;
-   top: calc(50% - 4vmin);
-   bottom: -10vmin;
-   animation: spin 20s linear infinite;
-}
- @keyframes spin {
-   to {
-     transform: rotate(360deg);
-  }
-}
-
-.door::after {
-   left: auto;
-   right: -10.5vmin;
-}
-.outer {
-   position: absolute;
-   width: 100%;
-   height: 100%;
-   left: 0;
-   top: 0;
-   background: var(--t);
-   overflow: hidden;
-   border-radius: inherit;
-}
-
-.inner {
-   transform: translateY(-10vmin) translateZ(0px);
-   position: absolute;
-   width: 115%;
-   height: 140%;
-   left: -5%;
-   top: -5%;
-}
-
-#in01 { 
-/*   background-image: url("../god.gif");
-  background-size: cover; */
-  }
-
-#in05 {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: multiply;
-
-  }
-
 
 /* ************************************************* */
 /* ************************************ CONTAINER  */
 /* ************************************************* */
+
 #overlay {
   animation: fade 3s ease-in;
 }
