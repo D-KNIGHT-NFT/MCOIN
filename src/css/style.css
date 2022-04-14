@@ -246,6 +246,28 @@ column-gap: 0px;
 row-gap: 0px;
 pointer-events: none;
 padding: 5rem 0.8rem;
+background: linear-gradient(to bottom,
+/* central Horizontal */  
+  var(--t) calc(50% - 0.5px), 
+  var(--w) calc(50% - 0.5px), 
+  var(--w) calc(50% + 0.5px), 
+  var(--t) calc(50% + 0.5px)),
+  /* central Vertical */ 
+  linear-gradient(to right, 
+    var(--t) calc(50% - 0.5px), 
+    var(--w) calc(50% - 0.5px), 
+    var(--w) calc(50% + 0.5px), 
+    var(--t) calc(50% + 0.5px)), 
+  linear-gradient(45deg, 
+    var(--t) calc(50% - 0.5px), 
+    var(--w) calc(50% - 0.5px), 
+    var(--w) calc(50% + 0.5px), 
+    var(--t) calc(50% + 0.5px)), 
+  linear-gradient(-45deg, 
+    var(--t) calc(50% - 0.5px), 
+    var(--w) calc(50% - 0.5px), 
+    var(--w) calc(50% + 0.5px), 
+    var(--t) calc(50% + 0.5px));
 }
 
 .div1 { grid-area: 1 / 1 / 2 / 2  }
@@ -321,10 +343,67 @@ padding: 5rem 0.8rem;
 
 .title {
   position: fixed;
-  z-index: 2;
+  z-index: 10;
   top: 0;
-  left: 0;
+  left: 50%;
   padding: 24px;
+}
+
+.navigation {
+  display: grid;
+  width: 30%;
+  grid-template-columns: repeat(8,  1fr);
+  padding: var(--paddingM); 
+  position: fixed;
+  z-index: 5;
+  bottom: 1%;
+  left: 1%;
+  background: var(--black04);
+  border-radius: 80px;
+  backdrop-filter: blur(6px);
+  border:  1px solid white;
+}
+
+.navigation ol {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.navigation ol li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  transition: all 0.2s ease-in-out;
+}
+
+.navigation ol li:hover {
+  background: black;
+  transform: scale(1.25);
+  transition: all 0.2s ease-in-out;
+}
+
+.navigation ol li a {
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation ol li:hover > a {
+  color: white;
 }
 
 .ui-frame {
@@ -334,32 +413,9 @@ top: 0;
 left: 0;
 height:  100%;
 width: 100%;
-background: linear-gradient(to bottom,
-/* central Horizontal */  
-  var(--t) calc(50% - 0.5px), 
-  var(--w) calc(50% - 0.5px), 
-  var(--w) calc(50% + 0.5px), 
-  var(--t) calc(50% + 0.5px)),
-  /* central Vertical */ 
-  linear-gradient(to right, 
-    var(--t) calc(50% - 0.5px), 
-    var(--w) calc(50% - 0.5px), 
-    var(--w) calc(50% + 0.5px), 
-    var(--t) calc(50% + 0.5px)), 
-  linear-gradient(45deg, 
-    var(--t) calc(50% - 0.5px), 
-    var(--w) calc(50% - 0.5px), 
-    var(--w) calc(50% + 0.5px), 
-    var(--t) calc(50% + 0.5px)), 
-  linear-gradient(-45deg, 
-    var(--t) calc(50% - 0.5px), 
-    var(--w) calc(50% - 0.5px), 
-    var(--w) calc(50% + 0.5px), 
-    var(--t) calc(50% + 0.5px));
- box-shadow: inset 0 0 0 8vmin var(--black), inset 0 0 0 calc(8vmin + 1px) var(--w);
- pointer-events: none;
+box-shadow: inset 0 0 0 8vmin var(--black), inset 0 0 0 calc(8vmin + 1px) var(--w);
+pointer-events: none;
 }
-
 
 /* ************************************************* */
 /* ************************************ MUSIC PLAYER   */
@@ -376,6 +432,7 @@ background: linear-gradient(to bottom,
   background: var(--black04);
   border-radius: 80px;
   backdrop-filter: blur(6px);
+  border:  1px solid white;
 }
 
 .buttons-music {
@@ -522,7 +579,6 @@ h2 {
   transition: transform 150ms linear;
   box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
   background: var(--white02);
-
 }
 
 .overlay__description {

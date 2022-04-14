@@ -504,10 +504,7 @@ scene.background = environmentMap
 // MESHES + LOADERS
 ///////////////
 
-
-
-const geometry = new THREE.IcosahedronGeometry(1, 24);
-const geometryS = new THREE.SphereGeometry(1, 128, 128);
+const geometry = new THREE.SphereGeometry(1, 128, 128);
 
 const glassmaterial = new THREE.MeshPhysicalMaterial(
     { 
@@ -537,21 +534,13 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 });
 glassmaterial.thickness = 30.0
 
-
-// const glassphere = new THREE.Mesh(geometry, glassmaterial);
-const glassphere2 = new THREE.Mesh(geometryS, glassmaterial);
-
-// glassphere.position.set(0, 0, 0)
-glassphere2.position.set(0, 0, 0)
-// glassphere.scale.set(0.7, 0.35, 0.7) //flatter Bubble
-
-// glassphere.scale.set(0.6, 0.6, 0.6)
-glassphere2.scale.set(0.5, 0.5, 0.5)
-// scene.add(glassphere);
-scene.add(glassphere2);
+const glassphere = new THREE.Mesh(geometry, glassmaterial);
+glassphere.position.set(0, 0, 0)
+glassphere.scale.set(0.5, 0.5, 0.5)
+scene.add(glassphere);
 
 // Animations
-gsap.to( glassphere2.rotation, {
+gsap.to( glassphere.rotation, {
     duration: 50, 
     ease: "none", 
     y: "+=180",
@@ -659,7 +648,7 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
           side: THREE.DoubleSide, 
           reflectivity: 0.2,
           refractionRatio: 0.4,
-          emissive: 0.9
+         
         });
 
         htdi.traverse((o) => {
@@ -677,6 +666,16 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
 
     }
 )
+
+const groundMirror = new Reflector(new THREE.PlaneBufferGeometry(1024, 1024), {
+    color: new THREE.Color(0x000000),
+    clipBias: 0.003,
+    textureWidth: window.innerWidth * window.devicePixelRatio,
+    textureHeight: window.innerHeight * window.devicePixelRatio,
+})
+groundMirror.position.y = 0
+groundMirror.rotateX(-Math.PI / 2)
+scene.add(groundMirror)
 
 ////////////////////////////////////////////////////////////////////
 // WINDOW SIZES + ASPECT
