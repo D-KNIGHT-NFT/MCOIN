@@ -251,7 +251,7 @@ align-items: center;
 column-gap: 0px;
 row-gap: 0px;
 pointer-events: none;
-padding: 5rem 0.8rem;
+padding: 8rem;
 background: linear-gradient(to bottom,
 /* central Horizontal */  
   var(--t) calc(50% - 0.5px), 

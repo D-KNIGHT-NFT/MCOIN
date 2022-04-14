@@ -31,6 +31,7 @@ import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
+import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import { HTMLMesh } from 'three/examples/jsm/interactive/HTMLMesh.js';
@@ -371,8 +372,7 @@ scene.add( light4 );
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-const ambientLight = new THREE.AmbientLight( 0x8322c9, 3.0);
-ambientLight.position.set( 0, 8, 0 );
+const ambientLight = new THREE.AmbientLight( 0x8322c9, 1.0);
 scene.add(ambientLight);
 
 const rectLight2 = new THREE.RectAreaLight( 0x18FEFE, 1.2 );
@@ -387,7 +387,7 @@ scene.add( rectLight4 );
 
 ///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
 
-// const ambientLight = new THREE.AmbientLight( 0xD6B201, 5.6)
+// const ambientLight = new THREE.AmbientLight( 0xD6B201, 0.6)
 // ambientLight.position.set( 0, 8, 0 );
 // scene.add(ambientLight);
   
@@ -404,7 +404,7 @@ scene.add( rectLight4 );
 // scene.add( new RectAreaLightHelper( rectLight1 ) );
 // scene.add( new RectAreaLightHelper( rectLight2 ) );
 
-const directionaLight = new THREE.DirectionalLight( 0xD6B201, 2.2 );
+const directionaLight = new THREE.DirectionalLight( 0xD6B201, 0.6 );
 directionaLight.position.set( 0, 0.5, -1 );
 directionaLight.castShadow = true;
 directionaLight.shadow.mapSize.width = 2048;
@@ -430,10 +430,10 @@ const count = 777
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('0xf0040') //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('#f0040').convertSRGBToLinear() //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
-scene.add(particles)
+// scene.add(particles)
 
 const positions = new Float32Array(count * 3) // Multiply by 3 because each position is composed of 3 values (x, y, z)
 const colors = new Float32Array(count * 3)
@@ -462,8 +462,6 @@ particlesMaterial.depthWrite = false
 particlesMaterial.blending = THREE.AdditiveBlending
 // particlesMaterial.vertexColors = true
 
-
-
 ////////////////////////////////////////////////////////////////////
 // Enviroment Cube
 ///////////////
@@ -473,7 +471,6 @@ cubeTextureLoader.setPath('textures/environmentMap/level-3/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
-environmentMap.envMapIntensity = 1.0
 
 scene.environment = environmentMap
 scene.background = environmentMap
@@ -504,7 +501,27 @@ scene.background = environmentMap
 // MESHES + LOADERS
 ///////////////
 
-const geometry = new THREE.SphereGeometry(1, 128, 128);
+const uniforms = {
+
+'amplitude': { value: 1.0 },
+'color': { value: new THREE.Color( 0xff2200 ) },
+'colorTexture': { value: new THREE.TextureLoader().load( 'textures/water/water.jpg' ) }
+
+};
+
+uniforms[ 'colorTexture' ].value.wrapS = uniforms[ 'colorTexture' ].value.wrapT = THREE.RepeatWrapping;
+
+const shaderMaterial = new THREE.ShaderMaterial( {
+
+uniforms: uniforms,
+vertexShader: document.getElementById( 'vertexshader' ).textContent,
+fragmentShader: document.getElementById( 'fragmentshader' ).textContent
+
+} );
+
+const radius = 0.5, segments = 128, rings = 128;
+
+const geometry = new THREE.SphereGeometry(radius, segments, rings);
 
 const glassmaterial = new THREE.MeshPhysicalMaterial(
     { 
@@ -514,7 +531,7 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
       metalness: 0,
       clearcoat: 0.3,
       clearcoatRoughness: 0.25,
-      color: new THREE.Color(0xffffff),
+      color: new THREE.Color('#ffffff').convertSRGBToLinear(),
       ior: 1.5,
       // side: THREE.DoubleSide,
       // precision: "highp",
@@ -534,20 +551,18 @@ const glassmaterial = new THREE.MeshPhysicalMaterial(
 });
 glassmaterial.thickness = 30.0
 
-const glassphere = new THREE.Mesh(geometry, glassmaterial);
-glassphere.position.set(0, 0, 0)
-glassphere.scale.set(0.5, 0.5, 0.5)
-scene.add(glassphere);
+const displacement = new Float32Array( geometry.attributes.position.count );
+const noise = new Float32Array( geometry.attributes.position.count ); 
+for ( let i = 0; i < displacement.length; i ++ ) {
 
-// Animations
-gsap.to( glassphere.rotation, {
-    duration: 50, 
-    ease: "none", 
-    y: "+=180",
-    x: "+=180",
-    z: "+=180",
-    repeat: -1
-});
+  noise[ i ] = Math.random() * 5;
+
+}
+geometry.setAttribute( 'displacement', new THREE.BufferAttribute( displacement, 1 ) );
+
+const glassphere = new THREE.Mesh(geometry, shaderMaterial);
+glassphere.position.set(0, 0, 0)
+scene.add(glassphere);
 
 
 /*** Load Fox model **/
@@ -596,7 +611,7 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
           metalness: 0,
           clearcoat: 0.3,
           clearcoatRoughness: 0.25,
-          color: new THREE.Color(0xffffff),
+          color: new THREE.Color('#ffffff').convertSRGBToLinear(),
           ior: 1.5,
         // side: THREE.DoubleSide,
         // precision: "highp",
@@ -632,23 +647,22 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) =>
     }
 )
 
+let htdi;
+
 gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
     {
-        // Model BIG SIZE
-        // gltf.scene.scale.set(0.0055, 0.0055, 0.0055)
-        const htdi = gltf.scene
+        htdi = gltf.scene
         htdi.scale.set(0.004, 0.004, 0.004)
         htdi.position.set(0.2, 0.07, 0.1)
         htdi.rotation.set(0, 0, 0)
         scene.add(htdi)
-
+        
     
         let singleMaterial= new THREE.MeshLambertMaterial( 
         { 
           side: THREE.DoubleSide, 
           reflectivity: 0.2,
           refractionRatio: 0.4,
-          castShadow: true,
 
         });
 
@@ -662,39 +676,71 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
             duration: 100, 
             ease: "none", 
             y: "+=180",
-            repeat: -1});
-      
+            repeat: -1})
 
+      
     }
 )
 
-const planeGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.02, 48, 8, false)
-// const texture = new THREE.TextureLoader().load('textures/grid.png')
+const planeC = new THREE.CylinderGeometry(0.4, 0.4, 0.02, 64, 8, false)
 const planeMat = new THREE.MeshPhysicalMaterial({
     reflectivity: 1.0,
     transmission: 1.0,
     roughness: 0,
-    metalness: 0,
+    metalness: 0.3,
     clearcoat: 0.3,
     clearcoatRoughness: 0.25,
-    color: new THREE.Color(0x000000),
+    color: new THREE.Color('#000000').convertSRGBToLinear(),
     ior: 1.5,
 })
+
 planeMat.thickness = 50.0
-const plane =  new THREE.Mesh( planeGeometry, planeMat)
+const plane =  new THREE.Mesh( planeC, planeMat)
 plane.position.set(0, -0.02, 0)
 plane.receiveShadow = true
 scene.add(plane)
 
-// const groundMirror = new Reflector(new THREE.PlaneBufferGeometry(1024, 1024), {
-//     color: new THREE.Color(0x000000),
-//     clipBias: 0.003,
-//     textureWidth: window.innerWidth * window.devicePixelRatio,
-//     textureHeight: window.innerHeight * window.devicePixelRatio,
-// })
-// groundMirror.position.y = 0
-// groundMirror.rotateX(-Math.PI / 2)
-// scene.add(groundMirror)
+const planeGeometry = new THREE.CircleGeometry( 0.4, 64 );
+const groundMirror = new Reflector( planeGeometry, {
+clipBias: 0.003,
+textureWidth: window.innerWidth * window.devicePixelRatio,
+textureHeight: window.innerHeight * window.devicePixelRatio,
+color: new THREE.Color('#777777').convertSRGBToLinear()
+} );
+
+groundMirror.position.y = 0;
+groundMirror.rotateX( - Math.PI / 2 );
+// scene.add( groundMirror );
+
+// water
+const groundGeometry = new THREE.CircleGeometry( 0.4, 64 );
+const groundMaterial = new THREE.MeshStandardMaterial( { roughness: 0.8, metalness: 0.4 } );
+const ground = new THREE.Mesh( groundGeometry, groundMaterial );
+ground.rotation.x = Math.PI * - 0.5;
+scene.add( ground );
+
+const textureLoader2 = new THREE.TextureLoader()
+textureLoader2.load('textures/grid.png', function (map) {
+  map.wrapS = THREE.RepeatWrapping;
+  map.wrapT = THREE.RepeatWrapping;
+  map.anisotropy = 16;
+  // map.repeat.set( 4, 4 );
+  groundMaterial.map = map;
+  groundMaterial.needsUpdate = true;
+})
+
+const waterGeometry = new THREE.CircleGeometry( 0.5, 48 );
+const water = new Water( waterGeometry, {
+color: '#ffffff',
+scale: 1,
+flowDirection: new THREE.Vector2( -1, 0.8),
+textureWidth: 1024,
+textureHeight: 1024
+} );
+
+water.position.y = 0.01;
+water.rotation.x = Math.PI * - 0.5;
+scene.add( water );
 
 ////////////////////////////////////////////////////////////////////
 // WINDOW SIZES + ASPECT
@@ -729,9 +775,22 @@ window.addEventListener('resize', () =>
 ///////////////
 
 const camera = new THREE.PerspectiveCamera(100, sizes.width / sizes.height, 0.1, 1000)
-camera.position.set( 0, 0, 6)
-
+camera.position.set( 0, 0.8, 6)
 scene.add(camera)
+
+// Ortographic Camera
+// const ortoCamera = new THREE.OrthographicCamera( sizes.width/-2, sizes.width/2, sizes.height / 2, sizes.height / -2, 0.1, 10000 );
+// ortoCamera.rotation.x = 50*Math.PI/180;
+// ortoCamera.rotation.y = 20*Math.PI/180;
+// ortoCamera.rotation.z = 10*Math.PI/180;
+
+// const distance = 300
+// const initialCameraPositionY = -Math.tan(ortoCamera.rotation.x)*distance;
+// const initialCameraPositionX = Math.tan(ortoCamera.rotation.y)*Math.sqrt(distance**2 + initialCameraPositionY**2);
+// ortoCamera.position.y = initialCameraPositionY;
+// ortoCamera.position.x = initialCameraPositionX;
+// ortoCamera.position.z = distance;
+// scene.add(ortoCamera)
 
 ////////////////////////////////////////////////////////////////////
 // CONTROLS 
@@ -746,7 +805,7 @@ controls.autoRotate= true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
 controls.minDistance = 0.3;
-controls.maxDistance = 8;
+controls.maxDistance = 5;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
@@ -773,7 +832,7 @@ const renderScene = new RenderPass( scene, camera );
 finalComposer.addPass( renderScene );
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 0.15 , 0.0011, 0.05 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( sizes.width, sizes.height ), 0.15 , 0.0011, 0.05 );
 finalComposer.addPass( bloomPass );
 
 
@@ -787,7 +846,7 @@ finalComposer.addPass( bloomPass );
 
 
 const effectFXAA = new ShaderPass( FXAAShader );
-effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
+effectFXAA.uniforms[ 'resolution' ].value.set( 1 / sizes.width, 1 / sizes.height );
 finalComposer.addPass( effectFXAA );
 
 // const glitchPass = new GlitchPass();
@@ -814,9 +873,6 @@ const tick = () =>
     // Update controls
     controls.update()
 
-    //Icosaedron Update
-    
-
     // Update Particles
     particles.rotation.y = elapsedTime * 0.024
     particles.rotation.x = elapsedTime * 0.008
@@ -829,6 +885,24 @@ const tick = () =>
 
      }
      particlesGeometry.attributes.position.needsUpdate = true 
+
+    // Update Glassphere
+    glassphere.rotation.y = glassphere.rotation.z = 0.01 * elapsedTime;
+
+    uniforms[ 'amplitude' ].value = 2.5 * Math.sin( glassphere.rotation.y * 0.015 );
+    uniforms[ 'color' ].value.offsetHSL( 0.025, 0, 0 );
+
+    for ( let i = 0; i < displacement.length; i ++ ) {
+
+      displacement[ i ] = Math.sin( 0.1 * i + elapsedTime );
+
+      noise[ i ] += 0.5 * ( 0.5 - Math.random() );
+      noise[ i ] = THREE.MathUtils.clamp( noise[ i ], - 5, 5 );
+
+      displacement[ i ] += noise[ i ];
+
+    }
+    glassphere.geometry.attributes.displacement.needsUpdate = true;
 
     // LIGHT ANIMATIONS
     light1.position.x = Math.sin( elapsedTime * 0.7 ) * 30
