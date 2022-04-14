@@ -187,11 +187,17 @@ h1::before {
 .neon-red {
   --neon: hsl(355 100% 95%);
   --neon-glow: hsl(355 98% 40%);
+  -webkit-text-stroke: 1px white;
+  text-stroke: 1px white;
+  color: transparent;
 }
 
 .neon-blue {
   --neon: hsl(192 100% 95%);
   --neon-glow: hsl(194 100% 40%);
+  -webkit-text-stroke: 1px white;
+  text-stroke: 1px white;
+  color: transparent;
 }
 
 h1 > i {
@@ -342,16 +348,16 @@ background: linear-gradient(to bottom,
 }
 
 .title {
+  letter-spacing: -4;
   position: fixed;
   z-index: 10;
   top: 0;
-  left: 50%;
-  padding: 24px;
+  left: 0%;
+  padding: 20px;
 }
 
 .navigation {
   display: grid;
-  width: 30%;
   grid-template-columns: repeat(8,  1fr);
   padding: var(--paddingM); 
   position: fixed;
@@ -361,7 +367,7 @@ background: linear-gradient(to bottom,
   background: var(--black04);
   border-radius: 80px;
   backdrop-filter: blur(6px);
-  border:  1px solid white;
+
 }
 
 .navigation ol {

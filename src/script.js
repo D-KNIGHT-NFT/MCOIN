@@ -371,7 +371,7 @@ scene.add( light4 );
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-const ambientLight = new THREE.AmbientLight( 0x8322c9, 30);
+const ambientLight = new THREE.AmbientLight( 0x8322c9, 3.0);
 ambientLight.position.set( 0, 8, 0 );
 scene.add(ambientLight);
 
@@ -637,8 +637,8 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
         // Model BIG SIZE
         // gltf.scene.scale.set(0.0055, 0.0055, 0.0055)
         const htdi = gltf.scene
-        htdi.scale.set(0.005, 0.005, 0.005)
-        htdi.position.set(0, 0.07, 0.2)
+        htdi.scale.set(0.004, 0.004, 0.004)
+        htdi.position.set(0.2, 0.07, 0.1)
         htdi.rotation.set(0, 0, 0)
         scene.add(htdi)
 
@@ -648,7 +648,8 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
           side: THREE.DoubleSide, 
           reflectivity: 0.2,
           refractionRatio: 0.4,
-         
+          castShadow: true,
+
         });
 
         htdi.traverse((o) => {
@@ -667,15 +668,33 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
     }
 )
 
-const groundMirror = new Reflector(new THREE.PlaneBufferGeometry(1024, 1024), {
+const planeGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.02, 48, 8, false)
+// const texture = new THREE.TextureLoader().load('textures/grid.png')
+const planeMat = new THREE.MeshPhysicalMaterial({
+    reflectivity: 1.0,
+    transmission: 1.0,
+    roughness: 0,
+    metalness: 0,
+    clearcoat: 0.3,
+    clearcoatRoughness: 0.25,
     color: new THREE.Color(0x000000),
-    clipBias: 0.003,
-    textureWidth: window.innerWidth * window.devicePixelRatio,
-    textureHeight: window.innerHeight * window.devicePixelRatio,
+    ior: 1.5,
 })
-groundMirror.position.y = 0
-groundMirror.rotateX(-Math.PI / 2)
-scene.add(groundMirror)
+planeMat.thickness = 50.0
+const plane =  new THREE.Mesh( planeGeometry, planeMat)
+plane.position.set(0, -0.02, 0)
+plane.receiveShadow = true
+scene.add(plane)
+
+// const groundMirror = new Reflector(new THREE.PlaneBufferGeometry(1024, 1024), {
+//     color: new THREE.Color(0x000000),
+//     clipBias: 0.003,
+//     textureWidth: window.innerWidth * window.devicePixelRatio,
+//     textureHeight: window.innerHeight * window.devicePixelRatio,
+// })
+// groundMirror.position.y = 0
+// groundMirror.rotateX(-Math.PI / 2)
+// scene.add(groundMirror)
 
 ////////////////////////////////////////////////////////////////////
 // WINDOW SIZES + ASPECT
