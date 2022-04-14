@@ -1,0 +1,205 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>HTDI Collective</title>
+  <meta name="description" content="ThreeJs Collection vol.01">
+  <meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0" />
+  <meta property="og:title" content="✧ XTROB Berlin">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.htdi.community/xtrob">
+  <meta property="og:image" content="https://htdi.community/favicon2.svg">
+  <meta property="og:description" content="Berlin Queer Techno Party. Sweat - Techno- Extasis">
+  <link rel="apple-touch-icon" href="/static/branding/icon-180x180.png">
+  <link rel="icon" type="image/svg+xml" href="favicon2.svg" />
+  <link rel="stylesheet" href="css/style.css">
+  <!---------------------- Mailchimp  (z-index: 1001 )------------>
+  <script id="mcjs">
+  ! function(c, h, i, m, p) { m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p) }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/a63faa7a4a1a02edeeddee78e/acd531e12b7b63ffd559d6824.js");
+  </script>
+</head>
+
+<body>
+  <!---------------------- Canvas Web GL ------------>
+  <canvas class="webgl"></canvas>
+  <!---------------------- Music data  ------------>
+  <audio loop id="music" preload="metadata">
+    <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
+    <source src="/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg">
+    <!-- place fallback here as <audio> supporting browsers will ignore it -->
+    <a href="audiofile.mp3">audiofile.mp3</a>
+  </audio>
+ <!---------------------- User Interface  ------------>
+  <div class="icon-close" id="cross--close-grid" >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </div>
+
+  <h1 class="title">
+    <i class="neon-red">D</i>
+    <i class="neon-blue">K</i>
+  </h1>
+
+  <div class="navigation">
+    <ol>
+      <li><a href="./XTROB.html">1</a></li>
+      <li><a href="#Green">2</a></li>
+      <li><a href="#Chocolate">3</a></li>
+      <li><a href="#Blue">4</a></li>
+      <li><a href="#Yellow">5</a></li>
+      <li><a href="#Red">6</a></li>
+      <li><a href="#Pink">7</a></li>
+      <li><a href="#Orange">8</a></li>
+    </ol>
+  </div>
+
+  <div class="ui-frame"></div> 
+
+    <!---------------------- Footer Music Player ------------>
+    <footer class="music-player">
+      <!---------------------- music Control------------>
+      <div class="buttons-music">
+        <div class="marquee2">
+          <div class="track2">
+            <div class="content2">&nbsp;Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ Lucid_Space-Joseph_Beg ✧ </div>
+          </div>
+        </div>
+        <div class="button-icon" id="sound" data-tooltip alt="Alt text" title="'Lucid Space' by Joseph_Beg" role="tooltip" aria-label="Tooltip message">
+          <img srcset="
+     ../static/UI/Icon/32x32/sound@4.png 4x,
+     ../static/UI/Icon/32x32/sound@3x.png 3x,
+     ../static/UI/Icon/32x32/sound@2x.png 2x,
+     ../static/UI/Icon/32x32/sound.svg
+     " src="../static/UI/Icon/32x32/sound.png" />
+        </div>
+        <span id="loading">loading</span>
+        <div id="play" class="button-icon" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
+          <img srcset="
+     ../static/UI/Icon/32x32/play@4.png 4x,
+     ../static/UI/Icon/32x32/play@3x.png 3x,
+     ../static/UI/Icon/32x32/play@2x.png 2x,
+     ../static/UI/Icon/32x32/play.svg
+     " src="../static/UI/Icon/32x32/play.png" />
+        </div>
+        <div id="pause" class="button-icon" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
+          <img srcset="
+     ../static/UI/Icon/32x32/pause@4.png 4x,
+     ../static/UI/Icon/32x32/pause@3x.png 3x,
+     ../static/UI/Icon/32x32/pause@2x.png 2x,
+     ../static/UI/Icon/32x32/pause.svg 
+     " src="../static/UI/Icon/32x32/pause.png" />
+        </div>
+      </div>
+    </footer>
+
+    <!---------------------- GRID ------------>
+
+    <div class="parent" id="grid">
+    <div class="div1">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="div2">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+     </div>
+    <div class="div3">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div4">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div5">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div6">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div7">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div8">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="div9">
+    <div class="cell">
+      <div class="door">
+        <div class="outer">
+          <div class="inner" id="in01">
+            <div class="cavern"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>
+
+<script type="module/javascript" src="script.js"></script>
+
+</body>
+
+</html>

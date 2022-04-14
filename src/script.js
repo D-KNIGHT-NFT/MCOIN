@@ -889,7 +889,7 @@ const tick = () =>
     // Update Glassphere
     glassphere.rotation.y = glassphere.rotation.z = 0.01 * elapsedTime;
 
-    uniforms[ 'amplitude' ].value = 2.5 * Math.sin( glassphere.rotation.y * 0.015 );
+    uniforms[ 'amplitude' ].value = 2.5 * Math.sin( glassphere.rotation.y * 0.005 );
     uniforms[ 'color' ].value.offsetHSL( 0.025, 0, 0 );
 
     for ( let i = 0; i < displacement.length; i ++ ) {

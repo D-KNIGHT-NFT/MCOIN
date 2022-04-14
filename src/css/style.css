@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Federant&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300');
-
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100;200;300;400;700&display=swap');
 /* **********************************************************************************/
 /* *********//*/ CSS RESETS /*/
 /* ***********************************************************************************/
@@ -97,8 +97,6 @@ a:visited{ text-decoration: none; color: inherit; }
  --complimentary2: hsl(var(--hue-complimentary2), 95%, 50%);
  --bg-gradient: linear-gradient( to bottom,  hsl(var(--hue), 95%, 99%), hsl(var(--hue), 95%, 84%) );
 
-
-
 /* BOX-SHADOWS */
  --shine: 0 0.1rem 0.1rem 0.1rem var(--white02); 
  --shadow: 0 0.5rem 0.5rem 0 var(--black02); 
@@ -107,7 +105,7 @@ a:visited{ text-decoration: none; color: inherit; }
  --rotate-180: rotate(-180deg);
  --timing: .25s ease-in-out;
 
- --font-family: cy,-apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+ --font-family: "antonio", "cy",-apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
  --paddingS: 0.25rem;
  --paddingM: 0.5rem;
@@ -154,13 +152,21 @@ canvas#orbs-display {display:  block;}
 
 /* ****************************** Text Styles */
 
-p, h3, h2 { font-family: cy, sans-serif; font-weight: 300; font-style: normal; margin: 0; }
-h1 { font-family: "Orbitron", sans-serif; font-weight: 900; line-height:  1.75;margin: 0 auto; }
+p, h3, h2 { font-family: 'cy', sans-serif; font-weight: 300; font-style: normal; margin: 0; }
+h1, p { 
+  font-family: 'Antonio', sans-serif; 
+  font-weight: 900;
+  font-size: 2rem; 
+  line-height: 1rem; 
+  color: var(--black);
+  margin: 0; 
+  letter-spacing: -10px; 
+}
 
 p  { font-size: 0.8rem; }
 h3 { font-size: 1.1rem; }
 h2 { font-size: 1.4rem; }
-h1 { font-size: 1.6rem; }
+h1 { font-size: 2rem; }
 
 /* ****************************** Text Hovers */
 h1::before {  
@@ -351,9 +357,9 @@ background: linear-gradient(to bottom,
   letter-spacing: -4;
   position: fixed;
   z-index: 10;
-  top: 0;
+  top: 0%;
   left: 0%;
-  padding: 20px;
+  padding: 24px;
 }
 
 .navigation {
