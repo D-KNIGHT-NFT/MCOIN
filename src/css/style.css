@@ -324,6 +324,12 @@ background: linear-gradient(to bottom,
   top: 2%;
   left:  2%;
 }
+.top-right {
+  position: absolute;
+  z-index:  10;
+  top: 3%;
+  right:  2%;
+}
 .bottom-left {
   position: absolute;
   z-index:  10;
@@ -374,7 +380,7 @@ pointer-events: none;
   padding: var(--paddingS); 
   position: fixed;
   z-index: 10;
-  bottom: 1%;
+  bottom: 2%;
   right: 30%;
   background: var(--black04);
   border-radius: 80px;
