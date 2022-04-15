@@ -579,7 +579,7 @@ fbxLoader.load(
             }
         } );
         object.scale.set(.0014, .0014, .0014)
-        object.position.set(-0.2, 0, -0.1)
+        object.position.set(-0.1, 0, 0)
         scene.add(object)
     },
     (xhr) => {
@@ -680,7 +680,7 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) =>
     {
         htdi = gltf.scene
         htdi.scale.set(0.004, 0.004, 0.004)
-        htdi.position.set(0.2, 0.07, 0.1)
+        htdi.position.set(0.1, 0.07, 0)
         htdi.rotation.set(0, 0, 0)
         scene.add(htdi)
         
@@ -801,8 +801,8 @@ window.addEventListener('resize', () =>
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(100, sizes.width / sizes.height, 0.1, 1000)
-camera.position.set( 0, 0, 6)
+const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.1, 1000)
+camera.position.set( 8, 0, 8)
 scene.add(camera)
 
 // Ortographic Camera
