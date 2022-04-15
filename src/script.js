@@ -94,7 +94,7 @@ class Orb {
     this.y = random(this.bounds["y"].min, this.bounds["y"].max);
 
     // how large the orb is vs it's original radius (this will modulate over time)
-    this.scale = 1;
+    this.scale = 0.5;
 
     // what color is the orb?
     this.fill = fill;

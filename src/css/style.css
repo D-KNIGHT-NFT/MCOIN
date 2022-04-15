@@ -354,7 +354,8 @@ background: linear-gradient(to bottom,
 }
 
 .title {
-  letter-spacing: -4;
+  font-family: Antonio, sans-serif;
+  letter-spacing: -2;
   position: fixed;
   z-index: 10;
   top: 0%;
@@ -362,7 +363,7 @@ background: linear-gradient(to bottom,
   padding: 24px;
 }
 
-.navigation {
+/* .navigation {
   display: grid;
   grid-template-columns: repeat(8,  1fr);
   padding: var(--paddingM); 
@@ -416,18 +417,31 @@ background: linear-gradient(to bottom,
 
 .navigation ol li:hover > a {
   color: white;
-}
+} */
 
 .ui-frame {
-position: fixed;
-z-index:  1;
+position: absolute;
+z-index: 1;
 top: 0;
 left: 0;
-height:  100%;
-width: 100%;
-box-shadow: inset 0 0 0 8vmin var(--black), inset 0 0 0 calc(8vmin + 1px) var(--w);
+width: 100vw;
+height: 100vh;
+overflow: hidden;
+box-shadow: inset 0 0 0 5vmin var(--black);
 pointer-events: none;
 }
+
+
+
+@media only screen and (max-width: 40em) { } 
+/* Tablet --> min-width 641px  */
+@media only screen and (min-width: 40.063em) {}
+/* Desktop --> min-width 1025px */
+@media only screen and (min-width: 64.063em) {}
+/* Desktop --> min-width 1441px */
+@media only screen and (min-width: 90.063em) {} 
+/* Desktop --> min-width 1921px */
+@media only screen and (min-width: 120.063em) {}
 
 /* ************************************************* */
 /* ************************************ MUSIC PLAYER   */
@@ -469,9 +483,7 @@ pointer-events: none;
 @media only screen and (min-width: 90.063em) {} 
 /* Desktop --> min-width 1921px */
 @media only screen and (min-width: 120.063em) {}
-/* Desktop --> iPhone Orientation */
-@media only screen and (orientation:portrait) { }
-@media only screen and (orientation:landscape) {} 
+
 
 .marquee2 {
   position: relative;
@@ -724,4 +736,6 @@ h2 {
     /* Retina styles here */
 }
 
-
+/* Desktop --> iPhone Orientation */
+@media only screen and (orientation:portrait) { }
+@media only screen and (orientation:landscape) {} 
