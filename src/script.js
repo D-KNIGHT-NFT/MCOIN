@@ -47,7 +47,7 @@ import hsl from "hsl-to-hex";
 import debounce from "debounce";
  
 
-document.getElementById("cross--close-grid").onclick = () => {
+document.getElementById("icon-door").onclick = () => {
     document.getElementById("grid").style.display = "none";
 }
 
@@ -306,12 +306,18 @@ const canvas = document.querySelector('canvas.webgl')
 // Audio
 ///////////////
 
-window.onload = function(){
+const sound = document.getElementById('sound');
 
-   var audioElement = document.getElementById('music');
-   var play = document.getElementById('play');
-   var pause = document.getElementById('pause');
-   var loading = document.getElementById('loading');
+window.onload = () => {
+
+   const audioElement = document.getElementById('music');
+   const play = document.getElementById('play');
+   const pause = document.getElementById('pause');
+   const loading = document.getElementById('loading');
+   const bar01 = document.getElementById('bar01');
+   const bar02 = document.getElementById('bar02');
+   const bar03 = document.getElementById('bar03');
+   const bar04 = document.getElementById('bar04');
 
    function displayControls() {
       loading.style.display = "none";
@@ -331,6 +337,10 @@ window.onload = function(){
       audioElement.play();
       play.style.display = "none";
       pause.style.display = "block";
+      bar01.style.animation = "playing 1s linear infinite;"
+      bar02.style.animation = "playing 1s linear infinite;"
+      bar03.style.animation = "playing 1s linear infinite;"
+      bar04.style.animation = "playing 1s linear infinite;"
    });
 
    pause.addEventListener('click', function() {
@@ -342,6 +352,13 @@ window.onload = function(){
    audioElement.volume = 0.3;
 }
 
+sound.onmousemove = (e) => {
+  const colors = [ 'MintCream', 'DodgerBlue', 'Aqua', 'Chartreuse', 'DarkTurquoise', 'HotPink', 'MediumSpringGreen', 'PeachPuff']
+  const random = () => colors[Math.floor(Math.random() * colors.length)];
+  document.documentElement.style.cssText=`
+  --yellow: ${random()};
+  `
+}
 
 ////////////////////////////////////////////////////////////////////
 // SCENE & CONSTS

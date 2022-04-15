@@ -254,11 +254,11 @@ background: linear-gradient(to bottom,
 .cell:nth-of-type(odd) .door::after {content: "⚙︎"; font-size: 8vmin;}
 
 .door {
-   width: 54vmin;
-   height: 71vmin;
-   position: absolute;
-   box-shadow: 0 0 0 1vmin var(--black), 0 0 0 calc(1vmin + 8px) var(--w), 0 0 0 10vmin var(--black);
-   box-sizing: border-box;
+  width: 54vmin;
+  height: 71vmin;
+  position: absolute;
+  box-shadow: 0 0 0 1vmin var(--black), 0 0 0 calc(1vmin + 8px) var(--w), 0 0 0 10vmin var(--black);
+  box-sizing: border-box;
   border-radius: 70vmin 70vmin 0 0 ;
   transform: translate(-50%, -50%) scale(0.3) translateZ(0px);
   top: 50%;
@@ -309,26 +309,31 @@ background: linear-gradient(to bottom,
    top: -5%;
 }
 
-.title {
-  font-family: Antonio, sans-serif;
-  letter-spacing: -2;
-  position: fixed;
-  z-index: 10;
-  top: 2%;
-  left: 2%;
-  padding: 24px;
-}
 .top-left {
   position: absolute;
   z-index:  10;
   top: 2%;
   left:  2%;
+  max-width: 34%;
+  max-height: 13%;
 }
 .top-right {
   position: absolute;
   z-index:  10;
   top: 3%;
   right:  2%;
+  max-width: 5%;
+  max-height: 2%;
+  cursor: pointer;
+}
+.diagonal-top-right {
+  position: absolute;
+  z-index:  10;
+  top: 35%;
+  right:  1%;
+  max-width: 3%;
+  max-height: 3.5%;
+  cursor: pointer;
 }
 .bottom-left {
   position: absolute;
@@ -345,8 +350,10 @@ background: linear-gradient(to bottom,
 .lateral-right {
   position: absolute;
   z-index:  10;
-  top: 42.5%;
-  right:  1%;
+  top: 40%;
+  right:  1.5%;
+  max-width: 1.5%;
+  max-height: 10%;
 }
 .ui-frame {
 position: absolute;
@@ -400,6 +407,33 @@ pointer-events: none;
 #loading {
   font-size: 0.7rem;
 }
+
+#bar01, 
+#bar02, 
+#bar03, 
+#bar04 { 
+  transition: all 1s linear;
+}
+
+#bar01 {
+  animation-delay: 0.5s;
+}
+#bar02 {
+  animation-delay: 1s;
+}
+#bar03 {
+  animation-delay: 1.3s;
+}
+#bar04 {
+ animation-delay: 0.1s;
+}
+
+svg:hover#sound {}
+
+@keyframes playing {
+ from { transform: scaleY(80%);}
+ to { transform: scaleY(100%);}
+} 
 
 @media only screen and (max-width: 40em) { } 
 /* Tablet --> min-width 641px  */
