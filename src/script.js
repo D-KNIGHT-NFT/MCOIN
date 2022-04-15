@@ -13,7 +13,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls.js';
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
+// LOADERS
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import Proton from "proton-engine";
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
 // POST-PROCESSING
@@ -44,9 +46,6 @@ import SimplexNoise from "simplex-noise";
 import hsl from "hsl-to-hex";
 import debounce from "debounce";
  
-
-
-
 
 document.getElementById("cross--close-grid").onclick = () => {
     document.getElementById("grid").style.display = "none";
@@ -501,6 +500,7 @@ scene.background = environmentMap
 // MESHES + LOADERS
 ///////////////
 
+
 const uniforms = {
 
 'amplitude': { value: 1.0 },
@@ -565,7 +565,34 @@ glassphere.position.set(0, 0, 0)
 scene.add(glassphere);
 
 
-/*** Load Fox model **/
+// FBX LOADER
+///////////////
+
+const fbxLoader = new FBXLoader()
+fbxLoader.load(
+    'models/FBX/stickman.fbx',
+    (object) => {
+        object.traverse( function ( object ) {
+            if ( object.isMesh ) {
+                object.material.envMap = environmentMap;
+                object.castShadow = true;
+            }
+        } );
+        object.scale.set(.0014, .0014, .0014)
+        object.position.set(-0.2, 0, -0.1)
+        scene.add(object)
+    },
+    (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+    },
+    (error) => {
+        console.log(error)
+    }
+)
+
+// GLTF  LOADER
+///////////////
+
 const gltfLoader = new GLTFLoader()
 let foxMixer = null
 
@@ -775,7 +802,7 @@ window.addEventListener('resize', () =>
 ///////////////
 
 const camera = new THREE.PerspectiveCamera(100, sizes.width / sizes.height, 0.1, 1000)
-camera.position.set( 0, 0.8, 6)
+camera.position.set( 0, 0, 6)
 scene.add(camera)
 
 // Ortographic Camera
@@ -805,7 +832,7 @@ controls.autoRotate= true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
 controls.minDistance = 0.3;
-controls.maxDistance = 5;
+controls.maxDistance = 2.5;
 controls.target.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////
