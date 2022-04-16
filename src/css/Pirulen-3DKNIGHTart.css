@@ -1,0 +1,25 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 4705817, 2022-04-16T11:36:04-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: PirulenRg-Regular by Typodermic
+ * URL: https://www.myfonts.com/fonts/typodermic/pirulen/regular/
+ * Copyright: Copyright (c) 2004-2021 Typodermic Fonts Inc. All Rights Reserved.
+ * 
+ * 
+ * 
+ * © 2022 MyFonts Inc
+*/
+
+@font-face {
+  font-family: "PirulenRg-Regular";
+  src: url('https://htdi.community/src/webfonts/PirulenRgRegular/font.woff2') format('woff2'), 
+  url('https://htdi.community/src/webfonts/PirulenRgRegular/font.woff') format('woff');
+}
+

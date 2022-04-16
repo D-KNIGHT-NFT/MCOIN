@@ -327,8 +327,7 @@ window.onload = () => {
    }
 
    play.addEventListener('click', function() {
-      audioElement.play();
-      startPlaying();
+      audioElement.play()
       play.style.display = "none";
       pause.style.display = "block";
    });
@@ -339,7 +338,7 @@ window.onload = () => {
       play.style.display = "block";
    });
 
-   audioElement.volume = 0.3;
+   audioElement.volume = 0.6;
 }
 
 sound.onmousemove = (e) => {

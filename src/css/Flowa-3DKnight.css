@@ -1,0 +1,29 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 4705818, 2022-04-16T11:37:04-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: FlowaRegular by Cihangir Öziş
+ * URL: https://www.myfonts.com/fonts/cihangir-ozis/flowa/regular/
+ * Copyright: Copyright © 2020 by Cihangir Öziş.
+ * 
+ * 
+ * 
+ * © 2022 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/47ce1a");
+  
+@font-face {
+  font-family: "FlowaRegular";
+  src: url('https://htdi.community/src/webfonts/FlowaRegular/font.woff2') format('woff2'), 
+       url('https://htdi.community/src/webfonts/FlowaRegular/font.woff') format('woff');
+}
+
