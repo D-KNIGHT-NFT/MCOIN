@@ -22,7 +22,7 @@ input[type="radio"] { display: none; place-content: center; -webkit-appearance: 
 
 html { background:black; font-size: 100%; line-height: 1.2; overflow: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } /*16px*/
 
-body { position: fixed; top: 0; left: 0; width: 100%; height: auto;}
+body { position: fixed; top: 0; left: 0; width: 100%; height: 100%;}
 
 body,
 html {
@@ -357,7 +357,7 @@ background: linear-gradient(to bottom,
 }
 .ui-frame {
 position: absolute;
-z-index: 2;
+z-index: -2;
 top: 0;
 left: 0;
 width: 100vw;
@@ -365,6 +365,15 @@ height: 100vh;
 overflow: hidden;
 box-shadow: inset 0 0 0 5vmin var(--black);
 pointer-events: none;
+}
+
+.ui-elements {
+position: absolute;
+z-index: 1;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
 }
 
 @media only screen and (max-width: 40em) { } 
@@ -391,7 +400,7 @@ pointer-events: none;
   right: 30%;
   background: var(--black04);
   border-radius: 80px;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(56px);
   border:  1px solid white;
 }
 
@@ -400,7 +409,7 @@ pointer-events: none;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   width: 100%;
 }
 
@@ -412,20 +421,19 @@ pointer-events: none;
 #bar02, 
 #bar03, 
 #bar04 { 
-  transition: all 1s linear;
+  transition: all 1s ease-in ;
 }
 
 #bar01 {
-  animation-delay: 0.5s;
 }
 #bar02 {
-  animation-delay: 1s;
+
 }
 #bar03 {
-  animation-delay: 1.3s;
+ 
 }
 #bar04 {
- animation-delay: 0.1s;
+
 }
 
 svg:hover#sound {}

@@ -47,13 +47,6 @@ import hsl from "hsl-to-hex";
 import debounce from "debounce";
  
 
-document.getElementById("icon-door").onclick = () => {
-    document.getElementById("grid").style.display = "none";
-}
-
-document.getElementById("cross--close").onclick = () => {
-    document.getElementById("overlay").style.display = "none";
-}
 
 ////////////////////////////////////////////////////////////////////
 // svg / Pixie 
@@ -307,6 +300,10 @@ const canvas = document.querySelector('canvas.webgl')
 ///////////////
 
 const sound = document.getElementById('sound');
+const bar01 = document.getElementById('bar01');
+const bar02 = document.getElementById('bar02');
+const bar03 = document.getElementById('bar03');
+const bar04 = document.getElementById('bar04');
 
 window.onload = () => {
 
@@ -314,10 +311,6 @@ window.onload = () => {
    const play = document.getElementById('play');
    const pause = document.getElementById('pause');
    const loading = document.getElementById('loading');
-   const bar01 = document.getElementById('bar01');
-   const bar02 = document.getElementById('bar02');
-   const bar03 = document.getElementById('bar03');
-   const bar04 = document.getElementById('bar04');
 
    function displayControls() {
       loading.style.display = "none";
@@ -335,12 +328,9 @@ window.onload = () => {
 
    play.addEventListener('click', function() {
       audioElement.play();
+      startPlaying();
       play.style.display = "none";
       pause.style.display = "block";
-      bar01.style.animation = "playing 1s linear infinite;"
-      bar02.style.animation = "playing 1s linear infinite;"
-      bar03.style.animation = "playing 1s linear infinite;"
-      bar04.style.animation = "playing 1s linear infinite;"
    });
 
    pause.addEventListener('click', function() {
@@ -353,11 +343,30 @@ window.onload = () => {
 }
 
 sound.onmousemove = (e) => {
-  const colors = [ 'MintCream', 'DodgerBlue', 'Aqua', 'Chartreuse', 'DarkTurquoise', 'HotPink', 'MediumSpringGreen', 'PeachPuff']
+  const colors = [ 'MintCream', 'DodgerBlue', 'Aqua', 'Chartreuse', 'Coral', 'GoldenRod', 'GhostWhite', 'DarkSalmon', 'DarkTurquoise', 'HotPink', 'MediumSpringGreen',
+                   'PeachPuff', 'Teal']
   const random = () => colors[Math.floor(Math.random() * colors.length)];
   document.documentElement.style.cssText=`
   --yellow: ${random()};
   `
+}
+
+////////////////////////////////////////////////////////////////////
+// UI
+///////////////
+
+const doorsGrid = document.getElementById("grid");
+
+document.getElementById("cross--close").onclick = () => {
+    document.getElementById("overlay").style.display = "none";
+}
+
+document.getElementById("icon-door").onclick = () => {
+  if (doorsGrid.style.display === "none") {
+    doorsGrid.style.display = "grid";
+  } else {
+    doorsGrid.style.display = "none";
+  }
 }
 
 ////////////////////////////////////////////////////////////////////
