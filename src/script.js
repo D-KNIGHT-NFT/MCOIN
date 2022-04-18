@@ -454,7 +454,9 @@ const light3 = new THREE.PointLight( 0x80ff80, 20.0, 1000, 2 );
 scene.add( light3 );
 const light4 = new THREE.PointLight( 0xffaa00, 20.0, 1000, 2 );
 scene.add( light4 );
-
+const light5 = new THREE.PointLight( 0xffaa00, 20.0, 1000, 2 );
+light5.position.set(0, 0, 1)
+scene.add( light5 );
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
@@ -463,12 +465,12 @@ scene.add(ambientLight);
 
 const rectLight2 = new THREE.RectAreaLight( 0x18FEFE, 10.0 );
 rectLight2.lookAt( 0, 0, 0 );
-rectLight2.position.set( 3, 0, -3 );
+rectLight2.position.set( 10, 0, -10 );
 scene.add( rectLight2 );
 
 const rectLight4 = new THREE.RectAreaLight( 0xffffff , 10.0 );
 rectLight4.lookAt( 0, 0, 0 );
-rectLight4.position.set( -3, 0, 3 );
+rectLight4.position.set( -10, 0, 10 );
 scene.add( rectLight4 );
 
 ///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
@@ -889,7 +891,7 @@ window.addEventListener('resize', () =>
 ///////////////
 
 const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.1, 1000)
-camera.position.set( 8, 0, 8)
+camera.position.set( 4, 1, 4)
 scene.add(camera)
 
 // Ortographic Camera
@@ -914,7 +916,7 @@ const controls = new OrbitControls(camera, canvas)
 controls.enable = true
 controls.enableDamping = true
 controls.dampingFactor = 0.05;
-controls.enablePan = false;
+controls.enablePan = true;
 controls.autoRotate= true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1

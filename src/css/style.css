@@ -164,8 +164,6 @@ a:visited{ text-decoration: none; color: inherit; }
 /* ****************************** Canvas definitions*/
 
 canvas.webgl { position: fixed; top: 0; left: 0; z-index: -2; width: 100vw; height: 100vh; }
-canvas.orb-canvas {z-index: -1; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;/*  pointer-events: none; */ }
-canvas#orbs-display {display:  block;}
 
 /* ****************************** Text Styles */
 
@@ -214,12 +212,11 @@ font-size: calc(
 
 .icon-theme { width: 24px; height: 24px; }
 
-/* ************************************************* */
-/* ************************************ UI  */
-/* ************************************************* */
 
-/************************************* Grid*/
-/* 
+/* ************************************************************ */
+/* ************************************ Grid 5x5 - 9 div grid  */
+/* ** /
+
 .parent {
 width: 100vw;
 height: 100vh;
@@ -329,6 +326,190 @@ padding: 8rem;
    top: -5%;
 }
  */
+
+/* ************************************************* */
+/* ************************************ MODAL CONTAINER  */
+/* ************************************************* */
+
+canvas.orb-canvas {z-index: -1; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;/*  pointer-events: none; */ }
+canvas#orbs-display {display:  block;}
+
+.modal-container {
+ position: fixed;
+ z-index: 3;
+ width: 100%;
+ height: 100%;
+ top:0;
+ opacity: 0;
+ transform: scale(0);
+ transition: all 1s ease;
+ pointer-events: none;
+ display: grid;
+ place-items: center;
+ background: var(--black06);
+ text-align:center;
+ font-size:108px;
+ font-family:'FlowaRegular';
+ line-height:1.7;
+}
+
+.modal-container.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.modal-container .modal {
+  width:60vw;
+  margin:60px auto;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  transition: all 1.2s ease-out;
+  transform: scale(0.7);
+}
+
+.modal-container.visible .modal {
+  transform: scale(1);
+}
+
+h2 {
+  text-shadow: #0ee027 0 0 0.8rem;
+  color:#0ee027;
+}
+
+.lines {
+  position:fixed;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  z-index:1;
+  background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAABBJREFUCJljYGBg8GViQAEABQIAUMdse+oAAAAASUVORK5CYII=");
+  background-size: .1rem .2rem;
+}
+
+.overlay {
+  width: 100%;
+  max-height: 640px;
+  padding: var(--paddingL);
+  display: flex;
+  align-items: center;
+}
+.icon-close {
+  position: absolute;
+  z-index: 2;
+  right: 10%;
+  top: 10%;
+  padding: var(--paddingXL);
+  background: var(--black04);
+}
+
+.icon-close:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+  transition: transform 150ms linear;
+  box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
+  background: var(--white02);
+}
+
+.overlay__description {
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.75rem;
+  margin-bottom: 1.4rem;
+  margin-top: 1.4rem;
+  text-align: left;
+  padding: var(--padding);
+}
+
+.overlay__btns {
+  width: 100%;
+  max-width: 50rem;
+  display: flex;
+  gap:  8px;
+}
+
+.overlay__btn {
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--light-color);
+  background: var(--dark-color);
+  border: none;
+  border-radius: 0.5rem;
+  transition: transform 150ms ease-in-out;
+  outline-color: hsl(var(--hue), 95%, 50%);
+}
+
+.overlay__btn:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.overlay__btn--transparent {
+  background: var(--white02);
+  color: var(--dark-color);
+  border: 2px solid var(--dark-color);
+  border-width: 2px;
+}
+
+
+/* Not too many browser support this yet but it's good to add! */
+@media (prefers-contrast: high) {
+  .orb-canvas {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1140px) {
+  .overlay {
+    padding: 8rem 4rem;
+  }
+}
+
+@media only screen and (max-width: 840px) {
+
+  .overlay {
+    padding: 4rem;
+    height: auto;
+  }
+
+  .overlay__description {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .overlay {
+    padding: 2rem;
+  }
+
+  .overlay__btns {
+    flex-wrap: wrap;
+    gap: 1px;
+  }
+
+  .overlay__btn {
+    width: 100%;
+    font-size: 0.75rem;
+    margin-right: 0;
+  }
+
+  .overlay__btn:first-child {
+    margin-bottom: 1rem;
+  }
+}
+
+
+/************************************* UI Frame elements*/ 
+
 .top-left {
   display: none;
   position: absolute;
@@ -506,19 +687,6 @@ svg:hover#sound {}
 }
 
 
-/* ************************************************* */
-/* ************************************ CONTAINER  */
-/* ************************************************* */
-
-#overlay {
-  animation: fade 3s ease-in;
-}
-
-@keyframes fade {
-  from { opacity:  0; }
-  to { opacity: 1; }
-}
-
 .marquee {
   position: relative;
   width: 100vw;
@@ -538,162 +706,6 @@ svg:hover#sound {}
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
-}
-
-.container {
- position: absolute;
-  z-index: 3;
- width: 100vw;
- height: 100vh;
- display: grid;
- place-items: center;
- background: var(--black08);
- text-align:center;
- font-size:88px;
- font-family:'FlowaRegular  ';
- font-weight:300;
- line-height:1.7;
-}
-
-.wrapper {
-  display:block;
-  width:60vw;
-  margin:100px auto;
-    
-}
-
-h2 {
-  text-shadow: #0ee027 0 0 0.8rem;
-  color:#0ee027;
-}
-
-.lines {
-  position:fixed;
-  top:0;
-  left:0;
-  height:100%;
-  width:100%;
-  z-index:1;
-  background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAABBJREFUCJljYGBg8GViQAEABQIAUMdse+oAAAAASUVORK5CYII=");
-  background-size: .1rem .2rem;
-}
-
-.overlay {
-  width: 100%;
-  max-height: 640px;
-  padding: var(--paddingL);
-  display: flex;
-  align-items: center;
-}
-.icon-close {
-  position: absolute;
-  z-index: 2;
-  right: 10%;
-  top: 10%;
-  padding: var(--paddingXL);
-  background: var(--black04);
-}
-
-.icon-close:hover {
-  transform: scale(1.2);
-  cursor: pointer;
-  transition: transform 150ms linear;
-  box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
-  background: var(--white02);
-}
-
-.overlay__description {
-  font-size: 0.8rem;
-  font-weight: 400;
-  line-height: 1.75rem;
-  margin-bottom: 1.4rem;
-  margin-top: 1.4rem;
-  text-align: left;
-  padding: var(--padding);
-}
-
-.overlay__btns {
-  width: 100%;
-  max-width: 50rem;
-  display: flex;
-  gap:  8px;
-}
-
-.overlay__btn {
-  width: 100%;
-  height: 2.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--light-color);
-  background: var(--dark-color);
-  border: none;
-  border-radius: 0.5rem;
-  transition: transform 150ms ease-in-out;
-  outline-color: hsl(var(--hue), 95%, 50%);
-}
-
-.overlay__btn:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-}
-
-.overlay__btn--transparent {
-  background: var(--white02);
-  color: var(--dark-color);
-  border: 2px solid var(--dark-color);
-  border-width: 2px;
-}
-
-
-/* Not too many browser support this yet but it's good to add! */
-@media (prefers-contrast: high) {
-  .orb-canvas {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 1140px) {
-  .overlay {
-    padding: 8rem 4rem;
-  }
-}
-
-@media only screen and (max-width: 840px) {
-
-  .overlay {
-    padding: 4rem;
-    height: auto;
-  }
-
-  .overlay__description {
-    font-size: 0.875rem;
-    line-height: 1.5rem;
-    margin-bottom: 2rem;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .overlay {
-    padding: 2rem;
-  }
-
-  .overlay__btns {
-    flex-wrap: wrap;
-    gap: 1px;
-  }
-
-  .overlay__btn {
-    width: 100%;
-    font-size: 0.75rem;
-    margin-right: 0;
-  }
-
-  .overlay__btn:first-child {
-    margin-bottom: 1rem;
-  }
 }
 
 /* **********************************************************************************/
