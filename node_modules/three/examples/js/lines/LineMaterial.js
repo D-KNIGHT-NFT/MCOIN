@@ -7,6 +7,7 @@
  *  dashed: <boolean>,
  *  dashScale: <float>,
  *  dashSize: <float>,
+ *  dashOffset: <float>,
  *  gapSize: <float>,
  *  resolution: <Vector2>, // to be set by renderer
  * }
@@ -20,6 +21,9 @@
 		},
 		resolution: {
 			value: new THREE.Vector2( 1, 1 )
+		},
+		dashOffset: {
+			value: 0
 		},
 		dashScale: {
 			value: 1
@@ -214,7 +218,7 @@
 				vec4 clip = projectionMatrix * worldPos;
 
 				// shift the depth of the projected points so the line
-				// segements overlap neatly
+				// segments overlap neatly
 				vec3 clipPose = ( position.y < 0.5 ) ? ndcStart : ndcEnd;
 				clip.z = clipPose.z * clip.w;
 
@@ -274,6 +278,7 @@
 
 		#ifdef USE_DASH
 
+			uniform float dashOffset;
 			uniform float dashSize;
 			uniform float gapSize;
 
@@ -342,7 +347,7 @@
 
 				if ( vUv.y < - 1.0 || vUv.y > 1.0 ) discard; // discard endcaps
 
-				if ( mod( vLineDistance, dashSize + gapSize ) > dashSize ) discard; // todo - FIX
+				if ( mod( vLineDistance + dashOffset, dashSize + gapSize ) > dashSize ) discard; // todo - FIX
 
 			#endif
 
