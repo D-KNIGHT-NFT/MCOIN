@@ -555,7 +555,7 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-1/');
+cubeTextureLoader.setPath('textures/environmentMap/level-4/');
 const environmentMap = cubeTextureLoader.load(['px.png','nx.png','py.png','ny.png','pz.png','nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping

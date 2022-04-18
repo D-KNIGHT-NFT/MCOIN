@@ -507,7 +507,7 @@ h2 {
   }
 }
 
-
+/* ***************************************************** */
 /************************************* UI Frame elements*/ 
 
 .top-left {
@@ -607,10 +607,6 @@ height: 100vh;
   z-index: 10;
   bottom: 1%;
   right: 8%;
- /*  background: var(--black04);
-  border-radius: 80px;
-  backdrop-filter: blur(56px); */
-  /* border:  1px solid white; */
 }
 
 .buttons-music {
@@ -652,17 +648,6 @@ svg:hover#sound {}
  to { transform: scaleY(100%);}
 } 
 
-@media only screen and (max-width: 40em) { } 
-/* Tablet --> min-width 641px  */
-@media only screen and (min-width: 40.063em) {}
-/* Desktop --> min-width 1025px */
-@media only screen and (min-width: 64.063em) {}
-/* Desktop --> min-width 1441px */
-@media only screen and (min-width: 90.063em) {} 
-/* Desktop --> min-width 1921px */
-@media only screen and (min-width: 120.063em) {}
-
-
 .marquee2 {
   position: relative;
   width: 24vw;
@@ -686,7 +671,6 @@ svg:hover#sound {}
   to { transform: translateX(-50%); }
 }
 
-
 .marquee {
   position: relative;
   width: 100vw;
@@ -707,6 +691,17 @@ svg:hover#sound {}
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+
+@media only screen and (max-width: 40em) { } 
+/* Tablet --> min-width 641px  */
+@media only screen and (min-width: 40.063em) {}
+/* Desktop --> min-width 1025px */
+@media only screen and (min-width: 64.063em) {}
+/* Desktop --> min-width 1441px */
+@media only screen and (min-width: 90.063em) {} 
+/* Desktop --> min-width 1921px */
+@media only screen and (min-width: 120.063em) {}
+
 
 /* **********************************************************************************/
 /* ****************************** /* Retina Displays */
