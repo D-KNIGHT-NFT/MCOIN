@@ -649,7 +649,7 @@ for ( let i = 0; i < displacement.length; i ++ ) {
 }
 geometry.setAttribute( 'displacement', new THREE.BufferAttribute( displacement, 1 ) );
 
-const glassphere = new THREE.Mesh(geometry, shaderMaterial);
+const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0)
 scene.add(glassphere);
 
@@ -932,7 +932,7 @@ const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true})
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.CineonToneMapping
-renderer.toneMappingExposure = 0.3
+renderer.toneMappingExposure = 1.0
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor('#211d20')
