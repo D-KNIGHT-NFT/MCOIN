@@ -1,42 +1,160 @@
-@import url('https://fonts.googleapis.com/css?family=Homenaje');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;900&family=Shanti&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Federant&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100;200;300;400;700&display=swap');
-@import url("//hello.myfonts.net/count/47ce1a");
-@font-face {font-family: "FlowaRegular"; src: url('https://htdi.community/src/webfonts/FlowaRegular/font.woff2') format('woff2'), url('https://htdi.community/src/webfonts/FlowaRegular/font.woff') format('woff');}
-@font-face {font-family: "PirulenRg-Regular"; src: url('https://htdi.community/src/webfonts/PirulenRgRegular/font.woff2') format('woff2'),url('https://htdi.community/src/webfonts/PirulenRgRegular/font.woff') format('woff');}
+@import url("//hello.myfonts.net/count/482c9b");
+/**
+ * @license
+ * MyFonts Webfont Build ID 4730011, 2022-04-25T00:02:50-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: FlowaRegular by Cihangir Öziş
+ * URL: https://www.myfonts.com/fonts/cihangir-ozis/flowa/regular/
+ * Copyright: Copyright © 2020 by Cihangir Öziş.
+ * 
+ * 
+ * 
+ * © 2022 MyFonts Inc
+*/
+
+@font-face {
+  font-family: "Flowa";
+  font-style: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  src: url('webFonts/Flowa/normal_normal_normal.woff2') format('woff2'), url('webFonts/Flowa/normal_normal_normal.woff') format('woff');
+}
+@font-face {
+  font-family: "PirulenRg-Regular";
+  src: url('webfonts/PirulenRgRegular/font.woff2') format('woff2'), 
+  url('webfonts/PirulenRgRegular/font.woff') format('woff');
+}
+
 
 /* **********************************************************************************/
-/* *********//*/ CSS RESETS /*/
+/* *********/
+/*/ CSS RESETS /*/
 /* ***********************************************************************************/
 
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strong,sub,sup,var,
-b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,
-aside,canvas,details,embed,figure,figcaption,footer,header,nav,output,ruby,section,
-summary,time,mark,audio,video { margin: 0; padding: 0; border: 0; font: inherit; font-family: cy, sans-serif; }
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+u,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-family: cy, sans-serif;
+}
 
-article,aside,details,figcaption,figure,footer,header,nav,section { display: block; }
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-input[type="radio"] { display: none; place-content: center; -webkit-appearance: none; appearance: none; }
+input[type="radio"] {
+  display: none;
+  place-content: center;
+  -webkit-appearance: none;
+  appearance: none;
+}
 
-html { 
-  background:black; 
-  font-size: 100%; 
-  line-height: 1.2; 
-  overflow: hidden; 
-  -webkit-font-smoothing: antialiased; 
+html {
+  font-size: 100%;
+  line-height: 1.2;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "PirulenRg-Regular"; 
-} /*16px*/
+}
 
-body { 
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
+/*16px*/
+
+body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   font-family: "FlowaRegular";
 }
@@ -51,129 +169,178 @@ html {
   padding: 0;
 }
 
-blockquote,q { quotes: none; }
+blockquote,
+q {
+  quotes: none;
+}
 
-ol,ul { list-style: none; }
+ol,
+ul {
+  list-style: none;
+}
 
-a:hover { text-decoration: none; color: var(--purple); }
-a:focus { text-decoration: none; color: var(--yellow); }
-a:active{ text-decoration: none; color: var(--white); }
-a:visited{ text-decoration: none; color: inherit; }
+a:hover {
+  text-decoration: none;
+  color: var(--purple);
+}
+
+a:focus {
+  text-decoration: none;
+  color: var(--yellow);
+}
+
+a:active {
+  text-decoration: none;
+  color: var(--white);
+}
+
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
 
 
 /* **********************************************************************************/
-/* *********//*/ ROOT /*/
+/* *********/
+/*/ ROOT /*/
 /* ***********************************************************************************/
 
 :root {
 
- /* PRIMARY COLORS  **********************************/
- --red: hsla(12, 80%, 50%, 1);
- --red02:  hsla(12, 80%, 50%, 0.2);
- --red04:  hsla(12, 80%, 50%, 0.4);
- --red08:  hsla(12, 80%, 50%, 0.8);
+  /* PRIMARY COLORS  **********************************/
+  --red: hsla(12, 80%, 50%, 1);
+  --red02: hsla(12, 80%, 50%, 0.2);
+  --red04: hsla(12, 80%, 50%, 0.4);
+  --red08: hsla(12, 80%, 50%, 0.8);
 
- --yellow:  hsla(76, 98%, 50%, 1);
- --yellow02: hsla(76, 98%, 50%, 0.2);
- --yellow04: hsla(76, 98%, 50%, 0.4);
- --yellow08: hsla(76, 98%, 50%, 0.8);
+  --yellow: hsla(76, 98%, 50%, 1);
+  --yellow02: hsla(76, 98%, 50%, 0.2);
+  --yellow04: hsla(76, 98%, 50%, 0.4);
+  --yellow08: hsla(76, 98%, 50%, 0.8);
 
- --purple: hsla(278, 52%, 54%, 1);
- --purple02: hsla(278, 52%, 54%, 0.2);
- --purple04: hsla(278, 52%, 54%, 0.4);
- --purple08: hsla(278, 52%, 54%, 0.8);
+  --purple: hsla(278, 52%, 54%, 1);
+  --purple02: hsla(278, 52%, 54%, 0.2);
+  --purple04: hsla(278, 52%, 54%, 0.4);
+  --purple08: hsla(278, 52%, 54%, 0.8);
 
- /* NEUTRALS **********************************/
- --neutral: hsla(127, 4%, 60%, 1);
- --neutral02: hsla(127, 4%, 60%, 0.2);
- --neutral04: hsla(127, 4%, 60%, 0.4);
- --neutral08: hsla(127, 4%, 60%, 0.8);
+  /* NEUTRALS **********************************/
+  --neutral: hsla(127, 4%, 60%, 1);
+  --neutral02: hsla(127, 4%, 60%, 0.2);
+  --neutral04: hsla(127, 4%, 60%, 0.4);
+  --neutral08: hsla(127, 4%, 60%, 0.8);
 
- /* WHITES **********************************/
- --white: hsla(100, 100%, 100%, 1.0);
- --white02: hsla(100, 100%, 100%, 0.2);
- --white04: hsla(100, 100%, 100%, 0.4);
- --white08: hsla(100, 100%, 100%, 0.8);
- /* BLACKS **********************************/
- --black: hsla(0, 0%, 0%, 1.0);
- --black02: hsla(0, 0%, 0%, 0.2);
- --black03: hsla(0, 0%, 0%, 0.3);
- --black04: hsla(0, 0%, 0%, 0.4);
- --black06: hsla(0, 0%, 0%, 0.6);
- --black08: hsla(0, 0%, 0%, 0.8);
- --black09: hsla(0, 0%, 0%, 0.9);
+  /* WHITES **********************************/
+  --white: hsla(100, 100%, 100%, 1.0);
+  --white02: hsla(100, 100%, 100%, 0.2);
+  --white04: hsla(100, 100%, 100%, 0.4);
+  --white08: hsla(100, 100%, 100%, 0.8);
+  /* BLACKS **********************************/
+  --black: hsla(0, 0%, 0%, 1.0);
+  --black02: hsla(0, 0%, 0%, 0.2);
+  --black03: hsla(0, 0%, 0%, 0.3);
+  --black04: hsla(0, 0%, 0%, 0.4);
+  --black06: hsla(0, 0%, 0%, 0.6);
+  --black08: hsla(0, 0%, 0%, 0.8);
+  --black09: hsla(0, 0%, 0%, 0.9);
 
- --theme-color: #3c3a3a;
- --theme-bg-color: rgb(255 255 255 / 31%);
+  --theme-color: #3c3a3a;
+  --theme-bg-color: rgb(255 255 255 / 31%);
 
- /* ORBS **********************************/
- --dark-color: hsl(var(--hue), 100%, 9%);
- --light-color: hsl(var(--hue), 95%, 98%);
- --base: hsl(var(--hue), 95%, 50%);
- --complimentary1: hsl(var(--hue-complimentary1), 95%, 50%);
- --complimentary2: hsl(var(--hue-complimentary2), 95%, 50%);
- --bg-gradient: linear-gradient( to bottom,  hsl(var(--hue), 95%, 99%), hsl(var(--hue), 95%, 84%) );
+  /* ORBS **********************************/
+  --dark-color: hsl(var(--hue), 100%, 9%);
+  --light-color: hsl(var(--hue), 95%, 98%);
+  --base: hsl(var(--hue), 95%, 50%);
+  --complimentary1: hsl(var(--hue-complimentary1), 95%, 50%);
+  --complimentary2: hsl(var(--hue-complimentary2), 95%, 50%);
+  --bg-gradient: linear-gradient(to bottom, hsl(var(--hue), 95%, 99%), hsl(var(--hue), 95%, 84%));
 
-/* BOX-SHADOWS */
- --shine: 0 0.1rem 0.1rem 0.1rem var(--white02); 
- --shadow: 0 0.5rem 0.5rem 0 var(--black02); 
+  /* BOX-SHADOWS */
+  --shine: 0 0.1rem 0.1rem 0.1rem var(--white02);
+  --shadow: 0 0.5rem 0.5rem 0 var(--black02);
 
- /* Animation */
- --rotate-180: rotate(-180deg);
- --timing: .25s ease-in-out;
+  /* Animation */
+  --rotate-180: rotate(-180deg);
+  --timing: .25s ease-in-out;
 
- --font-family: "antonio", "cy",-apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family: "Flowa", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
- --paddingS: 0.25rem;
- --paddingM: 0.5rem;
- --paddingL: 0.75rem;
- --paddingXL: 1rem;
- --paddingXXL: 2rem;
- --padding2XXL: 4rem;
+  --paddingS: 0.25rem;
+  --paddingM: 0.5rem;
+  --paddingL: 0.75rem;
+  --paddingXL: 1rem;
+  --paddingXXL: 2rem;
+  --padding2XXL: 4rem;
 
- --radius: 4px;
- --radiusx2: 8px;
- --radiusx4: 16px;
- --radiusx8: 32px; /* 2rem */
- --radius50: 50%;
+  --radius: 4px;
+  --radiusx2: 8px;
+  --radiusx4: 16px;
+  --radiusx8: 32px;
+  /* 2rem */
+  --radius50: 50%;
 
- --margin:  0.75rem;
+  --margin: 0.75rem;
 
- --dot: 4px dotted var(--yellow);
- --solid: 2px solid var(--yellow);
- --border: 1px solid var(--black);
+  --dot: 4px dotted var(--yellow);
+  --solid: 2px solid var(--yellow);
+  --border: 1px solid var(--black);
 
- --gapS: 4px;
- --gapM: 8px;
- --gapL: 16px;
- --gapXL:24px;
+  --gapS: 4px;
+  --gapM: 8px;
+  --gapL: 16px;
+  --gapXL: 24px;
 
- --size: 60%;
+  --size: 60%;
 
- --maxSize-s: 20vw;
- --maxSize-m: 40vw;
- --maxSize-l: 80vw;
- --maxSize-XL: 96vw;
+  --maxSize-s: 20vw;
+  --maxSize-m: 40vw;
+  --maxSize-l: 80vw;
+  --maxSize-XL: 96vw;
 
- --top-right:  linear-gradient(-135deg, transparent 0%, hsl(0, 0%, 0%) 0%);
+  --top-right: linear-gradient(-135deg, transparent 0%, hsl(0, 0%, 0%) 0%);
 
- --w: #fff;
- --t: transparent;
+  --w: #fff;
+  --t: transparent;
 
 }
+
+/* make scrollbar transparent */
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 /* ****************************** Canvas definitions*/
 
-canvas.webgl { position: fixed; top: 0; left: 0; z-index: -2; width: 100vw; height: 100vh; }
+canvas.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
 
 /* ****************************** Text Styles */
 
-p  { font-size: 0.8rem; }
-h3 { font-size: 1.1rem; }
-h2 { font-size: 1.4rem; }
-h1 { font-size: 2rem; }
+p {
+  font-size: 0.8rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
 
 /* ****************************** Text Hovers */
-h1::before {  
+h1::before {
   transform: scaleX(0);
   transform-origin: bottom right;
 }
@@ -187,30 +354,23 @@ h1::before {
   content: " ";
   display: block;
   position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   inset: 0 0 0 0;
   background: hsl(200 100% 80%);
   z-index: -1;
   transition: transform .3s ease;
 }
 
-.text {
-color: white;
-font-family: "Work Sans", sans-serif;
-padding: 3vw;
-padding-top: 9vh;
---min-value: 28;
---max-value: 124;
---min-size: 300;
---max-size: 1500;
-font-size: calc(
-  #{var(--min-value)}px + #{var(--max-value) - var(--min-value)} * (100vw - #{var(--min-size)}px) / #{var(--max-size) -
-    var(--min-size)}
-);
-}
+
 /* ****************************** Icon Sizes */
 
-.icon-theme { width: 24px; height: 24px; }
+.icon-theme {
+  width: 24px;
+  height: 24px;
+}
 
 
 /* ************************************************************ */
@@ -331,71 +491,62 @@ padding: 8rem;
 /* ************************************ MODAL CONTAINER  */
 /* ************************************************* */
 
-canvas.orb-canvas {z-index: -1; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;/*  pointer-events: none; */ }
-canvas#orbs-display {display:  block;}
+/* canvas.orb-canvas {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh; */
+  /*  pointer-events: none; */
+/* } */
 
 .modal-container {
- position: fixed;
- z-index: 3;
- width: 100%;
- height: 100%;
- top:0;
- opacity: 0;
- transform: scale(0);
- transition: all 1s ease;
- pointer-events: none;
- display: grid;
- place-items: center;
- background: var(--black06);
- text-align:center;
- font-size:108px;
- font-family:'FlowaRegular';
- line-height:1.7;
+  position: fixed;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  opacity: 0;
+  transition: all 1s ease;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  background: var(--black08);
+  text-align: center;
+  overflow-y: scroll;
 }
 
 .modal-container.visible {
   opacity: 1;
-  transform: scale(1);
   pointer-events: auto;
 }
 
 .modal-container .modal {
-  width:60vw;
-  margin:60px auto;
+  width: 80vw;
+  margin: 60px auto;
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding: 55px;
   transition: all 1.2s ease-out;
-  transform: scale(0.7);
 }
 
-.modal-container.visible .modal {
-  transform: scale(1);
-}
 
-h2 {
-  text-shadow: #0ee027 0 0 0.8rem;
-  color:#0ee027;
+.show-button {
+  font-size: 1rem;
+  font-family: 'PirulenRg-Regular';
 }
 
 .lines {
-  position:fixed;
-  top:0;
-  left:0;
-  height:100%;
-  width:100%;
-  z-index:1;
-  background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAABBJREFUCJljYGBg8GViQAEABQIAUMdse+oAAAAASUVORK5CYII=");
-  background-size: .1rem .2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAABBJREFUCJljYGBg8GViQAEABQIAUMdse+oAAAAASUVORK5CYII=");
 }
 
-.overlay {
-  width: 100%;
-  max-height: 640px;
-  padding: var(--paddingL);
-  display: flex;
-  align-items: center;
-}
 .icon-close {
   position: absolute;
   z-index: 2;
@@ -406,6 +557,9 @@ h2 {
 }
 
 .icon-close:hover {
+  position: fixed;
+  top: 5%;
+  left: 10%;
   transform: scale(1.2);
   cursor: pointer;
   transition: transform 150ms linear;
@@ -413,51 +567,14 @@ h2 {
   background: var(--white02);
 }
 
-.overlay__description {
-  font-size: 0.8rem;
-  font-weight: 400;
-  line-height: 1.75rem;
-  margin-bottom: 1.4rem;
-  margin-top: 1.4rem;
-  text-align: left;
-  padding: var(--padding);
+.modal-text {
+  text-shadow: #0ee027 0 0 0.8rem;
+  color: #0ee027;
+  font-family: "Flowa";
+  line-height: 1.5;
+  font-size: 2rem;
+  padding-top: 2vh;
 }
-
-.overlay__btns {
-  width: 100%;
-  max-width: 50rem;
-  display: flex;
-  gap:  8px;
-}
-
-.overlay__btn {
-  width: 100%;
-  height: 2.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--light-color);
-  background: var(--dark-color);
-  border: none;
-  border-radius: 0.5rem;
-  transition: transform 150ms ease-in-out;
-  outline-color: hsl(var(--hue), 95%, 50%);
-}
-
-.overlay__btn:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-}
-
-.overlay__btn--transparent {
-  background: var(--white02);
-  color: var(--dark-color);
-  border: 2px solid var(--dark-color);
-  border-width: 2px;
-}
-
 
 /* Not too many browser support this yet but it's good to add! */
 @media (prefers-contrast: high) {
@@ -466,131 +583,105 @@ h2 {
   }
 }
 
-@media only screen and (max-width: 1140px) {
-  .overlay {
-    padding: 8rem 4rem;
-  }
-}
+@media only screen and (max-width: 1140px) {}
 
-@media only screen and (max-width: 840px) {
+@media only screen and (max-width: 840px) {}
 
-  .overlay {
-    padding: 4rem;
-    height: auto;
-  }
-
-  .overlay__description {
-    font-size: 0.875rem;
-    line-height: 1.5rem;
-    margin-bottom: 2rem;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .overlay {
-    padding: 2rem;
-  }
-
-  .overlay__btns {
-    flex-wrap: wrap;
-    gap: 1px;
-  }
-
-  .overlay__btn {
-    width: 100%;
-    font-size: 0.75rem;
-    margin-right: 0;
-  }
-
-  .overlay__btn:first-child {
-    margin-bottom: 1rem;
-  }
-}
+@media only screen and (max-width: 600px) {}
 
 /* ***************************************************** */
-/************************************* UI Frame elements*/ 
+/************************************* UI Frame elements*/
 
 .top-left {
   display: none;
   position: absolute;
-  z-index:  10;
+  z-index: 10;
   top: 5.5%;
-  left:  3%;
+  left: 3%;
   width: 18%;
   height: 4%;
 }
+
 .top-right {
   display: none;
   position: absolute;
-  z-index:  10;
+  z-index: 10;
   top: 3%;
-  right:  2%;
+  right: 2%;
   max-width: 5%;
   max-height: 2%;
   cursor: pointer;
 }
+
 .lateral-right {
-  display:  none;
+  display: none;
   position: absolute;
-  z-index:  10;
+  z-index: 10;
   top: 22.5%;
-  right:  0%;
+  right: 0%;
   width: 2.5%;
   height: 60%;
 }
+
 .diagonal-top-right {
   display: none;
   position: absolute;
-  z-index:  10;
+  z-index: 10;
   top: 12%;
-  right:  0%;
+  right: 0%;
   width: 3%;
   height: 7%;
   cursor: pointer;
 }
+
 .bottom-left {
   display: none;
   position: absolute;
-  z-index:  10;
+  z-index: 10;
   bottom: 2%;
-  left:  2%;
+  left: 2%;
 }
+
 .bottom-right {
   display: none;
   position: absolute;
-  z-index:  10;
+  z-index: 10;
   bottom: 2%;
-  right:  2%;
+  right: 2%;
 }
 
 .ui-frame {
-position: absolute;
-z-index: 1;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-overflow: hidden;
-/* box-shadow: inset 0 0 0 5vmin var(--black); */
-pointer-events: none;
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  /* box-shadow: inset 0 0 0 5vmin var(--black); */
+  pointer-events: none;
 }
 
 .ui-elements {
-position: absolute;
-z-index: 1;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
-@media only screen and (max-width: 40em) { } 
+@media only screen and (max-width: 40em) {}
+
 /* Tablet --> min-width 641px  */
 @media only screen and (min-width: 40.063em) {}
+
 /* Desktop --> min-width 1025px */
 @media only screen and (min-width: 64.063em) {}
+
 /* Desktop --> min-width 1441px */
-@media only screen and (min-width: 90.063em) {} 
+@media only screen and (min-width: 90.063em) {}
+
 /* Desktop --> min-width 1921px */
 @media only screen and (min-width: 120.063em) {}
 
@@ -598,11 +689,11 @@ height: 100vh;
 /* ************************************ MUSIC PLAYER   */
 /* ************************************************* */
 
-.music-player { 
+.music-player {
   display: grid;
-  grid-template-columns: repeat(1,  1fr);
+  grid-template-columns: repeat(1, 1fr);
   width: 20%;
-  padding: var(--padding); 
+  padding: var(--padding);
   position: fixed;
   z-index: 10;
   bottom: 1%;
@@ -622,31 +713,32 @@ height: 100vh;
   font-size: 0.7rem;
 }
 
-#bar01, 
-#bar02, 
-#bar03, 
-#bar04 { 
-  transition: all 1s ease-in ;
-}
-
-#bar01 {
-}
-#bar02 {
-
-}
-#bar03 {
- 
-}
+#bar01,
+#bar02,
+#bar03,
 #bar04 {
-
+  transition: all 1s ease-in;
 }
+
+#bar01 {}
+
+#bar02 {}
+
+#bar03 {}
+
+#bar04 {}
 
 svg:hover#sound {}
 
 @keyframes playing {
- from { transform: scaleY(80%);}
- to { transform: scaleY(100%);}
-} 
+  from {
+    transform: scaleY(80%);
+  }
+
+  to {
+    transform: scaleY(100%);
+  }
+}
 
 .marquee2 {
   position: relative;
@@ -667,8 +759,13 @@ svg:hover#sound {}
 }
 
 @keyframes marquee2 {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .marquee {
@@ -688,17 +785,36 @@ svg:hover#sound {}
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-@media only screen and (max-width: 40em) { } 
+/* **********************************************************************************/
+/* ****************************** /* A2HS*/
+/* ***********************************************************************************/
+
+.add-button {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+}
+
+@media only screen and (max-width: 40em) {}
+
 /* Tablet --> min-width 641px  */
 @media only screen and (min-width: 40.063em) {}
+
 /* Desktop --> min-width 1025px */
 @media only screen and (min-width: 64.063em) {}
+
 /* Desktop --> min-width 1441px */
-@media only screen and (min-width: 90.063em) {} 
+@media only screen and (min-width: 90.063em) {}
+
 /* Desktop --> min-width 1921px */
 @media only screen and (min-width: 120.063em) {}
 
@@ -708,38 +824,34 @@ svg:hover#sound {}
 /* ***********************************************************************************/
 
 /* ****************************** /* iphone 12 pro max */
-@media
-  only screen and (-webkit-min-device-pixel-ratio: 3),
-  only screen and (   min--moz-device-pixel-ratio: 3),
-  only screen and (     -o-min-device-pixel-ratio: 3/1),
-  only screen and (        min-device-pixel-ratio: 3),
-  only screen and (                min-resolution: 458dpi),
-  only screen and (                min-resolution: 3dppx) 
-{ 
-}
+@media only screen and (-webkit-min-device-pixel-ratio: 3),
+only screen and (min--moz-device-pixel-ratio: 3),
+only screen and (-o-min-device-pixel-ratio: 3/1),
+only screen and (min-device-pixel-ratio: 3),
+only screen and (min-resolution: 458dpi),
+only screen and (min-resolution: 3dppx) {}
 
 /* ****************************** /* Retina 2x Media Query*/
-@media
-  only screen and (-webkit-min-device-pixel-ratio: 3),
-  only screen and (   min--moz-device-pixel-ratio: 3),
-  only screen and (     -o-min-device-pixel-ratio: 3/1),
-  only screen and (        min-device-pixel-ratio: 3),
-  only screen and (                min-resolution: 384dpi),
-  only screen and (                min-resolution: 3dppx) { 
-    /* Retina styles here */
+@media only screen and (-webkit-min-device-pixel-ratio: 3),
+only screen and (min--moz-device-pixel-ratio: 3),
+only screen and (-o-min-device-pixel-ratio: 3/1),
+only screen and (min-device-pixel-ratio: 3),
+only screen and (min-resolution: 384dpi),
+only screen and (min-resolution: 3dppx) {
+  /* Retina styles here */
 }
 
 /* ****************************** /* Retina 3x Media Query */
-@media
-  only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (   min--moz-device-pixel-ratio: 2),
-  only screen and (     -o-min-device-pixel-ratio: 2/1),
-  only screen and (        min-device-pixel-ratio: 2),
-  only screen and (                min-resolution: 192dpi),
-  only screen and (                min-resolution: 2dppx) { 
-    /* Retina styles here */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (min-device-pixel-ratio: 2),
+only screen and (min-resolution: 192dpi),
+only screen and (min-resolution: 2dppx) {
+  /* Retina styles here */
 }
 
 /* Desktop --> iPhone Orientation */
-@media only screen and (orientation:portrait) { }
-@media only screen and (orientation:landscape) {} 
+@media only screen and (orientation:portrait) {}
+
+@media only screen and (orientation:landscape) {}
