@@ -1,0 +1,855 @@
+@import url(//hello.myfonts.net/count/482c9b);
+/**
+ * @license
+ * MyFonts Webfont Build ID 4730011, 2022-04-25T00:02:50-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: FlowaRegular by Cihangir Öziş
+ * URL: https://www.myfonts.com/fonts/cihangir-ozis/flowa/regular/
+ * Copyright: Copyright © 2020 by Cihangir Öziş.
+ * 
+ * 
+ * 
+ * © 2022 MyFonts Inc
+*/
+
+:root {
+
+  /* PRIMARY COLORS  **********************************/
+  --red: hsla(12, 80%, 50%, 1);
+  --red02: hsla(12, 80%, 50%, 0.2);
+  --red04: hsla(12, 80%, 50%, 0.4);
+  --red08: hsla(12, 80%, 50%, 0.8);
+
+  --yellow: hsla(76, 98%, 50%, 1);
+  --yellow02: hsla(76, 98%, 50%, 0.2);
+  --yellow04: hsla(76, 98%, 50%, 0.4);
+  --yellow08: hsla(76, 98%, 50%, 0.8);
+
+  --purple: hsla(278, 52%, 54%, 1);
+  --purple02: hsla(278, 52%, 54%, 0.2);
+  --purple04: hsla(278, 52%, 54%, 0.4);
+  --purple08: hsla(278, 52%, 54%, 0.8);
+
+  /* NEUTRALS **********************************/
+  --neutral: hsla(127, 4%, 60%, 1);
+  --neutral02: hsla(127, 4%, 60%, 0.2);
+  --neutral04: hsla(127, 4%, 60%, 0.4);
+  --neutral08: hsla(127, 4%, 60%, 0.8);
+
+  /* WHITES **********************************/
+  --white: hsla(100, 100%, 100%, 1.0);
+  --white02: hsla(100, 100%, 100%, 0.2);
+  --white04: hsla(100, 100%, 100%, 0.4);
+  --white08: hsla(100, 100%, 100%, 0.8);
+  /* BLACKS **********************************/
+  --black: hsla(0, 0%, 0%, 1.0);
+  --black02: hsla(0, 0%, 0%, 0.2);
+  --black03: hsla(0, 0%, 0%, 0.3);
+  --black04: hsla(0, 0%, 0%, 0.4);
+  --black06: hsla(0, 0%, 0%, 0.6);
+  --black08: hsla(0, 0%, 0%, 0.8);
+  --black09: hsla(0, 0%, 0%, 0.9);
+
+  --theme-color: #3c3a3a;
+  --theme-bg-color: rgb(255 255 255 / 31%);
+
+  /* ORBS **********************************/
+  --dark-color: hsl(var(--hue), 100%, 9%);
+  --light-color: hsl(var(--hue), 95%, 98%);
+  --base: hsl(var(--hue), 95%, 50%);
+  --complimentary1: hsl(var(--hue-complimentary1), 95%, 50%);
+  --complimentary2: hsl(var(--hue-complimentary2), 95%, 50%);
+  --bg-gradient: linear-gradient(to bottom, hsl(var(--hue), 95%, 99%), hsl(var(--hue), 95%, 84%));
+
+  /* BOX-SHADOWS */
+  --shine: 0 0.1rem 0.1rem 0.1rem var(--white02);
+  --shadow: 0 0.5rem 0.5rem 0 var(--black02);
+
+  /* Animation */
+  --rotate-180: rotate(-180deg);
+  --timing: .25s ease-in-out;
+
+  --font-family: "pirulenRg-Regular", "flowa";
+  --paddingS: 0.25rem;
+  --paddingM: 0.5rem;
+  --paddingL: 0.75rem;
+  --paddingXL: 1rem;
+  --paddingXXL: 2rem;
+  --padding2XXL: 4rem;
+
+  --radius: 4px;
+  --radiusx2: 8px;
+  --radiusx4: 16px;
+  --radiusx8: 32px;
+  /* 2rem */
+  --radius50: 50%;
+
+  --margin: 0.75rem;
+
+  --dot: 4px dotted var(--yellow);
+  --solid: 2px solid var(--yellow);
+  --border: 1px solid var(--black);
+
+  --gapS: 4px;
+  --gapM: 8px;
+  --gapL: 16px;
+  --gapXL: 24px;
+
+  --size: 60%;
+
+  --maxSize-s: 20vw;
+  --maxSize-m: 40vw;
+  --maxSize-l: 80vw;
+  --maxSize-XL: 96vw;
+
+  --top-right: linear-gradient(-135deg, transparent 0%, hsl(0, 0%, 0%) 0%);
+
+  --w: #fff;
+  --t: transparent;
+
+}
+
+/* make scrollbar transparent */
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+@font-face {
+  font-family: "flowa";
+  font-style: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  src: url(assets/fonts/2411256a42f5aa19.woff2) format('woff2'), 
+      url(assets/fonts/6533206472ce0592.woff) format('woff');
+}
+@font-face {
+  font-family: "pirulenRg-Regular";
+  src: url(assets/fonts/b6da8ec78632b75c.woff2) format('woff2'), 
+  url(assets/fonts/25a09268989a18dd.woff) format('woff');
+}
+
+
+/* **********************************************************************************/
+/* *********/
+/*/ CSS RESETS /*/
+/* ***********************************************************************************/
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+u,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-family: cy, sans-serif;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input[type="radio"] {
+  display: none;
+  place-content: center;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+html {
+  font-size: 100%;
+  line-height: 1.2;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*16px*/
+
+body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "flowa";
+}
+
+body,
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  padding: 0;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: var(--purple);
+}
+
+a:focus {
+  text-decoration: none;
+  color: var(--yellow);
+}
+
+a:active {
+  text-decoration: none;
+  color: var(--white);
+}
+
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+/* ****************************** Canvas definitions*/
+
+canvas.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ****************************** Text Styles */
+
+p {
+  font-size: 0.8rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+/* ****************************** Text Hovers */
+h1::before {
+  transform: scaleX(0);
+  transform-origin: bottom right;
+}
+
+h1:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+h1::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0 0 0 0;
+  background: hsl(200 100% 80%);
+  z-index: -1;
+  transition: transform .3s ease;
+}
+
+
+/* ****************************** Icon Sizes */
+
+.icon-theme {
+  width: 24px;
+  height: 24px;
+}
+
+
+/* ************************************************************ */
+/* ************************************ Grid 5x5 - 9 div grid  */
+/* ** /
+
+.parent {
+width: 100vw;
+height: 100vh;
+position: fixed;
+top: 0;   
+z-index: 0;
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+grid-template-rows: repeat(5, 1fr);
+align-items: center;
+column-gap: 0px;
+row-gap: 0px;
+pointer-events: none;
+padding: 8rem;
+ background: linear-gradient(to bottom,
+
+  var(--t) calc(50% - 0.5px), 
+  var(--w) calc(50% - 0.5px), 
+  var(--w) calc(50% + 0.5px), 
+  var(--t) calc(50% + 0.5px)),
+
+  linear-gradient(to right, 
+    var(--t) calc(50% - 0.5px), 
+    var(--w) calc(50% - 0.5px), 
+    var(--w) calc(50% + 0.5px), 
+    var(--t) calc(50% + 0.5px)), 
+  linear-gradient(45deg, 
+    var(--t) calc(50% - 0.5px), 
+    var(--w) calc(50% - 0.5px), 
+    var(--w) calc(50% + 0.5px), 
+    var(--t) calc(50% + 0.5px)), 
+  linear-gradient(-45deg, 
+    var(--t) calc(50% - 0.5px), 
+    var(--w) calc(50% - 0.5px), 
+    var(--w) calc(50% + 0.5px), 
+    var(--t) calc(50% + 0.5px));
+  }
+
+.div1 { grid-area: 1 / 1 / 2 / 2; }
+.div2 { grid-area: 1 / 5 / 2 / 6; }
+.div3 { grid-area: 3 / 5 / 4 / 6; }
+.div4 { grid-area: 3 / 1 / 4 / 2; }
+.div5 { grid-area: 5 / 1 / 6 / 2; }
+.div6 { grid-area: 5 / 3 / 6 / 4; }
+.div7 { grid-area: 5 / 5 / 6 / 6; }
+.div8 { grid-area: 3 / 3 / 4 / 4; }
+.div9 { grid-area: 1 / 3 / 2 / 4; }
+
+
+.cell { position: relative;}
+.cell:nth-of-type(even) .door::after {content: "⚙︎"; font-size: 8vmin;}
+.cell:nth-of-type(odd) .door::after {content: "⚙︎"; font-size: 8vmin;}
+
+.door {
+  width: 54vmin;
+  height: 71vmin;
+  position: absolute;
+  box-shadow: 0 0 0 1vmin var(--black), 0 0 0 calc(1vmin + 8px) var(--w), 0 0 0 10vmin var(--black);
+  box-sizing: border-box;
+  border-radius: 70vmin 70vmin 0 0 ;
+  transform: translate(-50%, -50%) scale(0.3) translateZ(0px);
+  top: 50%;
+  left: 50%;
+  background-color: var(--yellow04);
+}
+.door::before,.door::after {
+   content: "◉";
+   color: var(--w);
+   font-size: 6vmin;
+   justify-content: center;
+   align-items: center;
+   border-radius: 100%;
+   display: flex;
+   position: absolute;
+   box-sizing: border-box;
+   width: 8vmin;
+   height: 8vmin;
+   left: -10.5vmin;
+   top: calc(50% - 4vmin);
+   bottom: -10vmin;
+   animation: spin 20s linear infinite;
+}
+ @keyframes spin {
+   to {
+     transform: rotate(360deg);
+  }
+}
+.door::after { left: auto; right: -10.5vmin;}
+
+.outer {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   left: 0;
+   top: 0;
+   background: var(--t);
+   overflow: hidden;
+   border-radius: inherit;
+}
+
+.inner {
+   transform: translateY(-10vmin) translateZ(0px);
+   position: absolute;
+   width: 115%;
+   height: 140%;
+   left: -5%;
+   top: -5%;
+}
+ */
+
+/* ************************************************* */
+/* ************************************ MODAL CONTAINER  */
+/* ************************************************* */
+
+/* canvas.orb-canvas {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh; */
+  /*  pointer-events: none; */
+/* } */
+
+.modal-container {
+  position: fixed;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  opacity: 0;
+  transition: all 1s ease;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  background: var(--black08);
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.modal-container.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-container .modal {
+  width: 80vw;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  padding: 55px;
+  transition: all 1.2s ease-out;
+}
+
+
+.show-button {
+  font-size: 1rem;
+  font-family: 'PirulenRg-Regular';
+}
+
+.lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAABBJREFUCJljYGBg8GViQAEABQIAUMdse+oAAAAASUVORK5CYII=);
+}
+
+.icon-close {
+  position: absolute;
+  z-index: 2;
+  right: 10%;
+  top: 10%;
+  padding: var(--paddingXL);
+  background: var(--black04);
+}
+
+.icon-close:hover {
+  position: fixed;
+  top: 5%;
+  left: 10%;
+  transform: scale(1.2);
+  cursor: pointer;
+  transition: transform 150ms linear;
+  box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
+  background: var(--white02);
+}
+
+.modal-text {
+  text-shadow: #0ee027 0 0 0.8rem;
+  color: #0ee027;
+  font-family: "Flowa";
+  line-height: 1.5;
+  font-size: 2rem;
+  padding-top: 2vh;
+}
+
+/* Not too many browser support this yet but it's good to add! */
+@media (prefers-contrast: high) {
+  .orb-canvas {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1140px) {}
+
+@media only screen and (max-width: 840px) {}
+
+@media only screen and (max-width: 600px) {}
+
+/* ***************************************************** */
+/************************************* UI Frame elements*/
+
+.top-left {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 5.5%;
+  left: 3%;
+  width: 18%;
+  height: 4%;
+}
+
+.top-right {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 3%;
+  right: 2%;
+  max-width: 5%;
+  max-height: 2%;
+  cursor: pointer;
+}
+
+.lateral-right {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 22.5%;
+  right: 0%;
+  width: 2.5%;
+  height: 60%;
+}
+
+.diagonal-top-right {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 12%;
+  right: 0%;
+  width: 3%;
+  height: 7%;
+  cursor: pointer;
+}
+
+.bottom-left {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  bottom: 2%;
+  left: 2%;
+}
+
+.bottom-right {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  bottom: 2%;
+  right: 2%;
+}
+
+.ui-frame {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  /* box-shadow: inset 0 0 0 5vmin var(--black); */
+  pointer-events: none;
+}
+
+.ui-elements {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+@media only screen and (max-width: 40em) {}
+
+/* Tablet --> min-width 641px  */
+@media only screen and (min-width: 40.063em) {}
+
+/* Desktop --> min-width 1025px */
+@media only screen and (min-width: 64.063em) {}
+
+/* Desktop --> min-width 1441px */
+@media only screen and (min-width: 90.063em) {}
+
+/* Desktop --> min-width 1921px */
+@media only screen and (min-width: 120.063em) {}
+
+/* ************************************************* */
+/* ************************************ MUSIC PLAYER   */
+/* ************************************************* */
+
+.music-player {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  width: 20%;
+  padding: var(--padding);
+  position: fixed;
+  z-index: 10;
+  bottom: 1%;
+  right: 8%;
+}
+
+.buttons-music {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 80%;
+}
+
+#loading {
+  font-size: 0.7rem;
+}
+
+#bar01,
+#bar02,
+#bar03,
+#bar04 {
+  transition: all 1s ease-in;
+}
+
+#bar01 {}
+
+#bar02 {}
+
+#bar03 {}
+
+#bar04 {}
+
+svg:hover#sound {}
+
+@keyframes playing {
+  from {
+    transform: scaleY(80%);
+  }
+
+  to {
+    transform: scaleY(100%);
+  }
+}
+
+.marquee2 {
+  position: relative;
+  width: 24vw;
+  max-width: 100%;
+  height: 20px;
+  overflow-x: hidden;
+  font-size: 16px;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.track2 {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 16s linear infinite;
+}
+
+@keyframes marquee2 {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  height: 100px;
+  overflow-x: hidden;
+  font-size: 72px;
+}
+
+.track {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 32s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* **********************************************************************************/
+/* ****************************** /* A2HS*/
+/* ***********************************************************************************/
+
+.add-button {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+}
+
+@media only screen and (max-width: 40em) {}
+
+/* Tablet --> min-width 641px  */
+@media only screen and (min-width: 40.063em) {}
+
+/* Desktop --> min-width 1025px */
+@media only screen and (min-width: 64.063em) {}
+
+/* Desktop --> min-width 1441px */
+@media only screen and (min-width: 90.063em) {}
+
+/* Desktop --> min-width 1921px */
+@media only screen and (min-width: 120.063em) {}
+
+
+/* **********************************************************************************/
+/* ****************************** /* Retina Displays */
+/* ***********************************************************************************/
+
+/* ****************************** /* iphone 12 pro max */
+@media only screen and (-webkit-min-device-pixel-ratio: 3),
+only screen and (min--moz-device-pixel-ratio: 3),
+only screen and (-o-min-device-pixel-ratio: 3/1),
+only screen and (min-device-pixel-ratio: 3),
+only screen and (min-resolution: 458dpi),
+only screen and (min-resolution: 3dppx) {}
+
+/* ****************************** /* Retina 2x Media Query*/
+@media only screen and (-webkit-min-device-pixel-ratio: 3),
+only screen and (min--moz-device-pixel-ratio: 3),
+only screen and (-o-min-device-pixel-ratio: 3/1),
+only screen and (min-device-pixel-ratio: 3),
+only screen and (min-resolution: 384dpi),
+only screen and (min-resolution: 3dppx) {
+  /* Retina styles here */
+}
+
+/* ****************************** /* Retina 3x Media Query */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (min-device-pixel-ratio: 2),
+only screen and (min-resolution: 192dpi),
+only screen and (min-resolution: 2dppx) {
+  /* Retina styles here */
+}
+
+/* Desktop --> iPhone Orientation */
+@media only screen and (orientation:portrait) {}
+
+@media only screen and (orientation:landscape) {}
+
+/*# sourceMappingURL=main.css.map*/
