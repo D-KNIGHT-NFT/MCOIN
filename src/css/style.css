@@ -18,17 +18,122 @@
  * © 2022 MyFonts Inc
 */
 
+:root {
+
+  /* PRIMARY COLORS  **********************************/
+  --red: hsla(12, 80%, 50%, 1);
+  --red02: hsla(12, 80%, 50%, 0.2);
+  --red04: hsla(12, 80%, 50%, 0.4);
+  --red08: hsla(12, 80%, 50%, 0.8);
+
+  --yellow: hsla(76, 98%, 50%, 1);
+  --yellow02: hsla(76, 98%, 50%, 0.2);
+  --yellow04: hsla(76, 98%, 50%, 0.4);
+  --yellow08: hsla(76, 98%, 50%, 0.8);
+
+  --purple: hsla(278, 52%, 54%, 1);
+  --purple02: hsla(278, 52%, 54%, 0.2);
+  --purple04: hsla(278, 52%, 54%, 0.4);
+  --purple08: hsla(278, 52%, 54%, 0.8);
+
+  /* NEUTRALS **********************************/
+  --neutral: hsla(127, 4%, 60%, 1);
+  --neutral02: hsla(127, 4%, 60%, 0.2);
+  --neutral04: hsla(127, 4%, 60%, 0.4);
+  --neutral08: hsla(127, 4%, 60%, 0.8);
+
+  /* WHITES **********************************/
+  --white: hsla(100, 100%, 100%, 1.0);
+  --white02: hsla(100, 100%, 100%, 0.2);
+  --white04: hsla(100, 100%, 100%, 0.4);
+  --white08: hsla(100, 100%, 100%, 0.8);
+  /* BLACKS **********************************/
+  --black: hsla(0, 0%, 0%, 1.0);
+  --black02: hsla(0, 0%, 0%, 0.2);
+  --black03: hsla(0, 0%, 0%, 0.3);
+  --black04: hsla(0, 0%, 0%, 0.4);
+  --black06: hsla(0, 0%, 0%, 0.6);
+  --black08: hsla(0, 0%, 0%, 0.8);
+  --black09: hsla(0, 0%, 0%, 0.9);
+
+  --theme-color: #3c3a3a;
+  --theme-bg-color: rgb(255 255 255 / 31%);
+
+  /* ORBS **********************************/
+  --dark-color: hsl(var(--hue), 100%, 9%);
+  --light-color: hsl(var(--hue), 95%, 98%);
+  --base: hsl(var(--hue), 95%, 50%);
+  --complimentary1: hsl(var(--hue-complimentary1), 95%, 50%);
+  --complimentary2: hsl(var(--hue-complimentary2), 95%, 50%);
+  --bg-gradient: linear-gradient(to bottom, hsl(var(--hue), 95%, 99%), hsl(var(--hue), 95%, 84%));
+
+  /* BOX-SHADOWS */
+  --shine: 0 0.1rem 0.1rem 0.1rem var(--white02);
+  --shadow: 0 0.5rem 0.5rem 0 var(--black02);
+
+  /* Animation */
+  --rotate-180: rotate(-180deg);
+  --timing: .25s ease-in-out;
+
+  --font-family: "pirulenRg-Regular", "flowa";
+  --paddingS: 0.25rem;
+  --paddingM: 0.5rem;
+  --paddingL: 0.75rem;
+  --paddingXL: 1rem;
+  --paddingXXL: 2rem;
+  --padding2XXL: 4rem;
+
+  --radius: 4px;
+  --radiusx2: 8px;
+  --radiusx4: 16px;
+  --radiusx8: 32px;
+  /* 2rem */
+  --radius50: 50%;
+
+  --margin: 0.75rem;
+
+  --dot: 4px dotted var(--yellow);
+  --solid: 2px solid var(--yellow);
+  --border: 1px solid var(--black);
+
+  --gapS: 4px;
+  --gapM: 8px;
+  --gapL: 16px;
+  --gapXL: 24px;
+
+  --size: 60%;
+
+  --maxSize-s: 20vw;
+  --maxSize-m: 40vw;
+  --maxSize-l: 80vw;
+  --maxSize-XL: 96vw;
+
+  --top-right: linear-gradient(-135deg, transparent 0%, hsl(0, 0%, 0%) 0%);
+
+  --w: #fff;
+  --t: transparent;
+
+}
+
+/* make scrollbar transparent */
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 @font-face {
-  font-family: "Flowa";
+  font-family: "flowa";
   font-style: normal;
   font-weight: normal;
   font-stretch: normal;
-  src: url('webFonts/Flowa/normal_normal_normal.woff2') format('woff2'), url('webFonts/Flowa/normal_normal_normal.woff') format('woff');
+  src: url('./webfonts/flowa/normal_normal_normal.woff2') format('woff2'), 
+      url('./webfonts/flowa/normal_normal_normal.woff') format('woff');
 }
 @font-face {
-  font-family: "PirulenRg-Regular";
-  src: url('webfonts/PirulenRgRegular/font.woff2') format('woff2'), 
-  url('webfonts/PirulenRgRegular/font.woff') format('woff');
+  font-family: "pirulenRg-Regular";
+  src: url('./webfonts/pirulenRgRegular/font.woff2') format('woff2'), 
+  url('./webfonts/pirulenRgRegular/font.woff') format('woff');
 }
 
 
@@ -156,7 +261,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  font-family: "FlowaRegular";
+  font-family: "flowa";
 }
 
 body,
@@ -200,115 +305,6 @@ a:visited {
 }
 
 
-/* **********************************************************************************/
-/* *********/
-/*/ ROOT /*/
-/* ***********************************************************************************/
-
-:root {
-
-  /* PRIMARY COLORS  **********************************/
-  --red: hsla(12, 80%, 50%, 1);
-  --red02: hsla(12, 80%, 50%, 0.2);
-  --red04: hsla(12, 80%, 50%, 0.4);
-  --red08: hsla(12, 80%, 50%, 0.8);
-
-  --yellow: hsla(76, 98%, 50%, 1);
-  --yellow02: hsla(76, 98%, 50%, 0.2);
-  --yellow04: hsla(76, 98%, 50%, 0.4);
-  --yellow08: hsla(76, 98%, 50%, 0.8);
-
-  --purple: hsla(278, 52%, 54%, 1);
-  --purple02: hsla(278, 52%, 54%, 0.2);
-  --purple04: hsla(278, 52%, 54%, 0.4);
-  --purple08: hsla(278, 52%, 54%, 0.8);
-
-  /* NEUTRALS **********************************/
-  --neutral: hsla(127, 4%, 60%, 1);
-  --neutral02: hsla(127, 4%, 60%, 0.2);
-  --neutral04: hsla(127, 4%, 60%, 0.4);
-  --neutral08: hsla(127, 4%, 60%, 0.8);
-
-  /* WHITES **********************************/
-  --white: hsla(100, 100%, 100%, 1.0);
-  --white02: hsla(100, 100%, 100%, 0.2);
-  --white04: hsla(100, 100%, 100%, 0.4);
-  --white08: hsla(100, 100%, 100%, 0.8);
-  /* BLACKS **********************************/
-  --black: hsla(0, 0%, 0%, 1.0);
-  --black02: hsla(0, 0%, 0%, 0.2);
-  --black03: hsla(0, 0%, 0%, 0.3);
-  --black04: hsla(0, 0%, 0%, 0.4);
-  --black06: hsla(0, 0%, 0%, 0.6);
-  --black08: hsla(0, 0%, 0%, 0.8);
-  --black09: hsla(0, 0%, 0%, 0.9);
-
-  --theme-color: #3c3a3a;
-  --theme-bg-color: rgb(255 255 255 / 31%);
-
-  /* ORBS **********************************/
-  --dark-color: hsl(var(--hue), 100%, 9%);
-  --light-color: hsl(var(--hue), 95%, 98%);
-  --base: hsl(var(--hue), 95%, 50%);
-  --complimentary1: hsl(var(--hue-complimentary1), 95%, 50%);
-  --complimentary2: hsl(var(--hue-complimentary2), 95%, 50%);
-  --bg-gradient: linear-gradient(to bottom, hsl(var(--hue), 95%, 99%), hsl(var(--hue), 95%, 84%));
-
-  /* BOX-SHADOWS */
-  --shine: 0 0.1rem 0.1rem 0.1rem var(--white02);
-  --shadow: 0 0.5rem 0.5rem 0 var(--black02);
-
-  /* Animation */
-  --rotate-180: rotate(-180deg);
-  --timing: .25s ease-in-out;
-
-  --font-family: "Flowa", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-  --paddingS: 0.25rem;
-  --paddingM: 0.5rem;
-  --paddingL: 0.75rem;
-  --paddingXL: 1rem;
-  --paddingXXL: 2rem;
-  --padding2XXL: 4rem;
-
-  --radius: 4px;
-  --radiusx2: 8px;
-  --radiusx4: 16px;
-  --radiusx8: 32px;
-  /* 2rem */
-  --radius50: 50%;
-
-  --margin: 0.75rem;
-
-  --dot: 4px dotted var(--yellow);
-  --solid: 2px solid var(--yellow);
-  --border: 1px solid var(--black);
-
-  --gapS: 4px;
-  --gapM: 8px;
-  --gapL: 16px;
-  --gapXL: 24px;
-
-  --size: 60%;
-
-  --maxSize-s: 20vw;
-  --maxSize-m: 40vw;
-  --maxSize-l: 80vw;
-  --maxSize-XL: 96vw;
-
-  --top-right: linear-gradient(-135deg, transparent 0%, hsl(0, 0%, 0%) 0%);
-
-  --w: #fff;
-  --t: transparent;
-
-}
-
-/* make scrollbar transparent */
-
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
 
 /* ****************************** Canvas definitions*/
 

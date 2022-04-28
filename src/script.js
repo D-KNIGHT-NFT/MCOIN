@@ -1,8 +1,8 @@
 import './css/style.css'
-import './css/webfonts/Flowa/normal_normal_normal.woff'
-import './css/webfonts/Flowa/normal_normal_normal.woff2'
-import './css/webfonts/PirulenRgRegular/font.woff'
-import './css/webfonts/PirulenRgRegular/font.woff2'
+import './css/webfonts/flowa/normal_normal_normal.woff'
+import './css/webfonts/flowa/normal_normal_normal.woff2'
+import './css/webfonts/pirulenRgRegular/font.woff'
+import './css/webfonts/pirulenRgRegular/font.woff2'
 
 import * as THREE from 'three'
 import gsap from 'gsap'
@@ -214,7 +214,7 @@ RectAreaLightUniformsLib.init(); // Initiator Rect Area Lights
 
 // Lights Inside Glass Bubble 
 
-const light1 = new THREE.PointLight(0xff0040, 20.0, 1000, 2);
+const light1 = new THREE.PointLight(0x800040, 20.0, 1000, 2);
 scene.add(light1);
 const light2 = new THREE.PointLight(0x0040ff, 20.0, 1000, 2);
 scene.add(light2);
@@ -286,7 +286,7 @@ const count = 777
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#f0040').convertSRGBToLinear() //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('#31FF9C').convertSRGBToLinear() //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -376,12 +376,8 @@ scene.background = environmentMap
 
 // } );
 
-const radius = 0.5,
-  segments = 128,
-  rings = 128;
-
+const radius = 0.5,segments = 128,rings = 128;
 const geometry = new THREE.SphereGeometry(radius, segments, rings);
-
 const glassmaterial = new THREE.MeshPhysicalMaterial({
   reflectivity: 1.0,
   transmission: 1.0,
@@ -391,32 +387,18 @@ const glassmaterial = new THREE.MeshPhysicalMaterial({
   clearcoatRoughness: 0.25,
   color: new THREE.Color('#ffffff').convertSRGBToLinear(),
   ior: 1.5,
-  // side: THREE.DoubleSide,
-  // precision: "highp",
-  // alphaTest: 1.0,
-  // color: 0xffffff,
-  // fog: false,
-  // transmission: 1.0,
-  // opacity: 1,
-  // metalness: 0.1,
-  // roughness: 0,
-  // ior: 2.0,
-  // thickness: 0.01,
-  // specularIntensity: 1,
-  // specularColor: 0xffffff,
-  // envMap: environmentMap,
-  // envMapIntensity: 2.0
+  precision: "highp",
+  alphaTest: 1,
+  envMap: environmentMap,
 });
 glassmaterial.thickness = 30.0
 
-// const displacement = new Float32Array( geometry.attributes.position.count );
-// const noise = new Float32Array( geometry.attributes.position.count ); 
-// for ( let i = 0; i < displacement.length; i ++ ) {
-
-//   noise[ i ] = Math.random() * 5;
-
-// }
-// geometry.setAttribute( 'displacement', new THREE.BufferAttribute( displacement, 1 ) );
+const displacement = new Float32Array( geometry.attributes.position.count );
+const noise = new Float32Array( geometry.attributes.position.count ); 
+for ( let i = 0; i < displacement.length; i ++ ) {
+noise[ i ] = Math.random() * 5;
+}
+geometry.setAttribute( 'displacement', new THREE.BufferAttribute( displacement, 1 ) );
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0)
@@ -570,7 +552,7 @@ let fMaterial = new THREE.MeshPhysicalMaterial(
   metalness: 0,
   clearcoat: 0.3,
   clearcoatRoughness: 0.25,
-  color: new THREE.Color('#ffffff').convertSRGBToLinear(),
+  color: new THREE.Color('#31FF9C').convertSRGBToLinear(),
   ior: 1.5,
   side: THREE.DoubleSide,
   precision: "highp",
@@ -585,7 +567,7 @@ gltfLoader.load('models/UI/scene.gltf', (gltf) => {
   uiFrame = gltf.scene
   uiFrame.scale.set(0.05, 0.05, 0.05)
   uiFrame.position.set(0, 0, 0)
-  uiFrame.rotation.set(0, 90, 0)
+  uiFrame.rotation.set(0, -90, 0)
   scene.add(uiFrame)
 
   uiFrame.traverse((o) => {
