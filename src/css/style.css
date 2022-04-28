@@ -1,4 +1,40 @@
 @import url("//hello.myfonts.net/count/482c9b");
+@charset "UTF-8";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* @font-face {
+  font-family: "flowa";
+  font-style: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  src: url('.../fonts/flowa.woff2') format('woff2'), 
+      url('.../fonts/flowa.woff') format('woff');
+}
+@font-face {
+  font-family: "pirulenRg-Regular";
+  src: url('./src/fonts/font.woff2') format('woff2'), 
+  url('./src/fonts/font.woff') format('woff');
+}
+ */
 /**
  * @license
  * MyFonts Webfont Build ID 4730011, 2022-04-25T00:02:50-0400
@@ -122,106 +158,37 @@
   background: transparent;
 }
 
-@font-face {
-  font-family: "flowa";
-  font-style: normal;
-  font-weight: normal;
-  font-stretch: normal;
-  src: url('./webfonts/flowa/normal_normal_normal.woff2') format('woff2'), 
-      url('./webfonts/flowa/normal_normal_normal.woff') format('woff');
-}
-@font-face {
-  font-family: "pirulenRg-Regular";
-  src: url('./webfonts/pirulenRgRegular/font.woff2') format('woff2'), 
-  url('./webfonts/pirulenRgRegular/font.woff') format('woff');
-}
-
-
 /* **********************************************************************************/
-/* *********/
 /*/ CSS RESETS /*/
 /* ***********************************************************************************/
 
-html,
-body,
-div,
-span,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-address,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strong,
-sub,
-sup,
-var,
-b,
-u,
-i,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-family: cy, sans-serif;
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
 }
 
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
 article,
 aside,
 details,
@@ -304,8 +271,6 @@ a:visited {
   color: inherit;
 }
 
-
-
 /* ****************************** Canvas definitions*/
 
 canvas.webgl {
@@ -368,6 +333,24 @@ h1::before {
   height: 24px;
 }
 
+/* ****************************** Gradient effect */
+
+/* .home__wrapper:before, .home__wrapper:after {
+  content: "";
+  height: 35rem;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+.home__wrapper:before {
+  background: linear-gradient(to bottom, #C97164 15%, rgba(201, 113, 100, 0) 100%);
+  top: 0;
+}
+.home__wrapper:after {
+  background: linear-gradient(to top, #C97164 15%, rgba(201, 113, 100, 0) 100%);
+  bottom: 0;
+} */
 
 /* ************************************************************ */
 /* ************************************ Grid 5x5 - 9 div grid  */
@@ -648,7 +631,7 @@ padding: 8rem;
 
 .ui-frame {
   position: absolute;
-  z-index: 4;
+  z-index: -1;
   top: 0;
   left: 0;
   width: 100vw;

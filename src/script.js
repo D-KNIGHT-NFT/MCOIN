@@ -1,8 +1,4 @@
 import './css/style.css'
-import './css/webfonts/flowa/normal_normal_normal.woff'
-import './css/webfonts/flowa/normal_normal_normal.woff2'
-import './css/webfonts/pirulenRgRegular/font.woff'
-import './css/webfonts/pirulenRgRegular/font.woff2'
 
 import * as THREE from 'three'
 import gsap from 'gsap'
