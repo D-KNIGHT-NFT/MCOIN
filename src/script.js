@@ -1,22 +1,25 @@
 import './css/style.css'
-// Main Libraries
-import $ from "jquery";
+import './css/webfonts/Flowa/normal_normal_normal.woff'
+import './css/webfonts/Flowa/normal_normal_normal.woff2'
+import './css/webfonts/PirulenRgRegular/font.woff'
+import './css/webfonts/PirulenRgRegular/font.woff2'
+
 import * as THREE from 'three'
-import * as PIXI from "pixi.js"
-import { SVG, extend as SVGextend, Element as SVGElement } from '@svgdotjs/svg.js'
 import gsap from 'gsap'
 import { easePack } from 'gsap'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
-import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls.js';
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
-// LOADERS
+
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-import Proton from "proton-engine";
+
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
+
 // POST-PROCESSING
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
@@ -29,8 +32,7 @@ import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js
 import { SobelOperatorShader } from 'three/examples/jsm/shaders/SobelOperatorShader.js';
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
+
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
 import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
@@ -40,10 +42,7 @@ import { InteractiveGroup } from 'three/examples/jsm/interactive/InteractiveGrou
 import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory.js';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
 import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
-import { KawaseBlurFilter } from "@pixi/filter-kawase-blur";
-import SimplexNoise from "simplex-noise";
-import hsl from "hsl-to-hex";
-import debounce from "debounce";
+
 
 ////////////////////////////////////////////////////////////////////
 // SHOW MODAL INFO
@@ -60,7 +59,6 @@ const toggleModal = () => {
 
 showBtn.addEventListener('click', toggleModal);
 modalBtn.addEventListener('click', toggleModal);
-
 
 
 ////////////////////////////////////////////////////////////////////
@@ -114,242 +112,6 @@ class Hover3D {
 
 let myHover3D = new Hover3D(".div1");
 
-
-////////////////////////////////////////////////////////////////////
-// svg / Pixie 
-///////////////
-
-// // Create PixiJS app
-// const pixieApp = new PIXI.Application({
-//   view: document.querySelector(".orb-canvas"),
-//   resizeTo: window
-// });
-
-// pixieApp.stage.filters = [new KawaseBlurFilter(30, 10, true)];
-
-// // JS UTILITY FUNCTIONS
-
-// // return a random number within a range
-// function random(min, max) {
-//   return Math.random() * (max - min) + min;
-// }
-
-// // map a number from 1 range to another
-// function map(n, start1, end1, start2, end2) {
-//   return ((n - start1) / (end1 - start1)) * (end2 - start2) + start2;
-// }
-
-// // Create a new simplex noise instance
-// const simplex = new SimplexNoise();
-
-// // Orb class
-// class Orb {
-//   // Pixi takes hex colors as hexidecimal literals (0x rather than a string with '#')
-//   constructor(fill = 0x000000) {
-//     // bounds = the area an orb is "allowed" to move within
-//     this.bounds = this.setBounds();
-//     // initialise the orb's { x, y } values to a random point within it's bounds
-//     this.x = random(this.bounds["x"].min, this.bounds["x"].max);
-//     this.y = random(this.bounds["y"].min, this.bounds["y"].max);
-
-//     // how large the orb is vs it's original radius (this will modulate over time)
-//     this.scale = 0.5;
-
-//     // what color is the orb?
-//     this.fill = fill;
-
-//     // the original radius of the orb, set relative to window height
-//     this.radius = random(window.innerHeight / 1, window.innerHeight / 1);
-
-//     // starting points in "time" for the noise/self similar random values
-//     this.xOff = random(0, 1000);
-//     this.yOff = random(0, 1000);
-//     // how quickly the noise/self similar random values step through time
-//     this.inc = 0.002;
-
-//     // PIXI.Graphics is used to draw 2d primitives (in this case a circle) to the canvas
-//     this.graphics = new PIXI.Graphics();
-//     this.graphics.alpha = 0.6;
-
-//     // 250ms after the last window resize event, recalculate orb positions.
-//     window.addEventListener(
-//       "resize",
-//       debounce(() => {
-//         this.bounds = this.setBounds();
-//       }, 250)
-//     );
-//   }
-//   setBounds() {
-//     // how far from the { x, y } origin can each orb move
-//     const maxDist =
-//         window.innerWidth < 1000 ? window.innerWidth / 4 : window.innerWidth / 4;
-//     // the { x, y } origin for each orb (the bottom right of the screen)
-//     const originX = window.innerWidth / 4;
-//     const originY =
-//         window.innerWidth < 1000
-//         ? window.innerHeight
-//         : window.innerHeight / 8;
-
-//     // allow each orb to move x distance away from it's { x, y }origin
-//     return {
-//         x: {
-//         min: originX - maxDist,
-//         max: originX + maxDist
-//         },
-//         y: {
-//         min: originY - maxDist,
-//         max: originY + maxDist
-//         }
-//     };
-//   }
-//   update() {
-//     // self similar "psuedo-random" or noise values at a given point in "time"
-//     const xNoise = simplex.noise2D(this.xOff, this.xOff);
-//     const yNoise = simplex.noise2D(this.yOff, this.yOff);
-//     const scaleNoise = simplex.noise2D(this.xOff, this.yOff);
-
-//     // map the xNoise/yNoise values (between -1 and 1) to a point within the orb's bounds
-//     this.x = map(xNoise, -1, 1, this.bounds["x"].min, this.bounds["x"].max);
-//     this.y = map(yNoise, -1, 1, this.bounds["y"].min, this.bounds["y"].max);
-//     // map scaleNoise (between -1 and 1) to a scale value somewhere between half of the orb's original size, and 100% of it's original size
-//     this.scale = map(scaleNoise, -1, 1, 0, 1);
-
-//     // step through "time"
-//     this.xOff += this.inc;
-//     this.yOff += this.inc;
-//   }
-//   render() {
-//     // update the PIXI.Graphics position and scale values
-//     this.graphics.x = this.x;
-//     this.graphics.y = this.y;
-//     this.graphics.scale.set(this.scale);
-
-//     // clear anything currently drawn to graphics
-//     this.graphics.clear();
-//     this.graphics.backgroundAlpha;
-
-//     // tell graphics to fill any shapes drawn after this with the orb's fill color
-//     this.graphics.beginFill(this.fill);
-//     // draw a circle at { 0, 0 } with it's size set by this.radius
-//     this.graphics.drawCircle(0, 0, this.radius);
-//     // let graphics know we won't be filling in any more shapes
-//     this.graphics.endFill();
-//   }
-// }
-
-// class ColorPalette {
-//   constructor() {
-//     this.setColors();
-//     this.setCustomProperties();
-//   }
-
-//   setColors() {
-//     this.hue = ~~random(0, 660);
-//     this.complimentaryHue1 = this.hue + 30;
-//     this.complimentaryHue2 = this.hue + 60;
-
-//     this.saturation = 80;
-//     this.lightness = 50;
-
-//     this.baseColor = hsl(this.hue, this.saturation, this.lightness);
-
-//     this.complimentaryColor1 = hsl(
-//       this.complimentaryHue1,
-//       this.saturation,
-//       this.lightness
-//     );
-
-//     this.complimentaryColor2 = hsl(
-//       this.complimentaryHue2,
-//       this.saturation,
-//       this.lightness
-//     );
-
-//     this.colorChoices = [
-//       this.baseColor,
-//       this.complimentaryColor1,
-//       this.complimentaryColor2
-//     ];
-//   }
-
-//   randomColor() {
-//     // pick a random color
-//     return this.colorChoices[~~random(0, this.colorChoices.length)].replace(
-//       "#",
-//       "0x"
-//     );
-//   }
-
-//   setCustomProperties() {
-//     // set CSS custom properties so that the colors defined here can be used throughout the UI
-//     document.documentElement.style.setProperty("--hue", this.hue);
-//     document.documentElement.style.setProperty(
-//       "--hue-complimentary1",
-//       this.complimentaryHue1
-//     );
-//     document.documentElement.style.setProperty(
-//       "--hue-complimentary2",
-//       this.complimentaryHue2
-//     );
-//   }
-// }
-
-// const colorPalette = new ColorPalette();
-
-// // Create orbs
-// const orbs = [];
-
-// for (let i = 0; i < 60; i++) {
-//   // each orb will be black, just for now
-//   const orb = new Orb(colorPalette.randomColor());
-//   pixieApp.stage.addChild(orb.graphics);
-
-//   orbs.push(orb);
-// }
-
-// // ACCESIBILITY
-// if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-//   pixieApp.ticker.add(() => {
-//     // update and render each orb, each frame. app.ticker attempts to run at 60fps
-//     orbs.forEach((orb) => {
-//       orb.update();
-//       orb.render();
-//     });
-//   });
-// } else {
-//   // perform one update and render per orb, do not animate
-//   orbs.forEach((orb) => {
-//     orb.update();
-//     orb.render();
-//   });
-// }
-
-// let object = {
-//   el: '.orb-canvas',
-//   duration: 8
-// }
-
-// gsap.fromTo(object.el, object.duration, {
-//   opacity: 5,
-//   y: '+=180',
-//   x: 0,
-//   scale: 2,
-//   transformOrigin: 'center'
-// }, {
-//   opacity: 0,
-//   y: '-=180',
-//   x: Math.PI * 2,
-//   modifiers: {
-//     x: function(x) {
-//       return Math.sin(parseFloat(x)) * -30 + "px";
-//     }
-//   },
-//   scale: 0,
-//   stagger: {
-//     each: object.duration / document.querySelectorAll(object.el).length, 
-//     repeat: 0
-//   }
-// });
 
 ////////////////////////////////////////////////////////////////////
 // DEBUGGER 
@@ -799,47 +561,37 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) => {
 
 })
 
-// let frame;
+let uiFrame;
+let fMaterial = new THREE.MeshPhysicalMaterial(
+{
+  reflectivity: 1.0,
+  transmission: 1.0,
+  roughness: 0,
+  metalness: 0,
+  clearcoat: 0.3,
+  clearcoatRoughness: 0.25,
+  color: new THREE.Color('#ffffff').convertSRGBToLinear(),
+  ior: 1.5,
+  side: THREE.DoubleSide,
+  precision: "highp",
+  emissive: 0.4,
+  alphaTest: 1.0,
+  specularIntensity: 1,
+  specularColor: 0xffffff,
+});
+fMaterial.thickness = 20.0
 
-// gltfLoader.load('models/UI/scene.gltf', (gltf) =>
-//     {
-//         frame = gltf.scene
-//         frame.scale.set(0.05, 0.05, 0.05)
-//         frame.position.set(0, 0, 0)
-//         frame.rotation.set(0, 0, 0)
-//         scene.add(frame)
+gltfLoader.load('models/UI/scene.gltf', (gltf) => {
+  uiFrame = gltf.scene
+  uiFrame.scale.set(0.05, 0.05, 0.05)
+  uiFrame.position.set(0, 0, 0)
+  uiFrame.rotation.set(0, 90, 0)
+  scene.add(uiFrame)
 
-
-//         let uiMaterial= new THREE.MeshPhysicalMaterial( 
-//                { 
-//                  reflectivity: 1.0,
-//                  transmission: 1.0,
-//                  roughness: 0,
-//                  metalness: 0,
-//                  clearcoat: 0.3,
-//                  clearcoatRoughness: 0.25,
-//                  color: new THREE.Color('#ffffff').convertSRGBToLinear(),
-//                  ior: 1.5,
-//                // side: THREE.DoubleSide,
-//                precision: "highp",
-//                // emissive: 0.4,
-//                // alphaTest: 1.0,
-//                // fog: false,
-//                specularIntensity: 1,
-//                specularColor: 0xffffff,
-//                // envMap: environmentMap,
-//                // envMapIntensity: 2.0
-//                });
-//                logoMaterial.thickness =   50.0
-
-//         frame.traverse((o) => {
-//           if (o.isMesh) o.material = uiMaterial;
-//         });
-
-
-
-//     }
-// )
+  uiFrame.traverse((o) => {
+    if (o.isMesh) o.material = fMaterial;
+  });
+})
 
 const planeC = new THREE.CylinderGeometry(0.4, 0.4, 0.02, 64, 8, false)
 const planeMat = new THREE.MeshPhysicalMaterial({
