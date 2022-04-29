@@ -7,13 +7,15 @@ import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
+import { Pane } from 'tweakpane';
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-
+import SplineLoader from '@splinetool/loader';
+import SplineRuntime from '@splinetool/runtime';
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
 
 // POST-PROCESSING
@@ -28,7 +30,7 @@ import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js
 import { SobelOperatorShader } from 'three/examples/jsm/shaders/SobelOperatorShader.js';
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera.js';
-
+import { CopyShader } from 'three/examples/jsm/shaders/CopyShader.js';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
 import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
@@ -109,9 +111,18 @@ class Hover3D {
 let myHover3D = new Hover3D(".div1");
 
 
+
 ////////////////////////////////////////////////////////////////////
-// DEBUGGER 
+// DEBUGGER- TWEAK PANE
 ///////////////
+
+
+
+// HELPERS
+///////////////
+
+// const axisHelp = new THREE.AxesHelper()
+//scene.add( axisHelp )
 
 
 ////////////////////////////////////////////////////////////////////
@@ -319,13 +330,38 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-4/');
+cubeTextureLoader.setPath('textures/environmentMap/level-1/');
 const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
 
 scene.environment = environmentMap
 scene.background = environmentMap
+
+////////////////////////////////////////////////////////////////////
+// VIDEO TEXTURE
+///////////////
+
+const video = document.getElementById('video');
+const vTexture = new THREE.VideoTexture(video);
+const startButton = document.getElementById('startButton');
+
+startButton.addEventListener('click', function() { video.play(); });
+
+video.addEventListener('play', function() {
+  this.currentTime = 3;
+});
+
+const xsize = 1080;
+const ysize = 1080;
+
+const parameters = { color: 0xffffff, map: vTexture };
+const geometryV = new THREE.BoxGeometry(0.4, 0.2, 0.01);
+const materialV = new THREE.MeshLambertMaterial(parameters);
+const videoObject = new THREE.Mesh(geometryV, materialV);
+
+videoObject.position.set(0, 0.2, 0.3)
+scene.add(videoObject)
 
 ////////////////////////////////////////////////////////////////////
 // Enviroment & Background alternatives
@@ -353,7 +389,6 @@ scene.background = environmentMap
 // MESHES + LOADERS
 ///////////////
 
-
 // const uniforms = {
 
 // 'amplitude': { value: 1.0 },
@@ -372,7 +407,9 @@ scene.background = environmentMap
 
 // } );
 
-const radius = 0.5,segments = 128,rings = 128;
+const radius = 0.5,
+  segments = 128,
+  rings = 128;
 const geometry = new THREE.SphereGeometry(radius, segments, rings);
 const glassmaterial = new THREE.MeshPhysicalMaterial({
   reflectivity: 1.0,
@@ -389,12 +426,12 @@ const glassmaterial = new THREE.MeshPhysicalMaterial({
 });
 glassmaterial.thickness = 30.0
 
-const displacement = new Float32Array( geometry.attributes.position.count );
-const noise = new Float32Array( geometry.attributes.position.count ); 
-for ( let i = 0; i < displacement.length; i ++ ) {
-noise[ i ] = Math.random() * 5;
+const displacement = new Float32Array(geometry.attributes.position.count);
+const noise = new Float32Array(geometry.attributes.position.count);
+for (let i = 0; i < displacement.length; i++) {
+  noise[i] = Math.random() * 5;
 }
-geometry.setAttribute( 'displacement', new THREE.BufferAttribute( displacement, 1 ) );
+geometry.setAttribute('displacement', new THREE.BufferAttribute(displacement, 1));
 
 const glassphere = new THREE.Mesh(geometry, glassmaterial);
 glassphere.position.set(0, 0, 0)
@@ -404,27 +441,36 @@ scene.add(glassphere);
 // FBX LOADER
 ///////////////
 
+let kidMixer;
+
 const fbxLoader = new FBXLoader()
 fbxLoader.load(
-  'models/FBX/stickman.fbx',
-  (object) => {
+  'models/fbx/Petting.fbx', (object) => {
+    kidMixer = new THREE.AnimationMixer(object);
+    const action = kidMixer.clipAction(object.animations[0]);
+    action.play();
+
     object.traverse(function(object) {
       if (object.isMesh) {
         object.material.envMap = environmentMap;
         object.castShadow = true;
+        object.receiveShadow = true;
       }
     });
-    object.scale.set(.0014, .0014, .0014)
-    object.position.set(-0.1, 0, 0)
     scene.add(object)
-  },
-  (xhr) => {
-    console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
-  },
-  (error) => {
-    console.log(error)
-  }
-)
+    object.scale.set(.0014, .0014, .0014)
+    object.position.set(-0.07, 0, -0.07)
+    object.rotation.set(0, 45, 0)
+ });
+
+/*const baseColorMap = textureLoader.load("models/fbx/Rainbow_baseColor.png");
+const metallicMap = textureLoader.load("models/fbx/Rainbow_metallic.png");
+const roughnessMap = textureLoader.load("models/fbx/Rainbow_roughness.png");
+  map: baseColorMap;
+  metalnessMap: metallicMap;
+  roughnessMap;
+*/
+
 
 // GLTF  LOADER
 ///////////////
@@ -455,8 +501,6 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) => {
 
 // /*** Load HTDI Logo model **/
 gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) => {
-  // Model
-
   gltf.scene.scale.set(0.018, 0.018, 0.018)
   gltf.scene.position.set(0, 0, 0)
   gltf.scene.rotation.set(0, 0, 0)
@@ -506,14 +550,14 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) => {
 
 })
 
-let htdi;
+let creativEnergy;
 
 gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) => {
-  htdi = gltf.scene
-  htdi.scale.set(0.004, 0.004, 0.004)
-  htdi.position.set(0.1, 0.07, 0)
-  htdi.rotation.set(0, 0, 0)
-  scene.add(htdi)
+  creativEnergy = gltf.scene
+  creativEnergy.scale.set(0.004, 0.004, 0.004)
+  creativEnergy.position.set(0.1, 0.07, 0)
+  creativEnergy.rotation.set(0, 0, 0)
+  scene.add(creativEnergy)
 
 
   let singleMaterial = new THREE.MeshLambertMaterial({
@@ -523,13 +567,13 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) => {
 
   });
 
-  htdi.traverse((o) => {
+  creativEnergy.traverse((o) => {
     if (o.isMesh) o.material = singleMaterial;
   });
 
   // Animations
 
-  gsap.to(htdi.rotation, {
+  gsap.to(creativEnergy.rotation, {
     duration: 100,
     ease: "none",
     y: "+=180",
@@ -539,37 +583,45 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) => {
 
 })
 
-let uiFrame;
-let fMaterial = new THREE.MeshPhysicalMaterial(
-{
-  reflectivity: 1.0,
-  transmission: 1.0,
-  roughness: 0,
-  metalness: 0,
-  clearcoat: 0.3,
-  clearcoatRoughness: 0.25,
-  color: new THREE.Color('#31FF9C').convertSRGBToLinear(),
-  ior: 1.5,
-  side: THREE.DoubleSide,
-  precision: "highp",
-  emissive: 0.4,
-  alphaTest: 1.0,
-  specularIntensity: 1,
-  specularColor: 0xffffff,
-});
-fMaterial.thickness = 20.0
+// const loader = new SplineLoader();
+// loader.load(
+//   'https://prod.spline.design/POeTP0HB0P1sEG9n/scene.spline',
+//   (splineScene) => {
+//     scene.add(splineScene);
+//   }
+// );
 
-gltfLoader.load('models/UI/scene.gltf', (gltf) => {
-  uiFrame = gltf.scene
-  uiFrame.scale.set(0.05, 0.05, 0.05)
-  uiFrame.position.set(0, 0, 0)
-  uiFrame.rotation.set(0, -90, 0)
-  scene.add(uiFrame)
+// let uiFrame;
+// let fMaterial = new THREE.MeshPhysicalMaterial(
+// {
+//   reflectivity: 1.0,
+//   transmission: 1.0,
+//   roughness: 0,
+//   metalness: 0,
+//   clearcoat: 0.3,
+//   clearcoatRoughness: 0.25,
+//   color: new THREE.Color('#31FF9C').convertSRGBToLinear(),
+//   ior: 1.5,
+//   side: THREE.DoubleSide,
+//   precision: "highp",
+//   emissive: 0.4,
+//   alphaTest: 1.0,
+//   specularIntensity: 1,
+//   specularColor: 0xffffff,
+// });
+// fMaterial.thickness = 20.0
 
-  uiFrame.traverse((o) => {
-    if (o.isMesh) o.material = fMaterial;
-  });
-})
+// gltfLoader.load('models/UI/scene.gltf', (gltf) => {
+//   uiFrame = gltf.scene
+//   uiFrame.scale.set(0.05, 0.05, 0.05)
+//   uiFrame.position.set(0, 0, 0)
+//   uiFrame.rotation.set(0, -90, 0)
+//   scene.add(uiFrame)
+
+//   uiFrame.traverse((o) => {
+//     if (o.isMesh) o.material = fMaterial;
+//   });
+// })
 
 const planeC = new THREE.CylinderGeometry(0.4, 0.4, 0.02, 64, 8, false)
 const planeMat = new THREE.MeshPhysicalMaterial({
@@ -662,8 +714,8 @@ window.addEventListener('resize', () => {
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 0.1, 1000)
-camera.position.set(4, 1, 4)
+const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height, 0.1, 1000)
+camera.position.set(4, 3, 4)
 scene.add(camera)
 
 // Ortographic Camera
@@ -688,12 +740,12 @@ const controls = new OrbitControls(camera, canvas)
 controls.enable = true
 controls.enableDamping = true
 controls.dampingFactor = 0.05;
-controls.enablePan = true;
+controls.enablePan = false;
 controls.autoRotate = true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
 controls.minDistance = 0.3;
-controls.maxDistance = 4.5;
+controls.maxDistance = 7.0;
 controls.target.set(0, 0, 0);
 
 ////////////////////////////////////////////////////////////////////
@@ -723,6 +775,8 @@ finalComposer.addPass(renderScene);
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.15, 0.0011, 0.05);
 finalComposer.addPass(bloomPass);
 
+const effectCopy = new ShaderPass(CopyShader);
+finalComposer.addPass(effectCopy);
 
 // const effectGrayScale = new ShaderPass( LuminosityShader );
 // finalComposer.addPass( effectGrayScale );
@@ -810,9 +864,11 @@ const tick = () => {
 
 
   // Fox animation
-  if (foxMixer) {
-    foxMixer.update(deltaTime)
-  }
+  if (foxMixer) { foxMixer.update(deltaTime) }
+
+  // Kid animation
+  if (kidMixer) { kidMixer.update(deltaTime) };
+
   // Render
   finalComposer.render(scene, camera)
 
