@@ -31,7 +31,7 @@
   <canvas class="webgl"></canvas>
 
   <!---------------------- Music data  ------------>
-  <audio autoplay loop id="music" preload="metadata">
+  <audio loop id="music" preload="metadata">
     <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
     <source src="/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg">
     <!-- place fallback here as <audio> supporting browsers will ignore it -->
@@ -57,12 +57,13 @@
     <div class="lines"></div>
     <div class="modal">
       <!-- Description -->
-      <h2 class="modal-text">A shifting in reality. An obscured crossroad. Banishment undefined. Deep intuition, a catalist . I would like to share the works made during the last 2 years during lockdowns and what more. An inner journey of ancient wisdom and connected minds. The players? A lone Wolf, a curious child and the imagination motor. An oniric environment for intentional creation and recreation. Stories of resilience and self-determination.
-        <!--  Conquer equality and equity within diversity. A "humanhood" to find creative allyships to debug complex issues. -->
-        This is a WIP and "living" space, imperfect but transparent. Feedback much appreciated on 
-        <a href="https://twitter.com/3dknightdi">Twitter</a>
-      </h2>
+      <h2 class="modal-text">A shifting in reality. An obscured crossroad. Banishment undefined. A catalyst to break through, it is to trust your deep intuition.<br>This space, serves for me as a sanctuary, a mausoleo of memories, learnings, deceives and determination. The works presented, were born 2 years ago. Bringing this project to fruition, it is a very much needed release with full intentional motifs<br> Many of the artwork, are extracts of an inner journey of ancient wisdom and connected minds. The protagonists for this quest: A lone Wolf, a curious child and the creative motor, source of all answers. I hope you enjoy the oniric environment intended for both, creation and recreation.<br>
+      As a WIP and "living" space, imperfect but transparent, feedback or comments are highly appreciated.<br></h2>
     </div>
+    <div class="socials">
+      <a href="https://www.twitter.com/3dknightdi">Twitter</a>
+      <a href="https://www.instagram.com/3dknightdi">Instagram</a>
+   </div>
   </div>
   <!---------------------- User Interface  ------------>
   <div class="ui-frame">
@@ -89,7 +90,11 @@
       </defs>
     </svg>
   </div>
-  <div class="top-left">
+  <div class="overlay" id="overlay-top"></div>
+  <div class="overlay" id="overlay-bottom"></div>
+
+  <div class="mark-wrapper">
+  <div class="mark">
     <svg  width=100% height=100% 
     viewBox="0 0 259 63"
     preserveAspectRatio="none"  fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -165,6 +170,8 @@
    </radialGradient>
    </defs>
    </svg>
+ </div>
+</div>
 
   <div class="bottom-right">
     <svg width="105" height="101" viewBox="0 0 105 101" fill="none" xmlns="http://www.w3.org/2000/svg">
