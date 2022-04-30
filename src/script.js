@@ -67,11 +67,11 @@ modalBtn.addEventListener('click', toggleModal);
 class Hover3D {
   constructor(id) {
     this.id = id;
-    this.xOffset = 10;
-    this.yOffset = 10;
+    this.xOffset = 8;
+    this.yOffset = 8;
     this.attack = 0.1;
     this.release = 0.5;
-    this.perspective = 500;
+    this.perspective = 400;
     this.create();
   }
 
@@ -108,7 +108,7 @@ class Hover3D {
   }
 }
 
-let myHover3D = new Hover3D(".div1");
+let myHover3D = new Hover3D(".mark");
 
 
 
@@ -288,7 +288,7 @@ scene.add(rectLight4);
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 777
+const count = 39
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
@@ -330,7 +330,7 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-1/');
+cubeTextureLoader.setPath('textures/environmentMap/level-5/');
 const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
@@ -407,9 +407,7 @@ scene.add(videoObject)
 
 // } );
 
-const radius = 0.5,
-  segments = 128,
-  rings = 128;
+const radius = 0.5,segments = 128,rings = 128;
 const geometry = new THREE.SphereGeometry(radius, segments, rings);
 const glassmaterial = new THREE.MeshPhysicalMaterial({
   reflectivity: 1.0,
@@ -419,12 +417,12 @@ const glassmaterial = new THREE.MeshPhysicalMaterial({
   clearcoat: 0.3,
   clearcoatRoughness: 0.25,
   color: new THREE.Color('#ffffff').convertSRGBToLinear(),
-  ior: 1.5,
+  ior: 1.2 ,
   precision: "highp",
   alphaTest: 1,
   envMap: environmentMap,
 });
-glassmaterial.thickness = 30.0
+glassmaterial.thickness = 10.0
 
 const displacement = new Float32Array(geometry.attributes.position.count);
 const noise = new Float32Array(geometry.attributes.position.count);
@@ -445,7 +443,7 @@ let kidMixer;
 
 const fbxLoader = new FBXLoader()
 fbxLoader.load(
-  'models/fbx/Petting.fbx', (object) => {
+  'models/fbx/curiousKid/Petting.fbx', (object) => {
     kidMixer = new THREE.AnimationMixer(object);
     const action = kidMixer.clipAction(object.animations[0]);
     action.play();
@@ -478,7 +476,7 @@ const roughnessMap = textureLoader.load("models/fbx/Rainbow_roughness.png");
 const gltfLoader = new GLTFLoader()
 let foxMixer = null
 
-gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) => {
+gltfLoader.load('/models/glTF/Fox/glTF/Fox.gltf', (gltf) => {
   // Model
   const fox = gltf.scene
   fox.scale.set(0.0019, 0.0019, 0.0019)
@@ -499,8 +497,8 @@ gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) => {
   foxAction.play()
 })
 
-// /*** Load HTDI Logo model **/
-gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) => {
+// /*** Load Rotator model **/
+gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
   gltf.scene.scale.set(0.018, 0.018, 0.018)
   gltf.scene.position.set(0, 0, 0)
   gltf.scene.rotation.set(0, 0, 0)
@@ -510,29 +508,20 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) => {
   let logoMaterial = new THREE.MeshPhysicalMaterial({
     reflectivity: 1.0,
     transmission: 1.0,
-    roughness: 0,
     metalness: 0,
     clearcoat: 0.3,
     clearcoatRoughness: 0.25,
     color: new THREE.Color('#ffffff').convertSRGBToLinear(),
-    ior: 1.5,
-    // side: THREE.DoubleSide,
-    // precision: "highp",
-    // emissive: 0.4,
-    // alphaTest: 1.0,
-    // color: 0xffffff,
-    // fog: false,
-    // transmission: 1.0,
-    // metalness: 0,
-    // roughness: 0,
-    // ior: 1.0,
-    // thickness: 0.01,
-    // specularIntensity: 1,
-    // specularColor: 0xffffff,
-    // envMap: environmentMap,
-    // envMapIntensity: 2.0
+    side: THREE.DoubleSide,
+    precision: "highp",
+    emissive: 0.01,
+    transmission: 1.0,
+    roughness: 0,
+       ior: 2.42, // index of refraction (IOR) of our fast medium —air— divided by the IOR of our slow medium —glass. 
+    // In this case that will be 1.0 / 1.5, but you can tweak this value to achieve your desired result. 
+    //For example the IOR of water is 1.33 and diamond has an IOR of 2.42
   });
-  logoMaterial.thickness = 50.0
+  logoMaterial.thickness = 10.0
 
   logo.traverse((o) => {
     if (o.isMesh) o.material = logoMaterial;
@@ -547,18 +536,18 @@ gltfLoader.load('models/logo/glTF/logo.gltf', (gltf) => {
     z: "+=180",
     repeat: -1
   });
-
 })
 
-let creativEnergy;
+// GLTF LOADER FOR MODEL 
+//////////////////////
+let creativeFlow;
 
-gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) => {
-  creativEnergy = gltf.scene
-  creativEnergy.scale.set(0.004, 0.004, 0.004)
-  creativEnergy.position.set(0.1, 0.07, 0)
-  creativEnergy.rotation.set(0, 0, 0)
-  scene.add(creativEnergy)
-
+gltfLoader.load('models/glTF/cFlow.gltf', (gltf) => {
+  creativeFlow = gltf.scene
+  creativeFlow.scale.set(0.002, 0.002, 0.002)
+  creativeFlow.position.set(0.0, 0.168, 0.084)
+  creativeFlow.rotation.set(0, 0, 0)
+  scene.add(creativeFlow)
 
   let singleMaterial = new THREE.MeshLambertMaterial({
     side: THREE.DoubleSide,
@@ -567,22 +556,22 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) => {
 
   });
 
-  creativEnergy.traverse((o) => {
-    if (o.isMesh) o.material = singleMaterial;
+  creativeFlow.traverse((o) => {
+    if (o.isMesh) o.material = materialV;
   });
 
   // Animations
-
-  gsap.to(creativEnergy.rotation, {
+  gsap.to(creativeFlow.rotation, {
     duration: 100,
     ease: "none",
     y: "+=180",
     repeat: -1
   })
-
-
 })
 
+
+// SPLINE SCENE LOADER
+//////////////////////////
 // const loader = new SplineLoader();
 // loader.load(
 //   'https://prod.spline.design/POeTP0HB0P1sEG9n/scene.spline',
@@ -591,38 +580,9 @@ gltfLoader.load('models/HTDI/glTF/HTDI-SINGLE2.gltf', (gltf) => {
 //   }
 // );
 
-// let uiFrame;
-// let fMaterial = new THREE.MeshPhysicalMaterial(
-// {
-//   reflectivity: 1.0,
-//   transmission: 1.0,
-//   roughness: 0,
-//   metalness: 0,
-//   clearcoat: 0.3,
-//   clearcoatRoughness: 0.25,
-//   color: new THREE.Color('#31FF9C').convertSRGBToLinear(),
-//   ior: 1.5,
-//   side: THREE.DoubleSide,
-//   precision: "highp",
-//   emissive: 0.4,
-//   alphaTest: 1.0,
-//   specularIntensity: 1,
-//   specularColor: 0xffffff,
-// });
-// fMaterial.thickness = 20.0
-
-// gltfLoader.load('models/UI/scene.gltf', (gltf) => {
-//   uiFrame = gltf.scene
-//   uiFrame.scale.set(0.05, 0.05, 0.05)
-//   uiFrame.position.set(0, 0, 0)
-//   uiFrame.rotation.set(0, -90, 0)
-//   scene.add(uiFrame)
-
-//   uiFrame.traverse((o) => {
-//     if (o.isMesh) o.material = fMaterial;
-//   });
-// })
-
+        
+// GROUND MIRROR
+//////////////////////
 const planeC = new THREE.CylinderGeometry(0.4, 0.4, 0.02, 64, 8, false)
 const planeMat = new THREE.MeshPhysicalMaterial({
   reflectivity: 1.0,
@@ -630,6 +590,7 @@ const planeMat = new THREE.MeshPhysicalMaterial({
   roughness: 0,
   metalness: 0.3,
   clearcoat: 0.3,
+  ior:1.33, 
   clearcoatRoughness: 0.25,
   color: new THREE.Color('#000000').convertSRGBToLinear(),
   ior: 1.5,
@@ -653,7 +614,8 @@ groundMirror.position.y = 0;
 groundMirror.rotateX(-Math.PI / 2);
 // scene.add( groundMirror );
 
-// water
+// WATER TEXTURE
+//////////////////
 const groundGeometry = new THREE.CircleGeometry(0.4, 64);
 const groundMaterial = new THREE.MeshStandardMaterial({ roughness: 0.8, metalness: 0.4 });
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
@@ -661,7 +623,7 @@ ground.rotation.x = Math.PI * -0.5;
 scene.add(ground);
 
 const textureLoader2 = new THREE.TextureLoader()
-textureLoader2.load('textures/grid.png', function(map) {
+textureLoader2.load('textures/grid03.png', function(map) {
   map.wrapS = THREE.RepeatWrapping;
   map.wrapT = THREE.RepeatWrapping;
   map.anisotropy = 16;
@@ -675,8 +637,8 @@ const water = new Water(waterGeometry, {
   color: '#ffffff',
   scale: 1,
   flowDirection: new THREE.Vector2(-1, 0.8),
-  textureWidth: 1024,
-  textureHeight: 1024
+  textureWidth: 2048,
+  textureHeight: 2048
 });
 
 water.position.y = 0.01;
@@ -740,11 +702,11 @@ const controls = new OrbitControls(camera, canvas)
 controls.enable = true
 controls.enableDamping = true
 controls.dampingFactor = 0.05;
-controls.enablePan = false;
+controls.enablePan = true
 controls.autoRotate = true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
-controls.minDistance = 0.3;
+controls.minDistance = 0.4;
 controls.maxDistance = 7.0;
 controls.target.set(0, 0, 0);
 
@@ -756,7 +718,7 @@ const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true })
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.CineonToneMapping
-renderer.toneMappingExposure = 1.0
+renderer.toneMappingExposure = 2.0
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor('#211d20')
