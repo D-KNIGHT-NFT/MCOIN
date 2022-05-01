@@ -330,7 +330,7 @@ particlesMaterial.blending = THREE.AdditiveBlending
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-5/');
+cubeTextureLoader.setPath('textures/environmentMap/level-4/');
 const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
 environmentMap.encoding = THREE.sRGBEncoding;
 environmentMap.mapping = THREE.CubeRefractionMapping
@@ -355,7 +355,7 @@ video.addEventListener('play', function() {
 const xsize = 1080;
 const ysize = 1080;
 
-const parameters = { color: 0xffffff, map: vTexture };
+const parameters = { color: new THREE.Color('#ffffff').convertSRGBToLinear(), map: vTexture };
 const geometryV = new THREE.BoxGeometry(0.4, 0.2, 0.01);
 const materialV = new THREE.MeshLambertMaterial(parameters);
 const videoObject = new THREE.Mesh(geometryV, materialV);
@@ -545,7 +545,7 @@ let creativeFlow;
 gltfLoader.load('models/glTF/cFlow.gltf', (gltf) => {
   creativeFlow = gltf.scene
   creativeFlow.scale.set(0.002, 0.002, 0.002)
-  creativeFlow.position.set(0.0, 0.168, 0.084)
+  creativeFlow.position.set(0.1, 0.168, 0.1)
   creativeFlow.rotation.set(0, 0, 0)
   scene.add(creativeFlow)
 
@@ -557,7 +557,7 @@ gltfLoader.load('models/glTF/cFlow.gltf', (gltf) => {
   });
 
   creativeFlow.traverse((o) => {
-    if (o.isMesh) o.material = materialV;
+    if (o.isMesh) o.material = singleMaterial;
   });
 
   // Animations
