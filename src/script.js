@@ -108,7 +108,9 @@ class Hover3D {
   }
 }
 
-let myHover3D = new Hover3D(".mark");
+let hoverBlf = new Hover3D(".bayleaf-left");
+let hoveBlfr = new Hover3D(".bayleaf-right");
+let hoverEye = new Hover3D(".icon-eye");
 
 
 
@@ -325,18 +327,33 @@ particlesMaterial.depthWrite = false
 particlesMaterial.blending = THREE.AdditiveBlending
 // particlesMaterial.vertexColors = true
 
+
+////////////////////////////////////////////////////////////////////
+// EQUIRECTANGULAR HDR
+///////////////
+
+const textureLoad = new RGBELoader()
+textureLoad.setPath( 'textures/equirectangular/' )
+const texture = textureLoad.load( 'mayoris.hdr', function (texture) {
+  texture.mapping = THREE.EquirectangularReflectionMapping;
+  texture.encoding = THREE.sRGBEncoding;
+  scene.background = texture;
+  scene.environment = texture;
+})
+
+
 ////////////////////////////////////////////////////////////////////
 // Enviroment Cube
 ///////////////
 
-const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-4/');
-const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
-environmentMap.encoding = THREE.sRGBEncoding;
-environmentMap.mapping = THREE.CubeRefractionMapping
+// const cubeTextureLoader = new THREE.CubeTextureLoader()
+// cubeTextureLoader.setPath('textures/environmentMap/level-4/');
+// const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+// environmentMap.encoding = THREE.sRGBEncoding;
+// environmentMap.mapping = THREE.CubeRefractionMapping
 
-scene.environment = environmentMap
-scene.background = environmentMap
+// scene.environment = environmentMap
+// scene.background = environmentMap
 
 ////////////////////////////////////////////////////////////////////
 // VIDEO TEXTURE
@@ -407,7 +424,9 @@ scene.add(videoObject)
 
 // } );
 
-const radius = 0.5,segments = 128,rings = 128;
+const radius = 0.5,
+  segments = 128,
+  rings = 128;
 const geometry = new THREE.SphereGeometry(radius, segments, rings);
 const glassmaterial = new THREE.MeshPhysicalMaterial({
   reflectivity: 1.0,
@@ -417,10 +436,10 @@ const glassmaterial = new THREE.MeshPhysicalMaterial({
   clearcoat: 0.3,
   clearcoatRoughness: 0.25,
   color: new THREE.Color('#ffffff').convertSRGBToLinear(),
-  ior: 1.2 ,
+  ior: 1.2,
   precision: "highp",
   alphaTest: 1,
-  envMap: environmentMap,
+  envMap: texture,
 });
 glassmaterial.thickness = 10.0
 
@@ -450,16 +469,16 @@ fbxLoader.load(
 
     object.traverse(function(object) {
       if (object.isMesh) {
-        object.material.envMap = environmentMap;
+        object.material.envMap = texture;
         object.castShadow = true;
         object.receiveShadow = true;
       }
     });
     scene.add(object)
     object.scale.set(.0014, .0014, .0014)
-    object.position.set(-0.07, 0, -0.07)
+    object.position.set(-0.07, 0.11, -0.11)
     object.rotation.set(0, 45, 0)
- });
+  });
 
 /*const baseColorMap = textureLoader.load("models/fbx/Rainbow_baseColor.png");
 const metallicMap = textureLoader.load("models/fbx/Rainbow_metallic.png");
@@ -480,12 +499,12 @@ gltfLoader.load('/models/glTF/Fox/glTF/Fox.gltf', (gltf) => {
   // Model
   const fox = gltf.scene
   fox.scale.set(0.0019, 0.0019, 0.0019)
-  fox.position.set(0, 0, 0)
+  fox.position.set(0, 0.11, -0.08)
   fox.rotation.set(0, 0, 0)
 
   fox.traverse(function(object) {
     if (object.isMesh) {
-      object.material.envMap = environmentMap;
+      object.material.envMap = texture;
       object.castShadow = true;
     }
   });
@@ -504,8 +523,8 @@ gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
   gltf.scene.rotation.set(0, 0, 0)
   scene.add(gltf.scene)
 
-  let logo = gltf.scene;
-  let logoMaterial = new THREE.MeshPhysicalMaterial({
+  let rotator = gltf.scene;
+  let rotatorMaterial = new THREE.MeshPhysicalMaterial({
     reflectivity: 1.0,
     transmission: 1.0,
     metalness: 0,
@@ -515,20 +534,19 @@ gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
     side: THREE.DoubleSide,
     precision: "highp",
     emissive: 0.01,
-    transmission: 1.0,
     roughness: 0,
-       ior: 2.42, // index of refraction (IOR) of our fast medium —air— divided by the IOR of our slow medium —glass. 
+    ior: 2.42, // index of refraction (IOR) of our fast medium —air— divided by the IOR of our slow medium —glass. 
     // In this case that will be 1.0 / 1.5, but you can tweak this value to achieve your desired result. 
     //For example the IOR of water is 1.33 and diamond has an IOR of 2.42
   });
-  logoMaterial.thickness = 10.0
+  rotatorMaterial.thickness = 10.0
 
-  logo.traverse((o) => {
-    if (o.isMesh) o.material = logoMaterial;
+  rotator.traverse((o) => {
+    if (o.isMesh) o.material = rotatorMaterial;
   });
 
   // Animations
-  gsap.to(logo.rotation, {
+  gsap.to(rotator.rotation, {
     duration: 1000,
     ease: "none",
     y: "+=180",
@@ -538,21 +556,23 @@ gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
   });
 })
 
-// GLTF LOADER FOR MODEL 
+// GLTF LOADER FOR Creative Flow 
 //////////////////////
 let creativeFlow;
 
-gltfLoader.load('models/glTF/cFlow.gltf', (gltf) => {
+gltfLoader.load('models/glTF/cFlow/cFlow.gltf', (gltf) => {
   creativeFlow = gltf.scene
-  creativeFlow.scale.set(0.002, 0.002, 0.002)
-  creativeFlow.position.set(0.1, 0.168, 0.1)
+  creativeFlow.scale.set(0.04, 0.04, 0.04)
+  creativeFlow.position.set(0.22, 0.24, -0.1)
   creativeFlow.rotation.set(0, 0, 0)
   scene.add(creativeFlow)
 
   let singleMaterial = new THREE.MeshLambertMaterial({
     side: THREE.DoubleSide,
     reflectivity: 0.2,
-    refractionRatio: 0.4,
+    envmap: texture,
+    wireframeLinewidth: 1,
+    wireframe: true,
 
   });
 
@@ -569,6 +589,18 @@ gltfLoader.load('models/glTF/cFlow.gltf', (gltf) => {
   })
 })
 
+// GLTF LOADER FOR PODIUM
+//////////////////////
+let podium;
+
+gltfLoader.load('models/glTF/Podium/podium.gltf', (gltf) => {
+  podium = gltf.scene
+  podium.scale.set(0.4, 0.4, 0.4)
+  podium.position.set(0, 0, -0.1)
+  podium.rotation.set(0, 0, 0)
+  scene.add(podium)
+})
+
 
 // SPLINE SCENE LOADER
 //////////////////////////
@@ -580,7 +612,7 @@ gltfLoader.load('models/glTF/cFlow.gltf', (gltf) => {
 //   }
 // );
 
-        
+
 // GROUND MIRROR
 //////////////////////
 const planeC = new THREE.CylinderGeometry(0.4, 0.4, 0.02, 64, 8, false)
@@ -590,7 +622,7 @@ const planeMat = new THREE.MeshPhysicalMaterial({
   roughness: 0,
   metalness: 0.3,
   clearcoat: 0.3,
-  ior:1.33, 
+  ior: 1.33,
   clearcoatRoughness: 0.25,
   color: new THREE.Color('#000000').convertSRGBToLinear(),
   ior: 1.5,
@@ -676,23 +708,9 @@ window.addEventListener('resize', () => {
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height, 0.1, 1000)
-camera.position.set(4, 3, 4)
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 20 );
+camera.position.set( - 1.8, 0.6, 2.7 );
 scene.add(camera)
-
-// Ortographic Camera
-// const ortoCamera = new THREE.OrthographicCamera( sizes.width/-2, sizes.width/2, sizes.height / 2, sizes.height / -2, 0.1, 10000 );
-// ortoCamera.rotation.x = 50*Math.PI/180;
-// ortoCamera.rotation.y = 20*Math.PI/180;
-// ortoCamera.rotation.z = 10*Math.PI/180;
-
-// const distance = 300
-// const initialCameraPositionY = -Math.tan(ortoCamera.rotation.x)*distance;
-// const initialCameraPositionX = Math.tan(ortoCamera.rotation.y)*Math.sqrt(distance**2 + initialCameraPositionY**2);
-// ortoCamera.position.y = initialCameraPositionY;
-// ortoCamera.position.x = initialCameraPositionX;
-// ortoCamera.position.z = distance;
-// scene.add(ortoCamera)
 
 ////////////////////////////////////////////////////////////////////
 // CONTROLS 
@@ -706,9 +724,9 @@ controls.enablePan = true
 controls.autoRotate = true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
-controls.minDistance = 0.4;
-controls.maxDistance = 7.0;
-controls.target.set(0, 0, 0);
+controls.minDistance = 0.3;
+controls.maxDistance = 5;
+controls.target.set(0, 0, -0.2);
 
 ////////////////////////////////////////////////////////////////////
 // Renderer
@@ -717,8 +735,8 @@ controls.target.set(0, 0, 0);
 const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true })
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
-renderer.toneMapping = THREE.CineonToneMapping
-renderer.toneMappingExposure = 2.0
+renderer.toneMapping = THREE.ACESFilmicToneMapping
+renderer.toneMappingExposure = 1.0
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor('#211d20')
@@ -734,7 +752,7 @@ const renderScene = new RenderPass(scene, camera);
 finalComposer.addPass(renderScene);
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.15, 0.0011, 0.05);
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.2, 0.001, 0.02);
 finalComposer.addPass(bloomPass);
 
 const effectCopy = new ShaderPass(CopyShader);
@@ -775,6 +793,7 @@ const tick = () => {
 
   // Update controls
   controls.update()
+
 
   // Update Particles
   particles.rotation.y = elapsedTime * 0.024
@@ -839,45 +858,3 @@ const tick = () => {
 }
 
 tick()
-
-////////////////////////////////////////////////////////////////////
-// A2HS
-// SERVICE WORKERS
-///////////////
-
-// // Register service worker to control making site work offline
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker
-//     .register('/MCOIN/src/serviceWorker.js')
-//     .then(() => { console.log('Service Worker Registered'); });
-// }
-
-// // Code to handle install prompt on desktop
-// let deferredPrompt;
-// const addBtn = document.querySelector('.add-button');
-// addBtn.style.display = 'none';
-
-// window.addEventListener('beforeinstallprompt', (e) => {
-//   // Prevent Chrome 67 and earlier from automatically showing the prompt
-//   e.preventDefault();
-//   // Stash the event so it can be triggered later.
-//   deferredPrompt = e;
-//   // Update UI to notify the user they can add to home screen
-//   addBtn.style.display = 'block';
-
-//   addBtn.addEventListener('click', () => {
-//     // hide our user interface that shows our A2HS button
-//     addBtn.style.display = 'none';
-//     // Show the prompt
-//     deferredPrompt.prompt();
-//     // Wait for the user to respond to the prompt
-//     deferredPrompt.userChoice.then((choiceResult) => {
-//       if (choiceResult.outcome === 'accepted') {
-//         console.log('User accepted the A2HS prompt');
-//       } else {
-//         console.log('User dismissed the A2HS prompt');
-//       }
-//       deferredPrompt = null;
-//     });
-//   });
-// });

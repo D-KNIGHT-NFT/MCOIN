@@ -486,7 +486,7 @@ canvas.webgl {
   .mark__wrapper { width: 25vw; left: 3.5%; top: 5%; }
   }
 
-.top-right {
+.icon-eye {
   position: absolute;
   z-index: 10;
   bottom: 3%;
@@ -497,20 +497,18 @@ canvas.webgl {
 }
 
 
-.bottom-left {
+.bayleaf-left {
   position: absolute;
   z-index: 10;
   bottom: 2%;
   left: 2%;
-  pointer-events: none;
 }
 
-.bottom-right {
+.bayleaf-right {
   position: absolute;
   z-index: 10;
   bottom: 2%;
   right: 2%;
-  pointer-events: none;
 }
 
 .uiFrame__wrapper {
@@ -551,7 +549,7 @@ canvas.webgl {
   padding: var(--padding);
   position: fixed;
   z-index: 10;
-  bottom: 0%;
+  bottom: 1%;
   right: 56%;
 }
 
