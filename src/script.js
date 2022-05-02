@@ -9,7 +9,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
 import { Pane } from 'tweakpane';
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
-
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
@@ -486,34 +487,50 @@ gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
 // GLTF LOADER FOR Creative Flow 
 //////////////////////
 let creativeFlow;
+let cFlowMixer = null
 
-gltfLoader.load('models/glTF/cFlow/cFlow.gltf', (gltf) => {
+gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   creativeFlow = gltf.scene
-  creativeFlow.scale.set(0.04, 0.04, 0.04)
-  creativeFlow.position.set(0.22, 0.24, -0.1)
+  creativeFlow.scale.set( 0.002, 0.002, 0.002)
+  creativeFlow.position.set(0.12, 0.25, 0.15)
   creativeFlow.rotation.set(0, 0, 0)
   scene.add(creativeFlow)
 
-  let singleMaterial = new THREE.MeshLambertMaterial({
-    side: THREE.DoubleSide,
-    reflectivity: 0.2,
-    wireframeLinewidth: 1,
-    wireframe: true,
-
+  creativeFlow.traverse(function(object) {
+    if (object.isMesh) {
+      object.material= glassmaterial;
+      object.castShadow = true;
+      object.receiveShadow = true;
+    }
   });
 
-  creativeFlow.traverse((o) => {
-    if (o.isMesh) o.material = singleMaterial;
-  });
-
-  // Animations
-  gsap.to(creativeFlow.rotation, {
-    duration: 100,
-    ease: "none",
-    y: "+=180",
-    repeat: -1
-  })
+  cFlowMixer = new THREE.AnimationMixer(gltf.scene)
+  const cFlowAction = cFlowMixer.clipAction(gltf.animations[0])
+  cFlowAction.play()
+  // cFlowAction.setLoop( THREE.LoopOnce )
+  // cFlowAction.setDuration(20).play()
 })
+
+// OBJ + MTL LOADER FOR CFLOW+BUBBLE
+//////////////////////
+
+// let cFlow;
+
+// let mtlLoader = new MTLLoader();
+// let objLoader = new OBJLoader();
+// mtlLoader.load('models/obj/cFlow/cFlow.mtl', function(materials)
+// {
+//     materials.preload();
+//     objLoader.setMaterials(materials);
+//     objLoader.load('models/obj/cFlow/cFlow.obj', function(object)
+//     {    
+//         cFlow = object;
+//         cFlow.scale.set(0.002, 0.002, 0.002)
+//         cFlow.position.set(-0.1, 0.2, 0.08)
+//         cFlow.rotation.set(0, 0, 0)
+//         scene.add( cFlow );
+//     });
+// });
 
 // GLTF LOADER FOR PODIUM
 //////////////////////
@@ -525,6 +542,16 @@ gltfLoader.load('models/glTF/Podium/podium.gltf', (gltf) => {
   podium.position.set(0, 0, -0.1)
   podium.rotation.set(0, 0, 0)
   scene.add(podium)
+})
+
+let god;
+
+gltfLoader.load('models/glTF/god/g-o-d.gltf', (gltf) => {
+  god = gltf.scene
+  god.scale.set(0.03, 0.03, 0.03)
+  god.position.set(0.2, 0.19, -0.1)
+  god.rotation.set(0, 45, 0)
+  scene.add(god)
 })
 
 // GROUND MIRROR
@@ -766,6 +793,7 @@ const tick = () => {
 
   // Fox animation
   if (foxMixer) { foxMixer.update(deltaTime) }
+  if (cFlowMixer) { cFlowMixer.update(deltaTime) }
 
   // Kid animation
   if (kidMixer) { kidMixer.update(deltaTime) };
