@@ -14,8 +14,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-import SplineLoader from '@splinetool/loader';
-import SplineRuntime from '@splinetool/runtime';
 import { ParallaxBarrierEffect } from 'three/examples/jsm/effects/ParallaxBarrierEffect.js';
 
 // POST-PROCESSING
@@ -57,61 +55,6 @@ const toggleModal = () => {
 
 showBtn.addEventListener('click', toggleModal);
 modalBtn.addEventListener('click', toggleModal);
-
-
-////////////////////////////////////////////////////////////////////
-// HOVER 3D 
-// https://github.com/PavelLaptev/Hover3D.js
-///////////////
-
-class Hover3D {
-  constructor(id) {
-    this.id = id;
-    this.xOffset = 8;
-    this.yOffset = 8;
-    this.attack = 0.1;
-    this.release = 0.5;
-    this.perspective = 400;
-    this.create();
-  }
-
-  create() {
-    document.querySelectorAll(this.id).forEach(element => {
-      const rectTransform = element.getBoundingClientRect();
-      const perspective = "perspective(" + this.perspective + "px) ";
-      element.style.setProperty("transform-style", "preserve-3d");
-
-      element.addEventListener("mouseenter", e => {
-        element.style.setProperty("transition", "transform " + this.attack + "s");
-      })
-
-      element.addEventListener("mousemove", e => {
-        let dy = e.clientY - rectTransform.top;
-        let dx = e.clientX - rectTransform.left;
-        let xRot = this.map(dx, 0, rectTransform.width, -this.xOffset, this.xOffset);
-        let yRot = this.map(dy, 0, rectTransform.height, this.yOffset, -this.yOffset);
-        let propXRot = "rotateX(" + yRot + "deg) ";
-        let propYRot = "rotateY(" + xRot + "deg)";
-
-        element.style.setProperty("transform", perspective + propXRot + propYRot);
-      })
-
-      element.addEventListener("mouseleave", e => {
-        element.style.setProperty("transition", "transform " + this.release + "s");
-        element.style.setProperty("transform", perspective + "rotateX(0deg) rotateY(0deg)");
-      })
-    })
-  }
-  // Processing map() function
-  map(value, istart, istop, ostart, ostop) {
-    return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
-  }
-}
-
-let hoverBlf = new Hover3D(".bayleaf-left");
-let hoveBlfr = new Hover3D(".bayleaf-right");
-let hoverEye = new Hover3D(".icon-eye");
-
 
 
 ////////////////////////////////////////////////////////////////////
@@ -336,7 +279,6 @@ const textureLoad = new RGBELoader()
 textureLoad.setPath( 'textures/equirectangular/' )
 const texture = textureLoad.load( 'mayoris.hdr', function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
-  texture.encoding = THREE.sRGBEncoding;
   scene.background = texture;
   scene.environment = texture;
 })
@@ -361,7 +303,7 @@ const texture = textureLoad.load( 'mayoris.hdr', function (texture) {
 
 const video = document.getElementById('video');
 const vTexture = new THREE.VideoTexture(video);
-const startButton = document.getElementById('startButton');
+const startButton = document.getElementById('start-btn');
 
 startButton.addEventListener('click', function() { video.play(); });
 
@@ -424,9 +366,7 @@ scene.add(videoObject)
 
 // } );
 
-const radius = 0.5,
-  segments = 128,
-  rings = 128;
+const radius = 0.5,segments = 128,rings = 128;
 const geometry = new THREE.SphereGeometry(radius, segments, rings);
 const glassmaterial = new THREE.MeshPhysicalMaterial({
   reflectivity: 1.0,
@@ -570,7 +510,6 @@ gltfLoader.load('models/glTF/cFlow/cFlow.gltf', (gltf) => {
   let singleMaterial = new THREE.MeshLambertMaterial({
     side: THREE.DoubleSide,
     reflectivity: 0.2,
-    envmap: texture,
     wireframeLinewidth: 1,
     wireframe: true,
 
@@ -600,18 +539,6 @@ gltfLoader.load('models/glTF/Podium/podium.gltf', (gltf) => {
   podium.rotation.set(0, 0, 0)
   scene.add(podium)
 })
-
-
-// SPLINE SCENE LOADER
-//////////////////////////
-// const loader = new SplineLoader();
-// loader.load(
-//   'https://prod.spline.design/POeTP0HB0P1sEG9n/scene.spline',
-//   (splineScene) => {
-//     scene.add(splineScene);
-//   }
-// );
-
 
 // GROUND MIRROR
 //////////////////////
@@ -708,8 +635,8 @@ window.addEventListener('resize', () => {
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 20 );
-camera.position.set( - 1.8, 0.6, 2.7 );
+const camera = new THREE.PerspectiveCamera( 85, window.innerWidth / window.innerHeight, 0.1, 1000 );
+camera.position.set( 0.5, 0.25, -0.33);
 scene.add(camera)
 
 ////////////////////////////////////////////////////////////////////
@@ -724,10 +651,11 @@ controls.enablePan = true
 controls.autoRotate = true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
-controls.minDistance = 0.3;
-controls.maxDistance = 5;
-controls.target.set(0, 0, -0.2);
+controls.minDistance = 0.33;
+controls.maxDistance = 0.4;
+controls.target.set(0, 0.2, 0);
 
+window.onLoad = () => {}
 ////////////////////////////////////////////////////////////////////
 // Renderer
 ///////////////
