@@ -124,8 +124,7 @@ window.onload = () => {
 
 sound.onmousemove = (e) => {
   const colors = ['MintCream', 'DodgerBlue', 'Aqua', 'Chartreuse', 'Coral', 'GoldenRod', 'GhostWhite', 'DarkSalmon', 'DarkTurquoise', 'HotPink', 'MediumSpringGreen',
-    'PeachPuff', 'Teal'
-  ]
+    'PeachPuff', 'Teal']
   const random = () => colors[Math.floor(Math.random() * colors.length)];
   document.documentElement.style.cssText = `
   --yellow: ${random()};
@@ -636,7 +635,7 @@ window.addEventListener('resize', () => {
 ///////////////
 
 const camera = new THREE.PerspectiveCamera( 85, window.innerWidth / window.innerHeight, 0.1, 1000 );
-camera.position.set( 0.5, 0.25, -0.33);
+camera.position.set( 0.5, 0.3, 0.33);
 scene.add(camera)
 
 ////////////////////////////////////////////////////////////////////
@@ -653,9 +652,14 @@ controls.enableZoom = true
 controls.autoRotateSpeed = 1
 controls.minDistance = 0.33;
 controls.maxDistance = 0.4;
-controls.target.set(0, 0.2, 0);
+controls.target.set(0, 0.3, 0);
 
-window.onLoad = () => {}
+
+const resetBtn = document.getElementById('reset-btn')
+resetBtn.addEventListener("click", function() {
+camera.position.set( 0.5, 0.3, 0.33);
+controls.update();
+});
 ////////////////////////////////////////////////////////////////////
 // Renderer
 ///////////////
