@@ -62,7 +62,6 @@ modalBtn.addEventListener('click', toggleModal);
 ///////////////
 
 
-
 // HELPERS
 ///////////////
 
@@ -119,35 +118,29 @@ window.onload = () => {
     play.style.display = "block";
   });
 
-  audioElement.volume = 0.6;
+  audioElement.volume = 0.5;
 }
 
 sound.onmousemove = (e) => {
-  const colors = ['MintCream', 'DodgerBlue', 'Aqua', 'Chartreuse', 'Coral', 'GoldenRod', 'GhostWhite', 'DarkSalmon', 'DarkTurquoise', 'HotPink', 'MediumSpringGreen',
-    'PeachPuff', 'Teal']
+  const colors = 
+  [
+  'MintCream', 
+  'DodgerBlue', 
+  'Aqua', 
+  'Chartreuse', 
+  'Coral', 
+  'GoldenRod', 
+  'GhostWhite', 
+  'DarkSalmon', 
+  'DarkTurquoise', 
+  'HotPink', 
+  'MediumSpringGreen',
+  'PeachPuff', 
+  'Teal'
+  ]
   const random = () => colors[Math.floor(Math.random() * colors.length)];
-  document.documentElement.style.cssText = `
-  --yellow: ${random()};
-  `
+  document.documentElement.style.cssText = ` --yellow: ${random()}; `
 }
-
-////////////////////////////////////////////////////////////////////
-// UI
-///////////////
-
-// const doorsGrid = document.getElementById("grid");
-
-// document.getElementById("cross--close").onclick = () => {
-//     document.getElementById("overlay").style.display = "none";
-// }
-
-// document.getElementById("icon-door").onclick = () => {
-//   if (doorsGrid.style.display === "none") {
-//     doorsGrid.style.display = "grid";
-//   } else {
-//     doorsGrid.style.display = "none";
-//   }
-// }
 
 ////////////////////////////////////////////////////////////////////
 // SCENE & CONSTS
@@ -158,8 +151,6 @@ const scene = new THREE.Scene()
 ////////////////////////////////////////////////////////////////////
 // LIGHTS 
 ///////////////
-
-// Common Lights Between Scenes
 
 RectAreaLightUniformsLib.init(); // Initiator Rect Area Lights
 
@@ -173,8 +164,8 @@ const light3 = new THREE.PointLight(0x80ff80, 20.0, 1000, 2);
 scene.add(light3);
 const light4 = new THREE.PointLight(0xffaa00, 20.0, 1000, 2);
 scene.add(light4);
-const light5 = new THREE.PointLight(0xffaa00, 20.0, 1000, 2);
-light5.position.set(0, 0, 1)
+const light5 = new THREE.PointLight(0xffaa00, 10.0, 1000, 2);
+light5.position.set(0, 0.1, -0.01)
 scene.add(light5);
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
@@ -297,30 +288,27 @@ const texture = textureLoad.load( 'mayoris.hdr', function (texture) {
 // scene.background = environmentMap
 
 ////////////////////////////////////////////////////////////////////
-// VIDEO TEXTURE
+// VIDEO TEXTURE & OBJECT
 ///////////////
 
+const xsize = 1080;
+const ysize = 1080;
 const video = document.getElementById('video');
 const vTexture = new THREE.VideoTexture(video);
 const startButton = document.getElementById('start-btn');
+const parameters = { color: new THREE.Color('0xffffff').convertSRGBToLinear(), map: vTexture };
+const geometryV = new THREE.BoxGeometry(0.4, 0.2, 0.001);
+const materialV = new THREE.MeshLambertMaterial(parameters);
+const videoObject = new THREE.Mesh(geometryV, materialV);
+
+videoObject.position.set(0, 0.25, 0.25)
+scene.add(videoObject)
 
 startButton.addEventListener('click', function() { video.play(); });
 
 video.addEventListener('play', function() {
   this.currentTime = 3;
 });
-
-const xsize = 1080;
-const ysize = 1080;
-
-const parameters = { color: new THREE.Color('#ffffff').convertSRGBToLinear(), map: vTexture };
-const geometryV = new THREE.BoxGeometry(0.4, 0.2, 0.01);
-const materialV = new THREE.MeshLambertMaterial(parameters);
-const videoObject = new THREE.Mesh(geometryV, materialV);
-
-videoObject.position.set(0, 0.2, 0.3)
-scene.add(videoObject)
-
 ////////////////////////////////////////////////////////////////////
 // Enviroment & Background alternatives
 ///////////////
@@ -443,8 +431,8 @@ gltfLoader.load('/models/glTF/Fox/glTF/Fox.gltf', (gltf) => {
 
   fox.traverse(function(object) {
     if (object.isMesh) {
-      object.material.envMap = texture;
       object.castShadow = true;
+      object.receiveShadow = true;
     }
   });
   scene.add(fox)
