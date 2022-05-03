@@ -23,13 +23,10 @@
 <body>
   <!---------------------- a2hs ------------>
   <!-- <button class="add-button">Add to home screen</button> -->
-
   <!---------------------- Canvas Pixie ------------>
   <!-- <canvas class="orb-canvas" id="orbs-display"></canvas> -->
-
   <!---------------------- Canvas Web GL ------------>
-  <canvas class="webgl"></canvas>
-
+  <canvas class="webgl" id="container"></canvas>
   <!---------------------- Audio Data ------------>
   <audio autoplay loop id="music" preload="metadata">
     <source src="/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg">
@@ -44,10 +41,10 @@
       <div class="marquee">
         <div class="track">
           <div class="content">&nbsp;
-          Playing Lucid Space, by Joseph_Beg ✧
-          Playing Lucid Space, by Joseph Beg ✧ 
-          Playing Lucid Space, by Joseph Beg ✧ 
-          Playing Lucid Space, by Joseph Beg ✧ 
+            Playing Lucid Space, by Joseph_Beg ✧
+            Playing Lucid Space, by Joseph Beg ✧
+            Playing Lucid Space, by Joseph Beg ✧
+            Playing Lucid Space, by Joseph Beg ✧
           </div>
         </div>
       </div>
@@ -76,15 +73,21 @@
   <video id="video" loop crossOrigin="anonymous" playsinline style="display:none">
     <source src="/static/textures/videoSpline.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
   </video>
-
   <!---------------------- UI BUTTONS ------------>
   <nav class="nav">
-    <button class="btn" id="start-btn"><p>Play Video</p></button>
-    <button class="btn" id="show-btn"><p>More Info</p></button>
-    <button class="btn" id="reset-btn"><p>Reset Camera</p></button>
-    <button class="btn" id="shop-btn"><a href=""><p>Shop</p></a></button>
+    <button class="btn" id="start-btn">
+      <p>Play Video</p>
+    </button>
+    <button class="btn" id="show-btn">
+      <p>More Info</p>
+    </button>
+    <button class="btn" id="reset-btn">
+      <p>Reset Camera</p>
+    </button>
+    <button class="btn" id="shop-btn"><a href="">
+        <p>Shop</p>
+      </a></button>
   </nav>
-
   <div class="modal-container">
     <button class="icon-close" id="cross--close">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -97,12 +100,12 @@
     <div class="modal">
       <!-- Description -->
       <h2 class="modal-text">Reality shifted. An obscured crossroad. Banishment undefined. A catalyst to break through, it is to trust your deep intuition.<br>This space, serves for me as a sanctuary, a mausoleo of memories, learnings, deceives and determination. The works presented, were born 2 years ago. Bringing this project to fruition, it is a very much needed release with full intentional motifs<br> Many of the artwork, are extracts of an inner journey of ancient wisdom and connected minds. The protagonists for this quest: A lone Wolf, a curious child and the creative motor, source of all answers. I hope you enjoy the oniric environment intended for both, creation and recreation.<br>
-      As a WIP and "living" space, imperfect but transparent, feedback or comments are highly appreciated.<br></h2>
+        As a WIP and "living" space, imperfect but transparent, feedback or comments are highly appreciated.<br></h2>
     </div>
     <div class="socials">
       <a href="https://www.twitter.com/3dknightdi">Twitter</a>
       <a href="https://www.instagram.com/3dknightdi">Instagram</a>
-   </div>
+    </div>
   </div>
   <!---------------------- User Interface  ------------>
   <div class="uiFrame__wrapper">
@@ -129,70 +132,66 @@
       </defs>
     </svg>
   </div>
-
   <div class="mark__wrapper">
-  <div class="mark">
-    <svg  style="width:100%;height:100%;border:1px solid var(--yello08)"
-    viewBox="0 0 259 63"
-    preserveAspectRatio="none"  fill="none" xmlns="http://www.w3.org/2000/svg">
-   <mask id="path-1-outside-1_737_28283" maskUnits="userSpaceOnUse" x="0.640625" y="0" width="256" height="51" fill="black">
-   <rect fill="white" x="0.640625" width="256" height="51"/>
-   <path d="M37.553 1.05291V10.3116L11.2209 10.3116C6.40339 10.3116 1.64062 14.9144 1.64062 19.5702L1.64062 28.8289C1.64062 33.4318 6.40339 38.0875 11.2209 38.0875L30.3815 38.0875C33.0092 38.0875 35.6917 36.6591 37.553 34.5428V38.0875H39.9617L39.9617 1.05291L37.553 1.05291ZM37.553 21.8981C37.553 25.337 33.9398 28.8289 30.3815 28.8289L3.99464 28.8289L3.99464 26.501C3.99464 23.0092 7.60777 19.5702 11.2209 19.5702L37.553 19.5702V21.8981Z"/>
-   <path d="M83.4181 17.2423V10.2587C78.6554 10.2587 73.8378 13.7505 73.8378 17.2423C73.8378 19.7289 71.0459 22.1626 67.7612 23.0092L55.0058 23.0092V1L45.4255 1L45.4255 38.0346C50.1883 38.0346 55.0058 33.4318 55.0058 28.776V25.337L67.7612 25.337C71.0459 26.1836 73.8378 28.6173 73.8378 31.1039C73.8378 34.5957 78.6554 38.0346 83.4181 38.0346V31.1039C83.4181 27.7178 78.8196 24.3318 74.1663 24.1731C78.8196 24.0144 83.4181 20.6284 83.4181 17.2423Z"/>
-   <path d="M118.834 10.2587L88.943 10.2587V38.0346C93.7058 38.0346 98.5233 33.4318 98.5233 28.776V12.5865L109.253 12.5865C113.469 12.5865 117.629 16.6075 117.684 20.6813V38.0346C122.447 38.0346 127.264 33.4318 127.264 28.776V18.3534C127.264 14.3325 123.049 10.2587 118.834 10.2587Z"/>
-   <path d="M132.728 11.9517V38.0875C137.217 38.0875 141.706 33.6963 141.706 29.3579V11.9517L132.728 11.9517ZM137.217 7.56042C139.078 7.56042 140.611 6.13194 140.611 4.28021C140.611 2.48139 139.078 1.05291 137.217 1.05291C135.356 1.05291 133.823 2.48139 133.823 4.28021C133.823 6.13194 135.356 7.56042 137.217 7.56042Z"/>
-   <path d="M183.128 10.4174V13.9092C181.267 11.8459 178.584 10.4174 175.957 10.4174L156.796 10.4174C151.979 10.4174 147.216 15.0203 147.216 19.676V28.9347C147.216 33.5376 151.979 38.1934 156.796 38.1934H175.957C178.584 38.1934 181.267 36.7649 183.128 34.6486V38.1934C183.128 40.4683 180.72 42.7962 178.311 42.7962L147.216 42.7962C147.216 46.2881 151.979 49.727 156.796 49.727H175.957C180.72 49.727 185.537 46.2881 185.537 42.7962V10.4174L183.128 10.4174ZM183.128 28.9347L156.796 28.9347C153.183 28.9347 149.57 25.4429 149.57 21.951V19.676L175.957 19.676C179.515 19.676 183.128 23.115 183.128 26.6068V28.9347Z"/>
-   <path d="M220.891 10.2587L200.581 10.2587V1L191.001 1V38.0346C195.764 38.0346 200.581 33.4318 200.581 28.776V12.5865L211.311 12.5865C215.526 12.5865 219.687 16.6604 219.742 20.6813V38.0346C224.504 38.0346 229.322 33.4318 229.322 28.776V18.4063C229.322 14.3325 225.107 10.3116 220.891 10.2587Z"/>
-   <path d="M253.563 35.7596C250.005 35.7596 246.391 32.2678 246.391 28.776V12.5865L251.209 12.5865V10.2587L246.391 10.2587V1L236.811 1V10.2587H232.048V12.5865H236.811V28.776C236.811 33.4318 241.629 38.0346 246.391 38.0346H255.972V35.7596H253.563Z"/>
-   </mask>
-   <path d="M37.553 1.05291V10.3116L11.2209 10.3116C6.40339 10.3116 1.64062 14.9144 1.64062 19.5702L1.64062 28.8289C1.64062 33.4318 6.40339 38.0875 11.2209 38.0875L30.3815 38.0875C33.0092 38.0875 35.6917 36.6591 37.553 34.5428V38.0875H39.9617L39.9617 1.05291L37.553 1.05291ZM37.553 21.8981C37.553 25.337 33.9398 28.8289 30.3815 28.8289L3.99464 28.8289L3.99464 26.501C3.99464 23.0092 7.60777 19.5702 11.2209 19.5702L37.553 19.5702V21.8981Z" fill="black"/>
-   <path d="M83.4181 17.2423V10.2587C78.6554 10.2587 73.8378 13.7505 73.8378 17.2423C73.8378 19.7289 71.0459 22.1626 67.7612 23.0092L55.0058 23.0092V1L45.4255 1L45.4255 38.0346C50.1883 38.0346 55.0058 33.4318 55.0058 28.776V25.337L67.7612 25.337C71.0459 26.1836 73.8378 28.6173 73.8378 31.1039C73.8378 34.5957 78.6554 38.0346 83.4181 38.0346V31.1039C83.4181 27.7178 78.8196 24.3318 74.1663 24.1731C78.8196 24.0144 83.4181 20.6284 83.4181 17.2423Z" fill="black"/>
-   <path d="M118.834 10.2587L88.943 10.2587V38.0346C93.7058 38.0346 98.5233 33.4318 98.5233 28.776V12.5865L109.253 12.5865C113.469 12.5865 117.629 16.6075 117.684 20.6813V38.0346C122.447 38.0346 127.264 33.4318 127.264 28.776V18.3534C127.264 14.3325 123.049 10.2587 118.834 10.2587Z" fill="black"/>
-   <path d="M132.728 11.9517V38.0875C137.217 38.0875 141.706 33.6963 141.706 29.3579V11.9517L132.728 11.9517ZM137.217 7.56042C139.078 7.56042 140.611 6.13194 140.611 4.28021C140.611 2.48139 139.078 1.05291 137.217 1.05291C135.356 1.05291 133.823 2.48139 133.823 4.28021C133.823 6.13194 135.356 7.56042 137.217 7.56042Z" fill="black"/>
-   <path d="M183.128 10.4174V13.9092C181.267 11.8459 178.584 10.4174 175.957 10.4174L156.796 10.4174C151.979 10.4174 147.216 15.0203 147.216 19.676V28.9347C147.216 33.5376 151.979 38.1934 156.796 38.1934H175.957C178.584 38.1934 181.267 36.7649 183.128 34.6486V38.1934C183.128 40.4683 180.72 42.7962 178.311 42.7962L147.216 42.7962C147.216 46.2881 151.979 49.727 156.796 49.727H175.957C180.72 49.727 185.537 46.2881 185.537 42.7962V10.4174L183.128 10.4174ZM183.128 28.9347L156.796 28.9347C153.183 28.9347 149.57 25.4429 149.57 21.951V19.676L175.957 19.676C179.515 19.676 183.128 23.115 183.128 26.6068V28.9347Z" fill="black"/>
-   <path d="M220.891 10.2587L200.581 10.2587V1L191.001 1V38.0346C195.764 38.0346 200.581 33.4318 200.581 28.776V12.5865L211.311 12.5865C215.526 12.5865 219.687 16.6604 219.742 20.6813V38.0346C224.504 38.0346 229.322 33.4318 229.322 28.776V18.4063C229.322 14.3325 225.107 10.3116 220.891 10.2587Z" fill="black"/>
-   <path d="M253.563 35.7596C250.005 35.7596 246.391 32.2678 246.391 28.776V12.5865L251.209 12.5865V10.2587L246.391 10.2587V1L236.811 1V10.2587H232.048V12.5865H236.811V28.776C236.811 33.4318 241.629 38.0346 246.391 38.0346H255.972V35.7596H253.563Z" fill="black"/>
-   <path d="M37.553 1.05291V10.3116L11.2209 10.3116C6.40339 10.3116 1.64062 14.9144 1.64062 19.5702L1.64062 28.8289C1.64062 33.4318 6.40339 38.0875 11.2209 38.0875L30.3815 38.0875C33.0092 38.0875 35.6917 36.6591 37.553 34.5428V38.0875H39.9617L39.9617 1.05291L37.553 1.05291ZM37.553 21.8981C37.553 25.337 33.9398 28.8289 30.3815 28.8289L3.99464 28.8289L3.99464 26.501C3.99464 23.0092 7.60777 19.5702 11.2209 19.5702L37.553 19.5702V21.8981Z" stroke="url(#paint0_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)"/>
-   <path d="M83.4181 17.2423V10.2587C78.6554 10.2587 73.8378 13.7505 73.8378 17.2423C73.8378 19.7289 71.0459 22.1626 67.7612 23.0092L55.0058 23.0092V1L45.4255 1L45.4255 38.0346C50.1883 38.0346 55.0058 33.4318 55.0058 28.776V25.337L67.7612 25.337C71.0459 26.1836 73.8378 28.6173 73.8378 31.1039C73.8378 34.5957 78.6554 38.0346 83.4181 38.0346V31.1039C83.4181 27.7178 78.8196 24.3318 74.1663 24.1731C78.8196 24.0144 83.4181 20.6284 83.4181 17.2423Z" stroke="url(#paint1_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)"/>
-   <path d="M118.834 10.2587L88.943 10.2587V38.0346C93.7058 38.0346 98.5233 33.4318 98.5233 28.776V12.5865L109.253 12.5865C113.469 12.5865 117.629 16.6075 117.684 20.6813V38.0346C122.447 38.0346 127.264 33.4318 127.264 28.776V18.3534C127.264 14.3325 123.049 10.2587 118.834 10.2587Z" stroke="url(#paint2_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)"/>
-   <path d="M132.728 11.9517V38.0875C137.217 38.0875 141.706 33.6963 141.706 29.3579V11.9517L132.728 11.9517ZM137.217 7.56042C139.078 7.56042 140.611 6.13194 140.611 4.28021C140.611 2.48139 139.078 1.05291 137.217 1.05291C135.356 1.05291 133.823 2.48139 133.823 4.28021C133.823 6.13194 135.356 7.56042 137.217 7.56042Z" stroke="url(#paint3_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)"/>
-   <path d="M183.128 10.4174V13.9092C181.267 11.8459 178.584 10.4174 175.957 10.4174L156.796 10.4174C151.979 10.4174 147.216 15.0203 147.216 19.676V28.9347C147.216 33.5376 151.979 38.1934 156.796 38.1934H175.957C178.584 38.1934 181.267 36.7649 183.128 34.6486V38.1934C183.128 40.4683 180.72 42.7962 178.311 42.7962L147.216 42.7962C147.216 46.2881 151.979 49.727 156.796 49.727H175.957C180.72 49.727 185.537 46.2881 185.537 42.7962V10.4174L183.128 10.4174ZM183.128 28.9347L156.796 28.9347C153.183 28.9347 149.57 25.4429 149.57 21.951V19.676L175.957 19.676C179.515 19.676 183.128 23.115 183.128 26.6068V28.9347Z" stroke="url(#paint4_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)"/>
-   <path d="M220.891 10.2587L200.581 10.2587V1L191.001 1V38.0346C195.764 38.0346 200.581 33.4318 200.581 28.776V12.5865L211.311 12.5865C215.526 12.5865 219.687 16.6604 219.742 20.6813V38.0346C224.504 38.0346 229.322 33.4318 229.322 28.776V18.4063C229.322 14.3325 225.107 10.3116 220.891 10.2587Z" stroke="url(#paint5_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)"/>
-   <path d="M253.563 35.7596C250.005 35.7596 246.391 32.2678 246.391 28.776V12.5865L251.209 12.5865V10.2587L246.391 10.2587V1L236.811 1V10.2587H232.048V12.5865H236.811V28.776C236.811 33.4318 241.629 38.0346 246.391 38.0346H255.972V35.7596H253.563Z" stroke="url(#paint6_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)"/>
-   <defs>
-   <radialGradient id="paint0_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
-   <stop stop-color="#89F0EC"/>
-   <stop offset="1" stop-color="#58FFA2"/>
-   </radialGradient>
-   <radialGradient id="paint1_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
-   <stop stop-color="#89F0EC"/>
-   <stop offset="1" stop-color="#58FFA2"/>
-   </radialGradient>
-   <radialGradient id="paint2_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
-   <stop stop-color="#89F0EC"/>
-   <stop offset="1" stop-color="#58FFA2"/>
-   </radialGradient>
-   <radialGradient id="paint3_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
-   <stop stop-color="#89F0EC"/>
-   <stop offset="1" stop-color="#58FFA2"/>
-   </radialGradient>
-   <radialGradient id="paint4_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
-   <stop stop-color="#89F0EC"/>
-   <stop offset="1" stop-color="#58FFA2"/>
-   </radialGradient>
-   <radialGradient id="paint5_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
-   <stop stop-color="#89F0EC"/>
-   <stop offset="1" stop-color="#58FFA2"/>
-   </radialGradient>
-   <radialGradient id="paint6_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
-   <stop stop-color="#89F0EC"/>
-   <stop offset="1" stop-color="#58FFA2"/>
-   </radialGradient>
-   </defs>
-   </svg>
- </div>
-</div>
-
+    <div class="mark">
+      <svg style="width:100%;height:100%;border:1px solid var(--yello08)" viewBox="0 0 259 63" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <mask id="path-1-outside-1_737_28283" maskUnits="userSpaceOnUse" x="0.640625" y="0" width="256" height="51" fill="black">
+          <rect fill="white" x="0.640625" width="256" height="51" />
+          <path d="M37.553 1.05291V10.3116L11.2209 10.3116C6.40339 10.3116 1.64062 14.9144 1.64062 19.5702L1.64062 28.8289C1.64062 33.4318 6.40339 38.0875 11.2209 38.0875L30.3815 38.0875C33.0092 38.0875 35.6917 36.6591 37.553 34.5428V38.0875H39.9617L39.9617 1.05291L37.553 1.05291ZM37.553 21.8981C37.553 25.337 33.9398 28.8289 30.3815 28.8289L3.99464 28.8289L3.99464 26.501C3.99464 23.0092 7.60777 19.5702 11.2209 19.5702L37.553 19.5702V21.8981Z" />
+          <path d="M83.4181 17.2423V10.2587C78.6554 10.2587 73.8378 13.7505 73.8378 17.2423C73.8378 19.7289 71.0459 22.1626 67.7612 23.0092L55.0058 23.0092V1L45.4255 1L45.4255 38.0346C50.1883 38.0346 55.0058 33.4318 55.0058 28.776V25.337L67.7612 25.337C71.0459 26.1836 73.8378 28.6173 73.8378 31.1039C73.8378 34.5957 78.6554 38.0346 83.4181 38.0346V31.1039C83.4181 27.7178 78.8196 24.3318 74.1663 24.1731C78.8196 24.0144 83.4181 20.6284 83.4181 17.2423Z" />
+          <path d="M118.834 10.2587L88.943 10.2587V38.0346C93.7058 38.0346 98.5233 33.4318 98.5233 28.776V12.5865L109.253 12.5865C113.469 12.5865 117.629 16.6075 117.684 20.6813V38.0346C122.447 38.0346 127.264 33.4318 127.264 28.776V18.3534C127.264 14.3325 123.049 10.2587 118.834 10.2587Z" />
+          <path d="M132.728 11.9517V38.0875C137.217 38.0875 141.706 33.6963 141.706 29.3579V11.9517L132.728 11.9517ZM137.217 7.56042C139.078 7.56042 140.611 6.13194 140.611 4.28021C140.611 2.48139 139.078 1.05291 137.217 1.05291C135.356 1.05291 133.823 2.48139 133.823 4.28021C133.823 6.13194 135.356 7.56042 137.217 7.56042Z" />
+          <path d="M183.128 10.4174V13.9092C181.267 11.8459 178.584 10.4174 175.957 10.4174L156.796 10.4174C151.979 10.4174 147.216 15.0203 147.216 19.676V28.9347C147.216 33.5376 151.979 38.1934 156.796 38.1934H175.957C178.584 38.1934 181.267 36.7649 183.128 34.6486V38.1934C183.128 40.4683 180.72 42.7962 178.311 42.7962L147.216 42.7962C147.216 46.2881 151.979 49.727 156.796 49.727H175.957C180.72 49.727 185.537 46.2881 185.537 42.7962V10.4174L183.128 10.4174ZM183.128 28.9347L156.796 28.9347C153.183 28.9347 149.57 25.4429 149.57 21.951V19.676L175.957 19.676C179.515 19.676 183.128 23.115 183.128 26.6068V28.9347Z" />
+          <path d="M220.891 10.2587L200.581 10.2587V1L191.001 1V38.0346C195.764 38.0346 200.581 33.4318 200.581 28.776V12.5865L211.311 12.5865C215.526 12.5865 219.687 16.6604 219.742 20.6813V38.0346C224.504 38.0346 229.322 33.4318 229.322 28.776V18.4063C229.322 14.3325 225.107 10.3116 220.891 10.2587Z" />
+          <path d="M253.563 35.7596C250.005 35.7596 246.391 32.2678 246.391 28.776V12.5865L251.209 12.5865V10.2587L246.391 10.2587V1L236.811 1V10.2587H232.048V12.5865H236.811V28.776C236.811 33.4318 241.629 38.0346 246.391 38.0346H255.972V35.7596H253.563Z" />
+        </mask>
+        <path d="M37.553 1.05291V10.3116L11.2209 10.3116C6.40339 10.3116 1.64062 14.9144 1.64062 19.5702L1.64062 28.8289C1.64062 33.4318 6.40339 38.0875 11.2209 38.0875L30.3815 38.0875C33.0092 38.0875 35.6917 36.6591 37.553 34.5428V38.0875H39.9617L39.9617 1.05291L37.553 1.05291ZM37.553 21.8981C37.553 25.337 33.9398 28.8289 30.3815 28.8289L3.99464 28.8289L3.99464 26.501C3.99464 23.0092 7.60777 19.5702 11.2209 19.5702L37.553 19.5702V21.8981Z" fill="black" />
+        <path d="M83.4181 17.2423V10.2587C78.6554 10.2587 73.8378 13.7505 73.8378 17.2423C73.8378 19.7289 71.0459 22.1626 67.7612 23.0092L55.0058 23.0092V1L45.4255 1L45.4255 38.0346C50.1883 38.0346 55.0058 33.4318 55.0058 28.776V25.337L67.7612 25.337C71.0459 26.1836 73.8378 28.6173 73.8378 31.1039C73.8378 34.5957 78.6554 38.0346 83.4181 38.0346V31.1039C83.4181 27.7178 78.8196 24.3318 74.1663 24.1731C78.8196 24.0144 83.4181 20.6284 83.4181 17.2423Z" fill="black" />
+        <path d="M118.834 10.2587L88.943 10.2587V38.0346C93.7058 38.0346 98.5233 33.4318 98.5233 28.776V12.5865L109.253 12.5865C113.469 12.5865 117.629 16.6075 117.684 20.6813V38.0346C122.447 38.0346 127.264 33.4318 127.264 28.776V18.3534C127.264 14.3325 123.049 10.2587 118.834 10.2587Z" fill="black" />
+        <path d="M132.728 11.9517V38.0875C137.217 38.0875 141.706 33.6963 141.706 29.3579V11.9517L132.728 11.9517ZM137.217 7.56042C139.078 7.56042 140.611 6.13194 140.611 4.28021C140.611 2.48139 139.078 1.05291 137.217 1.05291C135.356 1.05291 133.823 2.48139 133.823 4.28021C133.823 6.13194 135.356 7.56042 137.217 7.56042Z" fill="black" />
+        <path d="M183.128 10.4174V13.9092C181.267 11.8459 178.584 10.4174 175.957 10.4174L156.796 10.4174C151.979 10.4174 147.216 15.0203 147.216 19.676V28.9347C147.216 33.5376 151.979 38.1934 156.796 38.1934H175.957C178.584 38.1934 181.267 36.7649 183.128 34.6486V38.1934C183.128 40.4683 180.72 42.7962 178.311 42.7962L147.216 42.7962C147.216 46.2881 151.979 49.727 156.796 49.727H175.957C180.72 49.727 185.537 46.2881 185.537 42.7962V10.4174L183.128 10.4174ZM183.128 28.9347L156.796 28.9347C153.183 28.9347 149.57 25.4429 149.57 21.951V19.676L175.957 19.676C179.515 19.676 183.128 23.115 183.128 26.6068V28.9347Z" fill="black" />
+        <path d="M220.891 10.2587L200.581 10.2587V1L191.001 1V38.0346C195.764 38.0346 200.581 33.4318 200.581 28.776V12.5865L211.311 12.5865C215.526 12.5865 219.687 16.6604 219.742 20.6813V38.0346C224.504 38.0346 229.322 33.4318 229.322 28.776V18.4063C229.322 14.3325 225.107 10.3116 220.891 10.2587Z" fill="black" />
+        <path d="M253.563 35.7596C250.005 35.7596 246.391 32.2678 246.391 28.776V12.5865L251.209 12.5865V10.2587L246.391 10.2587V1L236.811 1V10.2587H232.048V12.5865H236.811V28.776C236.811 33.4318 241.629 38.0346 246.391 38.0346H255.972V35.7596H253.563Z" fill="black" />
+        <path d="M37.553 1.05291V10.3116L11.2209 10.3116C6.40339 10.3116 1.64062 14.9144 1.64062 19.5702L1.64062 28.8289C1.64062 33.4318 6.40339 38.0875 11.2209 38.0875L30.3815 38.0875C33.0092 38.0875 35.6917 36.6591 37.553 34.5428V38.0875H39.9617L39.9617 1.05291L37.553 1.05291ZM37.553 21.8981C37.553 25.337 33.9398 28.8289 30.3815 28.8289L3.99464 28.8289L3.99464 26.501C3.99464 23.0092 7.60777 19.5702 11.2209 19.5702L37.553 19.5702V21.8981Z" stroke="url(#paint0_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)" />
+        <path d="M83.4181 17.2423V10.2587C78.6554 10.2587 73.8378 13.7505 73.8378 17.2423C73.8378 19.7289 71.0459 22.1626 67.7612 23.0092L55.0058 23.0092V1L45.4255 1L45.4255 38.0346C50.1883 38.0346 55.0058 33.4318 55.0058 28.776V25.337L67.7612 25.337C71.0459 26.1836 73.8378 28.6173 73.8378 31.1039C73.8378 34.5957 78.6554 38.0346 83.4181 38.0346V31.1039C83.4181 27.7178 78.8196 24.3318 74.1663 24.1731C78.8196 24.0144 83.4181 20.6284 83.4181 17.2423Z" stroke="url(#paint1_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)" />
+        <path d="M118.834 10.2587L88.943 10.2587V38.0346C93.7058 38.0346 98.5233 33.4318 98.5233 28.776V12.5865L109.253 12.5865C113.469 12.5865 117.629 16.6075 117.684 20.6813V38.0346C122.447 38.0346 127.264 33.4318 127.264 28.776V18.3534C127.264 14.3325 123.049 10.2587 118.834 10.2587Z" stroke="url(#paint2_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)" />
+        <path d="M132.728 11.9517V38.0875C137.217 38.0875 141.706 33.6963 141.706 29.3579V11.9517L132.728 11.9517ZM137.217 7.56042C139.078 7.56042 140.611 6.13194 140.611 4.28021C140.611 2.48139 139.078 1.05291 137.217 1.05291C135.356 1.05291 133.823 2.48139 133.823 4.28021C133.823 6.13194 135.356 7.56042 137.217 7.56042Z" stroke="url(#paint3_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)" />
+        <path d="M183.128 10.4174V13.9092C181.267 11.8459 178.584 10.4174 175.957 10.4174L156.796 10.4174C151.979 10.4174 147.216 15.0203 147.216 19.676V28.9347C147.216 33.5376 151.979 38.1934 156.796 38.1934H175.957C178.584 38.1934 181.267 36.7649 183.128 34.6486V38.1934C183.128 40.4683 180.72 42.7962 178.311 42.7962L147.216 42.7962C147.216 46.2881 151.979 49.727 156.796 49.727H175.957C180.72 49.727 185.537 46.2881 185.537 42.7962V10.4174L183.128 10.4174ZM183.128 28.9347L156.796 28.9347C153.183 28.9347 149.57 25.4429 149.57 21.951V19.676L175.957 19.676C179.515 19.676 183.128 23.115 183.128 26.6068V28.9347Z" stroke="url(#paint4_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)" />
+        <path d="M220.891 10.2587L200.581 10.2587V1L191.001 1V38.0346C195.764 38.0346 200.581 33.4318 200.581 28.776V12.5865L211.311 12.5865C215.526 12.5865 219.687 16.6604 219.742 20.6813V38.0346C224.504 38.0346 229.322 33.4318 229.322 28.776V18.4063C229.322 14.3325 225.107 10.3116 220.891 10.2587Z" stroke="url(#paint5_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)" />
+        <path d="M253.563 35.7596C250.005 35.7596 246.391 32.2678 246.391 28.776V12.5865L251.209 12.5865V10.2587L246.391 10.2587V1L236.811 1V10.2587H232.048V12.5865H236.811V28.776C236.811 33.4318 241.629 38.0346 246.391 38.0346H255.972V35.7596H253.563Z" stroke="url(#paint6_diamond_737_28283)" stroke-width="1.18846" mask="url(#path-1-outside-1_737_28283)" />
+        <defs>
+          <radialGradient id="paint0_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
+            <stop stop-color="#89F0EC" />
+            <stop offset="1" stop-color="#58FFA2" />
+          </radialGradient>
+          <radialGradient id="paint1_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
+            <stop stop-color="#89F0EC" />
+            <stop offset="1" stop-color="#58FFA2" />
+          </radialGradient>
+          <radialGradient id="paint2_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
+            <stop stop-color="#89F0EC" />
+            <stop offset="1" stop-color="#58FFA2" />
+          </radialGradient>
+          <radialGradient id="paint3_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
+            <stop stop-color="#89F0EC" />
+            <stop offset="1" stop-color="#58FFA2" />
+          </radialGradient>
+          <radialGradient id="paint4_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
+            <stop stop-color="#89F0EC" />
+            <stop offset="1" stop-color="#58FFA2" />
+          </radialGradient>
+          <radialGradient id="paint5_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
+            <stop stop-color="#89F0EC" />
+            <stop offset="1" stop-color="#58FFA2" />
+          </radialGradient>
+          <radialGradient id="paint6_diamond_737_28283" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(125.964 13.8259) rotate(-179.692) scale(85.6333 16.1941)">
+            <stop stop-color="#89F0EC" />
+            <stop offset="1" stop-color="#58FFA2" />
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
   <div class="icon-eye">
     <svg style="width:100%;height:100%;" viewBox="0 0 89 51" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0_547_20475)">
@@ -226,5 +225,224 @@
   </div>
   </div>
 </body>
+
+<script type="x-shader/x-vertex" id="vertexShader">
+  //
+// GLSL textureless classic 3D noise "cnoise",
+// with an RSL-style periodic variant "pnoise".
+// Author:  Stefan Gustavson (stefan.gustavson@liu.se)
+// Version: 2011-10-11
+//
+// Many thanks to Ian McEwan of Ashima Arts for the
+// ideas for permutation and gradient selection.
+//
+// Copyright (c) 2011 Stefan Gustavson. All rights reserved.
+// Distributed under the MIT license. See LICENSE file.
+// https://github.com/ashima/webgl-noise
+//
+
+vec3 mod289(vec3 x)
+{
+  return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec4 mod289(vec4 x)
+{
+  return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec4 permute(vec4 x)
+{
+  return mod289(((x*34.0)+1.0)*x);
+}
+
+vec4 taylorInvSqrt(vec4 r)
+{
+  return 1.79284291400159 - 0.85373472095314 * r;
+}
+
+vec3 fade(vec3 t) {
+  return t*t*t*(t*(t*6.0-15.0)+10.0);
+}
+
+// Classic Perlin noise
+float cnoise(vec3 P)
+{
+  vec3 Pi0 = floor(P); // Integer part for indexing
+  vec3 Pi1 = Pi0 + vec3(1.0); // Integer part + 1
+  Pi0 = mod289(Pi0);
+  Pi1 = mod289(Pi1);
+  vec3 Pf0 = fract(P); // Fractional part for interpolation
+  vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0
+  vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);
+  vec4 iy = vec4(Pi0.yy, Pi1.yy);
+  vec4 iz0 = Pi0.zzzz;
+  vec4 iz1 = Pi1.zzzz;
+
+  vec4 ixy = permute(permute(ix) + iy);
+  vec4 ixy0 = permute(ixy + iz0);
+  vec4 ixy1 = permute(ixy + iz1);
+
+  vec4 gx0 = ixy0 * (1.0 / 7.0);
+  vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;
+  gx0 = fract(gx0);
+  vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);
+  vec4 sz0 = step(gz0, vec4(0.0));
+  gx0 -= sz0 * (step(0.0, gx0) - 0.5);
+  gy0 -= sz0 * (step(0.0, gy0) - 0.5);
+
+  vec4 gx1 = ixy1 * (1.0 / 7.0);
+  vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;
+  gx1 = fract(gx1);
+  vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);
+  vec4 sz1 = step(gz1, vec4(0.0));
+  gx1 -= sz1 * (step(0.0, gx1) - 0.5);
+  gy1 -= sz1 * (step(0.0, gy1) - 0.5);
+
+  vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);
+  vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);
+  vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);
+  vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);
+  vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);
+  vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);
+  vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);
+  vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);
+
+  vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));
+  g000 *= norm0.x;
+  g010 *= norm0.y;
+  g100 *= norm0.z;
+  g110 *= norm0.w;
+  vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));
+  g001 *= norm1.x;
+  g011 *= norm1.y;
+  g101 *= norm1.z;
+  g111 *= norm1.w;
+
+  float n000 = dot(g000, Pf0);
+  float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));
+  float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));
+  float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));
+  float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));
+  float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));
+  float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));
+  float n111 = dot(g111, Pf1);
+
+  vec3 fade_xyz = fade(Pf0);
+  vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
+  vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
+  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
+  return 2.2 * n_xyz;
+}
+
+// Classic Perlin noise, periodic variant
+float pnoise(vec3 P, vec3 rep)
+{
+  vec3 Pi0 = mod(floor(P), rep); // Integer part, modulo period
+  vec3 Pi1 = mod(Pi0 + vec3(1.0), rep); // Integer part + 1, mod period
+  Pi0 = mod289(Pi0);
+  Pi1 = mod289(Pi1);
+  vec3 Pf0 = fract(P); // Fractional part for interpolation
+  vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0
+  vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);
+  vec4 iy = vec4(Pi0.yy, Pi1.yy);
+  vec4 iz0 = Pi0.zzzz;
+  vec4 iz1 = Pi1.zzzz;
+
+  vec4 ixy = permute(permute(ix) + iy);
+  vec4 ixy0 = permute(ixy + iz0);
+  vec4 ixy1 = permute(ixy + iz1);
+
+  vec4 gx0 = ixy0 * (1.0 / 7.0);
+  vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;
+  gx0 = fract(gx0);
+  vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);
+  vec4 sz0 = step(gz0, vec4(0.0));
+  gx0 -= sz0 * (step(0.0, gx0) - 0.5);
+  gy0 -= sz0 * (step(0.0, gy0) - 0.5);
+
+  vec4 gx1 = ixy1 * (1.0 / 7.0);
+  vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;
+  gx1 = fract(gx1);
+  vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);
+  vec4 sz1 = step(gz1, vec4(0.0));
+  gx1 -= sz1 * (step(0.0, gx1) - 0.5);
+  gy1 -= sz1 * (step(0.0, gy1) - 0.5);
+
+  vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);
+  vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);
+  vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);
+  vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);
+  vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);
+  vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);
+  vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);
+  vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);
+
+  vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));
+  g000 *= norm0.x;
+  g010 *= norm0.y;
+  g100 *= norm0.z;
+  g110 *= norm0.w;
+  vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));
+  g001 *= norm1.x;
+  g011 *= norm1.y;
+  g101 *= norm1.z;
+  g111 *= norm1.w;
+
+  float n000 = dot(g000, Pf0);
+  float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));
+  float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));
+  float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));
+  float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));
+  float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));
+  float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));
+  float n111 = dot(g111, Pf1);
+
+  vec3 fade_xyz = fade(Pf0);
+  vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
+  vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
+  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
+  return 2.2 * n_xyz;
+}
+
+// Include the Ashima code here!
+
+varying vec2 vUv;
+varying float noise;
+
+float turbulence( vec3 p ) {
+    float w = 100.0;
+    float t = -.5;
+    for (float f = 1.0 ; f <= 10.0 ; f++ ){
+        float power = pow( 2.0, f );
+        t += abs( pnoise( vec3( power * p ), vec3( 10.0, 10.0, 10.0 ) ) / power );
+    }
+    return t;
+}
+
+void main() {
+
+    vUv = uv;
+
+    noise = 10.0 *  -.10 * turbulence( .5 * normal );
+    float b = 5.0 * pnoise( 0.05 * position, vec3( 100.0 ) );
+    float displacement = - 10. * noise + b;
+
+    vec3 newPosition = position + normal * displacement;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+
+}
+    </script>
+<script type="x-shader/x-vertex" id="fragmentShader">
+  varying vec2 vUv;
+varying float noise;
+
+void main() {
+
+    vec3 color = vec3( vUv * ( 1. - 2. * noise ), 0.0 );
+    gl_FragColor = vec4( color.rgb, 1.0 );
+
+}
+    </script>
 
 </html>
