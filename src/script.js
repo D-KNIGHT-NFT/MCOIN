@@ -120,21 +120,20 @@ window.onload = () => {
 }
 
 sound.onmousemove = (e) => {
-  const colors = 
-  [
-  'MintCream', 
-  'DodgerBlue', 
-  'Aqua', 
-  'Chartreuse', 
-  'Coral', 
-  'GoldenRod', 
-  'GhostWhite', 
-  'DarkSalmon', 
-  'DarkTurquoise', 
-  'HotPink', 
-  'MediumSpringGreen',
-  'PeachPuff', 
-  'Teal'
+  const colors = [
+    'MintCream',
+    'DodgerBlue',
+    'Aqua',
+    'Chartreuse',
+    'Coral',
+    'GoldenRod',
+    'GhostWhite',
+    'DarkSalmon',
+    'DarkTurquoise',
+    'HotPink',
+    'MediumSpringGreen',
+    'PeachPuff',
+    'Teal'
   ]
   const random = () => colors[Math.floor(Math.random() * colors.length)];
   document.documentElement.style.cssText = ` --yellow: ${random()}; `
@@ -173,52 +172,20 @@ scene.add(light5);
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-// const ambientLight = new THREE.AmbientLight(0x8322c9, 10.0);
-// scene.add(ambientLight);
-
-// const rectLight2 = new THREE.RectAreaLight(0x18FEFE, 10.0);
-// rectLight2.lookAt(0, 0, 0);
-// rectLight2.position.set(10, 0, -10);
-// scene.add(rectLight2);
-
-// const rectLight4 = new THREE.RectAreaLight(0xffffff, 10.0);
-// rectLight4.lookAt(0, 0, 0);
-// rectLight4.position.set(-10, 0, 10);
-// scene.add(rectLight4);
-
-///////////////////////////////////////////////////////////// Lightning Scene Gold Dreams
-
-// const ambientLight = new THREE.AmbientLight( 0x0040ff, 2.6)
-// ambientLight.position.set( 0, 1, 0 );
-// scene.add(ambientLight);
-
-// const rectLight2 = new THREE.RectAreaLight( 0xD6B201 , 1.2 );
-// rectLight2.position.set( 1, 0, -1 );
-// rectLight2.rotation.set( 0, 360 ,0 )
-// scene.add( rectLight2 );
-
-// const rectLight4 = new THREE.RectAreaLight( 0xffffff , 1.2, 56, 56);
-// rectLight4.position.set( -1, 0, 1 );
-// rectLight4.rotation.set( 0, 0 ,0 )
-// scene.add( rectLight4 );
-
-// scene.add( new RectAreaLightHelper( rectLight1 ) );
-// scene.add( new RectAreaLightHelper( rectLight2 ) );
-
-const directionaLight = new THREE.DirectionalLight( 0xD6B201, 0.6 );
-directionaLight.position.set( 0, 0.5, -1 );
+const directionaLight = new THREE.DirectionalLight(0xD6B201, 10.0);
+directionaLight.position.set(0, 0.5, -1);
 directionaLight.castShadow = true;
 directionaLight.shadow.mapSize.width = 2048;
 directionaLight.shadow.mapSize.height = 2048;
 
 const d = 10;
 
-directionaLight.shadow.camera.left = - d;
+directionaLight.shadow.camera.left = -d;
 directionaLight.shadow.camera.right = d;
 directionaLight.shadow.camera.top = d;
-directionaLight.shadow.camera.bottom = - d;
+directionaLight.shadow.camera.bottom = -d;
 directionaLight.shadow.camera.far = 2000;
-scene.add( directionaLight );
+scene.add(directionaLight);
 
 ////////////////////////////////////////////////////////////////////
 // PARTICLES 
@@ -283,8 +250,8 @@ function equirectangularToPMREMCube(texture, renderer) {
 }
 
 const textureLoad = new RGBELoader()
-textureLoad.setPath( 'textures/equirectangular/' )
-const texture = textureLoad.load( 'mayoris.hdr', function (texture) {
+textureLoad.setPath('textures/equirectangular/')
+const texture = textureLoad.load('mayoris.hdr', function(texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.background = texture;
   scene.environment = texture;
@@ -306,7 +273,6 @@ const texture = textureLoad.load( 'mayoris.hdr', function (texture) {
 // const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
 // environmentMap.encoding = THREE.sRGBEncoding;
 // environmentMap.mapping = THREE.CubeRefractionMapping
-
 // scene.environment = environmentMap
 // scene.background = environmentMap
 
@@ -314,33 +280,26 @@ const texture = textureLoad.load( 'mayoris.hdr', function (texture) {
 // VIDEO TEXTURE & OBJECT
 ///////////////
 
-const normalTexture2 = textureLoader.load('/textures/water/Water_2_M_Normal.jpg')
-const normalTexture1 = textureLoader.load('/textures/water/Water_1_M_Normal.jpg')
-const alphaTextureTv = textureLoader.load('/textures/videoObject/alphaMap/frameTv.png')
-const emissiveTextureTv = textureLoader.load('/textures/videoObject/emissiveMap/frameTv.png')
-const aoTextureTv = textureLoader.load('/textures/videoObject/aoMap/frameTv.png')
-
-const vNormal = new THREE.Vector2( 3, 3 );
 const video = document.getElementById('video');
 const vTexture = new THREE.VideoTexture(video);
-const startButton = document.getElementById('start-btn');
-const parameters = { 
-emissive: 0xffffff,
-alphaMap: alphaTextureTv,
-aoMap: aoTextureTv,
-aoMapIntensity: 1, 
-map: vTexture,
-emissiveMap : emissiveTextureTv,
-emissiveIntensity : 1.0,
-envMap: texture,
-};
-const geometryV = new THREE.BoxGeometry(0.4, 0.2, 0.001);
-const materialV = new THREE.MeshStandardMaterial(parameters);
-const videoObject = new THREE.Mesh(geometryV, materialV);
 
+const parameters = {
+  emissive: 0xffffff,
+  emissiveMap: textureLoader.load('/textures/videoObject/emissiveMap/frameTv.png'),
+  emissiveIntensity: 8.0,
+  alphaMap: textureLoader.load('/textures/videoObject/alphaMap/frameTv.png'),
+  aoMap: textureLoader.load('/textures/videoObject/aoMap/frameTv.png'),
+  aoMapIntensity: 1,
+  map: vTexture,
+  envMap: texture,
+};
+const geometryTV = new THREE.BoxGeometry(0.4, 0.2, 0.001);
+const materialTV = new THREE.MeshStandardMaterial(parameters);
+const videoObject = new THREE.Mesh(geometryTV, materialTV);
 videoObject.position.set(0, 0.25, 0.25)
 scene.add(videoObject)
 
+const startButton = document.getElementById('start-btn');
 startButton.addEventListener('click', function() { video.play(); });
 
 video.addEventListener('play', function() {
@@ -372,7 +331,9 @@ video.addEventListener('play', function() {
 // MESHES + LOADERS
 ///////////////
 
-const radius = 0.5,segments = 128,rings = 128;
+const radius = 0.5,
+  segments = 128,
+  rings = 128;
 const geometry = new THREE.SphereGeometry(radius, segments, rings)
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   reflectivity: 0.2,
@@ -394,10 +355,11 @@ glassMaterial.thickness = 10.0
 
 let materialShade;
 
-materialShade = new THREE.ShaderMaterial( {
-vertexShader: document.getElementById( 'vertexShader' ).textContent,
-fragmentShader: document.getElementById( 'fragmentShader' ).textContent, parameters
-} );
+materialShade = new THREE.ShaderMaterial({
+  vertexShader: document.getElementById('vertexShader').textContent,
+  fragmentShader: document.getElementById('fragmentShader').textContent,
+  parameters
+});
 
 const glassphere = new THREE.Mesh(geometry, glassMaterial);
 glassphere.position.set(0, 0, 0)
@@ -419,7 +381,7 @@ fbxLoader.load(
     object.traverse(function(object) {
       if (object.isMesh) {
         object.material.envMap = texture;
-        object.envMapIntensity = .0
+        object.envMapIntensity = 4.0
         object.castShadow = true;
         object.receiveShadow = true;
       }
@@ -469,7 +431,8 @@ gltfLoader.load('/models/glTF/Fox/glTF/Fox.gltf', (gltf) => {
 
 
 
-// /*** Load Rotator model **/
+// /*** Load Rotator model **
+
 gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
   gltf.scene.scale.set(0.018, 0.018, 0.018)
   gltf.scene.position.set(0, 0, 0)
@@ -477,7 +440,8 @@ gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
   scene.add(gltf.scene)
 
   let rotator = gltf.scene;
-  let rotatorMaterial = new THREE.MeshPhysicalMaterial({
+  let rotatorMaterial = new THREE.MeshPhysicalMaterial(
+  {
     reflectivity: 1.0,
     transmission: 1.0,
     metalness: 0,
@@ -488,15 +452,16 @@ gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
     precision: "highp",
     emissive: 0.01,
     roughness: 0,
-    ior: 2.42, 
-    normalMap: normalTexture1,
+    ior: 2.42,
+    normalMap: textureLoader.load('/textures/water/Water_1_M_Normal.jpg'),
     normalType: 1,
-    normalScale: vNormal,
+    normalScale: new THREE.Vector2(3, 3),
     // index of refraction (IOR) of our fast medium —air— divided by the IOR of our slow medium —glass. 
     // In this case that will be 1.0 / 1.5, but you can tweak this value to achieve your desired result. 
     //For example the IOR of water is 1.33 and diamond has an IOR of 2.42
-  });
-  rotatorMaterial.thickness = 10.0
+  }
+  );
+  rotatorMaterial.thickness = .0
 
   rotator.traverse((o) => {
     if (o.isMesh) o.material = rotatorMaterial;
@@ -520,14 +485,14 @@ let cFlowMixer = null
 
 gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   creativeFlow = gltf.scene
-  creativeFlow.scale.set( 0.002, 0.002, 0.002)
+  creativeFlow.scale.set(0.002, 0.002, 0.002)
   creativeFlow.position.set(0.12, 0.25, 0.15)
   creativeFlow.rotation.set(0, 0, 0)
   scene.add(creativeFlow)
 
   creativeFlow.traverse(function(object) {
     if (object.isMesh) {
-      object.material= glassMaterial;
+      object.material = glassMaterial;
       object.castShadow = true;
       object.receiveShadow = true;
     }
@@ -539,27 +504,6 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   // cFlowAction.setLoop( THREE.LoopOnce )
   // cFlowAction.setDuration(20).play()
 })
-
-// OBJ + MTL LOADER FOR CFLOW+BUBBLE
-//////////////////////
-
-// let orbit;
-
-// let mtlLoader = new MTLLoader();
-// let objLoader = new OBJLoader();
-// mtlLoader.load('models/obj/orbit/orbit.mtl', function(materials)
-// {
-//     materials.preload();
-//     objLoader.setMaterials(materials);
-//     objLoader.load('models/obj/orbit/orbit.obj', function(object)
-//     {    
-//         orbit = object;
-//         orbit.scale.set(1, 1, 1)
-//         orbit.position.set(0,0, 0)
-//         orbit.rotation.set(0, 0, 0)
-//         scene.add( orbit );
-//     });
-// });
 
 // GLTF LOADER FOR PODIUM
 //////////////////////
@@ -700,8 +644,8 @@ window.addEventListener('resize', () => {
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 1000 );
-camera.position.set( 0.5, 0.3, 0.3);
+const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.01, 10000);
+camera.position.set(5, 5, 5);
 scene.add(camera)
 
 ////////////////////////////////////////////////////////////////////
@@ -723,8 +667,8 @@ controls.target.set(0, 0.3, 0);
 
 const resetBtn = document.getElementById('reset-btn')
 resetBtn.addEventListener("click", function() {
-camera.position.set( 0.5, 0.3, 0.33);
-controls.update();
+  camera.position.set(0.5, 0.3, 0.33);
+  controls.update();
 });
 ////////////////////////////////////////////////////////////////////
 // Renderer
@@ -750,7 +694,7 @@ const renderScene = new RenderPass(scene, camera);
 finalComposer.addPass(renderScene);
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.4, 0.001, 0.02);
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.4, 0.001, 0.0);
 finalComposer.addPass(bloomPass);
 
 const effectCopy = new ShaderPass(CopyShader);
@@ -777,7 +721,8 @@ finalComposer.addPass(effectFXAA);
 ///////////////////////////////////////////////////////////////////
 
 const PARAMS = {
-  color: '#0040ff', light5,
+  color: '#0040ff',
+  light5,
   percentage: 50,
 }
 
@@ -790,8 +735,7 @@ const f = pane.addFolder({
 
 pane.addInput(PARAMS, 'color');
 pane.addInput(
-  PARAMS, 'percentage',
-  {min: 0, max: 100, step: 10}
+  PARAMS, 'percentage', { min: 0, max: 100, step: 10 }
 );
 
 
