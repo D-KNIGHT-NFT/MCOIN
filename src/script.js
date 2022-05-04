@@ -193,7 +193,7 @@ scene.add(directionaLight);
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 39
+const count = 390
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 2.2
@@ -218,7 +218,7 @@ particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 
 particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors))
 
 const textureLoader = new THREE.TextureLoader()
-const particleTexture = textureLoader.load('/textures/particles/stars/star_07.png')
+const particleTexture = textureLoader.load('/textures/particles/stars/star_0.png')
 
 particlesMaterial.map = particleTexture
 
@@ -256,6 +256,7 @@ const texture = textureLoad.load('mayoris.hdr', function(texture) {
   scene.background = texture;
   scene.environment = texture;
 })
+
 // textureLoad.setPath( 'textures/equirectangular/' )
 // const texture2 = textureLoad.load( 'studio.hdr', function (texture) {
 //   texture2.mapping = THREE.EquirectangularReflectionMapping;
@@ -287,24 +288,33 @@ const parameters = {
   emissive: 0xffffff,
   emissiveMap: textureLoader.load('/textures/videoObject/emissiveMap/frameTv.png'),
   emissiveIntensity: 8.0,
-  alphaMap: textureLoader.load('/textures/videoObject/alphaMap/frameTv.png'),
-  aoMap: textureLoader.load('/textures/videoObject/aoMap/frameTv.png'),
-  aoMapIntensity: 1,
+  // alphaMap: textureLoader.load('/textures/videoObject/alphaMap/frameTv.png'),
+  // aoMap: textureLoader.load('/textures/videoObject/aoMap/frameTv.png'),
+  // aoMapIntensity: 1,
   map: vTexture,
   envMap: texture,
 };
+
 const geometryTV = new THREE.BoxGeometry(0.4, 0.2, 0.001);
 const materialTV = new THREE.MeshStandardMaterial(parameters);
 const videoObject = new THREE.Mesh(geometryTV, materialTV);
 videoObject.position.set(0, 0.25, 0.25)
-scene.add(videoObject)
 
-const startButton = document.getElementById('start-btn');
-startButton.addEventListener('click', function() { video.play(); });
-
+const startVideoBtn = document.getElementById('start-btn');
+startVideoBtn.addEventListener('click', function() { video.play(); });
 video.addEventListener('play', function() {
   this.currentTime = 3;
 });
+
+let tvBackLight = new THREE.RectAreaLight(0x0000ff, 800, 1, 1);
+tvBackLight.position.copy( videoObject );
+
+const groupTV = new THREE.Group(); 
+groupTV.add( videoObject ); 
+groupTV.add( tvBackLight ); 
+ 
+scene.add( groupTV ); 
+
 ////////////////////////////////////////////////////////////////////
 // Enviroment & Background alternatives
 ///////////////
@@ -327,29 +337,6 @@ video.addEventListener('play', function() {
 // scene.fog = new THREE.FogExp2( 0xf020f0, 0.72);
 ////////////////////
 
-////////////////////////////////////////////////////////////////////
-// MESHES + LOADERS
-///////////////
-
-const radius = 0.5,
-  segments = 128,
-  rings = 128;
-const geometry = new THREE.SphereGeometry(radius, segments, rings)
-const glassMaterial = new THREE.MeshPhysicalMaterial({
-  reflectivity: 0.2,
-  transmission: 1.0,
-  roughness: 0,
-  metalness: 0,
-  clearcoat: 0.3,
-  clearcoatRoughness: 0.45,
-  color: new THREE.Color('#ffffff').convertSRGBToLinear(),
-  ior: 1.2,
-  precision: "highp",
-  alphaTest: 1,
-  envMap: texture,
-});
-glassMaterial.thickness = 10.0
-
 // LOAD PERLIN NOISE
 //////////////////
 
@@ -358,20 +345,20 @@ let materialShade;
 materialShade = new THREE.ShaderMaterial({
   vertexShader: document.getElementById('vertexShader').textContent,
   fragmentShader: document.getElementById('fragmentShader').textContent,
-  parameters
 });
 
-const glassphere = new THREE.Mesh(geometry, glassMaterial);
-glassphere.position.set(0, 0, 0)
-scene.add(glassphere);
-
-
-// FBX LOADER
+////////////////////////////////////////////////////////////////////
+// MODEL LOADERS
 ///////////////
+
+const fbxLoader = new FBXLoader()
+
+/*/*//*/*//*/*//*/*//*/*//*/*//*/*//*/*//*/*//*/*//*/*/
+//> CURIOUS_KID
+//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
 let kidMixer;
 
-const fbxLoader = new FBXLoader()
 fbxLoader.load(
   'models/fbx/curiousKid/Petting.fbx', (object) => {
     kidMixer = new THREE.AnimationMixer(object);
@@ -386,11 +373,51 @@ fbxLoader.load(
         object.receiveShadow = true;
       }
     });
+
     scene.add(object)
+
     object.scale.set(.0014, .0014, .0014)
     object.position.set(-0.07, 0.11, -0.11)
     object.rotation.set(0, 45, 0)
   });
+
+/*/*//*/*//*/*//*/*//*/*//*/*//*/*//*/*//*/*//*/*//*/*/
+//> GLASS_SPHERE
+//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
+
+const radius = 0.5
+const segments = 128
+const rings = 128
+
+const geometry = new THREE.SphereGeometry(radius, segments, rings)
+const glassMaterial = new THREE.MeshPhysicalMaterial(
+{ 
+  side: THREE.DoubleSide,
+  map: textureLoader.load('/textures/glassSphere/surface_imperfections2.jpeg'),
+  // bumpMap: textureLoader.load('/textures/glassSphere/surface_imperfections2.jpeg'),
+  wrapS: THREE.RepeatWrapping,
+  wrapT: THREE.RepeatWrapping,
+  reflectivity: 0.2,
+  transmission: 1.0,
+  roughness: 0,
+  metalness: 0.1,
+  clearcoat: 0.2,
+  clearcoatRoughness: 0.6,
+  color: 0xf020f0,
+  ior: 1.2,
+  dithering: true,
+  precision: "highp",
+  alphaTest: 1,
+  envMap: texture,
+});
+
+glassMaterial.thickness = 50.0
+
+const glassphere = new THREE.Mesh(geometry, glassMaterial);
+glassphere.position.set(0, 0, 0)
+scene.add(glassphere);
+
+
 
 /*const baseColorMap = textureLoader.load("models/fbx/Rainbow_baseColor.png");
 const metallicMap = textureLoader.load("models/fbx/Rainbow_metallic.png");
@@ -408,7 +435,6 @@ const gltfLoader = new GLTFLoader()
 let foxMixer = null
 
 gltfLoader.load('/models/glTF/Fox/glTF/Fox.gltf', (gltf) => {
-  // Model
   const fox = gltf.scene
   fox.scale.set(0.0019, 0.0019, 0.0019)
   fox.position.set(0, 0.11, -0.08)
@@ -420,15 +446,13 @@ gltfLoader.load('/models/glTF/Fox/glTF/Fox.gltf', (gltf) => {
       object.receiveShadow = true;
     }
   });
+
   scene.add(fox)
 
-  // Animation
   foxMixer = new THREE.AnimationMixer(gltf.scene)
   const foxAction = foxMixer.clipAction(gltf.animations[0])
   foxAction.play()
 })
-
-
 
 
 // /*** Load Rotator model **
@@ -453,8 +477,8 @@ gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
     emissive: 0.01,
     roughness: 0,
     ior: 2.42,
+    dithering:true,
     normalMap: textureLoader.load('/textures/water/Water_1_M_Normal.jpg'),
-    normalType: 1,
     normalScale: new THREE.Vector2(3, 3),
     // index of refraction (IOR) of our fast medium —air— divided by the IOR of our slow medium —glass. 
     // In this case that will be 1.0 / 1.5, but you can tweak this value to achieve your desired result. 
@@ -583,21 +607,27 @@ groundMirror.rotateX(-Math.PI / 2);
 
 // WATER TEXTURE
 //////////////////
+
 const groundGeometry = new THREE.CircleGeometry(0.4, 64);
-const groundMaterial = new THREE.MeshStandardMaterial({ roughness: 0.8, metalness: 0.4 });
+const groundMaterial = new THREE.MeshStandardMaterial(
+  { 
+    color: 0x0000ff,
+    roughness: 0.8, 
+    metalness: 0.1,
+    normalMap: textureLoader.load('/textures/water/Water_2_M_Normal.jpg'),
+    wrapS: THREE.RepeatWrapping,
+    wrapT: THREE.RepeatWrapping,
+    anisotropy: 16,
+    needsUpdate: true,
+    normalScale: new THREE.Vector2(3, 3),
+    // map.repeat.set( 4, 4 );
+  }
+);
+
+
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = Math.PI * -0.5;
 scene.add(ground);
-
-const textureLoader2 = new THREE.TextureLoader()
-textureLoader2.load('textures/grid03.png', function(map) {
-  map.wrapS = THREE.RepeatWrapping;
-  map.wrapT = THREE.RepeatWrapping;
-  map.anisotropy = 16;
-  // map.repeat.set( 4, 4 );
-  groundMaterial.map = map;
-  groundMaterial.needsUpdate = true;
-})
 
 const waterGeometry = new THREE.CircleGeometry(0.5, 48);
 const water = new Water(waterGeometry, {
@@ -644,8 +674,8 @@ window.addEventListener('resize', () => {
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.01, 10000);
-camera.position.set(5, 5, 5);
+const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000);
+camera.position.set(-3, 5, -1);
 scene.add(camera)
 
 ////////////////////////////////////////////////////////////////////
@@ -677,7 +707,7 @@ resetBtn.addEventListener("click", function() {
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 1.5
+renderer.toneMappingExposure = 1.4
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor('#211d20')
