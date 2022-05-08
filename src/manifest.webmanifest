@@ -10,7 +10,8 @@
       "src": "/icons/appIcon-83.png",
       "type": "image/png",
       "sizes": "167x167 "
-    },{
+    },
+    {
       "src": "/icons/appIcon-60@3x.png",
       "type": "image/png",
       "sizes": "180x180"
@@ -66,13 +67,6 @@
       "src": "/icons/appIcon.png",
       "type": "image/png",
       "sizes": "192x192"
-    },
-  ],
-  "start_url": "/?source=pwa",
-  "background_color": "#3367D6",
-  "display_override": ["window-control-overlay", "minimal-ui"],
-  "display": "standalone",
-  "display": "minimal-ui",
-  "scope": "/",
-  "theme_color": "#3367D6"
-}
+    }
+  ]
+  }

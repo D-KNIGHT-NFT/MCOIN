@@ -1,0 +1,203 @@
+{
+    "asset": {
+        "copyright": "2020 (c) Adobe Inc.",
+        "generator": "Adobe Dimension - 3de52ae4ccc0c25be48106335282fae5a6a58dee",
+        "version": "2.0"
+    },
+    "accessors": [
+        {
+            "bufferView": 0,
+            "componentType": 5126,
+            "count": 9720,
+            "type": "VEC3",
+            "max": [
+                0.6999509930610657,
+                0.5684430599212647,
+                0.604914665222168
+            ],
+            "min": [
+                -0.6999509930610657,
+                0.0,
+                -0.604914665222168
+            ]
+        },
+        {
+            "bufferView": 1,
+            "componentType": 5126,
+            "count": 9720,
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 2,
+            "componentType": 5126,
+            "count": 9720,
+            "type": "VEC2"
+        },
+        {
+            "bufferView": 3,
+            "componentType": 5125,
+            "count": 14256,
+            "type": "SCALAR",
+            "max": [
+                9719.0
+            ],
+            "min": [
+                0.0
+            ]
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 116640,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 116640,
+            "byteLength": 116640,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 233280,
+            "byteLength": 77760,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 311040,
+            "byteLength": 57024,
+            "target": 34963
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 368064,
+            "uri": "podium_binary.bin"
+        }
+    ],
+    "cameras": [
+        {
+            "perspective": {
+                "znear": 0.000042529696656856689,
+                "yfov": 0.6024156808853149,
+                "zfar": 2.3391332626342775,
+                "aspectRatio": 1.3333333730697632
+            },
+            "type": "perspective",
+            "name": "render_camera"
+        }
+    ],
+    "images": [
+        {
+            "name": "rainbow_anodized_metal_baseColor",
+            "uri": "podium_images/rainbow_anodized_metal_baseColor.jpg",
+            "mimeType": "image/jpeg"
+        },
+        {
+            "name": "image2",
+            "uri": "podium_images/image2.png",
+            "mimeType": "image/png"
+        }
+    ],
+    "materials": [
+        {
+            "pbrMetallicRoughness": {
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicRoughnessTexture": {
+                    "index": 1
+                }
+            },
+            "name": "Rainbow Anodized Metal",
+            "doubleSided": true
+        }
+    ],
+    "meshes": [
+        {
+            "name": "hexagonal_display_structure_1411",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    },
+                    "indices": 3,
+                    "material": 0
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "translation": [
+                0.1698647290468216,
+                0.29999998211860659,
+                0.34804296493530276
+            ],
+            "rotation": [
+                -0.12059047073125839,
+                0.379409521818161,
+                0.04995020851492882,
+                0.9159756302833557
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                0.9999999403953552
+            ],
+            "camera": 0,
+            "name": "render_camera_n3d"
+        },
+        {
+            "translation": [
+                0.06637218594551087,
+                7.48194217692344e-9,
+                -0.09727092832326889
+            ],
+            "rotation": [
+                -8.475367074822771e-10,
+                -0.2923716604709625,
+                2.772161611375168e-9,
+                0.9563047885894775
+            ],
+            "scale": [
+                1.0,
+                0.9999998807907105,
+                1.0
+            ],
+            "mesh": 0,
+            "name": "hexagonal_display_structure_1411"
+        }
+    ],
+    "samplers": [
+        {},
+        {}
+    ],
+    "scenes": [
+        {
+            "nodes": [
+                0,
+                1
+            ],
+            "name": "scene"
+        }
+    ],
+    "textures": [
+        {
+            "name": "rainbow_anodized_metal_material::baseColor::image2",
+            "sampler": 0,
+            "source": 0
+        },
+        {
+            "name": "image2",
+            "sampler": 1,
+            "source": 1
+        }
+    ],
+    "scene": 0
+}
