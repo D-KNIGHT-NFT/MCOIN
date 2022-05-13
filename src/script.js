@@ -1,5 +1,4 @@
 import './css/style.css'
-
 import * as THREE from 'three'
 import gsap from 'gsap'
 import { easePack } from 'gsap'
@@ -163,8 +162,8 @@ scene.add(light4);
 const ambiLight = new THREE.AmbientLight(new THREE.Color('Black'));
 scene.add(ambiLight);
 
-const dirLight = new THREE.DirectionalLight('MintCream', 4.8);
-dirLight.position.set(0, 1, 0.5);
+const dirLight = new THREE.DirectionalLight('MintCream', 8.8);
+dirLight.position.set(0, 10, 10);
 dirLight.castShadow = true;
 dirLight.shadow.mapSize.width = 2048;
 dirLight.shadow.mapSize.height = 2048;
@@ -180,7 +179,7 @@ const particlesGeometry = new THREE.BufferGeometry()
 const count = 390
 
 const particlesMaterial = new THREE.PointsMaterial()
-particlesMaterial.size = 1.2
+particlesMaterial.size = 1.8
 particlesMaterial.sizeAttenuation = true
 particlesMaterial.color = new THREE.Color('#31FF9C').convertSRGBToLinear() //#31FF9C Green Particles
 
@@ -235,58 +234,27 @@ function equirectangularToPMREMCube(texture, renderer) {
 
 const textureLoad = new RGBELoader()
 textureLoad.setPath('textures/equirectangular/')
-const textureCube = textureLoad.load('mayoris.hdr', function(texture) {
+const textureCube = textureLoad.load('omega.hdr', function(texture) {
   textureCube.mapping = THREE.EquirectangularReflectionMapping;
 })
 scene.background = textureCube;
 scene.environment = textureCube;
-
-// textureLoad.setPath( 'textures/equirectangular/' )
-// const texture2 = textureLoad.load( 'studio.hdr', function (texture) {
-//   texture2.mapping = THREE.EquirectangularReflectionMapping;
-//   scene.background = texture2;
-//   scene.environment = texture2;
-// })
 
 
 ////////////////////////////////////////////////////////////////////
 // Enviroment Cube
 ///////////////
 
-// const cubeTextureLoader = new THREE.CubeTextureLoader()
-// cubeTextureLoader.setPath('textures/environmentMap/level-4/');
-// const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
-// environmentMap.encoding = THREE.sRGBEncoding;
-// environmentMap.mapping = THREE.CubeRefractionMapping
+const cubeTextureLoader = new THREE.CubeTextureLoader()
+cubeTextureLoader.setPath('textures/environmentMap/level-5/');
+const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+environmentMap.encoding = THREE.sRGBEncoding;
+environmentMap.mapping = THREE.CubeRefractionMapping
 // scene.environment = environmentMap
-// scene.background = environmentMap
+// // scene.background = environmentMap
 
-
-////////////////////////////////////////////////////////////////////
-// Enviroment & Background alternatives
-///////////////
-
+// scene.fog = new THREE.FogExp2( 0xff0, 0.2);
 ////////////////////
-// scene.environment = environmentMap
-// scene.background = new THREE.Color( 0xf020f0 );
-////////////////////
-
-// scene.environment = environmentMap
-// scene.background = new THREE.Color( 0xf020f0 );
-
-////////////////////
-
-// scene.environment = environmentMap
-// scene.background = new THREE.Color( 0xf020f0 );
-// scene.fog = new THREE.FogExp2( 0xfafafa, 0.72);
-////////////////////
-
-// scene.fog = new THREE.FogExp2( 0xf020f0, 0.72);
-////////////////////
-
-// LOAD PERLIN NOISE
-//////////////////
-
 
 // HELPERS
 ///////////////
@@ -301,15 +269,13 @@ const axisHelp = new THREE.AxesHelper()
 
 const fbxLoader = new FBXLoader()
 const gltfLoader = new GLTFLoader()
+// const objLoader = new OBJLoader()
+// const mtlLoader = new MTLLoader()
+
 
 ////////////////////////////////////////////////////////////////////
 // VIDEO TEXTURE - VIDEO TEXTURE - VIDEO TEXTURE - VIDEO TEXTURE
 ///////////////////////////////////////////////////////////////////
-
-// const irisGif = new THREE.ComposedTexture()
-
-// const video = document.getElementById('video');
-// const videoTex = new THREE.VideoTexture(video);
 
 const videoWebm = document.getElementById('video2');
 const webmTex = new THREE.VideoTexture(videoWebm);
@@ -355,27 +321,17 @@ fbxLoader.load(
     action.play();
 
     kidMaterial = new THREE.MeshStandardMaterial({
-      color: 0xfff,
-      emissive: 0x000,
-      emissiveIntensity: 0.8,
-      transparent: true,
-      opacity: 1,
-      reflectivity: 0.2,
-      // wireframe: true, 
-      // vertexColors: true,
-      roughness: 0.7,
+      color: '0x000',
+      map: textureLoader.load("models/fbx/curiousKid/tex/skin001/map.png"),
+      metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin001/metalnessMap.png"),
       metalness: 1,
-      map: textureLoader.load("models/fbx/curiousKid/tex/skin003/map.png"),
-      metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin003/metalnessMap.png"),
-      roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin003/roughnessMap.png"),
-      envMap: textureCube,
+      roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin001/roughnessMap.png"),
+      roughness: 0.15,
+      envMap:textureCube,
     })
-
-
     object.traverse(function(object) {
       if (object.isMesh) {
         object.material = kidMaterial;
-        object.envMapIntensity = 4.0
         object.castShadow = true;
         object.receiveShadow = true;
       }
@@ -394,59 +350,38 @@ fbxLoader.load(
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
 const radius = 0.6
-const segments = 160
-const rings = 160
+const segments = 80
+const rings = 80
 
 const geometry = new THREE.SphereGeometry(radius, segments, rings)
 const glassMaterial = new THREE.MeshPhysicalMaterial({
-  side: THREE.BackSide,
-  map: textureLoader.load('/textures/water/water.jpg'),
+
+  map: textureLoader.load('/textures/JSp-v1-4K/JSp_v1_basecolor.png'),
+  displacementMap: textureLoader.load('/textures/JSp-v1-4K/JSp_v1_height.png'),
+  emissive: 'ghostWhite',
+  emissiveMap: textureLoader.load('/textures/JSp-v1-4K/JSp_v1_emissive.png'),
+  emissiveIntensity: 3.5,
+  aoMap: textureLoader.load('/textures/JSp-v1-4K/JSp_v1_ambientocclusion.png'),
+  aoMapIntensity: 1.5,
   reflectivity: 0.2,
   transmission: 1.0,
-  roughness: 0,
-  metalness: 0.1,
+  roughnessMap: textureLoader.load('/textures/JSp-v1-4K/JSp_v1_roughness.png'),
+  roughness: 0.5,
+  metalnessMap: textureLoader.load('/textures/JSp-v1-4K/JSp_v1_metallic.png'),
+  metalness: 0.01,
   clearcoat: 0.2,
   clearcoatRoughness: 0.6,
-  ior: 1.2,
-  normalMap: textureLoader.load('/textures/water/Water_2_M_Normal.jpg'),
+  ior: 1.5,
+  normalMap: textureLoader.load('/textures/JSp-v1-4K/JSp_v1_normal.png'),
   normalScale: new THREE.Vector2(0.8, 0.8),
   dithering: true,
   precision: "highp",
-  envMap: textureCube,
-  envMapIntensity: 1,
-
+  envMap: textureCube
 });
-glassMaterial.thickness = 15.0
+glassMaterial.thickness = 5.0
 
 
-const shader = {
-uniforms: {
-  mRefractionRatio: { value: 0.2 },
-  mFresnelBias: { value: 0.2 },
-  mFresnelPower: { value: 4.3 },
-  mFresnelScale: { value: 4.0 },
-  tCube: { value: null }
-},
-vertexShader: document.querySelector("#shader-vertex").textContent,
-fragmentShader: document.querySelector("#shader-fragment").textContent
-};
-
-const uniforms = THREE.UniformsUtils.clone(shader.uniforms);
-
-uniforms["tCube"].value = textureCube;
-
-const shaderMaterial = new THREE.ShaderMaterial({
-  uniforms,
-  vertexShader: shader.vertexShader,
-  fragmentShader: shader.fragmentShader
-});
-
-shaderMaterial.side = THREE.BackSide
-shaderMaterial.color = new THREE.Color('GhostWhite')
-
-const glassphere = new THREE.Mesh(geometry, shaderMaterial);
-glassphere.position.set(0, 0, 0)
-glassphere.rotation.y = Math.sin * 0.3 
+const glassphere = new THREE.Mesh(geometry, glassMaterial);
 scene.add(glassphere);
 
 
@@ -456,7 +391,6 @@ scene.add(glassphere);
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
 let loneWolfMixer = null
-let lineWolfMaterial;
 let loneWolf;
 
 gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
@@ -464,21 +398,14 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   loneWolf.scale.set(0.0019, 0.0019, 0.0019)
   loneWolf.position.set(0, 0.11, -0.08)
   loneWolf.rotation.set(0, 0, 0)
-
-  lineWolfMaterial = new THREE.LineBasicMaterial( {
-  color: 0x0fddbd,
-  linewidth: 1,
-  linecap: 'round', //ignored by WebGLRenderer
-  linejoin:  'round' //ignored by WebGLRenderer
-} );
-    
+ 
   loneWolf.traverse(function(object) {
     if (object.isMesh) {
-      object.material = lineWolfMaterial
+      object.material.environment = textureCube
       object.castShadow = true;
       object.receiveShadow = true;
     }
-  });
+  })
 
   scene.add(loneWolf)
 
@@ -486,55 +413,58 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   const loneWolfAction = loneWolfMixer.clipAction(gltf.animations[0])
   loneWolfAction.play()
 })
-
+ 
 
 /*/*/
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> ROTATOR
+//> Raven_Sham
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
-// gltfLoader.load('models/glTF/rotator.gltf', (gltf) => {
-//   gltf.scene.scale.set(0.018, 0.018, 0.018)
-//   gltf.scene.position.set(0, 0, 0)
-//   gltf.scene.rotation.set(0, 0, 0)
-//   scene.add(gltf.scene)
+let ravenMixer = null
+let raven;
 
-//   let rotator = gltf.scene;
-//   let rotatorMaterial = new THREE.MeshPhysicalMaterial(
-//   {
-//     roughness: 0.7,
-//     reflectivity: 1.0,
-//     transmission: 1.0,
-//     thickness: 1,
-//     metalness: 0,
-//     clearcoat: 0.3,
-//     clearcoatRoughness: 0.25,
-//     color: 0xfff,
-//     precision: "highp",
-//     emissive: 0xfff,
-//     emissiveIntensity: 0.5,
-//     ior: 2.42,
-//     normalMap: textureLoader.load('/textures/water/Water_1_M_Normal.jpg'),
-//     normalScale: new THREE.Vector2(3, 3),
-//     // index of refraction (IOR) of our fast medium —air— divided by the IOR of our slow medium —glass. 
-//     // In this case that will be 1.0 / 1.5, but you can tweak this value to achieve your desired result. 
-//     //For example the IOR of water is 1.33 and diamond has an IOR of 2.42
-//   }
-//   );
+gltfLoader.load('/models/glTF/raven/scene.gltf', (gltf) => {
+  raven = gltf.scene
+  raven.scale.set(0.09, 0.09, 0.09)
+  raven.position.set(0, 0.21, -0.08)
+  raven.rotation.set(0, 0, 0)
+    
+  raven.traverse(function(object) {
+    if (object.isMesh) {
+      object.castShadow = true;
+      object.receiveShadow = true;
+    }
+  });
 
-//   rotator.traverse((o) => {
-//     if (o.isMesh) o.material = rotatorMaterial;
+  scene.add(raven)
+
+  ravenfMixer = new THREE.AnimationMixer(gltf.scene)
+  const ravenAction = ravenMixer.clipAction(gltf.animations[0])
+  ravenAction.play()
+})
+// fbxLoader.load(
+//   '/models/fbx/raven02.fbx', (object) => {
+//   ravenMixer = new THREE.AnimationMixer(object);
+//   // const ravenAction = ravenMixer.clipAction(object.animations[0]);
+//   // ravenAction.play();
+
+//   ravenMaterial = new THREE.MeshStandardMaterial({
+//     color: 0x000,
+//     envMap: textureCube
+//   })
+//   object.traverse(function(object) {
+//     if (object.isMesh) {
+//       object.material = ravenMaterial;
+//       object.castShadow = true;
+//       object.receiveShadow = true;
+//     }
 //   });
 
-//   // Animations
-//   gsap.to(rotator.rotation, {
-//     duration: 1000,
-//     ease: "none",
-//     y: "+=180",
-//     x: "+=180",
-//     z: "+=180",
-//     repeat: -1
-//   });
+//   scene.add(object)
+
+//   object.scale.set(.002, .002, .002)
+//   object.position.set(0, 0.2, -0.11)
+//   object.rotation.set(0, 45, 0)
 // })
 
 /*/*/
@@ -561,7 +491,6 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
 
   creativeFlow.traverse(function(object) {
     if (object.isMesh) {
-      object.material = glassMaterial;
       object.material.envMap = textureCube;
       object.castShadow = true;
       object.receiveShadow = true;
@@ -581,8 +510,23 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
 let podium;
+let podiumMaterial = new THREE.MeshStandardMaterial({
+  color: '0x000',
+  emissive: '0xfff',
+  normalMap: textureLoader.load('textures/podium/JSp_v3_normal.png'),
+  normalScale: new THREE.Vector2(0.8, 0.8),
+  emissiveMap: textureLoader.load('textures/podium/JSp_v3_emissive.png'),
+  emissiveIntensity: 2,
+  metalnessMap: textureLoader.load('textures/podium/JSp_v3_metallic.png'),
+  metalness: 1,
+  map: textureLoader.load('textures/podium/JSp_v3_basecolor.png'),
+  aoMap: textureLoader.load('textures/podium/JSp_v3_ambientocclusion.png'),
+  aoMapIntensity: 1,
+  roughnessMap: textureLoader.load('textures/podium/JSp_v3_roughness.png'),
+  roughness: 2.0
+})
 
-gltfLoader.load('models/glTF/Podium/podium.gltf', (gltf) => {
+gltfLoader.load('models/glTF/podium/podium.gltf', (gltf) => {
   podium = gltf.scene
   podium.scale.set(0.4, 0.4, 0.4)
   podium.position.set(0, 0, -0.1)
@@ -590,7 +534,7 @@ gltfLoader.load('models/glTF/Podium/podium.gltf', (gltf) => {
 
   podium.traverse(function(o) {
     if (o.isMesh) {
-      o.material.envmap = textureCube
+      o.material = podiumMaterial
       o.castShadow = true;
       o.receiveShadow = true;
     }
@@ -672,7 +616,6 @@ water.rotation.x = Math.PI * -0.5
 scene.add(water)
 
 
-
 ////////////////////////////////////////////////////////////////////
 // WINDOW SIZES + ASPECT
 ///////////////
@@ -704,7 +647,7 @@ window.addEventListener('resize', () => {
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.01, 10000);
+const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.001, 10000);
 camera.position.set(-2, -1, 3);
 scene.add(camera)
 
@@ -721,18 +664,19 @@ controls.autoRotate = true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
 controls.minDistance = 0.3;
-controls.maxDistance = 5.0;
+controls.maxDistance = 15.0;
 controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0, 0);
 
-
+////////////////////////////////////////////////////////////////////
+// RESET CAMERA VIEW (to refactor asap) 
+///////////////
 const resetBtn = document.getElementById('reset-btn')
 resetBtn.addEventListener("click", function() {
   camera.position.set(0.3, 0, 0.3);
   controls.update();
 });
-
 
 ////////////////////////////////////////////////////////////////////
 // Renderer
@@ -741,13 +685,12 @@ resetBtn.addEventListener("click", function() {
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 1.5
+renderer.toneMappingExposure = 0.8
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor('#211d20')
+renderer.setClearColor('0x000')
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
 
 ////////////////////////////////////////////////////////////////////
 // EFFECT COMPOSER -> POST-PRODUCTION
@@ -758,11 +701,9 @@ const renderScene = new RenderPass(scene, camera);
 finalComposer.addPass(renderScene);
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 1, 1, 0.23);
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), .2, 1, 0.23);
 finalComposer.addPass(bloomPass);
 
-const effectCopy = new ShaderPass(CopyShader);
-finalComposer.addPass(effectCopy);
 
 // const effectGrayScale = new ShaderPass( LuminosityShader );
 // finalComposer.addPass( effectGrayScale );
@@ -801,9 +742,6 @@ finalComposer.addPass(effectFXAA);
 // pane.addInput(
 //   PARAMS, 'percentage', { min: 0, max: 100, step: 10 }
 // );
-
-
-
 
 ////////////////////////////////////////////////////////////////////
 // ANIMATION 
@@ -853,7 +791,6 @@ const tick = () => {
   light4.position.z = Math.sin(elapsedTime * 0.5) * 30;
 
   // Glassphere Rotation
-  glassphere.rotation.y = Math.sin(elapsedTime * 0.3) * 10.5
 
   // loneWolf animation
   if (loneWolfMixer) { loneWolfMixer.update(deltaTime) }
@@ -862,6 +799,7 @@ const tick = () => {
 
   // Kid animation
   if (kidMixer) { kidMixer.update(deltaTime) };
+  if (ravenMixer) { ravenMixer.update(deltaTime) };
 
   // Render
   finalComposer.render(scene, camera)
