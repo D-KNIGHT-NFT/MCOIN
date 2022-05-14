@@ -322,11 +322,10 @@ fbxLoader.load(
 
     kidMaterial = new THREE.MeshStandardMaterial({
       color: '0x000',
-      map: textureLoader.load("models/fbx/curiousKid/tex/skin001/map.png"),
-      metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin001/metalnessMap.png"),
+      map: textureLoader.load("models/fbx/curiousKid/tex/skin000/map.png"),
+      metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
       metalness: 1,
-      roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin001/roughnessMap.png"),
-      roughness: 0.15,
+      roughness: 0.46,
       envMap:textureCube,
     })
     object.traverse(function(object) {
