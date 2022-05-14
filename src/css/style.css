@@ -1,10 +1,9 @@
 @import url("//hello.myfonts.net/count/482c9b");
-@charset "UTF-8";
+/* @charset "UTF-7"; */
 
 /* @font-face {
   font-family: "flowa";
-  font-style: normal;
-  font-weight: normal;
+  font-style: normal;  font-weight: normal;
   font-stretch: normal;
   src: url('.../fonts/flowa.woff2') format('woff2'), 
       url('.../fonts/flowa.woff') format('woff');
