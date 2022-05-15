@@ -390,8 +390,8 @@ let raven;
 gltfLoader.load('/models/glTF/raven/scene.gltf', (gltf) => {
   raven = gltf.scene
   raven.scale.set(0.10, 0.10, 0.10)
-  raven.position.set(0.14, 0.23, -0.30)
-  raven.rotation.set(0, 0, 0)
+  raven.position.set(0, 0, 3)
+  raven.rotation.set(90, 90, 90)
     
   raven.traverse(function(object) {
     if (object.isMesh) {
@@ -401,6 +401,23 @@ gltfLoader.load('/models/glTF/raven/scene.gltf', (gltf) => {
   });
   scene.add(raven)
 })
+
+// let wall;
+
+// gltfLoader.load('/models/glTF/wall/wall.gltf', (gltf) => {
+//   wall = gltf.scene
+//   wall.scale.set(1, 1, 1)
+//   wall.position.set(0, -0.5, -2)
+//   wall.rotation.set(90, 0, 0)
+    
+//   wall.traverse(function(object) {
+//     if (object.isMesh) {
+//       object.castShadow = true;
+//       object.receiveShadow = true;
+//     }
+//   });
+//   scene.add(wall)
+// })
 
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> CREATIVE_FLOW
@@ -570,8 +587,8 @@ finalComposer.addPass(renderScene);
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.8, 1, 0.23);
 finalComposer.addPass(bloomPass);
 
-const effectGrayScale = new ShaderPass( LuminosityShader );
-finalComposer.addPass( effectGrayScale );
+// const effectGrayScale = new ShaderPass( LuminosityShader );
+// finalComposer.addPass( effectGrayScale );
 
 const effectFXAA = new ShaderPass(FXAAShader);
 effectFXAA.uniforms['resolution'].value.set(1 / sizes.width, 1 / sizes.height);

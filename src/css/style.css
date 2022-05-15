@@ -386,7 +386,7 @@ canvas.webgl {
 
 nav {
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   bottom: 5%;
   left: 1%;
   /* width: 100%; */
@@ -499,7 +499,7 @@ nav {
   justify-content: flex-end;
   padding: var(--paddingS);
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   top: 5%;
   right: 1%;
 
