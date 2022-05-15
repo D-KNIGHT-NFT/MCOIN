@@ -50,6 +50,7 @@
     "saas": "^1.0.0",
     "simplex-noise": "^3.0.1",
     "snd-lib": "^1.0.2",
+    "stats.js": "^0.17.0",
     "style-loader": "^3.3.1",
     "three": "^0.139.2",
     "three-glow-mesh": "^0.1.2",

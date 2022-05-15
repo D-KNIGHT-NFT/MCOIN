@@ -1,11 +1,10 @@
 import './css/style.css'
 import * as THREE from 'three'
-import gsap from 'gsap'
-import { easePack } from 'gsap'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Pane } from 'tweakpane';
+import Stats from 'stats.js'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
@@ -34,10 +33,7 @@ import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import { HTMLMesh } from 'three/examples/jsm/interactive/HTMLMesh.js';
-import { InteractiveGroup } from 'three/examples/jsm/interactive/InteractiveGroup.js';
-import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory.js';
-import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
-import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
+
 
 
 ////////////////////////////////////////////////////////////////////
@@ -64,6 +60,13 @@ modalBtn.addEventListener('click', toggleModal);
 const canvas = document.querySelector('canvas.webgl')
 
 ////////////////////////////////////////////////////////////////////
+// SCENE & CONSTS
+///////////////
+
+const scene = new THREE.Scene()
+const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true })
+
+////////////////////////////////////////////////////////////////////
 // Audio
 ///////////////
 
@@ -83,7 +86,7 @@ window.onload = () => {
   function displayControls() {
     loading.style.display = "none";
   }
-
+  
   // check that the media is ready before displaying the controls
   if (audioElement.paused) {
     displayControls();
@@ -129,12 +132,6 @@ sound.onmousemove = (e) => {
   document.documentElement.style.cssText = ` --yellow: ${random()}; `
 }
 
-////////////////////////////////////////////////////////////////////
-// SCENE & CONSTS
-///////////////
-
-const scene = new THREE.Scene()
-const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true })
 
 ////////////////////////////////////////////////////////////////////
 // LIGHTS 
@@ -256,12 +253,6 @@ environmentMap.mapping = THREE.CubeRefractionMapping
 // scene.fog = new THREE.FogExp2( 0xff0, 0.2);
 ////////////////////
 
-// HELPERS
-///////////////
-
-const axisHelp = new THREE.AxesHelper()
-
-// scene.add( axisHelp )
 
 ////////////////////////////////////////////////////////////////////
 // MODEL LOADERS
@@ -419,7 +410,7 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
 //> Raven_Sham
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
-let ravenMixer = null
+// let ravenMixer = null
 let raven;
 
 gltfLoader.load('/models/glTF/raven/scene.gltf', (gltf) => {
@@ -437,9 +428,9 @@ gltfLoader.load('/models/glTF/raven/scene.gltf', (gltf) => {
 
   scene.add(raven)
 
-  ravenfMixer = new THREE.AnimationMixer(gltf.scene)
-  const ravenAction = ravenMixer.clipAction(gltf.animations[0])
-  ravenAction.play()
+  // ravenMixer = new THREE.AnimationMixer(gltf.scene)
+  // const ravenAction = ravenMixer.clipAction(gltf.animations[0])
+  // ravenAction.play()
 })
 // fbxLoader.load(
 //   '/models/fbx/raven02.fbx', (object) => {
@@ -509,21 +500,21 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
 let podium;
-let podiumMaterial = new THREE.MeshStandardMaterial({
-  color: '0x000',
-  emissive: '0xfff',
-  normalMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_normal.png'),
-  normalScale: new THREE.Vector2(0.8, 0.8),
-  emissiveMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_emissive.png'),
-  emissiveIntensity: 2,
-  metalnessMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_metallic.png'),
-  metalness: 1,
-  map: textureLoader.load('models/glTF/podium/tex/JSp_v3_basecolor.png'),
-  aoMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_ambientocclusion.png'),
-  aoMapIntensity: 1,
-  roughnessMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_roughness.png'),
-  roughness: 2.0
-})
+// let podiumMaterial = new THREE.MeshStandardMaterial({
+//   // map: textureLoader.load('models/glTF/podium/tex/JSp_v3_basecolor.png'),
+//   // roughnessMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_roughness.png'),
+//   roughness: 2.0,
+//   metalnessMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_metallic.png'),
+//   metalness: 1,
+//   color: 0x000,
+//   emissive: 0xffffff,
+//   emissiveMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_emissive.png'),
+//   emissiveIntensity: 1,
+  // aoMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_ambientocclusion.png'),
+  // aoMapIntensity: 1,
+  // normalMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_normal.png'),
+  // normalScale: new THREE.Vector2(0.8, 0.8)
+// })
 
 gltfLoader.load('models/glTF/podium/podium.gltf', (gltf) => {
   podium = gltf.scene
@@ -533,7 +524,7 @@ gltfLoader.load('models/glTF/podium/podium.gltf', (gltf) => {
 
   podium.traverse(function(o) {
     if (o.isMesh) {
-      o.material = podiumMaterial
+      o.material.envMap = textureCube
       o.castShadow = true;
       o.receiveShadow = true;
     }
@@ -729,8 +720,6 @@ finalComposer.addPass(effectFXAA);
 //   light5,
 //   percentage: 50,
 // }
-
-
 // const pane = new Pane();
 // const f = pane.addFolder({
 //   title: 'Lights',
@@ -742,6 +731,17 @@ finalComposer.addPass(effectFXAA);
 //   PARAMS, 'percentage', { min: 0, max: 100, step: 10 }
 // );
 
+// DEBUGGING
+///////////////
+
+const stats = new Stats()
+stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom)
+
+console.log(renderer.info)
+// const axisHelp = new THREE.AxesHelper()
+// scene.add( axisHelp )
+
 ////////////////////////////////////////////////////////////////////
 // ANIMATION 
 ///////////////
@@ -750,6 +750,7 @@ const clock = new THREE.Clock()
 let previousTime = 0
 
 const tick = () => {
+  stats.begin()
   const elapsedTime = clock.getElapsedTime()
   const deltaTime = elapsedTime - previousTime
   previousTime = elapsedTime
@@ -789,7 +790,6 @@ const tick = () => {
   light4.position.y = Math.cos(elapsedTime * 0.7) * 40;
   light4.position.z = Math.sin(elapsedTime * 0.5) * 30;
 
-  // Glassphere Rotation
 
   // loneWolf animation
   if (loneWolfMixer) { loneWolfMixer.update(deltaTime) }
@@ -798,13 +798,14 @@ const tick = () => {
 
   // Kid animation
   if (kidMixer) { kidMixer.update(deltaTime) };
-  if (ravenMixer) { ravenMixer.update(deltaTime) };
+  // if (ravenMixer) { ravenMixer.update(deltaTime) };
 
   // Render
   finalComposer.render(scene, camera)
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
+  stats.end()
 }
 
 tick()
