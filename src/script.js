@@ -526,7 +526,6 @@ const controls = new OrbitControls(camera, canvas)
 controls.enable = true
 controls.enableDamping = true
 controls.dampingFactor = 0.05;
-controls.enablePan = true
 controls.autoRotate = true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
@@ -568,7 +567,7 @@ const renderScene = new RenderPass(scene, camera);
 finalComposer.addPass(renderScene);
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), .4, 1, 0.23);
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.8, 1, 0.23);
 finalComposer.addPass(bloomPass);
 
 const effectGrayScale = new ShaderPass( LuminosityShader );
@@ -589,13 +588,13 @@ finalComposer.addPass(effectFXAA);
 // DEBUGGING
 ///////////////
 
-const stats = new Stats()
-stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-document.body.appendChild(stats.dom)
+// const stats = new Stats()
+// stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+// document.body.appendChild(stats.dom)
 
-console.log(renderer.info)
-// const axisHelp = new THREE.AxesHelper()
-// scene.add( axisHelp )
+// console.log(renderer.info)
+// // const axisHelp = new THREE.AxesHelper()
+// // scene.add( axisHelp )
 
 ////////////////////////////////////////////////////////////////////
 // ANIMATION 
@@ -605,7 +604,7 @@ const clock = new THREE.Clock()
 let previousTime = 0
 
 const tick = () => {
-  stats.begin()
+  // stats.begin()
   const elapsedTime = clock.getElapsedTime()
   const deltaTime = elapsedTime - previousTime
   previousTime = elapsedTime
@@ -660,7 +659,7 @@ const tick = () => {
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
-  stats.end()
+  // stats.end()
 }
 
 tick()

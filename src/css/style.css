@@ -500,7 +500,7 @@ nav {
   padding: var(--paddingS);
   position: fixed;
   z-index: 1;
-  bottom: 5%;
+  top: 5%;
   right: 1%;
 
 }
