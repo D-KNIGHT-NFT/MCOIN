@@ -41,6 +41,7 @@
     "lil-gui": "^0.11.0",
     "mini-css-extract-plugin": "^2.4.3",
     "nodemon": "^2.0.15",
+    "normalize-wheel": "^1.0.1",
     "pixi.js": "^6.2.2",
     "popmotion": "^11.0.3",
     "portfinder-sync": "0.0.2",

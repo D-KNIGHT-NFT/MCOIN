@@ -316,15 +316,6 @@ h1::before {
 /* ***************************************** CANVAS  */
 /* ************************************************* */
 
-/* canvas.orb-canvas {
-  z-index: -1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh; */
-  /*  pointer-events: none; */
-/* } */
 
 canvas.webgl {
   position: fixed;
@@ -347,9 +338,20 @@ canvas.webgl {
   top: 0;
   left: 0;
   z-index: 0;
-  mix-blend-mode: overlay;
+  mix-blend-mode: overlay ;
   pointer-events: none;
-  opacity: 0;
+  opacity: 1;
+}
+
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAABBJREFUCJljYGBg8GViQAEABQIAUMdse+oAAAAASUVORK5CYII=");
 }
 
 .modal-container {
@@ -389,7 +391,7 @@ nav {
   left: 1%;
   /* width: 100%; */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: start;
   justify-content: space-evenly;
   gap: 16px;
@@ -397,16 +399,16 @@ nav {
 }
 
 .btn {
-  background: var(--black04);
+  background: transparent;
   box-shadow: none;
-  color: var(--yellow);
+  color: black;
   font-size: 1rem;
   font-family: 'PirulenRg-Regular';
 }
 
 
 .btn:hover {
-  text-shadow: var(--yellow08) 0 0 0.8rem;
+  text-shadow: var(--yellow) 0 0 0.8rem;
   transform: scale(1.1);
   cursor: pointer;
   transition: transform 150ms linear;
@@ -460,18 +462,6 @@ nav {
 /* ***************************************************** */
 /************************************* UI Frame elements*/
 
-/* .mark__wrapper{
-  position: absolutez;
-  top: 10%;
-  left: 0%;
-  width: 100%;
-  height: 5%;
-  pointer-events: none;
-}
-
-.mark {
-  position: relative;
-} */
 
 .uiFrame__wrapper {
   position: fixed;
@@ -507,12 +497,12 @@ nav {
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  padding: var(--paddingL);
+  padding: var(--paddingS);
   position: fixed;
-  z-index: 10;
-  bottom: 1%;
-  left:  0%;
-  right: 0%;
+  z-index: 1;
+  bottom: 5%;
+  right: 1%;
+
 }
 
 .buttons-music {
@@ -522,51 +512,13 @@ nav {
   justify-content: space-evenly;
 }
 
-.icon-eye {width: 16%;}
+.icon-eye {width: 14%;}
 
 #loading {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   display: none;
 }
 
-#bar01,
-#bar02,
-#bar03,
-#bar04 {
-  transition: all 1s ease-in;
-}
-
-@keyframes playing {
-  from {
-    transform: scaleY(80%);
-  }
-
-  to {
-    transform: scaleY(100%);
-  }
-}
-
-.marquee {
-  font-size: 0.5em;
-  color: var(--white);
-  text-decoration: none;
-}
-
-/* .track {
-  white-space: nowrap;
-  will-change: transform;
-  animation: marquee 4s linear infinite;
-} */
-
-@keyframes marquee {
-  from {
-    transform: translateX(0%);
-  }
-
-  to {
-    transform: translateX(-10%);
-  }
-}
 
 /* **********************************************************************************/
 /* ****************************** /* A2HS PWA*/

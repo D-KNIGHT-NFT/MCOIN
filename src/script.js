@@ -7,20 +7,15 @@ import { Pane } from 'tweakpane';
 import Stats from 'stats.js'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-// JS DIRECTORY
 import { SelectiveBloom } from "./js/SelectiveBloom";
-// POST-PROCESSING
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
 import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js';
@@ -31,11 +26,13 @@ import { CopyShader } from 'three/examples/jsm/shaders/CopyShader.js';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
 import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
-import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
-import { HTMLMesh } from 'three/examples/jsm/interactive/HTMLMesh.js';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
+import Snd from 'snd-lib';
 
 
+  
 
+const snd = new Snd({preloadSoundKit: Snd.KITS.SND01})
 ////////////////////////////////////////////////////////////////////
 // SHOW MODAL INFO
 ///////////////
@@ -69,12 +66,6 @@ const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true })
 ////////////////////////////////////////////////////////////////////
 // Audio
 ///////////////
-
-const sound = document.getElementById('sound');
-const bar01 = document.getElementById('bar01');
-const bar02 = document.getElementById('bar02');
-const bar03 = document.getElementById('bar03');
-const bar04 = document.getElementById('bar04');
 
 window.onload = () => {
 
@@ -150,21 +141,10 @@ scene.add(light3);
 const light4 = new THREE.PointLight('GhostWhite', 10.0, 1000, 0.5);
 scene.add(light4);
 
-// GOD'S LIGHT
-
-
-
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-const ambiLight = new THREE.AmbientLight(new THREE.Color('Black'));
+const ambiLight = new THREE.AmbientLight(new THREE.Color( 0x808080 ));
 scene.add(ambiLight);
-
-const dirLight = new THREE.DirectionalLight('MintCream', 8.8);
-dirLight.position.set(0, 10, 10);
-dirLight.castShadow = true;
-dirLight.shadow.mapSize.width = 2048;
-dirLight.shadow.mapSize.height = 2048;
-scene.add(dirLight)
 
 
 ////////////////////////////////////////////////////////////////////
@@ -173,12 +153,12 @@ scene.add(dirLight)
 
 // Geometry base for the particles
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 390
+const count = 590
 
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 1.8
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#31FF9C').convertSRGBToLinear() //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('#ffffff').convertSRGBToLinear() //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -215,26 +195,26 @@ particlesMaterial.blending = THREE.AdditiveBlending
 // EQUIRECTANGULAR HDR
 ///////////////
 
-// prefilter the equirectangular environment map for irradiance
-function equirectangularToPMREMCube(texture, renderer) {
-  const pmremGenerator = new THREE.PMREMGenerator(renderer)
-  pmremGenerator.compileEquirectangularShader()
-
-  const cubeRenderTarget = pmremGenerator.fromEquirectangular(texture)
-
-  pmremGenerator.dispose() // dispose PMREMGenerator
-  texture.dispose() // dispose original texture
-  texture.image.data = null // remove image reference
-
-  return cubeRenderTarget.texture
-}
-
 const textureLoad = new RGBELoader()
 textureLoad.setPath('textures/equirectangular/')
 const textureCube = textureLoad.load('omega.hdr', function(texture) {
   textureCube.mapping = THREE.EquirectangularReflectionMapping;
 })
-scene.background = textureCube;
+
+// prefilter the equirectangular environment map for irradiance
+function equirectangularToPMREMCube(textureCube, renderer) {
+  const pmremGenerator = new THREE.PMREMGenerator(renderer)
+  pmremGenerator.compileEquirectangularShader()
+
+  const cubeRenderTarget = pmremGenerator.fromEquirectangular(textureCube)
+
+  pmremGenerator.dispose() // dispose PMREMGenerator
+  texture.dispose() // dispose original texture
+  texture.image.data = null // remove image reference
+
+  return cubeRenderTarget.textureCube
+}
+
 scene.environment = textureCube;
 
 
@@ -242,13 +222,13 @@ scene.environment = textureCube;
 // Enviroment Cube
 ///////////////
 
-const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-5/');
-const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
-environmentMap.encoding = THREE.sRGBEncoding;
-environmentMap.mapping = THREE.CubeRefractionMapping
-// scene.environment = environmentMap
-// // scene.background = environmentMap
+// const cubeTextureLoader = new THREE.CubeTextureLoader()
+// cubeTextureLoader.setPath('textures/environmentMap/level-5/');
+// const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+// environmentMap.encoding = THREE.sRGBEncoding;
+// environmentMap.mapping = THREE.CubeRefractionMapping
+// // scene.environment = environmentMap
+// // // scene.background = environmentMap
 
 // scene.fog = new THREE.FogExp2( 0xff0, 0.2);
 ////////////////////
@@ -260,9 +240,6 @@ environmentMap.mapping = THREE.CubeRefractionMapping
 
 const fbxLoader = new FBXLoader()
 const gltfLoader = new GLTFLoader()
-// const objLoader = new OBJLoader()
-// const mtlLoader = new MTLLoader()
-
 
 ////////////////////////////////////////////////////////////////////
 // VIDEO TEXTURE - VIDEO TEXTURE - VIDEO TEXTURE - VIDEO TEXTURE
@@ -312,11 +289,11 @@ fbxLoader.load(
     action.play();
 
     kidMaterial = new THREE.MeshStandardMaterial({
-      color: '0x000',
+      color: 0xf0f0f0,
       map: textureLoader.load("models/fbx/curiousKid/tex/skin000/map.png"),
       metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
-      metalness: 1,
-      roughness: 0.46,
+      metalness: 1.1,
+      roughness: 0.16,
       envMap:textureCube,
     })
     object.traverse(function(object) {
@@ -345,21 +322,21 @@ const rings = 80
 
 const geometry = new THREE.SphereGeometry(radius, segments, rings)
 const glassMaterial = new THREE.MeshPhysicalMaterial({
-
+  side: THREE.BackSide, 
   map: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_basecolor.png'),
   displacementMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_height.png'),
-  emissive: 'ghostWhite',
+  emissive: '#C161C9',
   emissiveMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_emissive.png'),
-  emissiveIntensity: 3.5,
+  emissiveIntensity:1,
   aoMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_ambientocclusion.png'),
-  aoMapIntensity: 1.5,
-  reflectivity: 0.2,
+  aoMapIntensity: 1,
+  reflectivity: 0.8,
   transmission: 1.0,
   roughnessMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_roughness.png'),
   roughness: 0.5,
   metalnessMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_metallic.png'),
   metalness: 0.01,
-  clearcoat: 0.2,
+  clearcoat: 0.4,
   clearcoatRoughness: 0.6,
   ior: 1.5,
   normalMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_normal.png'),
@@ -368,12 +345,10 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
   precision: "highp",
   envMap: textureCube
 });
-glassMaterial.thickness = 5.0
-
+glassMaterial.thickness = 8.5
 
 const glassphere = new THREE.Mesh(geometry, glassMaterial);
 scene.add(glassphere);
-
 
 /*/*/
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
@@ -392,11 +367,10 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   loneWolf.traverse(function(object) {
     if (object.isMesh) {
       object.material.environment = textureCube
-      object.castShadow = true;
-      object.receiveShadow = true;
+      object.castShadow = false;
+      object.receiveShadow = false;
     }
   })
-
   scene.add(loneWolf)
 
   loneWolfMixer = new THREE.AnimationMixer(gltf.scene)
@@ -415,8 +389,8 @@ let raven;
 
 gltfLoader.load('/models/glTF/raven/scene.gltf', (gltf) => {
   raven = gltf.scene
-  raven.scale.set(0.09, 0.09, 0.09)
-  raven.position.set(0, 0.21, -0.08)
+  raven.scale.set(0.10, 0.10, 0.10)
+  raven.position.set(0.14, 0.23, -0.30)
   raven.rotation.set(0, 0, 0)
     
   raven.traverse(function(object) {
@@ -425,46 +399,9 @@ gltfLoader.load('/models/glTF/raven/scene.gltf', (gltf) => {
       object.receiveShadow = true;
     }
   });
-
   scene.add(raven)
-
-  // ravenMixer = new THREE.AnimationMixer(gltf.scene)
-  // const ravenAction = ravenMixer.clipAction(gltf.animations[0])
-  // ravenAction.play()
 })
-// fbxLoader.load(
-//   '/models/fbx/raven02.fbx', (object) => {
-//   ravenMixer = new THREE.AnimationMixer(object);
-//   // const ravenAction = ravenMixer.clipAction(object.animations[0]);
-//   // ravenAction.play();
 
-//   ravenMaterial = new THREE.MeshStandardMaterial({
-//     color: 0x000,
-//     envMap: textureCube
-//   })
-//   object.traverse(function(object) {
-//     if (object.isMesh) {
-//       object.material = ravenMaterial;
-//       object.castShadow = true;
-//       object.receiveShadow = true;
-//     }
-//   });
-
-//   scene.add(object)
-
-//   object.scale.set(.002, .002, .002)
-//   object.position.set(0, 0.2, -0.11)
-//   object.rotation.set(0, 45, 0)
-// })
-
-/*/*/
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> G.O.D (GRAPHIC_OPERATOR_DECIFER)
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
-
-
-
-/*/*/
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> CREATIVE_FLOW
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
@@ -482,7 +419,7 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   creativeFlow.traverse(function(object) {
     if (object.isMesh) {
       object.material.envMap = textureCube;
-      object.castShadow = true;
+      object.castShadow = false;
       object.receiveShadow = true;
     }
   });
@@ -490,8 +427,6 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   cFlowMixer = new THREE.AnimationMixer(gltf.scene)
   const cFlowAction = cFlowMixer.clipAction(gltf.animations[0])
   cFlowAction.play()
-  // cFlowAction.setLoop( THREE.LoopOnce )
-  // cFlowAction.setDuration(20).play()
 })
 
 /*/*/
@@ -500,21 +435,6 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
 let podium;
-// let podiumMaterial = new THREE.MeshStandardMaterial({
-//   // map: textureLoader.load('models/glTF/podium/tex/JSp_v3_basecolor.png'),
-//   // roughnessMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_roughness.png'),
-//   roughness: 2.0,
-//   metalnessMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_metallic.png'),
-//   metalness: 1,
-//   color: 0x000,
-//   emissive: 0xffffff,
-//   emissiveMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_emissive.png'),
-//   emissiveIntensity: 1,
-  // aoMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_ambientocclusion.png'),
-  // aoMapIntensity: 1,
-  // normalMap: textureLoader.load('models/glTF/podium/tex/JSp_v3_normal.png'),
-  // normalScale: new THREE.Vector2(0.8, 0.8)
-// })
 
 gltfLoader.load('models/glTF/podium/podium.gltf', (gltf) => {
   podium = gltf.scene
@@ -524,51 +444,13 @@ gltfLoader.load('models/glTF/podium/podium.gltf', (gltf) => {
 
   podium.traverse(function(o) {
     if (o.isMesh) {
-      o.material.envMap = textureCube
-      o.castShadow = true;
+      o.castShadow = false;
       o.receiveShadow = true;
     }
   });
   scene.add(podium)
 })
 
-/*/*/
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> ATREZZO: GROUND_MIRROR
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
-
-// const planeC = new THREE.CylinderGeometry(0.4, 0.4, 0.02, 64, 8, false)
-// const planeMat = new THREE.MeshPhysicalMaterial({
-//   reflectivity: 0.2,
-//   transmission: 1.0,
-//   roughness: 0,
-//   metalness: 0.3,
-//   clearcoat: 0.3,
-//   ior: 1.33,
-//   clearcoatRoughness: 0.25,
-//   color: 0x000,
-//   ior: 1.5,
-// })
-// planeMat.thickness = 50.0
-
-// const plane = new THREE.Mesh(planeC, planeMat)
-// plane.position.set(0, -0.02, 0)
-// plane.receiveShadow = true
-// scene.add(plane)
-
-// const planeGeometry = new THREE.CircleGeometry(0.4, 64);
-// const groundMirror = new Reflector(planeGeometry, {
-//   clipBias: 0.003,
-//   textureWidth: window.innerWidth * window.devicePixelRatio,
-//   textureHeight: window.innerHeight * window.devicePixelRatio,
-//   color: 0x777777,
-// });
-
-// groundMirror.position.y = 0;
-// groundMirror.rotateX(-Math.PI / 2);
-// scene.add( groundMirror );
-
-/*/*/
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> NATURAL_ELEMENTS: WATER
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
@@ -577,12 +459,11 @@ const waterGeometry = new THREE.CircleGeometry(0.5, 80);
 const groundGeometry = new THREE.CircleGeometry(0.5, 64);
 
 const groundMaterial = new THREE.MeshStandardMaterial({
-  color: 0x000,
-  roughness: 0.6,
+  color: 0x0a0a0a,
+  roughness: 0.3,
   metalness: 0.1,
   normalMap: textureLoader.load('/textures/water/Water_2_M_Normal.jpg'),
   normalScale: new THREE.Vector2(3, 3),
-  // map.repeat.set( 4, 4 );
 });
 
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
@@ -627,18 +508,14 @@ window.addEventListener('resize', () => {
   // Update renderer
   renderer.setSize(sizes.width, sizes.height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
-  // Sobel Effect
-  // effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
-  // effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
 })
 
 ////////////////////////////////////////////////////////////////////
 // CAMERA
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.001, 10000);
-camera.position.set(-2, -1, 3);
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.0001, 10000);
+camera.position.set(-2, 0, 2);
 scene.add(camera)
 
 ////////////////////////////////////////////////////////////////////
@@ -654,7 +531,7 @@ controls.autoRotate = true
 controls.enableZoom = true
 controls.autoRotateSpeed = 1
 controls.minDistance = 0.3;
-controls.maxDistance = 15.0;
+controls.maxDistance = 3;
 controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0, 0);
@@ -675,10 +552,10 @@ resetBtn.addEventListener("click", function() {
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 0.8
+renderer.toneMappingExposure = 1
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor('0x000')
+renderer.setClearColor( 0x808080 )
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -691,18 +568,11 @@ const renderScene = new RenderPass(scene, camera);
 finalComposer.addPass(renderScene);
 
 /////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), .2, 1, 0.23);
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), .4, 1, 0.23);
 finalComposer.addPass(bloomPass);
 
-
-// const effectGrayScale = new ShaderPass( LuminosityShader );
-// finalComposer.addPass( effectGrayScale );
-
-// let effectSobel = new ShaderPass( SobelOperatorShader );
-// effectSobel.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
-// effectSobel.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
-// finalComposer.addPass( effectSobel );
-
+const effectGrayScale = new ShaderPass( LuminosityShader );
+finalComposer.addPass( effectGrayScale );
 
 const effectFXAA = new ShaderPass(FXAAShader);
 effectFXAA.uniforms['resolution'].value.set(1 / sizes.width, 1 / sizes.height);
@@ -715,21 +585,6 @@ finalComposer.addPass(effectFXAA);
 // TWEAK PANE
 ///////////////////////////////////////////////////////////////////
 
-// const PARAMS = {
-//   color: '#0040ff',
-//   light5,
-//   percentage: 50,
-// }
-// const pane = new Pane();
-// const f = pane.addFolder({
-//   title: 'Lights',
-//   expanded: true,
-// });
-
-// pane.addInput(PARAMS, 'color');
-// pane.addInput(
-//   PARAMS, 'percentage', { min: 0, max: 100, step: 10 }
-// );
 
 // DEBUGGING
 ///////////////
