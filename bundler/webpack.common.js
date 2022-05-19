@@ -42,6 +42,15 @@ module.exports = {
         ]
       },
 
+      // CSS
+      {
+        test: /\.css$/,
+        use: [
+          MiniCSSExtractPlugin.loader,
+          'css-loader'
+        ]
+      },
+
       // GLSL
       {
         test: /\.(glsl|vs|fs|vert|frag)$/,
@@ -49,15 +58,6 @@ module.exports = {
         use: [
           'raw-loader',
           'glslify-loader'
-        ]
-      },
-
-      // CSS
-      {
-        test: /\.css$/,
-        use: [
-          MiniCSSExtractPlugin.loader,
-          'css-loader'
         ]
       },
 

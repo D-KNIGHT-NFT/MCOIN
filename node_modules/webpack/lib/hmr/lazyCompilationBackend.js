@@ -13,7 +13,7 @@
 /**
  * @callback BackendHandler
  * @param {Compiler} compiler compiler
- * @param {function(Error?, any?): void} callback callback
+ * @param {function((Error | null)=, any=): void} callback callback
  * @returns {void}
  */
 
@@ -41,7 +41,12 @@ module.exports = options => (compiler, callback) => {
 	const listen =
 		typeof options.listen === "function"
 			? options.listen
-			: server => server.listen(options.listen);
+			: server => {
+					let listen = options.listen;
+					if (typeof listen === "object" && !("port" in listen))
+						listen = { ...listen, port: undefined };
+					server.listen(listen);
+			  };
 
 	const protocol = options.protocol || (isHttps ? "https" : "http");
 
@@ -63,7 +68,9 @@ module.exports = options => (compiler, callback) => {
 		req.socket.setNoDelay(true);
 		res.writeHead(200, {
 			"content-type": "text/event-stream",
-			"Access-Control-Allow-Origin": "*"
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Methods": "*",
+			"Access-Control-Allow-Headers": "*"
 		});
 		res.write("\n");
 		let moduleActivated = false;

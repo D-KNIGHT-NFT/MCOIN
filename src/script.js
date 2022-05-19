@@ -1,8 +1,11 @@
+// console.clear();
 import './css/style.css'
+import './css/nodeCursor.css'
 import * as THREE from 'three'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
 import { Pane } from 'tweakpane';
 import Stats from 'stats.js'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
@@ -11,13 +14,9 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-import { SelectiveBloom } from "./js/SelectiveBloom";
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
 import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js';
 import { SobelOperatorShader } from 'three/examples/jsm/shaders/SobelOperatorShader.js';
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
@@ -27,84 +26,35 @@ import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflar
 import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
-import Snd from 'snd-lib';
 
-
-  
-
-const snd = new Snd({preloadSoundKit: Snd.KITS.SND01})
-////////////////////////////////////////////////////////////////////
-// SHOW MODAL INFO
-///////////////
-
-const modalContainer = document.getElementsByClassName('modal-container')[0];
-const showBtn = document.getElementById('show-btn');
-const modalBtn = modalContainer.querySelector('button');
-
-
-const toggleModal = () => {
-  modalContainer.classList.toggle('visible');
-};
-
-showBtn.addEventListener('click', toggleModal);
-modalBtn.addEventListener('click', toggleModal);
-
-
-////////////////////////////////////////////////////////////////////
-// Canvas & UI
-///////////////
-
-const canvas = document.querySelector('canvas.webgl')
-
-////////////////////////////////////////////////////////////////////
-// SCENE & CONSTS
-///////////////
-
-const scene = new THREE.Scene()
-const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true })
 
 ////////////////////////////////////////////////////////////////////
 // Audio
 ///////////////
 
 window.onload = () => {
-
-  const audioElement = document.getElementById('music');
+  const audioTrack = document.getElementById('music');
   const play = document.getElementById('play');
   const pause = document.getElementById('pause');
-  const loading = document.getElementById('loading');
-
-  function displayControls() {
-    loading.style.display = "none";
-  }
-  
-  // check that the media is ready before displaying the controls
-  if (audioElement.paused) {
-    displayControls();
-  } else {
-    // not ready yet - wait for canplay event
-    audioElement.addEventListener('canplay', function() {
-      displayControls();
-    });
-  }
+  const soundWave = document.getElementById('soundWave')
 
   play.addEventListener('click', function() {
-    audioElement.play()
+    audioTrack.play()
     play.style.display = "none";
     pause.style.display = "block";
   });
 
   pause.addEventListener('click', function() {
-    audioElement.pause();
+    audioTrack.pause();
     pause.style.display = "none";
     play.style.display = "block";
   });
 
-  audioElement.volume = 0.5;
+  audioTrack.volume = 0.5;
 }
 
-sound.onmousemove = (e) => {
-  const colors = [
+soundWave.onmousemove = (e) => {
+  const hues = [
     'MintCream',
     'DodgerBlue',
     'Aqua',
@@ -119,16 +69,105 @@ sound.onmousemove = (e) => {
     'PeachPuff',
     'Teal'
   ]
-  const random = () => colors[Math.floor(Math.random() * colors.length)];
-  document.documentElement.style.cssText = ` --yellow: ${random()}; `
+  const random = () => hues[Math.floor(Math.random() * hues.length)];
+  document.documentElement.style.cssText = ` --hue: ${random()}; `
 }
 
+////////////////////////////////////////////////////////////////////
+// SHOW MODAL INFO
+///////////////
+
+const modalContainer = document.getElementsByClassName('modal')[0];
+const showBtn = document.getElementById('show-btn');
+const modalBtn = modalContainer.querySelector('button');
+
+
+const toggleModal = () => {
+  modalContainer.classList.toggle('visible');
+};
+
+showBtn.addEventListener('click', toggleModal);
+modalBtn.addEventListener('click', toggleModal);
+
+
+////////////////////////////////////////////////////////////////////
+// WEBGL-THREEJS -->CANVAS -->EXPERIENCE
+////////////////////////////////////////////////////////////////////
+
+const canvas = document.querySelector('canvas.webgl')
+const scene = new THREE.Scene()
+
+const renderer = new WebGLRenderer({
+  canvas: canvas,
+  antialias: true,
+  stencil: true,
+  depth: true
+});
+
+
+//*//
+// CAMERA
+//*//
+
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(-1.5, 0, 1.5);
+scene.add(camera)
+
+////////////////////////////////////////////////////////////////////
+// CONTROLS 
+///////////////
+
+const controls = new OrbitControls(camera, canvas)
+controls.enable = true
+controls.enableDamping = true
+controls.dampingFactor = 0.05;
+controls.autoRotate = true
+controls.enableZoom = false
+controls.autoRotateSpeed = 1
+controls.minDistance = 0.3;
+controls.maxDistance = 3;
+controls.minPolarAngle = 0;
+controls.maxPolarAngle = Math.PI / 2.1
+controls.target.set(0, 0, 0);
+
+////////////////////////////////////////////////////////////////////
+// RESET CAMERA VIEW (to refactor asap) 
+///////////////
+const resetBtn = document.getElementById('reset-btn')
+const eyeVideo = document.getElementById('eye')
+resetBtn.addEventListener("click", function() {
+  eye.style.display = "none";
+  camera.position.set(0.5, 0.4, 0.5);
+  controls.target.set(0, 0.2, 0);
+  controls.update();
+});
+
+//*//
+// WINDOW SIZES + ASPECT
+//*//
+
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight
+}
+
+window.addEventListener('resize', () => {
+  // Update sizes
+  sizes.width = window.innerWidth
+  sizes.height = window.innerHeight
+
+  // Update camera
+  camera.aspect = sizes.width / sizes.height
+  camera.updateProjectionMatrix()
+
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height)
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
 
 ////////////////////////////////////////////////////////////////////
 // LIGHTS 
 ///////////////
-
-// RectAreaLightUniformsLib.init(); // Initiator Rect Area Lights
 
 // ROTATING LIGHT POINTS
 
@@ -146,7 +185,6 @@ scene.add(light4);
 const ambiLight = new THREE.AmbientLight(new THREE.Color( 0x808080 ));
 scene.add(ambiLight);
 
-
 ////////////////////////////////////////////////////////////////////
 // PARTICLES 
 ///////////////
@@ -158,7 +196,7 @@ const count = 590
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 1.8
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#ffffff').convertSRGBToLinear() //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('#000000').convertSRGBToLinear() //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -188,7 +226,7 @@ particlesMaterial.alphaMap = particleTexture
 // particlesMaterial.depthTest = false
 particlesMaterial.depthWrite = false
 particlesMaterial.blending = THREE.AdditiveBlending
-// particlesMaterial.vertexColors = true
+particlesMaterial.vertexColors = true
 
 
 ////////////////////////////////////////////////////////////////////
@@ -214,8 +252,8 @@ function equirectangularToPMREMCube(textureCube, renderer) {
 
   return cubeRenderTarget.textureCube
 }
-
 scene.environment = textureCube;
+// scene.background = textureCube;
 
 
 ////////////////////////////////////////////////////////////////////
@@ -241,9 +279,9 @@ scene.environment = textureCube;
 const fbxLoader = new FBXLoader()
 const gltfLoader = new GLTFLoader()
 
-////////////////////////////////////////////////////////////////////
-// VIDEO TEXTURE - VIDEO TEXTURE - VIDEO TEXTURE - VIDEO TEXTURE
-///////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// VIDEO TEXTURE TV - VIDEO TEXTURE TV - VIDEO TEXTURE TV  - VIDEO TEXTURE TV 
+////////////////////////////////////////////////////////////////////////////
 
 const videoWebm = document.getElementById('video2');
 const webmTex = new THREE.VideoTexture(videoWebm);
@@ -311,43 +349,69 @@ fbxLoader.load(
     object.rotation.set(0, 45, 0)
   });
 
+/////////////////////////////////////////////////////////////////////////////
+// VIDEO TEXTURE 👁- VIDEO TEXTURE 👁 - VIDEO TEXTURE 👁  - VIDEO TEXTURE 👁
+////////////////////////////////////////////////////////////////////////////
+
+
+const videoEye = document.getElementById('eye')
+const webmEye = new THREE.VideoTexture(videoEye)
+webmEye.minFilter = THREE.LinearFilter;
+webmEye.magFilter = THREE.LinearFilter;
+webmEye.format = THREE.RGBAFormat;
+
+const paramEye = {
+  side: THREE.DoubleSide,
+  emissive: 0x000000,
+  emissiveIntensity: 0.02,
+  reflectivity: 0.8,
+  transmission: 1.0,
+  alphaTest: 0.8,
+  roughness: 0.2,
+  ior: 1.5,
+  precision: "highp",
+  map: webmEye,
+  envMap: textureCube
+};
+
+const circle = new THREE.CircleGeometry( 0.3, 64 );
+const materialEye = new THREE.MeshPhysicalMaterial(paramEye);
+materialEye.thickness = 8.5
+const circlEye = new THREE.Mesh( circle, materialEye );
+circlEye.position.set(0, 0, -0.75)
+// scene.add( circlEye );
+
 
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> SPACE_SHIP: GLASS_SPHERE
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
-const radius = 0.6
+const radius = 0.7
 const segments = 80
 const rings = 80
 
 const geometry = new THREE.SphereGeometry(radius, segments, rings)
 const glassMaterial = new THREE.MeshPhysicalMaterial({
-  side: THREE.BackSide, 
-  map: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_basecolor.png'),
-  displacementMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_height.png'),
-  emissive: '#C161C9',
-  emissiveMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_emissive.png'),
-  emissiveIntensity:1,
-  aoMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_ambientocclusion.png'),
-  aoMapIntensity: 1,
+  side: THREE.FrontSide, 
+  // map: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_basecolor.png'),
+  // emissiveMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_emissive.png'),
+  // emissiveIntensity:0.8,
   reflectivity: 0.8,
   transmission: 1.0,
-  roughnessMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_roughness.png'),
-  roughness: 0.5,
-  metalnessMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_metallic.png'),
-  metalness: 0.01,
+  // roughnessMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_roughness.png'),
+  roughness: 0.2,
+  // metalnessMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_metallic.png'),
+  metalness: 0.1,
   clearcoat: 0.4,
   clearcoatRoughness: 0.6,
   ior: 1.5,
-  normalMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_normal.png'),
-  normalScale: new THREE.Vector2(0.8, 0.8),
-  dithering: true,
-  precision: "highp",
-  envMap: textureCube
+  // normalMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_normal.png'),
+  // normalScale: new THREE.Vector2(3.8, 3.8),
+  precision: "highp"
 });
 glassMaterial.thickness = 8.5
 
-const glassphere = new THREE.Mesh(geometry, glassMaterial);
+const glassphere = new THREE.Mesh(geometry, materialEye);
 scene.add(glassphere);
 
 /*/*/
@@ -378,46 +442,6 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   loneWolfAction.play()
 })
  
-
-/*/*/
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> Raven_Sham
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
-
-// let ravenMixer = null
-let raven;
-
-gltfLoader.load('/models/glTF/raven/scene.gltf', (gltf) => {
-  raven = gltf.scene
-  raven.scale.set(0.10, 0.10, 0.10)
-  raven.position.set(0, 0, 3)
-  raven.rotation.set(90, 90, 90)
-    
-  raven.traverse(function(object) {
-    if (object.isMesh) {
-      object.castShadow = true;
-      object.receiveShadow = true;
-    }
-  });
-  scene.add(raven)
-})
-
-// let wall;
-
-// gltfLoader.load('/models/glTF/wall/wall.gltf', (gltf) => {
-//   wall = gltf.scene
-//   wall.scale.set(1, 1, 1)
-//   wall.position.set(0, -0.5, -2)
-//   wall.rotation.set(90, 0, 0)
-    
-//   wall.traverse(function(object) {
-//     if (object.isMesh) {
-//       object.castShadow = true;
-//       object.receiveShadow = true;
-//     }
-//   });
-//   scene.add(wall)
-// })
 
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> CREATIVE_FLOW
@@ -488,7 +512,7 @@ ground.rotation.x = Math.PI * -0.5;
 scene.add(ground);
 
 const water = new Water(waterGeometry, {
-  color: 'GoldenRod',
+  color: 0xfff0dd,
   scale: 1,
   flowDirection: new THREE.Vector2(-1, 0.8),
   textureWidth: 2048,
@@ -505,63 +529,6 @@ scene.add(water)
 
 
 ////////////////////////////////////////////////////////////////////
-// WINDOW SIZES + ASPECT
-///////////////
-
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight
-}
-
-window.addEventListener('resize', () => {
-  // Update sizes
-  sizes.width = window.innerWidth
-  sizes.height = window.innerHeight
-
-  // Update camera
-  camera.aspect = sizes.width / sizes.height
-  camera.updateProjectionMatrix()
-
-  // Update renderer
-  renderer.setSize(sizes.width, sizes.height)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
-
-////////////////////////////////////////////////////////////////////
-// CAMERA
-///////////////
-
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.0001, 10000);
-camera.position.set(-2, 0, 2);
-scene.add(camera)
-
-////////////////////////////////////////////////////////////////////
-// CONTROLS 
-///////////////
-
-const controls = new OrbitControls(camera, canvas)
-controls.enable = true
-controls.enableDamping = true
-controls.dampingFactor = 0.05;
-controls.autoRotate = true
-controls.enableZoom = true
-controls.autoRotateSpeed = 1
-controls.minDistance = 0.3;
-controls.maxDistance = 3;
-controls.minPolarAngle = 0;
-controls.maxPolarAngle = Math.PI / 2.1
-controls.target.set(0, 0, 0);
-
-////////////////////////////////////////////////////////////////////
-// RESET CAMERA VIEW (to refactor asap) 
-///////////////
-const resetBtn = document.getElementById('reset-btn')
-resetBtn.addEventListener("click", function() {
-  camera.position.set(0.3, 0, 0.3);
-  controls.update();
-});
-
-////////////////////////////////////////////////////////////////////
 // Renderer
 ///////////////
 
@@ -571,31 +538,31 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor( 0x808080 )
+renderer.setClearColor( 0xffffff )
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 ////////////////////////////////////////////////////////////////////
-// EFFECT COMPOSER -> POST-PRODUCTION
+// FX COMPOSSER - POST-PRODUCTION
 ///////////////
 
-const finalComposer = new EffectComposer(renderer);
-const renderScene = new RenderPass(scene, camera);
-finalComposer.addPass(renderScene);
+// const composer = new EffectComposer(renderer)
+// composer.addPass(new RenderPass(scene, camera))
+// composer.addPass(new EffectPass(camera, new BloomEffect()));
 
-/////////////////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.8, 1, 0.23);
-finalComposer.addPass(bloomPass);
+/////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
+// const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.8, 0.5, 0.03)
+// composer.addPass(new EffectPass(camera, bloomPass))
 
 // const effectGrayScale = new ShaderPass( LuminosityShader );
-// finalComposer.addPass( effectGrayScale );
+// composer.addPass( effectGrayScale );
 
-const effectFXAA = new ShaderPass(FXAAShader);
-effectFXAA.uniforms['resolution'].value.set(1 / sizes.width, 1 / sizes.height);
-finalComposer.addPass(effectFXAA);
+
+// const effectFXAA = new ShaderPass(FXAAShader)
+// effectFXAA.uniforms['resolution'].value.set(1 / sizes.width, 1 / sizes.height)
 
 // const glitchPass = new GlitchPass();
-// finalComposer.addPass( glitchPass );
+// composer.addPass( glitchPass );
 
 ////////////////////////////////////////////////////////////////////
 // TWEAK PANE
@@ -607,11 +574,16 @@ finalComposer.addPass(effectFXAA);
 
 // const stats = new Stats()
 // stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+// stats.showPanel(1) // 0: fps, 1: ms, 2: mb, 3+: custom
+// stats.showPanel(2) // 0: fps, 1: ms, 2: mb, 3+: custom
+
+// //stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
 // document.body.appendChild(stats.dom)
 
-// console.log(renderer.info)
-// // const axisHelp = new THREE.AxesHelper()
-// // scene.add( axisHelp )
+//console.log(renderer.info)
+
+// const axisHelp = new THREE.AxesHelper()
+// scene.add( axisHelp )
 
 ////////////////////////////////////////////////////////////////////
 // ANIMATION 
@@ -629,7 +601,6 @@ const tick = () => {
   // Update controls
   controls.update()
 
-
   // Update Particles
   particles.rotation.y = elapsedTime * 0.024
   particles.rotation.x = elapsedTime * 0.008
@@ -639,10 +610,8 @@ const tick = () => {
     let i3 = i * 1
     const x = particlesGeometry.attributes.position.array[i3]
     particlesGeometry.attributes.position.array[i3 + 0.01] = Math.sin(elapsedTime + x)
-
   }
   particlesGeometry.attributes.position.needsUpdate = true
-
 
   // LIGHT ANIMATIONS
   light1.position.x = Math.sin(elapsedTime * 0.7) * 30
@@ -661,18 +630,13 @@ const tick = () => {
   light4.position.y = Math.cos(elapsedTime * 0.7) * 40;
   light4.position.z = Math.sin(elapsedTime * 0.5) * 30;
 
-
-  // loneWolf animation
+  // Update Animation Mixers
   if (loneWolfMixer) { loneWolfMixer.update(deltaTime) }
   if (cFlowMixer) { cFlowMixer.update(deltaTime) }
-  // if (orbitMixer) { orbitMixer.update(deltaTime) }
-
-  // Kid animation
   if (kidMixer) { kidMixer.update(deltaTime) };
-  // if (ravenMixer) { ravenMixer.update(deltaTime) };
 
   // Render
-  finalComposer.render(scene, camera)
+ renderer.render( scene, camera );
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)

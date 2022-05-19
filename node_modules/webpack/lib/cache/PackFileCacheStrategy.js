@@ -639,10 +639,14 @@ class PackContentItems {
 				} catch (e) {
 					rollback(s);
 					if (e === NOT_SERIALIZABLE) continue;
-					logger.warn(
-						`Skipped not serializable cache item '${key}': ${e.message}`
-					);
-					logger.debug(e.stack);
+					const msg = "Skipped not serializable cache item";
+					if (e.message.includes("ModuleBuildError")) {
+						logger.log(`${msg} (in build error): ${e.message}`);
+						logger.debug(`${msg} '${key}' (in build error): ${e.stack}`);
+					} else {
+						logger.warn(`${msg}: ${e.message}`);
+						logger.debug(`${msg} '${key}': ${e.stack}`);
+					}
 				}
 			}
 			write(null);
@@ -782,7 +786,7 @@ class PackContent {
 			this.logger.time(timeMessage);
 		}
 		const value = this.lazy();
-		if (value instanceof Promise) {
+		if ("then" in value) {
 			return value.then(data => {
 				const map = data.map;
 				if (timeMessage) {
@@ -830,7 +834,7 @@ class PackContent {
 				this.logger.time(timeMessage);
 			}
 			const value = this.lazy();
-			if (value instanceof Promise) {
+			if ("then" in value) {
 				return value.then(data => {
 					if (timeMessage) {
 						this.logger.timeEnd(timeMessage);
@@ -918,7 +922,7 @@ class PackContent {
 		}
 		const value = this.lazy();
 		this.outdated = false;
-		if (value instanceof Promise) {
+		if ("then" in value) {
 			// Move to state B1
 			this.lazy = write(() =>
 				value.then(data => {
