@@ -411,7 +411,6 @@ nav {
 }
 
 .btn {
-  background: var(--blck01);
   box-shadow: none;
   color: var(--hue);
   font-size: 0.3rem;
@@ -422,10 +421,9 @@ nav {
 
 
 .btn:hover {
-  text-shadow: var(--yellow) 0 0 0.8rem;
+  text-shadow: var(--blck04) 0 0 0.8rem;
   transform: scale(1.1);
   cursor: pointer;
-  color: var(--hue);
   transition: transform 150ms linear;
   box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
 }
@@ -465,15 +463,15 @@ nav {
 }
 
 #soundWave {
-  width: 2%;
+  width: 4%;
 }
 
 #play {
-  width: 2%;
+  width: 4%;
 }
 
 #pause {
-  width: 2%;
+  width: 4%;
 }
 
 #loading {
@@ -482,7 +480,7 @@ nav {
 }
 
 #icon-eye {
-  width: 4%;
+  width: 8%;
 }
 
 #menu {

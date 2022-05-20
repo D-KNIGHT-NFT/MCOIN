@@ -1,0 +1,290 @@
+{
+    "asset": {
+        "copyright": "2020 (c) Adobe Inc.",
+        "generator": "Adobe Dimension - 3de52ae4ccc0c25be48106335282fae5a6a58dee",
+        "version": "2.0"
+    },
+    "accessors": [
+        {
+            "bufferView": 0,
+            "componentType": 5126,
+            "count": 1728,
+            "type": "VEC3",
+            "max": [
+                -0.37830010056495669,
+                0.8324838280677795,
+                -1.8212312459945679
+            ],
+            "min": [
+                -1.898282766342163,
+                -9.999999406318239e-8,
+                -2.505702257156372
+            ]
+        },
+        {
+            "bufferView": 1,
+            "componentType": 5126,
+            "count": 1728,
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 2,
+            "componentType": 5126,
+            "count": 1728,
+            "type": "VEC2"
+        },
+        {
+            "bufferView": 3,
+            "componentType": 5125,
+            "count": 1728,
+            "type": "SCALAR",
+            "max": [
+                1727.0
+            ],
+            "min": [
+                0.0
+            ]
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 20736,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 20736,
+            "byteLength": 20736,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 41472,
+            "byteLength": 13824,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 55296,
+            "byteLength": 6912,
+            "target": 34963
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 62208,
+            "uri": "NLW_binary.bin"
+        }
+    ],
+    "cameras": [
+        {
+            "perspective": {
+                "znear": 0.00003726594877662137,
+                "yfov": 0.6024156808853149,
+                "zfar": 2.0496270656585695,
+                "aspectRatio": 1.3333333730697632
+            },
+            "type": "perspective",
+            "name": "render_camera"
+        }
+    ],
+    "images": [
+        {
+            "name": "1ff953c0-8c18-447c-b6ab-53c3a18746d8",
+            "uri": "NLW_images/1ff953c0-8c18-447c-b6ab-53c3a18746d8.jpg",
+            "mimeType": "image/jpeg"
+        },
+        {
+            "name": "texture100869",
+            "uri": "NLW_images/texture100869.png",
+            "mimeType": "image/png"
+        },
+        {
+            "name": "texture97554",
+            "uri": "NLW_images/texture97554.jpg",
+            "mimeType": "image/jpeg"
+        },
+        {
+            "name": "384caf1c-7952-494f-8257-2dbb3cee082a",
+            "uri": "NLW_images/384caf1c-7952-494f-8257-2dbb3cee082a.png",
+            "mimeType": "image/png"
+        }
+    ],
+    "materials": [
+        {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    0.9399999976158142
+                ],
+                "baseColorTexture": {
+                    "index": 0,
+                    "extensions": {
+                        "KHR_texture_transform": {
+                            "offset": [
+                                0.06443184614181519,
+                                0.0944814234972
+                            ],
+                            "rotation": 0.33161255717277529,
+                            "scale": [
+                                1,
+                                1
+                            ]
+                        }
+                    }
+                },
+                "metallicRoughnessTexture": {
+                    "index": 1,
+                    "extensions": {
+                        "KHR_texture_transform": {
+                            "offset": [
+                                0.06443184614181519,
+                                0.0944814234972
+                            ],
+                            "rotation": 0.33161255717277529,
+                            "scale": [
+                                1,
+                                1
+                            ]
+                        }
+                    }
+                }
+            },
+            "normalTexture": {
+                "index": 3,
+                "extensions": {
+                    "KHR_texture_transform": {
+                        "offset": [
+                            0.06443184614181519,
+                            0.0944814234972
+                        ],
+                        "rotation": 0.33161255717277529,
+                        "scale": [
+                            1,
+                            1
+                        ]
+                    }
+                }
+            },
+            "emissiveTexture": {
+                "index": 2,
+                "extensions": {
+                    "KHR_texture_transform": {
+                        "offset": [
+                            0.06443184614181519,
+                            0.0944814234972
+                        ],
+                        "rotation": 0.33161255717277529,
+                        "scale": [
+                            1,
+                            1
+                        ]
+                    }
+                }
+            },
+            "emissiveFactor": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "alphaMode": "BLEND",
+            "name": "Rainbow Anodized Metal",
+            "doubleSided": true
+        }
+    ],
+    "meshes": [
+        {
+            "name": "fox",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    },
+                    "indices": 3,
+                    "material": 0
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "translation": [
+                2.3945724964141847,
+                0.3000001013278961,
+                2.4263808727264406
+            ],
+            "rotation": [
+                -0.12059047073125839,
+                0.379409521818161,
+                0.04995020851492882,
+                0.9159756302833557
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                0.9999999403953552
+            ],
+            "camera": 0,
+            "name": "render_camera_n3d"
+        },
+        {
+            "translation": [
+                1.1382914781570435,
+                9.999999406318239e-8,
+                2.163466691970825
+            ],
+            "mesh": 0,
+            "name": "fox"
+        }
+    ],
+    "samplers": [
+        {},
+        {},
+        {},
+        {}
+    ],
+    "scenes": [
+        {
+            "nodes": [
+                0,
+                1
+            ],
+            "name": "scene"
+        }
+    ],
+    "textures": [
+        {
+            "name": "texture89051",
+            "sampler": 0,
+            "source": 0
+        },
+        {
+            "name": "texture100869",
+            "sampler": 1,
+            "source": 1
+        },
+        {
+            "name": "texture97554",
+            "sampler": 2,
+            "source": 2
+        },
+        {
+            "name": "texture92949",
+            "sampler": 3,
+            "source": 3
+        }
+    ],
+    "scene": 0,
+    "extensionsUsed": [
+        "KHR_texture_transform"
+    ],
+    "extensionsRequired": [
+        "KHR_texture_transform"
+    ]
+}

@@ -137,7 +137,7 @@ const resetBtn = document.getElementById('reset-btn')
 const eyeVideo = document.getElementById('eye')
 resetBtn.addEventListener("click", function() {
   eye.style.display = "none";
-  camera.position.set(0.5, 0.4, 0.5);
+  camera.position.set(0.4, 0.3, 0.4);
   controls.target.set(0, 0.2, 0);
   controls.update();
 });
@@ -312,43 +312,6 @@ videoWebm.addEventListener('play', function() {
   this.currentTime = 3;
 });
 
-
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> CURIOUS_KID
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
-
-let kidMixer;
-let kidMaterial;
-
-fbxLoader.load(
-  'models/fbx/curiousKid/animations/Petting.fbx', (object) => {
-    kidMixer = new THREE.AnimationMixer(object);
-    const action = kidMixer.clipAction(object.animations[0]);
-    action.play();
-
-    kidMaterial = new THREE.MeshStandardMaterial({
-      color: 0xf0f0f0,
-      map: textureLoader.load("models/fbx/curiousKid/tex/skin000/map.png"),
-      metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
-      metalness: 1.1,
-      roughness: 0.16,
-      envMap:textureCube,
-    })
-    object.traverse(function(object) {
-      if (object.isMesh) {
-        object.material = kidMaterial;
-        object.castShadow = true;
-        object.receiveShadow = true;
-      }
-    });
-
-    scene.add(object)
-
-    object.scale.set(.0014, .0014, .0014)
-    object.position.set(-0.07, 0.11, -0.11)
-    object.rotation.set(0, 45, 0)
-  });
-
 /////////////////////////////////////////////////////////////////////////////
 // VIDEO TEXTURE 👁- VIDEO TEXTURE 👁 - VIDEO TEXTURE 👁  - VIDEO TEXTURE 👁
 ////////////////////////////////////////////////////////////////////////////
@@ -362,7 +325,7 @@ webmEye.format = THREE.RGBAFormat;
 
 const paramEye = {
   side: THREE.DoubleSide,
-  emissive: 0x000000,
+  emissive: 0xffffff,
   emissiveIntensity: 0.02,
   reflectivity: 0.8,
   transmission: 1.0,
@@ -414,7 +377,49 @@ glassMaterial.thickness = 8.5
 const glassphere = new THREE.Mesh(geometry, materialEye);
 scene.add(glassphere);
 
-/*/*/
+/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
+//> CURIOUS_KID
+//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
+
+let kidMixer;
+let kidMaterial;
+
+fbxLoader.load(
+  'models/fbx/curiousKid/animations/Petting.fbx', (object) => {
+    kidMixer = new THREE.AnimationMixer(object);
+    const action = kidMixer.clipAction(object.animations[0]);
+    action.play();
+
+    kidMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0xf0f0f0,
+      map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map.png"),
+      // metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
+      // metalness: 1.1,
+      reflectivity: 0.8,
+      transmission: 1.0,
+      clearcoat: 0.4,
+      clearcoatRoughness: 0.6,
+      ior: 1.5,
+      roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
+      roughness: 0.16,
+      //  
+    })
+    object.traverse(function(object) {
+      if (object.isMesh) {
+        object.material = kidMaterial;
+        object.castShadow = true;
+        object.receiveShadow = true;
+      }
+    });
+
+    scene.add(object)
+
+    object.scale.set(.0014, .0014, .0014)
+    object.position.set(-0.07, 0.11, -0.11)
+    object.rotation.set(0, 45, 0)
+  });
+
+
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> LONE_WOLF
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
@@ -470,6 +475,22 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   cFlowAction.play()
 })
 
+/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
+//> App ICON
+//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
+
+let icon;
+
+gltfLoader.load('models/glTF/Anja-icon/icon-Anja.gltf', (gltf) => {
+  icon = gltf.scene
+  icon.scale.set(6, 6, 6)
+  icon.position.set(0, 0.1, 0)
+  icon.rotation.x = Math.PI * -0.5
+  //  
+})
+
+
+
 /*/*/
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> ATREZZO: PODIUM
@@ -491,6 +512,7 @@ gltfLoader.load('models/glTF/podium/podium.gltf', (gltf) => {
   });
   scene.add(podium)
 })
+
 
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> NATURAL_ELEMENTS: WATER
@@ -538,7 +560,7 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor( 0xffffff )
+renderer.setClearColor( 0xfffffff )
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -546,9 +568,9 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // FX COMPOSSER - POST-PRODUCTION
 ///////////////
 
-// const composer = new EffectComposer(renderer)
-// composer.addPass(new RenderPass(scene, camera))
-// composer.addPass(new EffectPass(camera, new BloomEffect()));
+const composer = new EffectComposer(renderer)
+composer.addPass(new RenderPass(scene, camera))
+composer.addPass(new EffectPass(camera, new BloomEffect()));
 
 /////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
 // const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.8, 0.5, 0.03)
@@ -567,7 +589,6 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 ////////////////////////////////////////////////////////////////////
 // TWEAK PANE
 ///////////////////////////////////////////////////////////////////
-
 
 // DEBUGGING
 ///////////////
@@ -636,7 +657,7 @@ const tick = () => {
   if (kidMixer) { kidMixer.update(deltaTime) };
 
   // Render
- renderer.render( scene, camera );
+composer.render( scene, camera );
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
