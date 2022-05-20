@@ -320,9 +320,6 @@ videoWebm.addEventListener('play', function() {
 
 const videoEye = document.getElementById('eye')
 const webmEye = new THREE.VideoTexture(videoEye)
-webmEye.minFilter = THREE.LinearFilter;
-webmEye.magFilter = THREE.LinearFilter;
-webmEye.format = THREE.RGBAFormat;
 
 const paramEye = {
   side: THREE.DoubleSide,
