@@ -334,7 +334,7 @@ html {
 }
 
 body {
-  background-color: var(--blck);
+  background-color: var(--white);
   position: fixed;
   top: 0;
   left: 0;
@@ -362,7 +362,7 @@ h1 { font-size: 2rem; }
 nav {
   position: absolute;
   z-index: 6;
-  color: var(--white);
+  color: var(--blck);
   text-decoration: none;
   padding: 20px;
 }
@@ -372,7 +372,6 @@ nav {
   position: absolute;
   z-index: 6;
   right: 40px;
-  background: linear-gradient(to left, var(--hue) 40%, transparent 0%);
 }
 
 .prev {
@@ -380,7 +379,6 @@ nav {
   position: absolute;
   z-index: 6;
  left: 40px;
- background: linear-gradient(to right, var(--hue) 40%, transparent 0%);
 }
 
 .slider {
@@ -388,32 +386,34 @@ nav {
  border-radius: 50%; 
  width: 64px;
  height: 64px;
+ display:  none;
  display: flex;
  align-items: center;
  justify-content: center;
  transition: all 0.4s ease-out;
  cursor: pointer;
+ opacity: 0;
 }
 
 .slider:hover {
   transform: scale(1.5)
 }
 #actionBar {
-  bottom: 20px;
-  left: 20px;
-  width: 100%;
+  bottom: 2px;
+  left: 2px;
+  height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: start;
-  justify-content: space-evenly;
+  justify-content: stretch;
   color: var(--blck);
 
 }
 
 .btn {
   box-shadow: none;
-  color: var(--hue);
-  font-size: 0.3rem;
+  color: var(--blck);
+  font-size: 0.2rem;
   font-family: 'PirulenRg-Regular';
   text-decoration: none; 
   outline: none;
@@ -421,11 +421,9 @@ nav {
 
 
 .btn:hover {
-  text-shadow: var(--blck04) 0 0 0.8rem;
   transform: scale(1.1);
   cursor: pointer;
   transition: transform 150ms linear;
-  box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
 }
 
 @media only screen and (max-width: 1140px) {}
@@ -446,8 +444,8 @@ nav {
   padding: var(--paddingS);
   position: absolute;
   z-index: 6;
-  top: 20px;
-  right: 20px;
+  top: 32px;
+  right: 32px;
 }
 
 .uiList {
@@ -463,15 +461,15 @@ nav {
 }
 
 #soundWave {
-  width: 4%;
+  width: 3%;
 }
 
 #play {
-  width: 4%;
+  width: 3%;
 }
 
 #pause {
-  width: 4%;
+  width: 3%;
 }
 
 #loading {
@@ -480,11 +478,11 @@ nav {
 }
 
 #icon-eye {
-  width: 8%;
+  width: 5%;
 }
 
 #menu {
-  width: 4%;
+  width: 3%;
 }
 
 /* ************************************************* */

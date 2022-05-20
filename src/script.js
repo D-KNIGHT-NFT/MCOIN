@@ -1,6 +1,7 @@
 // console.clear();
 import './css/style.css'
 import './css/nodeCursor.css'
+// import Marquee from './js/marquee.js'
 import * as THREE from 'three'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -182,7 +183,7 @@ scene.add(light4);
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-const ambiLight = new THREE.AmbientLight(new THREE.Color( 0x808080 ));
+const ambiLight = new THREE.AmbientLight(new THREE.Color( 0xffffff));
 scene.add(ambiLight);
 
 ////////////////////////////////////////////////////////////////////
@@ -196,7 +197,7 @@ const count = 590
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 1.8
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#000000').convertSRGBToLinear() //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('#fff0dd').convertSRGBToLinear() //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -235,7 +236,7 @@ particlesMaterial.vertexColors = true
 
 const textureLoad = new RGBELoader()
 textureLoad.setPath('textures/equirectangular/')
-const textureCube = textureLoad.load('omega.hdr', function(texture) {
+const textureCube = textureLoad.load('mayoris.hdr', function(texture) {
   textureCube.mapping = THREE.EquirectangularReflectionMapping;
 })
 
@@ -268,7 +269,7 @@ scene.environment = textureCube;
 // // scene.environment = environmentMap
 // // // scene.background = environmentMap
 
-// scene.fog = new THREE.FogExp2( 0xff0, 0.2);
+scene.fog = new THREE.FogExp2( 0xffffff, 0.3);
 ////////////////////
 
 
@@ -303,7 +304,7 @@ const materialWebm = new THREE.MeshStandardMaterial(paramWebm);
 const webmObject = new THREE.Mesh(geoWebm, materialWebm)
 webmObject.position.set(0, 0.25, 0.25)
 webmObject.rotation.y = -1 * Math.PI
-webmObject.lookAt(0, 0.3, 0)
+webmObject.lookAt(0, 0.1, 0)
 scene.add(webmObject)
 
 const startVideoBtn = document.getElementById('start-btn');
@@ -359,7 +360,7 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
   // map: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_basecolor.png'),
   // emissiveMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_emissive.png'),
   // emissiveIntensity:0.8,
-  reflectivity: 0.8,
+  reflectivity: 0.4,
   transmission: 1.0,
   // roughnessMap: textureLoader.load('/textures/bubbleShip/JSp-v1-4K/JSp_v1_roughness.png'),
   roughness: 0.2,
@@ -372,7 +373,7 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
   // normalScale: new THREE.Vector2(3.8, 3.8),
   precision: "highp"
 });
-glassMaterial.thickness = 8.5
+glassMaterial.thickness = 18.5
 
 const glassphere = new THREE.Mesh(geometry, materialEye);
 scene.add(glassphere);
@@ -391,10 +392,10 @@ fbxLoader.load(
     action.play();
 
     kidMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xf0f0f0,
+      color: 0xfff0f0,
       map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map.png"),
-      // metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
-      // metalness: 1.1,
+      metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
+      metalness: 1.1,
       reflectivity: 0.8,
       transmission: 1.0,
       clearcoat: 0.4,
@@ -402,7 +403,7 @@ fbxLoader.load(
       ior: 1.5,
       roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
       roughness: 0.16,
-      //  
+      envMap: textureCube  
     })
     object.traverse(function(object) {
       if (object.isMesh) {
@@ -426,6 +427,7 @@ fbxLoader.load(
 
 let loneWolfMixer = null
 let loneWolf;
+let wolfSkin;
 
 gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   loneWolf = gltf.scene
@@ -433,9 +435,17 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   loneWolf.position.set(0, 0.11, -0.08)
   loneWolf.rotation.set(0, 0, 0)
  
+ wolfSkin = new THREE.MeshStandardMaterial({
+   map: textureLoader.load("models/glTF/loneWolf/map.jpg"),
+   metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
+   metalness: 1.1,
+   roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
+   roughness: 0.16,
+   envMap: textureCube
+   })
   loneWolf.traverse(function(object) {
     if (object.isMesh) {
-      object.material.environment = textureCube
+      object.material = wolfSkin
       object.castShadow = false;
       object.receiveShadow = false;
     }
@@ -560,7 +570,7 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor( 0xfffffff )
+renderer.setClearColor( 0xffffff )
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
