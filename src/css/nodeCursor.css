@@ -111,9 +111,10 @@
 }*/
 
 .hover__btn {
-    color: var(--blck);
+    color: var(--hue);
     text-decoration: none; 
     outline: none;
     text-transform: uppercase;
     cursor : none;
+    border: 1px solid var(--white);
 }

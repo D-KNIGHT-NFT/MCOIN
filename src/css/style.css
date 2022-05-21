@@ -349,7 +349,7 @@ body {
 /* *********************************** TXT STYLES  */
 /* ********************************************** */
 
-p  { font-size: 0.5rem; }
+p  { font-size: 0.2rem; }
 h3 { font-size: 1.1rem; }
 h2 { font-size: 1.4rem; }
 h1 { font-size: 2rem; }
@@ -398,25 +398,38 @@ nav {
 .slider:hover {
   transform: scale(1.5)
 }
+.navWrapper {
+  width:  100%;
+  background-color: var(--blck);
+  display: grid;
+  border: 8px solid var(--white);
+  justify-content: center;
+  position: absolute;
+  z-index: 4;
+  bottom: 104px;
+}
 
 #actionBar {
-  bottom: 2px;
-  /* left: 2px; */
-  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  color: var(--blck);
+  gap: 16px;
+  padding: var(--paddingM);
+  width: 100%;
+  background-color: var(--blck);
+  border-radius: 56px;
 }
 
 .btn {
   box-shadow: none;
-  color: var(--blck);
-  font-size: 0.2rem;
+  color: var(--white);
+  background-color: var(--blck);
+  font-size: 0.1rem;
   font-family: 'PirulenRg-Regular';
   text-decoration: none; 
   outline: none;
+  border-radius: 40px;
 }
 
 .btn:hover {
@@ -440,18 +453,24 @@ nav {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: var(--paddingS);
+  padding: var(--paddingM);
   position: absolute;
-  z-index: 6;
+  z-index: 4;
   top: 32px;
   right: 32px;
+  width: 20%;
+  background-color: var(--blck);
+  border-radius: 56px;
 }
 
 .uiList {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+    border: 1px solid var(--white);
+    padding: var(--paddingM);
+    border-radius: 56px;
   gap: 16px;
 }
 
@@ -460,15 +479,15 @@ nav {
 }
 
 #soundWave {
-  width: 3%;
+  width: 100%;
 }
 
 #play {
-  width: 3%;
+  width: 100%;
 }
 
 #pause {
-  width: 3%;
+  width: 100%;
 }
 
 #loading {
@@ -477,11 +496,11 @@ nav {
 }
 
 #icon-eye {
-  width: 5%;
+  width: 150%;
 }
 
 #menu {
-  width: 3%;
+  width: 16%;
 }
 
 /* ************************************************* */

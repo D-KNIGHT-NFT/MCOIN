@@ -271,7 +271,7 @@ environmentMap.mapping = THREE.CubeRefractionMapping
 // scene.background = environmentMap
 // scene.background = textureCube
 scene.environment = textureCube;
-scene.fog = new THREE.FogExp2( 0xffffff, 0.45);
+scene.fog = new THREE.FogExp2( 0xffffff, 0.35);
 
 ////////////////////////////////////////////////////////////////////
 // MODEL LOADERS
@@ -338,12 +338,12 @@ webmEye.format = THREE.RGBAFormat
 const paramEye = {
   side: THREE.DoubleSide,
   emissive: 0xffffff,
-  emissiveIntensity: 0.2,
+  emissiveIntensity: 0.4,
   // reflectivity: 0.8,
   // transmission: 1.0,
   transparent: true,
-  opacity:0.9,
-  alphaTest: 0.5,
+  opacity:1,
+  alphaTest: 0.9,
   roughness: 0.001,
   // ior: 1.5,
   precision: "highp",
