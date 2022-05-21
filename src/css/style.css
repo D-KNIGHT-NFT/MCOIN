@@ -404,8 +404,8 @@ nav {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: stretch;
+  align-items: center;
+  justify-content: flex-start;
   color: var(--blck);
 
 }

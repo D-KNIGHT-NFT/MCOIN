@@ -269,7 +269,7 @@ scene.environment = textureCube;
 // // scene.environment = environmentMap
 // // // scene.background = environmentMap
 
-scene.fog = new THREE.FogExp2( 0xffffff, 0.3);
+scene.fog = new THREE.FogExp2( 0xffffff, 0.6);
 ////////////////////
 
 
@@ -324,19 +324,21 @@ const webmEye = new THREE.VideoTexture(videoEye)
 const paramEye = {
   side: THREE.DoubleSide,
   emissive: 0xffffff,
-  emissiveIntensity: 0.02,
-  reflectivity: 0.8,
-  transmission: 1.0,
+  emissiveIntensity: 0.1,
+  // reflectivity: 0.8,
+  // transmission: 1.0,
   alphaTest: 0.8,
   roughness: 0.2,
-  ior: 1.5,
+  // ior: 1.5,
   precision: "highp",
   map: webmEye,
-  envMap: textureCube
+  // generateMipmaps: true,
+  fog: true,
+  // format: THREE.LuminanceAlphaFormat
 };
 
 const circle = new THREE.CircleGeometry( 0.3, 64 );
-const materialEye = new THREE.MeshPhysicalMaterial(paramEye);
+const materialEye = new THREE.MeshStandardMaterial(paramEye);
 materialEye.thickness = 8.5
 const circlEye = new THREE.Mesh( circle, materialEye );
 circlEye.position.set(0, 0, -0.75)
