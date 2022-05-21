@@ -334,7 +334,7 @@ html {
 }
 
 body {
-  background-color: var(--white);
+  background-color: var(--blck);
   position: fixed;
   top: 0;
   left: 0;
@@ -398,16 +398,16 @@ nav {
 .slider:hover {
   transform: scale(1.5)
 }
+
 #actionBar {
   bottom: 2px;
-  left: 2px;
-  height: 100%;
+  /* left: 2px; */
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   color: var(--blck);
-
 }
 
 .btn {
@@ -418,7 +418,6 @@ nav {
   text-decoration: none; 
   outline: none;
 }
-
 
 .btn:hover {
   transform: scale(1.1);

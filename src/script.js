@@ -111,7 +111,7 @@ const renderer = new WebGLRenderer({
 //*//
 
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(-1.5, 0, 1.5);
+camera.position.set(-1.5, 0, 2);
 scene.add(camera)
 
 ////////////////////////////////////////////////////////////////////
@@ -132,7 +132,7 @@ controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0, 0);
 
 ////////////////////////////////////////////////////////////////////
-// RESET CAMERA VIEW (to refactor asap) 
+// RESET CAMERA - Enter / Leave Room
 ///////////////
 const resetBtn = document.getElementById('reset-btn')
 const eyeVideo = document.getElementById('eye')
@@ -181,9 +181,10 @@ scene.add(light3);
 const light4 = new THREE.PointLight('GhostWhite', 10.0, 1000, 0.5);
 scene.add(light4);
 
+
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-const ambiLight = new THREE.AmbientLight(new THREE.Color( 0xffffff));
+const ambiLight = new THREE.AmbientLight(new THREE.Color( 0xffffff ));
 scene.add(ambiLight);
 
 ////////////////////////////////////////////////////////////////////
@@ -197,7 +198,7 @@ const count = 590
 const particlesMaterial = new THREE.PointsMaterial()
 particlesMaterial.size = 1.8
 particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#fff0dd').convertSRGBToLinear() //#31FF9C Green Particles
+particlesMaterial.color = new THREE.Color('#31FF9C').convertSRGBToLinear() //#31FF9C Green Particles
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
@@ -229,10 +230,11 @@ particlesMaterial.depthWrite = false
 particlesMaterial.blending = THREE.AdditiveBlending
 particlesMaterial.vertexColors = true
 
-
-////////////////////////////////////////////////////////////////////
+//==================================================
+//https://threejs.org/docs/#api/en/constants/Textures
+//===================================================
 // EQUIRECTANGULAR HDR
-///////////////
+//===================================================
 
 const textureLoad = new RGBELoader()
 textureLoad.setPath('textures/equirectangular/')
@@ -253,25 +255,23 @@ function equirectangularToPMREMCube(textureCube, renderer) {
 
   return cubeRenderTarget.textureCube
 }
-scene.environment = textureCube;
-// scene.background = textureCube;
-
 
 ////////////////////////////////////////////////////////////////////
-// Enviroment Cube
+// Enviroment Cube Texture Loader
 ///////////////
 
-// const cubeTextureLoader = new THREE.CubeTextureLoader()
-// cubeTextureLoader.setPath('textures/environmentMap/level-5/');
-// const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
-// environmentMap.encoding = THREE.sRGBEncoding;
-// environmentMap.mapping = THREE.CubeRefractionMapping
-// // scene.environment = environmentMap
-// // // scene.background = environmentMap
-
-scene.fog = new THREE.FogExp2( 0xffffff, 0.6);
+const cubeTextureLoader = new THREE.CubeTextureLoader()
+cubeTextureLoader.setPath('textures/environmentMap/level-4/');
+const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+environmentMap.encoding = THREE.sRGBEncoding;
+environmentMap.mapping = THREE.CubeRefractionMapping
 ////////////////////
 
+// scene.environment = environmentMap
+// scene.background = environmentMap
+// scene.background = textureCube
+scene.environment = textureCube;
+scene.fog = new THREE.FogExp2( 0xffffff, 0.45);
 
 ////////////////////////////////////////////////////////////////////
 // MODEL LOADERS
@@ -293,7 +293,7 @@ webmTex.format = THREE.RGBAFormat;
 const paramWebm = {
   side: THREE.DoubleSide,
   emissive: 0xfff0dd,
-  emissiveIntensity: 0.1,
+  emissiveIntensity: 0.15,
   transparent: true,
   alphaTest: 0.5,
   map: webmTex,
@@ -304,7 +304,7 @@ const materialWebm = new THREE.MeshStandardMaterial(paramWebm);
 const webmObject = new THREE.Mesh(geoWebm, materialWebm)
 webmObject.position.set(0, 0.25, 0.25)
 webmObject.rotation.y = -1 * Math.PI
-webmObject.lookAt(0, 0.1, 0)
+webmObject.lookAt(0, 0.3, 0)
 scene.add(webmObject)
 
 const startVideoBtn = document.getElementById('start-btn');
@@ -321,28 +321,39 @@ videoWebm.addEventListener('play', function() {
 const videoEye = document.getElementById('eye')
 const webmEye = new THREE.VideoTexture(videoEye)
 
+webmEye.minFilter = THREE.LinearFilter;
+webmEye.magFilter = THREE.LinearFilter;
+
+// webmEye.format = THREE.LuminanceAlphaFormat
+// webmEye.format = THREE.LuminanceFormat
+// webmEye.format = THREE.DepthFormat
+// webmEye.format = THREE.DepthStencilFormat
+webmEye.format = THREE.RGBAFormat
+// webmEye.format = THREE.RGBAIntegerFormat
+// webmEye.format = THREE.RGIntegerFormat
+// webmEye.format = THREE.RGFormat
+// webmEye.format = THREE.RedFormat
+// webmEye.format = THREE.AlphaFormat
+
 const paramEye = {
   side: THREE.DoubleSide,
   emissive: 0xffffff,
-  emissiveIntensity: 0.1,
+  emissiveIntensity: 0.2,
   // reflectivity: 0.8,
   // transmission: 1.0,
-  alphaTest: 0.8,
-  roughness: 0.2,
+  transparent: true,
+  opacity:0.9,
+  alphaTest: 0.5,
+  roughness: 0.001,
   // ior: 1.5,
   precision: "highp",
   map: webmEye,
   // generateMipmaps: true,
   fog: true,
-  // format: THREE.LuminanceAlphaFormat
 };
 
-const circle = new THREE.CircleGeometry( 0.3, 64 );
 const materialEye = new THREE.MeshStandardMaterial(paramEye);
-materialEye.thickness = 8.5
-const circlEye = new THREE.Mesh( circle, materialEye );
-circlEye.position.set(0, 0, -0.75)
-// scene.add( circlEye );
+
 
 
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
@@ -415,7 +426,8 @@ fbxLoader.load(
     scene.add(object)
 
     object.scale.set(.0014, .0014, .0014)
-    object.position.set(-0.07, 0.11, -0.11)
+    // object.position.set(-0.07, 0.11, -0.11)
+    object.position.set(-0.07, 0, -0.11)
     object.rotation.set(0, 45, 0)
   });
 
@@ -431,7 +443,8 @@ let wolfSkin;
 gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   loneWolf = gltf.scene
   loneWolf.scale.set(0.0019, 0.0019, 0.0019)
-  loneWolf.position.set(0, 0.11, -0.08)
+  // loneWolf.position.set(0, 0.11, -0.08)
+  loneWolf.position.set(0, 0, -0.08)
   loneWolf.rotation.set(0, 0, 0)
  
  wolfSkin = new THREE.MeshStandardMaterial({
@@ -467,7 +480,7 @@ let cFlowMixer = null
 gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   creativeFlow = gltf.scene
   creativeFlow.scale.set(0.002, 0.002, 0.002)
-  creativeFlow.position.set(0.12, 0.25, 0.15)
+  creativeFlow.position.set(0.05, 0.25, 0.05)
   creativeFlow.rotation.set(0, 0, 0)
   scene.add(creativeFlow)
 
@@ -505,22 +518,22 @@ gltfLoader.load('models/glTF/Anja-icon/icon-Anja.gltf', (gltf) => {
 //> ATREZZO: PODIUM
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
-let podium;
+// let podium;
 
-gltfLoader.load('models/glTF/podium/podium.gltf', (gltf) => {
-  podium = gltf.scene
-  podium.scale.set(0.4, 0.4, 0.4)
-  podium.position.set(0, 0, -0.1)
-  podium.rotation.set(0, 0, 0)
+// gltfLoader.load('models/glTF/podium/podium.gltf', (gltf) => {
+//   podium = gltf.scene
+//   podium.scale.set(0.4, 0.4, 0.4)
+//   podium.position.set(0, 0, -0.1)
+//   podium.rotation.set(0, 0, 0)
 
-  podium.traverse(function(o) {
-    if (o.isMesh) {
-      o.castShadow = false;
-      o.receiveShadow = true;
-    }
-  });
-  scene.add(podium)
-})
+//   podium.traverse(function(o) {
+//     if (o.isMesh) {
+//       o.castShadow = false;
+//       o.receiveShadow = true;
+//     }
+//   });
+//   scene.add(podium)
+// })
 
 
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
@@ -566,7 +579,7 @@ scene.add(water)
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 1
+renderer.toneMappingExposure = 1.1
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor( 0xffffff )
