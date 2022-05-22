@@ -27,69 +27,26 @@
   url('../assets/fonts/font.woff') format('woff');
 } */
 
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
+html,body,div,span,applet,object,iframe,h1,h2,h3,
 h4,
 h5,
 h6,
 p,
 blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
 var,
 b,
 u,
 i,
 center,
-dl,
-dt,
-dd,
 ol,
 ul,
 li,
 fieldset,
 form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
 tr,
 th,
 td,
 article,
-aside,
 canvas,
 details,
 embed,
@@ -97,15 +54,9 @@ figure,
 figcaption,
 footer,
 header,
-hgroup,
-menu,
 nav,
 output,
-ruby,
 section,
-summary,
-time,
-mark,
 audio,
 video {
   margin: 0;
@@ -117,6 +68,10 @@ video {
 }
 
 :root {
+
+  color-scheme: light dark;
+  accent-color:  var(--yellow01);
+
   /* PRIMARY COLORS  **********************************/
   --red02: hsla(12, 80%, 50%, 0.2);
   --red04: hsla(12, 80%, 50%, 0.4);
@@ -360,7 +315,6 @@ h1 { font-size: 2rem; }
 /* ************************************************* */
 
 nav {
-  position: absolute;
   z-index: 6;
   color: var(--blck);
   text-decoration: none;
@@ -400,12 +354,12 @@ nav {
 }
 .navWrapper {
   width:  100%;
-  background-color: var(--blck);
   display: grid;
-  border: 8px solid var(--white);
   justify-content: center;
   position: absolute;
   z-index: 4;
+  right: 0px;
+  left: 0px;
   bottom: 104px;
 }
 
@@ -413,8 +367,7 @@ nav {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
-  gap: 16px;
+  justify-content: space-between;
   padding: var(--paddingM);
   width: 100%;
   background-color: var(--blck);
@@ -425,7 +378,7 @@ nav {
   box-shadow: none;
   color: var(--white);
   background-color: var(--blck);
-  font-size: 0.1rem;
+  font-size: 0.5rem;
   font-family: 'PirulenRg-Regular';
   text-decoration: none; 
   outline: none;
@@ -438,6 +391,11 @@ nav {
   transition: transform 150ms linear;
 }
 
+.floatingBtn{
+  display: block;
+  width: 4%;
+  border-radius: 100%;
+}
 @media only screen and (max-width: 1140px) {}
 
 @media only screen and (max-width: 840px) {}

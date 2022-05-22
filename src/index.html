@@ -23,133 +23,89 @@
 </head>
 
 <body>
-
   <!---------------------- Canvas Web GL ------------>
   <canvas class="webgl" id="container"></canvas>
-
   <!-- Cursor -->
-
   <div class="node" id="node"></div>
   <div class="cursor" id="cursor"></div>
-
   <!--DATA ASSETS------------>
-
-  <audio 
-  class="audioTrack" 
-  loop 
-  autoplay 
-  id="music" 
-  preload="metadata">
+  <audio class="audioTrack" loop autoplay id="music" preload="metadata">
     <source src="../assets/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg" />
     <source src="../assets/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg" />
     <!-- place fallback here as <audio> supporting browsers will ignore it -->
     <a href="audiofile.mp3">audiofile.mp3</a>
   </audio>
-
-  <video class="overlay" id="eye" crossorigin="anonymous" style="display: none" autoplay playsinline loop><source src="../assets/video/eye00.webm" type="video/webm" /></video>
-
-  <video 
-  class="overlay" 
-  id="video2" 
-  crossorigin="anonymous" 
-  playsinline 
-  style="display: none"
-  loop>
+  <video class="overlay" id="eye" crossorigin="anonymous" style="display: none" autoplay playsinline loop>
+    <source src="../assets/video/eye00.webm" type="video/webm" /></video>
+  <video class="overlay" id="video2" crossorigin="anonymous" playsinline style="display: none" loop>
     <source src="../assets/video/testAlpha3.webm" type="video/webm" />
   </video>
-
   <!--ACTIONS UI_NAV -->
   <div class="navWrapper">
-  <nav class="navAction" id="actionBar">
-    <!-- <button class="btn hover__btn nodeHover" id="export"><p>Export glTF</p></button> -->
-    <button class="btn hover__btn nodeHover snd__transition_up" id="start-btn"><p>Play Video</p></button>
-    <!-- <button class="btn hover__btn nodeHover" id="stop-btn"><p>Stop Video</p></button> -->
-    <button class="btn hover__btn nodeHover snd__transition_up" id="show-btn"><p>More Info</p></button>
-    <button class="btn hover__btn nodeHover snd__transition_up" id="reset-btn"><p>Enter Room</p></button>
-    <!-- <button class="btn hover__btn nodeHover" id="exit-btn"><p>Exit Room</p></button> -->
-    <!-- <button class="btn hover__btn nodeHover" id="installPWA"><p>Install WebApp</p></button> -->
-    <!-- <button class="btn hover__btn nodeHover" id="shop-btn"><a href=""><p>Shop</p></a></button> -->
-    <!-- <button class="btn hover__btn nodeHover" id="twitter"><a href="www.twitter.com/3dknightdi"><p>Twitter</p></a></button> 
+    <nav class="navAction" id="actionBar">
+      <!-- <button class="btn hover__btn nodeHover" id="export"><p>Export glTF</p></button> -->
+      <button class="btn hover__btn nodeHover snd__transition_up" id="start-btn">
+        <p>Play Video</p>
+      </button>
+      <!-- <button class="btn hover__btn nodeHover" id="stop-btn"><p>Stop Video</p></button> -->
+      <button class="btn hover__btn nodeHover snd__transition_up" id="show-btn">
+        <p>More Info</p>
+      </button>
+      <button class="floatingBtn btn hover__btn nodeHover" id="eyecon-btn">
+        <svg style="width:100%;height:100%;" viewBox="0 0 94 57.15" xmlns="http://www.w3.org/2000/svg">
+          <path d="m2.99 27.95 10.6-11.72 14.23-10.19 15.49-3.77 13.68 1.73 11.72 3.71 9.9 6.31 9.49 9.74 3.07 5.44-11.44 12.84-15.77 11.11-18.42 2.42-12-2.42-13.95-6.09-10.74-9.35z" fill="var(--white)" />
+          <path d="m94 28.57s0-.05 0-.07 0-.09 0-.14a.38.38 0 0 0 0-.1v-.06a1.1 1.1 0 0 0 -.06-.26s0 0 0-.07a1.66 1.66 0 0 0 -.15-.33c0-.07-.1-.15-.16-.22v-.05c-.85-1-1.71-1.94-2.58-2.95-9.52-10.9-21.2-24.32-44.05-24.32s-34.53 13.42-43.91 24.21c-.88 1-1.73 2-2.58 2.94v.05a1.88 1.88 0 0 0 -.16.23 2.52 2.52 0 0 0 -.14.33.13.13 0 0 0 0 .06 2.13 2.13 0 0 0 -.07.27v.06a.28.28 0 0 0 0 .09v.14s0 .05 0 .07h-.14s0 0 0 .07 0 .09 0 .14a.28.28 0 0 0 0 .09v.25a1.31 1.31 0 0 0 .06.27s0 0 0 .06a1.66 1.66 0 0 0 .15.33 1.88 1.88 0 0 0 .16.23c.85.95 1.71 1.94 2.58 2.94 9.52 10.9 21.2 24.32 44.05 24.32s34.53-13.42 43.91-24.21c.88-1 1.73-2 2.58-2.94a.1.1 0 0 0 0-.05 1.77 1.77 0 0 0 .16-.22c0-.11.1-.22.14-.33a.13.13 0 0 0 0-.06 2.68 2.68 0 0 0 .21-.34v-.1a.31.31 0 0 0 0-.1s0-.08 0-.13 0-.05 0-.07zm-9.71 5.85c-8.55 9.47-18.92 18.73-37.29 18.73s-28.74-9.26-37.28-18.73l-5-5.85h-.4l5.4-5.84c8.54-9.48 18.91-18.73 37.28-18.73s28.74 9.25 37.28 18.73l5 5.84h.4z" />
+          <circle id="circle"cx="46.8" cy="28.57" r="12" stroke="var(--blck04)" stroke-width="4" />
+        </svg>
+      </button>
+      <button class="btn hover__btn nodeHover snd__transition_up" id="reset-btn">
+        <p>Enter Room</p>
+      </button>
+      <button class="btn hover__btn nodeHover" id="exit-btn"><p>Exit Room</p></button>
+      <!-- <button class="btn hover__btn nodeHover" id="installPWA"><p>Install WebApp</p></button> -->
+      <!-- <button class="btn hover__btn nodeHover" id="shop-btn"><a href=""><p>Shop</p></a></button> -->
+      <!-- <button class="btn hover__btn nodeHover" id="twitter"><a href="www.twitter.com/3dknightdi"><p>Twitter</p></a></button> 
     <button class="btn hover__btn nodeHover" id="instagram"><a href="www.instagram.com/3dknightdi"><p>Instagram</p></a></button>  -->
-  </nav>
-</div>
-
-   <a href="#" class="main-nav prev" data-nav="previous">
+    </nav>
+  </div>
+  <a href="#" class="main-nav prev" data-nav="previous">
     <div class="slider prev">
-     <svg style="transform:rotate(-180deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-     </svg>
+      <svg style="transform:rotate(-180deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+      </svg>
     </div>
-   </a>
-
-   <a href="#" class="main-nav next" data-nav="next">
+  </a>
+  <a href="#" class="main-nav next" data-nav="next">
     <div class="slider next">
-     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-     </svg>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+      </svg>
     </div>
-   </a>
-
+  </a>
   <!-- MUSIC UI_NAV -->
-
   <nav id="music__navBar">
-
     <ul class="uiList" id="music-List__items ">
-      <li class="uiList__item" id="soundWave"
-      data-tooltip 
-      alt="Alt text" 
-      title="Hover to change text color" 
-      role="tooltip" 
-      aria-label="Tooltip message">
-        <svg 
-          style="width: 100%; height: 100%" 
-          viewBox="0 0 32 32" 
-          preserveAspectRatio="none"
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg">
+      <li class="uiList__item" id="soundWave" data-tooltip alt="Alt text" title="Hover to change text color" role="tooltip" aria-label="Tooltip message">
+        <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path style="fill: var(--hue)" id="bar01" d="M10.9172 22L10.9172 8L12.8984 8L12.8984 22L10.9172 22Z" />
           <path style="fill: var(--hue)" id="bar02" d="M2.99142 18L2.99142 12L4.97266 12L4.97266 18L2.99142 18Z" />
           <path style="fill: var(--hue)" id="bar03" d="M18.8391 28L18.8391 3L20.8203 3L20.8203 28L18.8391 28Z" />
           <path style="fill: var(--hue)" id="bar04" d="M28.7461 9L26.7649 9L26.7649 22L28.7461 22L28.7461 9Z" />
         </svg>
       </li>
-
       <li class="uiList__item" id="play" onClick="javascript: return false" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
-        <svg 
-          style="width: 100%; height: 100%" 
-          viewBox="0 0 32 32" 
-          preserveAspectRatio="none"
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg">
-          <path 
-          d="M9.23828 9.76001V23.5733C9.23828 24.6267 10.3983 25.2667 11.2916 24.6933L22.1449 17.7867C22.9716 17.2667 22.9716 16.0667 22.1449 15.5333L11.2916 8.64001C10.3983 8.06668 9.23828 8.70668 9.23828 9.76001Z" 
-          style="fill: var(--white)" />
+        <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.23828 9.76001V23.5733C9.23828 24.6267 10.3983 25.2667 11.2916 24.6933L22.1449 17.7867C22.9716 17.2667 22.9716 16.0667 22.1449 15.5333L11.2916 8.64001C10.3983 8.06668 9.23828 8.70668 9.23828 9.76001Z" style="fill: var(--white)" />
         </svg>
       </li>
-
-      <li class="uiList__item" id="pause"  
-      data-tooltip alt="Alt text" title="Pause Track" 
-      role="tooltip" aria-label="Tooltip message">
-        <svg
-          style="width: 100%; height: 100%" 
-          viewBox="0 0 32 32" 
-          preserveAspectRatio="none"
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg">
+      <li class="uiList__item" id="pause" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
+        <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3333 23.3333C13.3333 24.7999 12.1333 25.9999 10.6667 25.9999C9.2 25.9999 8 24.7999 8 23.3333V9.99992C8 8.53325 9.2 7.33325 10.6667 7.33325C12.1333 7.33325 13.3333 8.53325 13.3333 9.99992V23.3333ZM18.6656 23.3333V9.99997C18.6656 8.5333 19.8656 7.3333 21.3323 7.3333C22.799 7.3333 23.999 8.5333 23.999 9.99997V23.3333C23.999 24.8 22.799 26 21.3323 26C19.8656 26 18.6656 24.8 18.6656 23.3333Z" style="fill: var(--white)" />
         </svg>
       </li>
-
-      <li class="uiList__item" id="icon-eye"
-        data-tooltip alt="Alt text" title="UI Text Color: " 
-        role="tooltip" aria-label="Tooltip message">
-          <svg 
-            style="width: 100%; height: 100%" 
-            viewBox="0 0 89 51" 
-            preserveAspectRatio="none" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_547_20475)">
+      <li class="uiList__item" id="icon-eye" data-tooltip alt="Alt text" title="UI Text Color: " role="tooltip" aria-label="Tooltip message">
+        <svg style="width: 100%; height: 100%" viewBox="0 0 89 51" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_547_20475)">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M30.7076 25.5C30.7076 11.969 37.2322 0.999997 45.2807 0.999997C53.3291 0.999997 59.8539 11.969 59.8539 25.5C59.8539 39.0311 53.3291 50 45.2807 50C37.2322 50 30.7076 39.0311 30.7076 25.5ZM31.2905 25.5C31.2905 32.0099 32.7956 38.1257 35.5289 42.7209C38.1573 47.1392 41.7113 49.6733 45.2807 49.6733C48.85 49.6733 52.4041 47.1392 55.0325 42.7209C57.7658 38.1257 59.2709 32.0099 59.2709 25.5C59.2709 18.99 57.7658 12.8742 55.0325 8.2791C52.4041 3.86078 48.85 1.32667 45.2807 1.32667C41.7113 1.32667 38.1573 3.86078 35.5289 8.2791C32.7956 12.8742 31.2905 18.99 31.2905 25.5Z" style="fill: var(--white)" />
             <path fill-rule="evenodd" clip-rule="evenodd" d="M16.1344 25.5C16.1344 11.969 29.1835 0.999997 45.2806 0.999997C61.3778 0.999997 74.4267 11.969 74.4267 25.5C74.4267 39.0311 61.3778 50 45.2806 50C29.1835 50 16.1344 39.0311 16.1344 25.5ZM16.7173 25.5C16.7173 38.829 29.5309 49.6733 45.2806 49.6733C61.0303 49.6733 73.844 38.829 73.844 25.5C73.844 12.1709 61.0303 1.32667 45.2806 1.32667C29.5309 1.32666 16.7173 12.1709 16.7173 25.5Z" style="fill: var(white)" />
             <path fill-rule="evenodd" clip-rule="evenodd" d="M1.56152 25.5C1.56152 20.9897 21.1352 17.3333 45.2808 17.3333C69.4265 17.3333 89.0001 20.9897 89.0001 25.5C89.0001 30.0103 69.4265 33.6666 45.2808 33.6666C21.1352 33.6666 1.56152 30.0103 1.56152 25.5ZM2.14445 25.5C2.14445 27.5001 6.66649 29.4917 14.5508 30.9647C22.7505 32.4966 33.664 33.34 45.2808 33.34C56.8975 33.34 67.811 32.4966 76.0108 30.9647C83.8952 29.4917 88.4171 27.5001 88.4171 25.5C88.4171 23.4998 83.8952 21.5081 76.0108 20.0351C67.811 18.5034 56.8975 17.66 45.2808 17.66C33.664 17.66 22.7505 18.5034 14.5508 20.0351C6.66649 21.5081 2.14445 23.4998 2.14445 25.5Z" style="fill: var(white)" />
@@ -197,23 +153,17 @@
       </li> -->
     </ul>
   </nav>
-
   <!-- OVERLAYERS -->
-
-  <div class="overlay" id="uiFramer" ></div>
+  <div class="overlay" id="uiFramer"></div>
   <div class="overlay" id="tvLines"></div>
-
-   <!-- MODALS -->
-
+  <!-- MODALS -->
   <div class="modal" id="container">
-
     <button class="button" id="cross">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </button>
-
     <div id="info">
       <h2 class="modal__text">
         Reality shifted to An obscured crossroad. An inner journey of ancient
@@ -223,7 +173,7 @@
         full of deceives and learnings but power up with determination. The works here presented, summarise the last 2 years. Bringing this project to fruition, it is a very much
         needed release and fulfillment<br />
         Every project, represents a volume of the anthology. The actors?: A lone
-        Wolf, a curious child and the creative motor, enabler of the meditative state and source of all answers. <br/>
+        Wolf, a curious child and the creative motor, enabler of the meditative state and source of all answers. <br />
         I hope you enjoy the oniric environment which intentions are both, a space for creation and
         recreation.<br />
         As a WIP and "living" space, imperfect but transparent, feedback or
@@ -232,21 +182,21 @@
     </div>
   </div>
   <script src="./js/cursor.js"></script>
-      <script>
-          // init plugin
-          var initCursor = new NodeCursor({
-              cursor : true, // enable cursor
-              node : true, // enable node
-              cursor_velocity : 1.5, // cursor velocity : 1 = default w1 = slower, >1 = faster
-              node_velocity : 1.2, // cursor velocity : 1 = default w1 = slower, >1 = faster
-              native_cursor : 'none', // default,  grab, pointer ( all cursor's css properties)
-              element_to_hover : '.nodeHover', // // element that will trigger cursor anime on hover :  'disable', or any element : 'a', '.class', '#id' 
-              cursor_class_hover : 'uiList__item', // 'disable', or any class name (without dot) - ex : expand, reduce relative to your css
-              node_class_hover : 'expand', // 'disable', or any class name  (without dot) - ex : expand, reduce relative to your css
-              hide_mode : false, // hide node and cursor if inactive
-              hide_timing : 2000, // hide timing if inactive
-          });
-      </script>
+  <script>
+  // init plugin
+  var initCursor = new NodeCursor({
+    cursor: true, // enable cursor
+    node: true, // enable node
+    cursor_velocity: 1.5, // cursor velocity : 1 = default w1 = slower, >1 = faster
+    node_velocity: 1.2, // cursor velocity : 1 = default w1 = slower, >1 = faster
+    native_cursor: 'none', // default,  grab, pointer ( all cursor's css properties)
+    element_to_hover: '.nodeHover', // // element that will trigger cursor anime on hover :  'disable', or any element : 'a', '.class', '#id' 
+    cursor_class_hover: 'uiList__item', // 'disable', or any class name (without dot) - ex : expand, reduce relative to your css
+    node_class_hover: 'expand', // 'disable', or any class name  (without dot) - ex : expand, reduce relative to your css
+    hide_mode: false, // hide node and cursor if inactive
+    hide_timing: 2000, // hide timing if inactive
+  });
+  </script>
 </body>
 
 </html>

@@ -85,7 +85,7 @@
     border-radius: 50%;
     top: 0;
     left: 0;
-    border: 1.5px solid #7d28d7;
+    border: 3px solid var(--yellow01);
     /*states and transitions animations*/
     transform: scale(1.5);
     opacity: 1;
@@ -99,8 +99,11 @@
 /* expand is the class you assigned with the plugin to cursor when a selected element is hovered*/
 .node.expand::before {
     transform: scale(3);
-    background-color: var(--white);
-    opacity: 0.2;
+    border-radius: 10%;
+    background-color: var(--yellow08);
+    opacity: 0.6;
+    border: 1px dashed var(--hue);
+    height: 50%;
    
 
 }

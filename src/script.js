@@ -10,6 +10,7 @@ import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocess
 import { Pane } from 'tweakpane';
 import Stats from 'stats.js'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
+import gsap from "gsap";
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
@@ -73,6 +74,69 @@ soundWave.onmousemove = (e) => {
   const random = () => hues[Math.floor(Math.random() * hues.length)];
   document.documentElement.style.cssText = ` --hue: ${random()}; `
 }
+
+const eyeconBtn = document.querySelector('#eyecon-btn');
+const eyeFollow = actionBar.querySelector('#circle');
+
+const onResize = () => {
+  const btnRect = eyeconBtn.getBoundingClientRect();
+  const btnWidth = btnRect.width;
+  const btnHeight = btnRect.height;
+  const btnLeft = btnRect.left + btnWidth / 2;
+  const btnTop = btnRect.top + btnHeight / 2;
+  }
+
+const moveBall = () => {
+    window.addEventListener('mousemove', (e) => {
+      const clientX = e.clientX;
+      const clientY = e.clientY;
+      const radian = Math.atan2( clientY - eye.btnTop, clientX - eyeconBtn.btnLeft );
+      // console.log(this.btnTop);
+      // console.log('radian: ' + radian, 'degree: ' + radian * ( 180 / Math.PI ) );
+      gsap.to(eyeFollow, {
+        duration: 0.6,
+        ease: 'power2.out',
+        x: Math.cos(radian) * 5,
+        y: Math.sin(radian) * 5
+      });
+    });
+  }
+
+  class EyeIcon {
+    constructor() {
+      this.$eyeconBtn = document.querySelector('#eyecon-btn');
+      this.$eyeFollow = this.$eyeconBtn.querySelector('circle');
+      this.onResize();
+      window.addEventListener('resize', () => {
+        this.onResize();
+      });
+      this.moveBall();
+    }
+    onResize() {
+      this.btnRect = this.$eyeconBtn.getBoundingClientRect();
+      this.btnWidth = this.btnRect.width;
+      this.btnHeight = this.btnRect.height;
+      this.btnLeft = this.btnRect.left + this.btnWidth / 2;
+      this.btnTop = this.btnRect.top + this.btnHeight / 2;
+    }
+    moveBall() {
+      window.addEventListener('mousemove', (e) => {
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+        const radian = Math.atan2( clientY - this.btnTop, clientX - this.btnLeft );
+        // console.log(this.btnTop);
+        // console.log('radian: ' + radian, 'degree: ' + radian * ( 180 / Math.PI ) );
+        gsap.to(this.$eyeFollow, {
+          duration: 0.6,
+          ease: 'power2.out',
+          x: Math.cos(radian) * 5,
+          y: Math.sin(radian) * 5
+        });
+      });
+    }
+  }
+
+  const eyeIcon = new EyeIcon()
 
 ////////////////////////////////////////////////////////////////////
 // SHOW MODAL INFO
@@ -166,6 +230,7 @@ window.addEventListener('resize', () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+
 ////////////////////////////////////////////////////////////////////
 // LIGHTS 
 ///////////////
@@ -187,48 +252,6 @@ scene.add(light4);
 const ambiLight = new THREE.AmbientLight(new THREE.Color( 0xffffff ));
 scene.add(ambiLight);
 
-////////////////////////////////////////////////////////////////////
-// PARTICLES 
-///////////////
-
-// Geometry base for the particles
-const particlesGeometry = new THREE.BufferGeometry()
-const count = 590
-
-const particlesMaterial = new THREE.PointsMaterial()
-particlesMaterial.size = 1.8
-particlesMaterial.sizeAttenuation = true
-particlesMaterial.color = new THREE.Color('#31FF9C').convertSRGBToLinear() //#31FF9C Green Particles
-
-const particles = new THREE.Points(particlesGeometry, particlesMaterial)
-scene.add(particles)
-
-const positions = new Float32Array(count * 3) // Multiply by 3 because each position is composed of 3 values (x, y, z)
-const colors = new Float32Array(count * 3)
-
-particlesMaterial.size = 0.2
-
-for (let i = 0; i < count * 3; i++) // Multiply by 3 for same reason
-{
-  positions[i] = (Math.random() - 0.5) * 10 // Math.random() - 0.5 to have a random value between -0.5 and +0.5
-  // colors[i] = Math.random()
-}
-
-particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)) // Create the Three.js BufferAttribute and specify that each information is composed of 3 values
-particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors))
-
-const textureLoader = new THREE.TextureLoader()
-const particleTexture = textureLoader.load('/textures/particles/stars/star_0.png')
-
-particlesMaterial.map = particleTexture
-
-particlesMaterial.transparent = true
-particlesMaterial.alphaMap = particleTexture
-// particlesMaterial.alphaTest = 0.001
-// particlesMaterial.depthTest = false
-particlesMaterial.depthWrite = false
-particlesMaterial.blending = THREE.AdditiveBlending
-particlesMaterial.vertexColors = true
 
 //==================================================
 //https://threejs.org/docs/#api/en/constants/Textures
@@ -236,7 +259,10 @@ particlesMaterial.vertexColors = true
 // EQUIRECTANGULAR HDR
 //===================================================
 
+const textureLoader = new THREE.TextureLoader()
+
 const textureLoad = new RGBELoader()
+
 textureLoad.setPath('textures/equirectangular/')
 const textureCube = textureLoad.load('mayoris.hdr', function(texture) {
   textureCube.mapping = THREE.EquirectangularReflectionMapping;
@@ -261,12 +287,11 @@ function equirectangularToPMREMCube(textureCube, renderer) {
 ///////////////
 
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-cubeTextureLoader.setPath('textures/environmentMap/level-4/');
-const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
-environmentMap.encoding = THREE.sRGBEncoding;
-environmentMap.mapping = THREE.CubeRefractionMapping
+// cubeTextureLoader.setPath('textures/environmentMap/level-4/');
+// const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+// environmentMap.encoding = THREE.sRGBEncoding;
+// environmentMap.mapping = THREE.CubeRefractionMapping
 ////////////////////
-
 // scene.environment = environmentMap
 // scene.background = environmentMap
 // scene.background = textureCube
@@ -402,18 +427,20 @@ fbxLoader.load(
     action.play();
 
     kidMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xfff0f0,
-      map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map.png"),
-      metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
-      metalness: 1.1,
-      reflectivity: 0.8,
+      color: 0x0f0f0f,
       transmission: 1.0,
-      clearcoat: 0.4,
-      clearcoatRoughness: 0.6,
-      ior: 1.5,
+      opacity: 1.0,
+      metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
+      metalness: 0.8,
       roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
-      roughness: 0.16,
-      envMap: textureCube  
+      roughness: 0.1,
+      ior: 1.5,
+      thickness:4,
+      specularIntensity: 1,
+      specularColor: 0xffffff,
+      envMap: textureCube,
+      envMapIntensity: 1, 
+      map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map.png")
     })
     object.traverse(function(object) {
       if (object.isMesh) {
@@ -449,9 +476,7 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
  
  wolfSkin = new THREE.MeshStandardMaterial({
    map: textureLoader.load("models/glTF/loneWolf/map.jpg"),
-   metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
    metalness: 1.1,
-   roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
    roughness: 0.16,
    envMap: textureCube
    })
@@ -643,18 +668,6 @@ const tick = () => {
 
   // Update controls
   controls.update()
-
-  // Update Particles
-  particles.rotation.y = elapsedTime * 0.024
-  particles.rotation.x = elapsedTime * 0.008
-  particles.rotation.z = elapsedTime * 0.048
-
-  for (let i = 0; i < count; i++) {
-    let i3 = i * 1
-    const x = particlesGeometry.attributes.position.array[i3]
-    particlesGeometry.attributes.position.array[i3 + 0.01] = Math.sin(elapsedTime + x)
-  }
-  particlesGeometry.attributes.position.needsUpdate = true
 
   // LIGHT ANIMATIONS
   light1.position.x = Math.sin(elapsedTime * 0.7) * 30
