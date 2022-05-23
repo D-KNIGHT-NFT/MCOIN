@@ -1,3 +1,4 @@
+
 /* @import url("//hello.myfonts.net/count/482c9b"); */
 /**
  * @license
@@ -89,6 +90,8 @@ video {
   --green08: hsla(76, 98%, 50%, 0.8);
   --green01: hsl(76, 98%, 50%);
 
+  --venom: hsla(71.066, 100%, 47.843%,1);
+
   --purple02: hsla(278, 52%, 54%, 0.2);
   --purple04: hsla(278, 52%, 54%, 0.4);
   --purple08: hsla(278, 52%, 54%, 0.8);
@@ -103,13 +106,13 @@ video {
   --neutral0201: hsl(216deg 10% 80%);
 
   /* White Tones **********************************/
-  --white: hsl(100, 100%, 100%);
+  --white: hsla(22.5, 13.333%, 88.235%, 1);
   --white02: hsla(100, 100%, 100%, 0.2);
   --white04: hsla(100, 100%, 100%, 0.4);
   --white08: hsla(100, 100%, 100%, 0.8);
 
   /* Black tones **********************************/
-  --blck: hsl(0, 0%, 0%);
+  --blck: hsla(60, 2.7778%, 14.118%,1);
   --blck01: hsla(0, 0%, 0%, 0.1);
   --blck02: hsla(0, 0%, 0%, 0.2);
   --blck03: hsla(0, 0%, 0%, 0.3);
@@ -122,7 +125,7 @@ video {
 
   /* UIColor Palette ************************************************* */
 
-  --hue: var(--white);
+  --hue: var(--venom);
   --dark-color: hsl(var(--hue), 100%, 9%);
   --light-color: hsl(var(--hue), 95%, 98%);
   --base: hsl(var(--hue), 95%, 50%);
@@ -150,7 +153,7 @@ video {
   --radiusx2: 8px;
   --radiusx4: 16px;
   --radiusx8: 32px;
-  /* 2rem */
+
   --radius50: 50%;
 
   --margin: 0.75rem;
@@ -163,8 +166,6 @@ video {
   --gapM: 8px;
   --gapL: 16px;
   --gapXL: 24px;
-
-  --size: 60%;
 
   --maxSize-s: 20vw;
   --maxSize-m: 40vw;
@@ -277,6 +278,22 @@ a:visited {
   text-decoration: none;
   color: inherit;
 }
+/* ************************************************ */
+/* *********************************** TXT STYLES  */
+/* ********************************************** */
+
+p  { font-size: 0.2rem; }
+h3 { font-size: 1.1rem; }
+h2 { font-size: 1.4rem; }
+h1 { font-size: 2rem; }
+
+.button__text {
+    width: clamp(200px, 50% + 20px, 800px);
+}
+
+/* ************************************************ */
+/* ***************************** HTML&BODY&CANVAS  */
+/* ********************************************** */
 
 html {
   margin: 0;
@@ -300,26 +317,75 @@ body {
   line-height: 1.2;
 }
 
+canvas.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
 /* ************************************************ */
-/* *********************************** TXT STYLES  */
+/* *********************************** GALLERY  */
 /* ********************************************** */
 
-p  { font-size: 0.2rem; }
-h3 { font-size: 1.1rem; }
-h2 { font-size: 1.4rem; }
-h1 { font-size: 2rem; }
 
 
 /* ************************************************* */
 /* ******************************** NAVBARs  */
 /* ************************************************* */
 
-nav {
-  z-index: 6;
-  color: var(--blck);
-  text-decoration: none;
-  padding: 20px;
+.navWrapper {
+  position: absolute;
+  z-index: 4;
+  margin: var(--margin); 
+  bottom: 0;
+  max-width: 260px;
 }
+
+#actionBar {
+  display: grid;
+  grid-template-rows: 1/ 1; 
+  gap: 8px;
+  padding: var(--paddingS);
+}
+
+.btn {
+  box-shadow: none;
+  font-size: 0.3rem;
+  font-family: 'PirulenRg-Regular';
+  text-decoration: none; 
+  outline: none;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  transition: transform 150ms linear;
+}
+
+.floatingBtn{
+  display: block;
+  width: 3%;
+  border-radius: 50%;
+  padding: var(--paddingS);
+  background-color: var(--venom);
+}
+
+#eyecon-btn {
+  position: fixed;
+  z-index: 10;
+  bottom: 0%;
+  right: 0%;
+  border-radius: 50%;
+  margin: var(--margin);
+
+}
+
+/* ************************************************* */
+/* ******************************** UI ARROWS */
+/* ************************************************* */
 
 .next {
   top: 50%;
@@ -340,7 +406,6 @@ nav {
  border-radius: 50%; 
  width: 64px;
  height: 64px;
- display:  none;
  display: flex;
  align-items: center;
  justify-content: center;
@@ -352,114 +417,39 @@ nav {
 .slider:hover {
   transform: scale(1.5)
 }
-.navWrapper {
-  width:  100%;
-  display: grid;
-  justify-content: center;
-  position: absolute;
-  z-index: 4;
-  right: 0px;
-  left: 0px;
-  bottom: 104px;
-}
-
-#actionBar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--paddingM);
-  width: 100%;
-  background-color: var(--blck);
-  border-radius: 56px;
-}
-
-.btn {
-  box-shadow: none;
-  color: var(--white);
-  background-color: var(--blck);
-  font-size: 0.5rem;
-  font-family: 'PirulenRg-Regular';
-  text-decoration: none; 
-  outline: none;
-  border-radius: 40px;
-}
-
-.btn:hover {
-  transform: scale(1.1);
-  cursor: pointer;
-  transition: transform 150ms linear;
-}
-
-.floatingBtn{
-  display: block;
-  width: 4%;
-  border-radius: 100%;
-}
-@media only screen and (max-width: 1140px) {}
-
-@media only screen and (max-width: 840px) {}
-
-@media only screen and (max-width: 600px) {}
-
 
 /* ************************************************* */
 /* ************************************ MUSIC PLAYER   */
 /* ************************************************* */
 
 #music__navBar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: var(--paddingM);
+  margin: var(--margin);
   position: absolute;
   z-index: 4;
-  top: 32px;
-  right: 32px;
-  width: 20%;
-  background-color: var(--blck);
-  border-radius: 56px;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
 }
 
 .uiList {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-    border: 1px solid var(--white);
-    padding: var(--paddingM);
-    border-radius: 56px;
-  gap: 16px;
+  justify-content: flex-end;
+  padding: var(--paddingS);
+  gap: 8px;
+  width: 100%;
 }
 
 .uiList__item {
+  max-width:32px;
+  border-radius: 50%;
+  padding: var(--paddingM);
+  background-color: var(--blck);
+  }
 
-}
-
-#soundWave {
-  width: 100%;
-}
-
-#play {
-  width: 100%;
-}
-
-#pause {
-  width: 100%;
-}
-
-#loading {
-  font-size: 0.6rem;
-  display: none;
-}
-
-#icon-eye {
-  width: 150%;
-}
-
-#menu {
-  width: 16%;
-}
 
 /* ************************************************* */
 /* ******************************** OVERLAYERS  */
@@ -479,8 +469,8 @@ nav {
 
 #uiFramer {
   z-index: 5;
+  width: 100vw;
 }
-
 
 #tvLines {
   z-index: 4;
@@ -524,6 +514,7 @@ nav {
   opacity: 1;
   pointer-events: auto;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 #cross {
@@ -549,28 +540,15 @@ nav {
   flex-direction: column;
   padding: 5%;
   transition: all 1.2s ease-out;
-  color: var(--white08);
+  color: var(--white);
 }
 
 .modal__text {
-  text-shadow: var(--yellow08) 0 0 0.8rem;
+  text-shadow: var(--blck) 0 0 0.8rem;
   font-family: "Pirulen";
   line-height: 1.5;
-  font-size: 2rem;
+  font-size: 1rem;
   padding-top: 2vh;
-}
-
-/* ************************************************* */
-/* *********************************** WEBGL CANVAS  */
-/* ************************************************* */
-
-canvas.webgl {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 100vw;
-  height: 100vh;
 }
 
 /* **********************************************************************************/
@@ -591,7 +569,15 @@ canvas.webgl {
 /* Desktop --> min-width 1921px */
 @media only screen and (min-width: 120.063em) {}
 
+/* **********************************************************************************/
+/* ****************************** /* MEDIA QUERIES */
+/* ***********************************************************************************/
 
+@media only screen and (max-width: 1140px) {}
+
+@media only screen and (max-width: 840px) {}
+
+@media only screen and (max-width: 600px) {}
 /* *************************************************************************************/
 /* ****************************** /* Retina Displays **********************************/
 /* ***********************************************************************************/

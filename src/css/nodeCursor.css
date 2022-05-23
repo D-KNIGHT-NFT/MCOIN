@@ -85,7 +85,7 @@
     border-radius: 50%;
     top: 0;
     left: 0;
-    border: 3px solid var(--yellow01);
+    border: 3px solid var(--blck);
     /*states and transitions animations*/
     transform: scale(1.5);
     opacity: 1;

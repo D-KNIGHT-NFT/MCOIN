@@ -12,6 +12,7 @@
   "dependencies": {
     "@cloudinary/url-gen": "^1.5.1",
     "@pixi/filter-kawase-blur": "^4.1.5",
+    "@radix-ui/colors": "^0.1.8",
     "@svgdotjs/svg.filter.js": "^3.0.8",
     "@svgdotjs/svg.js": "^3.1.2",
     "@tweenjs/tween.js": "^18.6.4",
@@ -21,8 +22,9 @@
     "chroma-js": "^2.4.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.4",
+    "core-js": "^3.22.6",
     "debounce": "^1.2.1",
-    "express": "^4.17.3",
+    "express": "^4.18.1",
     "file-loader": "^6.2.0",
     "glslify-loader": "^2.0.0",
     "gsap": "^3.10.4",
@@ -40,7 +42,7 @@
     "simplex-noise": "^3.0.1",
     "snd-lib": "^1.0.2",
     "stats.js": "^0.17.0",
-    "three": "^0.140.0",
+    "three": "^0.140.2",
     "tweakpane": "^3.0.8"
   },
   "devDependencies": {

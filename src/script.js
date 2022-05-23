@@ -1,7 +1,9 @@
-// console.clear();
+console.clear();
+
 import './css/style.css'
 import './css/nodeCursor.css'
-// import Marquee from './js/marquee.js'
+import './js/cursor.js'
+import './js/pointer.js'
 import * as THREE from 'three'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -75,8 +77,48 @@ soundWave.onmousemove = (e) => {
   document.documentElement.style.cssText = ` --hue: ${random()}; `
 }
 
+////////////////////////////////////////////////////////////////////
+// POINTER-CURSOR
+///////////////
+
+class EyeIcon {
+  constructor() {
+    this.$eyeconBtn = document.querySelector('#eyecon-btn');
+    this.$eyeFollow = this.$eyeconBtn.querySelector('circle');
+    this.onResize();
+    window.addEventListener('resize', () => {
+      this.onResize();
+    });
+    this.moveBall();
+  }
+  onResize() {
+    this.btnRect = this.$eyeconBtn.getBoundingClientRect();
+    this.btnWidth = this.btnRect.width;
+    this.btnHeight = this.btnRect.height;
+    this.btnLeft = this.btnRect.left + this.btnWidth / 2;
+    this.btnTop = this.btnRect.top + this.btnHeight / 2;
+  }
+  moveBall() {
+    window.addEventListener('mousemove', (e) => {
+      const clientX = e.clientX;
+      const clientY = e.clientY;
+      const radian = Math.atan2( clientY - this.btnTop, clientX - this.btnLeft );
+      // console.log(this.btnTop);
+      // console.log('radian: ' + radian, 'degree: ' + radian * ( 180 / Math.PI ) );
+      gsap.to(this.$eyeFollow, {
+        duration: 0.6,
+        ease: 'power2.out',
+        x: Math.cos(radian) * 5,
+        y: Math.sin(radian) * 5
+      });
+    });
+  }
+}
+
+new EyeIcon()
+
 const eyeconBtn = document.querySelector('#eyecon-btn');
-const eyeFollow = actionBar.querySelector('#circle');
+const eyeFollow = eyeconBtn.querySelector('circle');
 
 const onResize = () => {
   const btnRect = eyeconBtn.getBoundingClientRect();
@@ -102,41 +144,6 @@ const moveBall = () => {
     });
   }
 
-  class EyeIcon {
-    constructor() {
-      this.$eyeconBtn = document.querySelector('#eyecon-btn');
-      this.$eyeFollow = this.$eyeconBtn.querySelector('circle');
-      this.onResize();
-      window.addEventListener('resize', () => {
-        this.onResize();
-      });
-      this.moveBall();
-    }
-    onResize() {
-      this.btnRect = this.$eyeconBtn.getBoundingClientRect();
-      this.btnWidth = this.btnRect.width;
-      this.btnHeight = this.btnRect.height;
-      this.btnLeft = this.btnRect.left + this.btnWidth / 2;
-      this.btnTop = this.btnRect.top + this.btnHeight / 2;
-    }
-    moveBall() {
-      window.addEventListener('mousemove', (e) => {
-        const clientX = e.clientX;
-        const clientY = e.clientY;
-        const radian = Math.atan2( clientY - this.btnTop, clientX - this.btnLeft );
-        // console.log(this.btnTop);
-        // console.log('radian: ' + radian, 'degree: ' + radian * ( 180 / Math.PI ) );
-        gsap.to(this.$eyeFollow, {
-          duration: 0.6,
-          ease: 'power2.out',
-          x: Math.cos(radian) * 5,
-          y: Math.sin(radian) * 5
-        });
-      });
-    }
-  }
-
-  const eyeIcon = new EyeIcon()
 
 ////////////////////////////////////////////////////////////////////
 // SHOW MODAL INFO
@@ -174,8 +181,8 @@ const renderer = new WebGLRenderer({
 // CAMERA
 //*//
 
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(-1.5, 0, 2);
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 500);
+camera.position.set(-1.5, 0, 1.5);
 scene.add(camera)
 
 ////////////////////////////////////////////////////////////////////
@@ -186,24 +193,41 @@ const controls = new OrbitControls(camera, canvas)
 controls.enable = true
 controls.enableDamping = true
 controls.dampingFactor = 0.05;
-controls.autoRotate = true
+controls.autoRotate = false
 controls.enableZoom = false
 controls.autoRotateSpeed = 1
 controls.minDistance = 0.3;
-controls.maxDistance = 3;
+controls.maxDistance = 2;
 controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0, 0);
+controls.addEventListener( "change", event => {  console.log( controls.object.position ); }) 
 
 ////////////////////////////////////////////////////////////////////
 // RESET CAMERA - Enter / Leave Room
 ///////////////
 const resetBtn = document.getElementById('reset-btn')
+const exitBtn = document.getElementById('exit-btn')
 const eyeVideo = document.getElementById('eye')
+
 resetBtn.addEventListener("click", function() {
-  eye.style.display = "none";
-  camera.position.set(0.4, 0.3, 0.4);
-  controls.target.set(0, 0.2, 0);
+  eyeVideo.style.display = "none";
+  camera.position.set(0.41914274207634866, 0.18144830860308964, -0.353865857713962);
+  controls.set.target(0, 0.3, 0);
+  controls.update();
+});
+
+// exitBtn.addEventListener("click", function() {
+//   eyeVideo.style.display = "block";
+//   camera.position.set(1.9519347296027931, 0.1452188205115377, -0.42806795187215413);
+//   controls.lookAt(0, 0, 0);
+//   controls.update();
+// });
+
+exitBtn.addEventListener("click", function() {
+  eyeVideo.style.display = "block";
+  camera.position.set(-1.5, 0, 1.5);
+  controls.set.target(0, 0.2, 0);
   controls.update();
 });
 
@@ -237,19 +261,20 @@ window.addEventListener('resize', () => {
 
 // ROTATING LIGHT POINTS
 
-const light1 = new THREE.PointLight('DodgerBlue', 10.0, 1000, 0.5);
+const light1 = new THREE.PointLight('dodgerblue', 10.0, 1000, 0.5);
 scene.add(light1);
-const light2 = new THREE.PointLight('Aqua', 10.0, 1000, 0.5);
+const light2 = new THREE.PointLight('aqua', 10.0, 1000, 0.5);
 scene.add(light2);
-const light3 = new THREE.PointLight('Chartreuse', 10.0, 1000, 0.5);
+const light3 = new THREE.PointLight('chartreuse', 10.0, 1000, 0.5);
 scene.add(light3);
-const light4 = new THREE.PointLight('GhostWhite', 10.0, 1000, 0.5);
+const light4 = new THREE.PointLight('ghostwhite', 10.0, 1000, 0.5);
 scene.add(light4);
 
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
 const ambiLight = new THREE.AmbientLight(new THREE.Color( 0xffffff ));
+ambiLight.color.convertSRGBToLinear()
 scene.add(ambiLight);
 
 
@@ -296,7 +321,8 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
 // scene.background = environmentMap
 // scene.background = textureCube
 scene.environment = textureCube;
-scene.fog = new THREE.FogExp2( 0xffffff, 0.35);
+scene.fog = new THREE.FogExp2( 'hsl(216,10% ,80%)', 0.55);
+scene.background = new THREE.Color('hsl(22.5, 13.33%, 89%)')
 
 ////////////////////////////////////////////////////////////////////
 // MODEL LOADERS
@@ -326,6 +352,7 @@ const paramWebm = {
 
 const geoWebm = new THREE.PlaneGeometry(0.4, 0.2)
 const materialWebm = new THREE.MeshStandardMaterial(paramWebm);
+materialWebm.emissive.convertSRGBToLinear()
 const webmObject = new THREE.Mesh(geoWebm, materialWebm)
 webmObject.position.set(0, 0.25, 0.25)
 webmObject.rotation.y = -1 * Math.PI
@@ -367,18 +394,17 @@ const paramEye = {
   // reflectivity: 0.8,
   // transmission: 1.0,
   transparent: true,
-  opacity:1,
+  opacity:0.99,
   alphaTest: 0.9,
   roughness: 0.001,
   // ior: 1.5,
   precision: "highp",
   map: webmEye,
-  // generateMipmaps: true,
   fog: true,
 };
 
 const materialEye = new THREE.MeshStandardMaterial(paramEye);
-
+materialEye.emissive.convertSRGBToLinear()
 
 
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
@@ -442,6 +468,8 @@ fbxLoader.load(
       envMapIntensity: 1, 
       map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map.png")
     })
+    kidMaterial.color.convertSRGBToLinear()
+
     object.traverse(function(object) {
       if (object.isMesh) {
         object.material = kidMaterial;
@@ -475,7 +503,6 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   loneWolf.rotation.set(0, 0, 0)
  
  wolfSkin = new THREE.MeshStandardMaterial({
-   map: textureLoader.load("models/glTF/loneWolf/map.jpg"),
    metalness: 1.1,
    roughness: 0.16,
    envMap: textureCube
@@ -533,7 +560,6 @@ gltfLoader.load('models/glTF/Anja-icon/icon-Anja.gltf', (gltf) => {
   icon.scale.set(6, 6, 6)
   icon.position.set(0, 0.1, 0)
   icon.rotation.x = Math.PI * -0.5
-  //  
 })
 
 
@@ -575,13 +601,14 @@ const groundMaterial = new THREE.MeshStandardMaterial({
   normalMap: textureLoader.load('/textures/water/Water_2_M_Normal.jpg'),
   normalScale: new THREE.Vector2(3, 3),
 });
+groundMaterial.color.convertSRGBToLinear()
 
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = Math.PI * -0.5;
 scene.add(ground);
 
 const water = new Water(waterGeometry, {
-  color: 0xfff0dd,
+  color: "hsl(127, 4%, 60%);",
   scale: 1,
   flowDirection: new THREE.Vector2(-1, 0.8),
   textureWidth: 2048,
@@ -591,6 +618,7 @@ const water = new Water(waterGeometry, {
   anisotropy: 16,
   needsUpdate: true,
 });
+
 water.position.y = 0.01
 water.rotation.x = Math.PI * -0.5
 
@@ -604,10 +632,11 @@ scene.add(water)
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 1.1
+renderer.toneMappingExposure = 1.100
+renderer.gammaFactor = 2
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor( 0xffffff )
+renderer.setClearColor( "hsl(278, 52%, 54%, 0.8)", 0.8 )
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -686,6 +715,7 @@ const tick = () => {
   light4.position.y = Math.cos(elapsedTime * 0.7) * 40;
   light4.position.z = Math.sin(elapsedTime * 0.5) * 30;
 
+
   // Update Animation Mixers
   if (loneWolfMixer) { loneWolfMixer.update(deltaTime) }
   if (cFlowMixer) { cFlowMixer.update(deltaTime) }
@@ -696,6 +726,12 @@ composer.render( scene, camera );
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
+
+  // Observer for Chrome's Extension
+  if (typeof __THREE_DEVTOOLS__ !== 'undefined') {
+    __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', { detail: scene }));
+    __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', { detail: renderer }));
+  }
   // stats.end()
 }
 
