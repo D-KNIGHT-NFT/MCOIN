@@ -338,15 +338,17 @@ canvas.webgl {
 
 .navWrapper {
   position: absolute;
-  z-index: 4;
+  z-index: 40;
   margin: var(--margin); 
   bottom: 0;
-  max-width: 260px;
+  left:  20%;
+  max-width: 60%;
 }
 
 #actionBar {
   display: grid;
-  grid-template-rows: 1/ 1; 
+  grid-template-columns: repeat(4, 1fr); 
+  justify-items: center;
   gap: 8px;
   padding: var(--paddingS);
 }
@@ -390,19 +392,20 @@ canvas.webgl {
 .next {
   top: 50%;
   position: absolute;
-  z-index: 6;
+  z-index: 106;
   right: 40px;
 }
 
 .prev {
   top: 50%;
   position: absolute;
-  z-index: 6;
+  z-index: 106;
  left: 40px;
 }
 
 .slider {
  border: 2px solid var(--blck);
+ color: var(--blck);
  border-radius: 50%; 
  width: 64px;
  height: 64px;
@@ -411,7 +414,7 @@ canvas.webgl {
  justify-content: center;
  transition: all 0.4s ease-out;
  cursor: pointer;
- opacity: 0;
+ opacity: 1;
 }
 
 .slider:hover {
@@ -423,32 +426,26 @@ canvas.webgl {
 /* ************************************************* */
 
 #music__navBar {
-  margin: var(--margin);
   position: absolute;
-  z-index: 4;
-  top: 0px;
-  right: 0px;
   width: 100%;
   height: auto;
-  border-radius: 50%;
+  z-index: 40;
+  top: 10px;
+  display: grid;
+  place-self: center;
+  gap: 8px;
 }
 
 .uiList {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  padding: var(--paddingS);
-  gap: 8px;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(40px, 56px)); 
+  place-self: center;
+  gap: 8px; 
 }
 
 .uiList__item {
-  max-width:32px;
-  border-radius: 50%;
-  padding: var(--paddingM);
-  background-color: var(--blck);
-  }
+  justify-self: center;
+}
 
 
 /* ************************************************* */
@@ -456,25 +453,30 @@ canvas.webgl {
 /* ************************************************* */
 
 .overlay {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
-  aspect-ratio: none;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 5;
   pointer-events: none;
   opacity: 1;
 }
+.overlay__fx {
+  z-index: 4;
+}
 
-#uiFramer {
-  z-index: 5;
-  width: 100vw;
+#videoFrame {
+  flex-grow: 100%;
 }
 
 #tvLines {
   z-index: 4;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAABBJREFUCJljYGBg8GViQAEABQIAUMdse+oAAAAASUVORK5CYII=");
+  mix-blend-mode: normal ;
 }
 
 @media only screen and (max-width: 40em) {}

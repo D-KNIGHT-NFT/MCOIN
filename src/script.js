@@ -59,19 +59,19 @@ window.onload = () => {
 
 soundWave.onmousemove = (e) => {
   const hues = [
-    'MintCream',
-    'DodgerBlue',
-    'Aqua',
-    'Chartreuse',
-    'Coral',
-    'GoldenRod',
-    'GhostWhite',
-    'DarkSalmon',
-    'DarkTurquoise',
-    'HotPink',
-    'MediumSpringGreen',
-    'PeachPuff',
-    'Teal'
+    'mintcream',
+    'dodgerblue',
+    'aqua',
+    'chartreuse',
+    'coral',
+    'goldenRod',
+    'ghostwhite',
+    'darksalmon',
+    'darkturquoise',
+    'hotpink',
+    'mediumspringgreen',
+    'peachpuff',
+    'teal'
   ]
   const random = () => hues[Math.floor(Math.random() * hues.length)];
   document.documentElement.style.cssText = ` --hue: ${random()}; `
@@ -182,7 +182,7 @@ const renderer = new WebGLRenderer({
 //*//
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 500);
-camera.position.set(-1.5, 0, 1.5);
+camera.position.set(0, 0, 5);
 scene.add(camera)
 
 ////////////////////////////////////////////////////////////////////
@@ -197,11 +197,13 @@ controls.autoRotate = false
 controls.enableZoom = false
 controls.autoRotateSpeed = 1
 controls.minDistance = 0.3;
-controls.maxDistance = 2;
+controls.maxDistance = 5;
 controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0, 0);
-controls.addEventListener( "change", event => {  console.log( controls.object.position ); }) 
+// controls.addEventListener( 
+//"change", event => {  
+//console.log( controls.object.position ); }) 
 
 ////////////////////////////////////////////////////////////////////
 // RESET CAMERA - Enter / Leave Room
@@ -211,8 +213,7 @@ const exitBtn = document.getElementById('exit-btn')
 const eyeVideo = document.getElementById('eye')
 
 resetBtn.addEventListener("click", function() {
-  eyeVideo.style.display = "none";
-  camera.position.set(0.41914274207634866, 0.18144830860308964, -0.353865857713962);
+  camera.position.set(0.42, 0.18, -0.35);
   controls.set.target(0, 0.3, 0);
   controls.update();
 });
@@ -225,7 +226,6 @@ resetBtn.addEventListener("click", function() {
 // });
 
 exitBtn.addEventListener("click", function() {
-  eyeVideo.style.display = "block";
   camera.position.set(-1.5, 0, 1.5);
   controls.set.target(0, 0.2, 0);
   controls.update();
@@ -261,19 +261,19 @@ window.addEventListener('resize', () => {
 
 // ROTATING LIGHT POINTS
 
-const light1 = new THREE.PointLight('dodgerblue', 10.0, 1000, 0.5);
+const light1 = new THREE.PointLight('dodgerblue', 10.0, 100, 0.5);
 scene.add(light1);
-const light2 = new THREE.PointLight('aqua', 10.0, 1000, 0.5);
+const light2 = new THREE.PointLight('aqua', 10.0, 100, 0.5);
 scene.add(light2);
-const light3 = new THREE.PointLight('chartreuse', 10.0, 1000, 0.5);
+const light3 = new THREE.PointLight('chartreuse', 10.0, 100, 0.5);
 scene.add(light3);
-const light4 = new THREE.PointLight('ghostwhite', 10.0, 1000, 0.5);
+const light4 = new THREE.PointLight('ghostwhite', 10.0, 100, 0.5);
 scene.add(light4);
 
 
 //////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-const ambiLight = new THREE.AmbientLight(new THREE.Color( 0xffffff ));
+const ambiLight = new THREE.AmbientLight( 0xFA8072 , 0.2)
 ambiLight.color.convertSRGBToLinear()
 scene.add(ambiLight);
 
@@ -321,8 +321,8 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
 // scene.background = environmentMap
 // scene.background = textureCube
 scene.environment = textureCube;
-scene.fog = new THREE.FogExp2( 'hsl(216,10% ,80%)', 0.55);
-scene.background = new THREE.Color('hsl(22.5, 13.33%, 89%)')
+scene.fog = new THREE.FogExp2( 0xFFFFF0 , 0.1 );
+scene.background = new THREE.Color( 0xF0FFFF ).convertSRGBToLinear()
 
 ////////////////////////////////////////////////////////////////////
 // MODEL LOADERS
@@ -390,11 +390,11 @@ webmEye.format = THREE.RGBAFormat
 const paramEye = {
   side: THREE.DoubleSide,
   emissive: 0xffffff,
-  emissiveIntensity: 0.4,
+  emissiveIntensity: 0.3,
   // reflectivity: 0.8,
   // transmission: 1.0,
   transparent: true,
-  opacity:0.99,
+  opacity:1,
   alphaTest: 0.9,
   roughness: 0.001,
   // ior: 1.5,
@@ -630,10 +630,9 @@ scene.add(water)
 ///////////////
 
 renderer.physicallyCorrectLights = true
-renderer.outputEncoding = THREE.sRGBEncoding
+renderer.outputEncoding = THREE.LinearEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1.100
-renderer.gammaFactor = 2
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setClearColor( "hsl(278, 52%, 54%, 0.8)", 0.8 )
@@ -723,16 +722,17 @@ const tick = () => {
 
   // Render
 composer.render( scene, camera );
+// Observer for Chrome's Extension
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
 
-  // Observer for Chrome's Extension
-  if (typeof __THREE_DEVTOOLS__ !== 'undefined') {
-    __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', { detail: scene }));
-    __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', { detail: renderer }));
-  }
   // stats.end()
 }
 
 tick()
+
+if (typeof __THREE_DEVTOOLS__ !== 'undefined') {
+  __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', { detail: scene }));
+  __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', { detail: renderer }));
+}
