@@ -149,3 +149,52 @@ const hexColors = {
   'yellow': 0xFFFF00,
   'yellowgreen': 0x9ACD32
 };
+
+// DEBUGGING
+
+// WEBGL Rendering Context 
+
+let gl = canvas.getContext('webgl');
+console.log(gl)
+
+//Coordinates Camera
+controls.addEventListener( "change", event => {  console.log( controls.object.position ); }) 
+
+// Point Light Helper
+
+const sphereSize = 1; 
+
+const pointHelper = new THREE.PointLightHelper( light, sphereSize ); 
+
+scene.add( pointH1 );
+
+
+
+////////////////////////////////////////////////////////////////////
+// Enviroment Cube Texture Loader
+///////////////
+
+const cubeTextureLoader = new THREE.CubeTextureLoader()
+cubeTextureLoader.setPath('textures/environmentMap/level-4/');
+const environmentMap = cubeTextureLoader.load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']);
+environmentMap.encoding = THREE.sRGBEncoding;
+environmentMap.mapping = THREE.CubeRefractionMapping
+scene.environment = environmentMap
+scene.background = environmentMap
+
+
+
+
+// COLOR FORMATS TEXTURE
+
+webmEye.format = THREE.LuminanceAlphaFormat
+webmEye.format = THREE.LuminanceFormat
+webmEye.format = THREE.DepthFormat
+webmEye.format = THREE.DepthStencilFormat
+webmEye.format = THREE.RGBAFormat
+webmEye.format = THREE.RGBAIntegerFormat
+webmEye.format = THREE.RGIntegerFormat
+webmEye.format = THREE.RGFormat
+webmEye.format = THREE.RedFormat
+webmEye.format = THREE.AlphaFormat
+
