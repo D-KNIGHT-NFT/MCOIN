@@ -349,6 +349,7 @@ canvas.webgl {
 #kbllr {
   position:  fixed;
   top: 2%;
+  pointer-events: none;
 }
 
 
