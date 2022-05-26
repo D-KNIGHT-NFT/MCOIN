@@ -60,3 +60,4 @@ window.onmousemove = (e) => {
     .to('.fillLight', { opacity: distFromCenter }, 0)
     .to('.bg', { x: 100 - 200 * winPercent.x, y: 20 - 40 * winPercent.y }, 0)
 }
+

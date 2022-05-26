@@ -25,32 +25,69 @@
 <body>
   <!---------------------- Canvas Web GL ------------>
   <canvas class="webgl" id="container"></canvas>
-
+  <!-- <canvas class="2DCanvas" id="simplexNoise"></canvas> -->
   <!---------------------- Gallery ------------>
-
-  <div class="title"><h1>Project<br>Anja</h1></div>
-
+  <div class="title">
+    <h1>Project<br>Anja</h1>
+  </div>
   <!-- Cursor -->
-
   <!--DATA ASSETS------------>
   <!-- Audio -->
-  <audio class="audioTrack" loop autoplay id="music" preload="metadata">
+  <audio class="audioTrack" loop id="music" preload="metadata">
     <source src="../assets/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg" />
     <source src="../assets/sounds/ES_Lucid_Space-Joseph_Beg.mp3" type="audio/mpeg" />
-    <!-- place fallback here as <audio> supporting browsers will ignore it -->
-    <a href="audiofile.mp3">audiofile.mp3</a>
   </audio>
-  <!-- Video -->
+  <audio class="audioTrack" loop autoplay id="music2" preload="metadata">
+    <source src="../assets/sounds/344_audio/Lo-Fi_Rumble.ogg" type="audio/ogg" />
+    <source src="../assets/sounds/344_audio/Lo-Fi_Rumble.mp3" type="audio/mp3" />
+  </audio>
+  <!--SVG -->
+  <!--SVG DKNIGHT FLICKING TEXT-->
 
-  <video class="overlay" id="eye" crossorigin="anonymous" style="display: none" autoplay playsinline loop>
-    <source src="../assets/video/eye00.webm" type="video/webm" />
-  </video>
+  <svg viewBox="0 0 600 600" id="kbllr">
+    <defs>
+      <filter id="textReflection">
+         <feTurbulence 
+                       id="turbulence" 
+                       baseFrequency="0.0001 0.1" 
+                       type="fractalNoise" 
+                       stitchTiles="stitch" 
+                       numOctaves="2" 
+                       seed="50"/> 
+        <feDisplacementMap 
+                       id="displacementMap" 
+                       in="SourceGraphic" 
+                       scale="10" />
+        </feGaussianblur>
+      </filter>
+    </defs>
+    <g filter="url(#textReflection)">
+    <g id="reflection">    
+    <text opacity="0.8"  
+          x="50" 
+          y="18" 
+          style="fill:yellowgreen;font-size:10px;text-anchor:middle;font-family:Arial, sans-serif;font-weight:700;">KBLLR</text>  
+    </g>
+    
+    </g>  
+    
+  </svg>
 
-  <video class="overlay" id="video2" crossorigin="anonymous" playsinline style="display: none" loop>
-    <source src="../assets/video/frame03.webm" type="video/webm" />
-  </video>
-
-  <!--ACTIONS UI_NAV -->
+  <!--TEXT Vol.01_chapter01 -->
+  <svg viewBox="0 0 600 600" id="vol01">
+    <defs>
+      <filter id="textReflection">
+        <feTurbulence id="turbulence" baseFrequency="0.00021 0.01" type="fractalNoise" stitchTiles="stitch" numOctaves="8" seed="50" />
+        <feDisplacementMap id="displacementMap" in="SourceGraphic" scale="5" />
+        </feGaussianblur>
+      </filter>
+    </defs>
+    <g filter="url(#textReflection)">
+      <g id="reflection">
+        <text opacity="0.8" x=520 y=600 style="fill:var(--white);font-size:12px;text-anchor:middle;font-family:PirulenRG-Regular;font-weight:700;rotate=90deg;">Vol.01//Card#001_</text>
+      </g>
+    </g>
+  </svg>
 
 
   <!--ACTIONS UI_NAV -->
@@ -58,26 +95,21 @@
   <div class="navWrapper">
     <nav class="navAction" id="actionBar">
       <!-- <button class="btn hover__btn nodeHover" id="export"><p>Export glTF</p></button> -->
-      <button class="btn hover__btn nodeHover snd__transition_up" id="start-btn">
+      <button class="btn  snd__transition_up" id="start-btn">
         <p id="button__text">Play Video</p>
       </button>
-      <!-- <button class="btn hover__btn nodeHover" id="stop-btn"><p>Stop Video</p></button> -->
-      <button class="btn hover__btn nodeHover snd__transition_up" id="show-btn">
+      <button class="btn  snd__transition_up" id="show-btn">
         <p id="button__text">More Info</p>
       </button>
-      <button class="btn hover__btn nodeHover snd__transition_up" id="reset-btn">
+      <button class="btn  snd__transition_up" id="reset-btn">
         <p id="button__text">Enter Room</p>
       </button>
-      <button class="btn hover__btn nodeHover snd__transition_up" id="exit-btn">
+      <button class="btn  snd__transition_up" id="exit-btn">
         <p id="button__text">Exit Room</p>
       </button>
-      <!-- <button class="btn hover__btn nodeHover" id="installPWA"><p>Install WebApp</p></button> -->
-      <!-- <button class="btn hover__btn nodeHover" id="shop-btn"><a href=""><p>Shop</p></a></button> -->
-      <!-- <button class="btn hover__btn nodeHover" id="twitter"><a href="www.twitter.com/3dknightdi"><p>Twitter</p></a></button> 
-    <button class="btn hover__btn nodeHover" id="instagram"><a href="www.instagram.com/3dknightdi"><p>Instagram</p></a></button>  -->
     </nav>
   </div>
-
+  </button>
   <a href="#" class="main-nav prev snd__transition_up" data-nav="previous">
     <div class="slider prev">
       <svg style="transform:rotate(-180deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -93,20 +125,10 @@
     </div>
   </a>
   <!-- MUSIC UI_NAV -->
-
+  <div class="nav-music">
     <ul class="uiList" id="music-List__items ">
-      <li><button 
-  class="floatingBtn" 
-  id="eyecon-btn">
-    <svg style="width:100%;height:100%;" viewBox="0 0 94 57.15" xmlns="http://www.w3.org/2000/svg">
-      <path d="m2.99 27.95 10.6-11.72 14.23-10.19 15.49-3.77 13.68 1.73 11.72 3.71 9.9 6.31 9.49 9.74 3.07 5.44-11.44 12.84-15.77 11.11-18.42 2.42-12-2.42-13.95-6.09-10.74-9.35z" fill="var(--white)" />
-      <path d="m94 28.57s0-.05 0-.07 0-.09 0-.14a.38.38 0 0 0 0-.1v-.06a1.1 1.1 0 0 0 -.06-.26s0 0 0-.07a1.66 1.66 0 0 0 -.15-.33c0-.07-.1-.15-.16-.22v-.05c-.85-1-1.71-1.94-2.58-2.95-9.52-10.9-21.2-24.32-44.05-24.32s-34.53 13.42-43.91 24.21c-.88 1-1.73 2-2.58 2.94v.05a1.88 1.88 0 0 0 -.16.23 2.52 2.52 0 0 0 -.14.33.13.13 0 0 0 0 .06 2.13 2.13 0 0 0 -.07.27v.06a.28.28 0 0 0 0 .09v.14s0 .05 0 .07h-.14s0 0 0 .07 0 .09 0 .14a.28.28 0 0 0 0 .09v.25a1.31 1.31 0 0 0 .06.27s0 0 0 .06a1.66 1.66 0 0 0 .15.33 1.88 1.88 0 0 0 .16.23c.85.95 1.71 1.94 2.58 2.94 9.52 10.9 21.2 24.32 44.05 24.32s34.53-13.42 43.91-24.21c.88-1 1.73-2 2.58-2.94a.1.1 0 0 0 0-.05 1.77 1.77 0 0 0 .16-.22c0-.11.1-.22.14-.33a.13.13 0 0 0 0-.06 2.68 2.68 0 0 0 .21-.34v-.1a.31.31 0 0 0 0-.1s0-.08 0-.13 0-.05 0-.07zm-9.71 5.85c-8.55 9.47-18.92 18.73-37.29 18.73s-28.74-9.26-37.28-18.73l-5-5.85h-.4l5.4-5.84c8.54-9.48 18.91-18.73 37.28-18.73s28.74 9.25 37.28 18.73l5 5.84h.4z" />
-      <circle id="circle"cx="46.8" cy="28.57" r="16" stroke="var(--hue)" stroke-width="4" />
-    </svg>
-  </button>
-</li>
       <li class="uiList__item" id="soundWave" data-tooltip alt="Alt text" title="Hover to change text color" role="tooltip" aria-label="Tooltip message">
-        <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none">
           <path style="fill: var(--hue)" id="bar01" d="M10.9172 22L10.9172 8L12.8984 8L12.8984 22L10.9172 22Z" />
           <path style="fill: var(--hue)" id="bar02" d="M2.99142 18L2.99142 12L4.97266 12L4.97266 18L2.99142 18Z" />
           <path style="fill: var(--hue)" id="bar03" d="M18.8391 28L18.8391 3L20.8203 3L20.8203 28L18.8391 28Z" />
@@ -120,47 +142,38 @@
       </li>
       <li class="uiList__item snd__transition_up" id="pause" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
         <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3333 23.3333C13.3333 24.7999 12.1333 25.9999 10.6667 25.9999C9.2 25.9999 8 24.7999 8 23.3333V9.99992C8 8.53325 9.2 7.33325 10.6667 7.33325C12.1333 7.33325 13.3333 8.53325 13.3333 9.99992V23.3333ZM18.6656 23.3333V9.99997C18.6656 8.5333 19.8656 7.3333 21.3323 7.3333C22.799 7.3333 23.999 8.5333 23.999 9.99997V23.3333C23.999 24.8 22.799 26 21.3323 26C19.8656 26 18.6656 24.8 18.6656 23.3333Z" 
-          style="fill:var(--white)" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3333 23.3333C13.3333 24.7999 12.1333 25.9999 10.6667 25.9999C9.2 25.9999 8 24.7999 8 23.3333V9.99992C8 8.53325 9.2 7.33325 10.6667 7.33325C12.1333 7.33325 13.3333 8.53325 13.3333 9.99992V23.3333ZM18.6656 23.3333V9.99997C18.6656 8.5333 19.8656 7.3333 21.3323 7.3333C22.799 7.3333 23.999 8.5333 23.999 9.99997V23.3333C23.999 24.8 22.799 26 21.3323 26C19.8656 26 18.6656 24.8 18.6656 23.3333Z" style="fill:var(--white)" />
         </svg>
       </li>
-    
       <li class="uiList__item" id="menu">
         <a href="#">
-         <svg 
-         style="width: 100%; height: 100%"
-         xmlns="http://www.w3.org/2000/svg" 
-         viewBox="0 0 24 24" 
-         stroke-width="1.5" 
-         stroke="currentColor" 
-         fill="none" 
-         stroke-linecap="round" 
-         stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <line x1="4" y1="8" x2="40" y2="8" />
-          <line x1="0" y1="16" x2="40" y2="16" />
-         </svg>
+          <svg style="width: 100%; height: 100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <line x1="4" y1="8" x2="40" y2="8" />
+            <line x1="0" y1="16" x2="40" y2="16" />
+          </svg>
         </a>
       </li>
     </ul>
+  </div>
   <!-- OVERLAYERS -->
-  <div class="overlay">
+  <!-- Overlay level.I-->
+  <video class="overlay" id="eye" crossorigin="anonymous" style="display:none" playsinline loop>
+    <source src="../assets/video/eye00.webm" type="video/webm" />
+  </video>
+  <!-- Overlay level.I-->
+  <video class="overlay" id="video2" crossorigin="anonymous" playsinline style="display: none" loop>
+    <source src="../assets/video/frame03.webm" type="video/webm" />
+  </video>
+  <!-- Overlay level.I-->
+  <div class="overlay videoBg">
     <video id="videoFrame" crossorigin="anonymous" autoplay playsinline loop>
-      <source src="../assets/video/frameJ.webm" type="video/webm" />
-      <source src="../assets/video/frameJ.webm" type="video/webm" />
+      <source src="../assets/video/frameFlick.webm" type="video/webm" />
     </video>
   </div>
-
-
+  <!-- Overlay level.II-->
   <div class="overlay" id="tvLines"></div>
-
-  <div class="video-wrapper">
-    <video class="videoBg" id="" crossorigin="anonymous" autoplay playsinline loop>
-      <source src="../assets/video/eye00.webm" type="video/webm" />
-    </video>
-  </div>
-
-
+  <!-- Overlay level.III-->
   <!-- MODALS -->
   <div class="modal" id="container">
     <button class="button" id="cross">
@@ -186,20 +199,15 @@
       </h2>
     </div>
   </div>
-
   <!-- 
   // Interactive eyeball animation based on one of 
   // the famous famous GLSL shaders of Inigo Quilez <3
-
   // https://iquilezles.org/
   // https://www.youtube.com/watch?v=emjuqqyq_qc
    -->
-
-  <div class="container">
-  </div>
-
+  <div class="container"></div>
   <script type="x-shader/x-fragment" id="fragmentShader">
-      varying vec2 vUv;
+    varying vec2 vUv;
 
       uniform float u_shrink;
       uniform vec3 u_base_color_1;
@@ -280,15 +288,19 @@
       }
 
   </script>
-
   <script id="vertexShader" type="x-shader/x-vertex">
-      varying vec2 vUv;
+    varying vec2 vUv;
 
       void main() {
           vUv = uv;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
       }
   </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
 </body>
+<!-- <button class="btn hover__btn nodeHover" id="installPWA"><p>Install WebApp</p></button> -->
+<!-- <button class="btn hover__btn nodeHover" id="shop-btn"><a href=""><p>Shop</p></a></button> -->
+<!-- <button class="btn hover__btn nodeHover" id="twitter"><a href="www.twitter.com/3dknightdi"><p>Twitter</p></a></button> 
+<button class="btn hover__btn nodeHover" id="instagram"><a href="www.instagram.com/3dknightdi"><p>Instagram</p></a></button>  -->
 
 </html>

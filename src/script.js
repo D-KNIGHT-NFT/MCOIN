@@ -1,15 +1,14 @@
 console.clear();
 
 import './css/style.css'
-import './css/nodeCursor.css'
-import './js/cursor.js'
-import './js/pointer.js'
 import * as THREE from 'three'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
+import SimplexNoise from 'simplex-noise';
 import { Pane } from 'tweakpane';
+import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
 import Stats from 'stats.js'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
 import gsap from "gsap";
@@ -37,7 +36,7 @@ import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 ///////////////
 
 window.onload = () => {
-  const audioTrack = document.getElementById('music');
+  const audioTrack = document.getElementById('music2');
   const play = document.getElementById('play');
   const pause = document.getElementById('pause');
   const soundWave = document.getElementById('soundWave')
@@ -78,75 +77,6 @@ soundWave.onmousemove = (e) => {
 }
 
 ////////////////////////////////////////////////////////////////////
-// POINTER-CURSOR
-///////////////
-
-class EyeIcon {
-  constructor() {
-    this.$eyeconBtn = document.querySelector('#eyecon-btn');
-    this.$eyeFollow = this.$eyeconBtn.querySelector('circle');
-    this.onResize();
-    window.addEventListener('resize', () => {
-      this.onResize();
-    });
-    this.moveBall();
-  }
-  onResize() {
-    this.btnRect = this.$eyeconBtn.getBoundingClientRect();
-    this.btnWidth = this.btnRect.width;
-    this.btnHeight = this.btnRect.height;
-    this.btnLeft = this.btnRect.left + this.btnWidth / 2;
-    this.btnTop = this.btnRect.top + this.btnHeight / 2;
-  }
-  moveBall() {
-    window.addEventListener('mousemove', (e) => {
-      const clientX = e.clientX;
-      const clientY = e.clientY;
-      const radian = Math.atan2( clientY - this.btnTop, clientX - this.btnLeft );
-      // console.log(this.btnTop);
-      // console.log('radian: ' + radian, 'degree: ' + radian * ( 180 / Math.PI ) );
-      gsap.to(this.$eyeFollow, {
-        duration: 0.6,
-        ease: 'power2.out',
-        x: Math.cos(radian) * 5,
-        y: Math.sin(radian) * 5
-      });
-    });
-  }
-}
-
-new EyeIcon()
-
-const eyeconBtn = document.querySelector('#eyecon-btn');
-const eyeFollow = eyeconBtn.querySelector('circle');
-
-const onResize = () => {
-  const btnRect = eyeconBtn.getBoundingClientRect();
-  const btnWidth = btnRect.width;
-  const btnHeight = btnRect.height;
-  const btnLeft = btnRect.left + btnWidth / 2;
-  const btnTop = btnRect.top + btnHeight / 2;
-  }
-
-const moveBall = () => {
-    window.addEventListener('mousemove', (e) => {
-      const clientX = e.clientX;
-      const clientY = e.clientY;
-      const radian = Math.atan2( clientY - eye.btnTop, clientX - eyeconBtn.btnLeft );
-      // console.log(this.btnTop);
-      // console.log('radian: ' + radian, 'degree: ' + radian * ( 180 / Math.PI ) );
-      gsap.to(eyeFollow, {
-        duration: 0.6,
-        ease: 'power2.out',
-        x: Math.cos(radian) * 5,
-        y: Math.sin(radian) * 5
-      });
-    });
-  }
-
-
-
-////////////////////////////////////////////////////////////////////
 // SHOW MODAL INFO
 ///////////////
 
@@ -160,8 +90,37 @@ const toggleModal = () => {
 };
 
 showBtn.addEventListener('click', toggleModal);
+
 modalBtn.addEventListener('click', toggleModal);
 
+////////////////////////////////////////////////////////////////////
+// 2DCANVAS --> Noise
+////////////////////////////////////////////////////////////////////
+
+// const simplex = new SimplexNoise();
+// const noiseCanvas = document.getElementById('container');
+// const ctx = noiseCanvas.getContext('2d');
+// const imageData = ctx.getImageData(0, 0, noiseCanvas.width, noiseCanvas.height);
+// const data = imageData.data;
+// let t = 0;
+
+// function drawPlasma(){
+//   for (let x = 0; x < 256; x++) {
+//       for (let y = 0; y < 256; y++) {
+//           const r = simplex.noise3D(x / 16, y / 16, t/32) * 0.5 + 0.5;
+//           const g = simplex.noise3D(x / 8, y / 8, t/32) * 0.5 + 0.5;
+//           data[(x + y * 256) * 4 + 0] = r * 255;
+//           data[(x + y * 256) * 4 + 1] = (r + g) * 20;
+//           data[(x + y * 256) * 4 + 2] = 0;
+//           data[(x + y * 256) * 4 + 3] = 255;
+//       }
+//   }
+//   t++;
+//   ctx.putImageData(imageData, 0, 0);
+//   requestAnimationFrame(drawPlasma);
+// }
+
+// drawPlasma();
 
 ////////////////////////////////////////////////////////////////////
 // WEBGL-THREEJS -->CANVAS -->EXPERIENCE
@@ -174,57 +133,59 @@ const paramRender = {
   antialias: true,
   alpha: true,
   powerPreference: "high-performance",
-
 }
 const renderer = new WebGLRenderer(paramRender);
 
-
 const textureLoader = new THREE.TextureLoader()
+
 const eyeGroup = new THREE.Group();
+
 const eyeRadius = 0.03;
-const eyeBallTexture = textureLoader.load('../assets/img/eyeball.png');
-const eyeAddonGeometry = new THREE.SphereGeometry( eyeRadius, 32, 32);
+
+const eyeAddonGeometry = new THREE.SphereGeometry(eyeRadius, 32, 32);
+
 const eyeAddonMaterial = new THREE.MeshPhongMaterial({
-        opacity: 0.05,
-        shininess: 1,
-        transparent: true,
-        map: eyeBallTexture
+  opacity: 0.5,
+  shininess: 1,
+  transparent: true
 });
+
 const eyeAddon = new THREE.Mesh(eyeAddonGeometry, eyeAddonMaterial);
 eyeGroup.add(eyeAddon);
 
 let config = {
-    zoomLevel: 0,
-    zoomLevelBounds: [ 10, 10 ],
-    shrink: 0,
-    fstBaseColor: 0xA9A9A9,
-    scdBaseColor: 0x696969,
-    midColor: 0xD2691E,
-    vignette: .55,
-    brightness: .1,
-    darkness: .1,
+  zoomLevel: 0,
+  zoomLevelBounds: [10, 10],
+  shrink: 0,
+  fstBaseColor: 0xA9A9A9,
+  scdBaseColor: 0x696969,
+  midColor: 0xD2691E,
+  vignette: .55,
+  brightness: .1,
+  darkness: .1,
 };
+
 const eyeGeometry = new THREE.SphereGeometry(eyeRadius, 32, 32);
 const eyeShaderMaterial = new THREE.ShaderMaterial({
-        uniforms: {
-            u_shrink: { type: 'f', value: config.shrink },
-            u_base_color_1: { type: 'v3', value: new THREE.Color(config.fstBaseColor) },
-            u_base_color_2: { type: 'v3', value: new THREE.Color(config.scdBaseColor) },
-            u_mid_color: { type: 'v3', value: new THREE.Color(config.midColor) },
-            u_vignette: { type: 'f', value: config.vignette },
-            u_brightness: { type: 'f', value: config.brightness },
-            u_darkness: { type: 'f', value: config.darkness },
-        },
-        vertexShader: document.getElementById('vertexShader').textContent,
-        fragmentShader: document.getElementById('fragmentShader').textContent,
-    });
-  const eye = new THREE.Mesh(eyeGeometry, eyeShaderMaterial);
-  eye.rotation.y = -Math.PI / 2;
-  eyeGroup.add(eye);
-  eyeGroup.position.set(0.1, 0.03, 0.1)
-  eyeGroup.rotation.set(0, 48, 0)
+  uniforms: {
+    u_shrink: { type: 'f', value: config.shrink },
+    u_base_color_1: { type: 'v3', value: new THREE.Color(config.fstBaseColor) },
+    u_base_color_2: { type: 'v3', value: new THREE.Color(config.scdBaseColor) },
+    u_mid_color: { type: 'v3', value: new THREE.Color(config.midColor) },
+    u_vignette: { type: 'f', value: config.vignette },
+    u_brightness: { type: 'f', value: config.brightness },
+    u_darkness: { type: 'f', value: config.darkness },
+  },
+  vertexShader: document.getElementById('vertexShader').textContent,
+  fragmentShader: document.getElementById('fragmentShader').textContent,
+});
+const eye = new THREE.Mesh(eyeGeometry, eyeShaderMaterial);
+eye.rotation.y = -Math.PI / 2;
+eyeGroup.add(eye);
+eyeGroup.position.set(0.1, 0.03, 0.1)
+eyeGroup.rotation.set(0, 48, 0)
 
-  scene.add(eyeGroup);
+scene.add(eyeGroup);
 
 //*//
 // CAMERA
@@ -270,7 +231,7 @@ exitBtn.addEventListener("click", function() {
   controls.update();
 });
 
-  
+
 //*//
 // WINDOW SIZES + ASPECT
 //*//
@@ -320,7 +281,7 @@ const textureLoad = new RGBELoader()
 
 textureLoad.setPath('textures/equirectangular/')
 const textureCube = textureLoad.load('mayoris.hdr', function(texture) {
-  textureCube.mapping = THREE.EquirectangularRefractionMapping;
+  textureCube.mapping = THREE.EquirectangularReflectionMapping;
 })
 
 // prefilter the equirectangular environment map for irradiance
@@ -338,7 +299,7 @@ function equirectangularToPMREMCube(textureCube, renderer) {
 }
 
 scene.environment = textureCube;
-scene.fog = new THREE.FogExp2( 0xC0C0C0, 0.35 );
+scene.fog = new THREE.FogExp2(0xC0C0C0, 0.5);
 // scene.background = new THREE.Color( 0x9400D3 );
 
 ////////////////////////////////////////////////////////////////////
@@ -352,12 +313,13 @@ const gltfLoader = new GLTFLoader()
 // VIDEO TEXTURE TV - VIDEO TEXTURE TV - VIDEO TEXTURE TV  - VIDEO TEXTURE TV 
 ////////////////////////////////////////////////////////////////////////////
 
-const videoWebm = document.getElementById('video2');
+const videoWebm = document.getElementById('videoFrame');
 const webmTex = new THREE.VideoTexture(videoWebm);
 
 webmTex.minFilter = THREE.LinearFilter;
 webmTex.magFilter = THREE.LinearFilter;
-webmTex.format = THREE.RGBAFormat;
+webmTex.wrapS = THREE.ClampToEdgeWrapping;
+webmTex.wrapT = THREE.ClampToEdgeWrapping;
 
 const paramWebm = {
   side: THREE.DoubleSide,
@@ -382,37 +344,38 @@ startVideoBtn.addEventListener('click', function() { videoWebm.play(); });
 ////////////////////////////////////////////////////////////////////////////
 
 
-// const videoEye = document.getElementById('eye')
-// const webmEye = new THREE.VideoTexture(videoEye)
+const videoEye = document.getElementById('eye')
+const webmEye = new THREE.VideoTexture(videoEye)
 
-// webmEye.minFilter = THREE.LinearFilter;
-// webmEye.magFilter = THREE.LinearFilter;
-// webmEye.offsetY = 0.030
-// webmEye.repeat = 0.940
-// webmEye.envMapIntensity = 0.1
+webmEye.minFilter = THREE.LinearFilter;
+webmEye.magFilter = THREE.LinearFilter;
+webmEye.offsetY = 0.030
+webmEye.repeat = 0.940
 
-// webmEye.format = THREE.RGBAFormat
+
+webmEye.format = THREE.RGBAFormat
 
 const paramEye = {
   side: THREE.DoubleSide,
   emissive: 0xEE82EE,
-  emissiveIntensity: .05,
+  emissiveIntensity: .5,
   transparent: true,
-  opacity:0.95,
+  opacity: 0.98,
   precision: "highp",
-  // map: webmEye,
+  map: webmEye,
   fog: true,
   envMap: textureCube,
   // blending: THREE.SubtractiveBlending,
-  blending: THREE.MultiplyBlending,
-  
+  // blending: THREE.MultiplyBlending,
+
 };
 
 const materialEye = new THREE.MeshLambertMaterial(paramEye);
 materialEye.emissive.convertSRGBToLinear()
 
 
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
+/*/*/
+/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> SPACE_SHIP: ORBITEYE
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
@@ -424,7 +387,8 @@ const geometry = new THREE.SphereGeometry(radius, segments, rings)
 const orbitEye = new THREE.Mesh(geometry, materialEye);
 scene.add(orbitEye);
 
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
+/*/*/
+/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> CURIOUS_KID
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
@@ -438,7 +402,7 @@ fbxLoader.load(
     action.play();
 
     kidMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xDA70D6,//0xFAFAD2,lightgoldenrodyellow 0xC71585, mediumVioletRed
+      color: 0xDA70D6, //0xFAFAD2,lightgoldenrodyellow 0xC71585, mediumVioletRed
       transmission: 0.3,
       opacity: 1.0,
       metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
@@ -446,11 +410,11 @@ fbxLoader.load(
       roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
       roughness: 0.1,
       ior: 1.5,
-      thickness:4,
+      thickness: 4,
       specularIntensity: 10,
       specularColor: 0xB0C4DE,
       envMap: textureCube,
-      envMapIntensity: 1.5, 
+      envMapIntensity: 1.5,
       map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map.png")
     })
     kidMaterial.color.convertSRGBToLinear()
@@ -472,7 +436,8 @@ fbxLoader.load(
   });
 
 
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
+/*/*/
+/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> LONE_WOLF
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
@@ -486,11 +451,11 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   // loneWolf.position.set(0, 0.11, -0.08)
   loneWolf.position.set(0, 0, -0.08)
   loneWolf.rotation.set(0, 0, 0)
- 
- wolfSkin = new THREE.MeshStandardMaterial({
-   metalness: 1.1,
-   roughness: 0.16
-   })
+
+  wolfSkin = new THREE.MeshStandardMaterial({
+    metalness: 1.1,
+    roughness: 0.16
+  })
   loneWolf.traverse(function(object) {
     if (object.isMesh) {
       object.material = wolfSkin
@@ -504,9 +469,10 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
   const loneWolfAction = loneWolfMixer.clipAction(gltf.animations[0])
   loneWolfAction.play()
 })
- 
 
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
+
+/*/*/
+/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> CREATIVE_FLOW
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
@@ -533,7 +499,8 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   cFlowAction.play()
 })
 
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
+/*/*/
+/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> App ICON
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
@@ -560,7 +527,8 @@ gltfLoader.load('models/glTF/Anja-icon/icon-Anja.gltf', (gltf) => {
 
 
 /*/*/
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
+/*/*/
+/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> ATREZZO: PODIUM
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
@@ -582,7 +550,8 @@ gltfLoader.load('models/glTF/Anja-icon/icon-Anja.gltf', (gltf) => {
 // })
 
 
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
+/*/*/
+/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> NATURAL_ELEMENTS: WATER
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
@@ -629,7 +598,7 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1.100
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor( 0xFAEBD7, 0.1)
+renderer.setClearColor(0x00FFFF, 0.2)
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -662,36 +631,85 @@ composer.addPass(new EffectPass(camera, new BloomEffect()));
 // DEBUGGING
 ///////////////
 
-// const stats = new Stats()
-// stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-// stats.showPanel(1) // 0: fps, 1: ms, 2: mb, 3+: custom
-// stats.showPanel(2) // 0: fps, 1: ms, 2: mb, 3+: custom
+const params = {
+  background: '#fff',
+  c0: '#000',
+  c1: '#000',
+  c2: '#000',
+  tSize: 35,
+  tNoise: 25,
+  tCircle: 3,
+  lineWidth: 2.5,
+  lineWidth1: 0.2,
+  lineWidth2: 0.15,
+  scale: 0.8,
+  xyCoef: 0.003,
+  timeCoef: 0.0002,
+  composite: 'source-over',
+  margin: 20,
+};
 
-// //stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-// document.body.appendChild(stats.dom)
-
-//console.log(renderer.info)
-
-// const axisHelp = new THREE.AxesHelper()
-// scene.add( axisHelp )
+const pane = new Pane({ title: 'Params' });
+pane.expanded = false;
+pane.addButton({ title: 'Random' }).on('click', (value) => { randomGrid(); });
 
 ////////////////////////////////////////////////////////////////////
 // ANIMATION 
+///////////////
+
+// TweenMax.set('#reflection', {
+//   transformOrigin:'50% 90%',
+//   scaleY:-1
+// }) 
+
+var values = {
+  'baseFrequency': 0.1,
+  'numOctaves': 3,
+  'scale': 10
+}
+
+TweenMax.to('#turbulence', 0.5, {
+  attr: {
+    seed: '+=10'
+  },
+  repeat: -1,
+  ease: Linear.easeNone
+})
+
+
+// gui.add(values, "baseFrequency", 0, 0.1).onChange(function(value) {
+//   var baseFrequency = "0.0001 " + value;
+//   TweenMax.set('#turbulence', { attr: { baseFrequency: baseFrequency } });
+// });
+
+// gui.add(values, "numOctaves", 0, 100).onChange(function(value) {
+//   TweenMax.set('#turbulence', { attr: { numOctaves: parseInt(value) } });
+// });
+
+// gui.add(values, 'scale', 0, 100).onChange(function(value) {
+//   console.log("value: " + value)
+//   TweenMax.set('#displacementMap', { attr: { scale: value } });
+// });
+
+
+////////////////////////////////////////////////////////////////////
+// CLOCK - UPDATE 
 ///////////////
 
 const clock = new THREE.Clock()
 let previousTime = 0
 
 const tick = () => {
-  // stats.begin()
   const elapsedTime = clock.getElapsedTime()
   const deltaTime = elapsedTime - previousTime
   previousTime = elapsedTime
 
   // Update controls
+
   controls.update()
 
   // LIGHT ANIMATIONS
+
   light1.position.x = Math.sin(elapsedTime * 0.7) * 30
   light1.position.y = Math.cos(elapsedTime * 0.9) * 40;
   light1.position.z = Math.cos(elapsedTime * 0.3) * 30;
@@ -710,22 +728,17 @@ const tick = () => {
 
 
   // Update Animation Mixers
+
   if (loneWolfMixer) { loneWolfMixer.update(deltaTime) }
   if (cFlowMixer) { cFlowMixer.update(deltaTime) }
   if (kidMixer) { kidMixer.update(deltaTime) };
 
   // Render
-composer.render( scene, camera );
-// Observer for Chrome's Extension
-if (typeof __THREE_DEVTOOLS__ !== 'undefined') {
-  __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', { detail: scene }));
-  __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', { detail: renderer }));
-}
+  composer.render(scene, camera);
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
 
-  // stats.end()
 }
 
 tick()

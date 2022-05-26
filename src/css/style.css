@@ -288,7 +288,7 @@ h2 { font-size: 1.4rem; }
 h1 { font-size: 2rem; }
 
 .button__text {
-    width: clamp(200px, 50% + 20px, 800px);
+    width: clamp(100px, 50% + 20px, 800px);
 }
 
 /* ************************************************ */
@@ -306,7 +306,8 @@ html {
 }
 
 body {
-  background-color: var(--blck);
+  display: grid;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -315,16 +316,22 @@ body {
   font-family: "flowa";
   font-size: 100%;
   line-height: 1.2;
+
 }
 
 .title {
-  position: absolute;
-  z-index: -1;
-  top:  3%;
-  left:  3%;
+  width: 100vw;
+  padding-top: 20%;
+  pointer-events: none;
 }
 
-h1 { font-size: 10rem; color: var(--blck); line-height: 0.75;letter-spacing: -6px; }
+h1 { 
+  font-size: 12rem; 
+  color: var(--blck); 
+  line-height: 0.80;
+  letter-spacing: -16px; 
+  text-align: center;
+}
 
 canvas.webgl {
   position: fixed;
@@ -335,32 +342,24 @@ canvas.webgl {
   height: 100vh;
 }
 
-.videoBg {
-  background: ;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-
-}
-.video-wrapper {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -2;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-}
 /* ************************************************ */
-/* *********************************** GALLERY  */
+/* *********************************** SVG */
 /* ********************************************** */
 
+#kbllr {
+  position:  fixed;
+  top: 2%;
+}
 
+
+#vol01 { 
+  position: fixed;
+    bottom:  2%;
+    right:  2%;
+    width:  90%;
+    height:  auto;
+    pointer-events: none;
+ }
 
 /* ************************************************* */
 /* ******************************** NAVBARs  */
@@ -370,7 +369,7 @@ canvas.webgl {
   position: absolute;
   z-index: 40; 
   bottom: 10px;
-  right:  10px;
+  left:  10px;
   max-width: 100%;
 }
 
@@ -396,19 +395,6 @@ canvas.webgl {
   transition: transform 150ms linear;
 }
 
-.floatingBtn{
- 
-  width: 20%;
-  border-radius: 50%;
-  padding: var(--paddingS);
-  background-color: var(--venom);
-}
-
-#eyecon-btn {
-  border-radius: 50%;
-  margin: var(--margin);
-
-}
 
 /* ************************************************* */
 /* ******************************** UI ARROWS */
@@ -452,19 +438,23 @@ canvas.webgl {
 /* ************************************ MUSIC PLAYER   */
 /* ************************************************* */
 
-.uiList {
+.nav-music {
   position: absolute;
   z-index: 40;
-  height: 10%;
-  top: 80px;
-  right: 10px;
+  bottom: 0px;
+  right: -270px;
   display: grid;
+}
+.uiList {
   grid-template-rows: repeat(5, 1fr); 
-  justify-items: self-end; 
+  justify-items: center; 
+  place-self: center;
 }
 
 .uiList__item {
-  max-width: 10%;
+  width: 10%;
+  height:  10%;
+  place-self: stretch;
   color: var(--venom);
 }
 
@@ -482,24 +472,32 @@ canvas.webgl {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: -1;
   pointer-events: none;
   opacity: 1;
 }
-.overlay__fx {
-  z-index: 4;
-}
 
 #videoFrame {
-  flex-grow: 100%;
-  display: none;
 }
 
 #tvLines {
   z-index: -1;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAABBJREFUCJljYGBg8GViQAEABQIAUMdse+oAAAAASUVORK5CYII=");
-  mix-blend-mode: overlay ;
+  mix-blend-mode: darken;
 }
+
+.videoBg {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
 
 @media only screen and (max-width: 40em) {}
 
