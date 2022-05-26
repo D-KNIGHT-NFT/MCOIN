@@ -61,3 +61,26 @@ window.onmousemove = (e) => {
     .to('.bg', { x: 100 - 200 * winPercent.x, y: 20 - 40 * winPercent.y }, 0)
 }
 
+////////////////////////////////////////////////////////////////////
+// SVG Filters to compose a Volumetric SVG - 
+// extracted from https://www.w3.org/TR/filter-effects/
+///////////////////////////////////////////
+
+
+<filter id="MyFilter" filterUnits="userSpaceOnUse" x="0" y="0" width="200" height="120">
+  <desc>Produces a 3D lighting effect.</desc>
+  <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+  <feOffset in="blur" dx="4" dy="4" result="offsetBlur"/>
+  <feSpecularLighting in="blur" surfaceScale="5" specularConstant=".75"
+                      specularExponent="20" lighting-color="#bbbbbb"
+                      result="specOut">
+    <fePointLight x="-5000" y="-10000" z="20000"/>
+  </feSpecularLighting>
+  <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"/>
+  <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic"
+               k1="0" k2="1" k3="1" k4="0" result="litPaint"/>
+  <feMerge>
+    <feMergeNode in="offsetBlur"/>
+    <feMergeNode in="litPaint"/>
+  </feMerge>
+</filter>

@@ -299,7 +299,7 @@ function equirectangularToPMREMCube(textureCube, renderer) {
 }
 
 scene.environment = textureCube;
-scene.fog = new THREE.FogExp2(0xC0C0C0, 0.5);
+scene.fog = new THREE.FogExp2(0x556B2F, 0.2);
 // scene.background = new THREE.Color( 0x9400D3 );
 
 ////////////////////////////////////////////////////////////////////
@@ -617,7 +617,6 @@ composer.addPass(new EffectPass(camera, new BloomEffect()));
 // const effectGrayScale = new ShaderPass( LuminosityShader );
 // composer.addPass( effectGrayScale );
 
-
 // const effectFXAA = new ShaderPass(FXAAShader)
 // effectFXAA.uniforms['resolution'].value.set(1 / sizes.width, 1 / sizes.height)
 
@@ -628,53 +627,64 @@ composer.addPass(new EffectPass(camera, new BloomEffect()));
 // TWEAK PANE
 ///////////////////////////////////////////////////////////////////
 
-// DEBUGGING
-///////////////
-
-const params = {
-  background: '#fff',
-  c0: '#000',
-  c1: '#000',
-  c2: '#000',
-  tSize: 35,
-  tNoise: 25,
-  tCircle: 3,
-  lineWidth: 2.5,
-  lineWidth1: 0.2,
-  lineWidth2: 0.15,
-  scale: 0.8,
-  xyCoef: 0.003,
-  timeCoef: 0.0002,
-  composite: 'source-over',
-  margin: 20,
-};
-
-const pane = new Pane({ title: 'Params' });
-pane.expanded = false;
-pane.addButton({ title: 'Random' }).on('click', (value) => { randomGrid(); });
-
-////////////////////////////////////////////////////////////////////
-// ANIMATION 
-///////////////
 
 // TweenMax.set('#reflection', {
 //   transformOrigin:'50% 90%',
 //   scaleY:-1
 // }) 
 
-var values = {
-  'baseFrequency': 0.1,
+var SVG_FLICKER = {
+  'baseFrequency': 0.001,
   'numOctaves': 3,
+  'seed': 50,
   'scale': 10
 }
 
-TweenMax.to('#turbulence', 0.5, {
-  attr: {
-    seed: '+=10'
-  },
-  repeat: -1,
-  ease: Linear.easeNone
-})
+var SVG_FLICKER2 = {
+  'baseFrequency': 0.021,
+  'numOctaves': 3,
+  'seed': 50,
+  'scale': 10
+}
+
+const pane001= new Pane({ title: 'SVG_FLICKER' });
+// pane001.expanded = false;
+
+const kbllr = pane001.addFolder({
+  title: 'kbllr',
+});
+
+// kbllr.expanded = false;
+kbllr.addInput(SVG_FLICKER, 'baseFrequency', {
+  min: 0,
+  max: 50,
+});
+
+kbllr.addInput(SVG_FLICKER, 'numOctaves');
+kbllr.addInput(SVG_FLICKER, 'scale');
+
+pane001.addSeparator();
+
+const main_title = pane001.addFolder({
+  title: 'main_title',
+});
+
+// main_title.expanded = false;
+
+main_title.addInput(SVG_FLICKER2, 'baseFrequency');
+main_title.addInput(SVG_FLICKER2, 'numOctaves');
+main_title.addInput(SVG_FLICKER2, 'scale');
+
+pane001.addSeparator();
+
+
+// TweenMax.to('#turbulence', 0.5, {
+//   attr: {
+//     seed: '+=10'
+//   },
+//   repeat: -1,
+//   ease: Linear.easeNone
+// })
 
 
 // gui.add(values, "baseFrequency", 0, 0.1).onChange(function(value) {
@@ -735,6 +745,11 @@ const tick = () => {
 
   // Render
   composer.render(scene, camera);
+
+  // Update PARAMS
+
+  // SVG_FLICKER.update()
+  // SVG_FLICKER2.update()
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)

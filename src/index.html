@@ -51,7 +51,7 @@
                        baseFrequency="0.0001 0.1" 
                        type="fractalNoise" 
                        stitchTiles="stitch" 
-                       numOctaves="" 
+                       numOctaves="2" 
                        seed="50"/> 
         <feDisplacementMap 
                        id="displacementMap" 
@@ -65,7 +65,11 @@
     <text opacity="0.8"  
           x="50" 
           y="18" 
-          style="fill:yellowgreen;font-size:10px;text-anchor:middle;font-family:Arial, sans-serif;font-weight:700;">KBLLR</text>  
+          style="
+          fill:ghostwhite;
+          font-size:20px;
+          text-anchor:middle;
+          font-family:Arial, sans-serif;font-weight:700;">KBLLR</text>  
     </g>
     
     </g>  
@@ -76,14 +80,14 @@
   <svg viewBox="0 0 600 600" id="vol01">
     <defs>
       <filter id="textReflection">
-        <feTurbulence id="turbulence" baseFrequency="0.00021 0.01" type="fractalNoise" stitchTiles="stitch" numOctaves="8" seed="50" />
+        <feTurbulence id="turbulence" baseFrequency="0.0001 0.01" type="fractalNoise" stitchTiles="stitch" numOctaves="8" seed="50" />
         <feDisplacementMap id="displacementMap" in="SourceGraphic" scale="5" />
         </feGaussianblur>
       </filter>
     </defs>
     <g filter="url(#textReflection)">
       <g id="reflection">
-        <text opacity="0.8" x=520 y=600 style="fill:var(--white);font-size:12px;text-anchor:middle;font-family:PirulenRG-Regular;font-weight:700;rotate=90deg;">Vol.01//Card#001_</text>
+        <text opacity="0.8" x=350 y=600 style="fill:var(--white);font-size:20px;text-anchor:middle;font-family:PirulenRG-Regular;font-weight:700;rotate=90deg;">Vol.01//Card#001_</text>
       </g>
     </g>
   </svg>

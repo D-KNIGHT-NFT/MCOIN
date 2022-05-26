@@ -321,13 +321,13 @@ body {
 
 .title {
   width: 100vw;
-  padding-top: 20%;
+  padding-top: 40%;
   pointer-events: none;
 }
 
 h1 { 
   font-size: 12rem; 
-  color: var(--blck); 
+  color: var(--blck04); 
   line-height: 0.80;
   letter-spacing: -16px; 
   text-align: center;
@@ -443,7 +443,7 @@ canvas.webgl {
   position: absolute;
   z-index: 40;
   bottom: 0px;
-  right: -270px;
+  right: -250px;
   display: grid;
 }
 .uiList {
