@@ -35,6 +35,14 @@ import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 // Audio
 ///////////////
 
+const show = () => {
+  gsap.to('#bg *', {
+    drawSVG: `${100 - easeFunc(tween.ratio) * 50}% ${easeFunc(tween.ratio) * 50}%`,
+    stagger: 0.06,
+    duration: 0.6
+  })
+}
+
 window.onload = () => {
   const audioTrack = document.getElementById('music2');
   const play = document.getElementById('play');
@@ -164,6 +172,9 @@ let config = {
   brightness: .1,
   darkness: .1,
 };
+
+
+
 
 const eyeGeometry = new THREE.SphereGeometry(eyeRadius, 32, 32);
 const eyeShaderMaterial = new THREE.ShaderMaterial({

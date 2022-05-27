@@ -321,13 +321,16 @@ body {
 
 .title {
   width: 100vw;
-  padding-top: 40%;
+  padding-top: 45%;
   pointer-events: none;
+  position: fixed;
+  z-index: 1;
+  mix-blend-mode: color-dodge;
 }
 
 h1 { 
-  font-size: 12rem; 
-  color: var(--blck04); 
+  font-size: clamp(16rem, 50% + 20px, 40rem); 
+  color: var(--white04); 
   line-height: 0.80;
   letter-spacing: -16px; 
   text-align: center;
