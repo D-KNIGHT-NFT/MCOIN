@@ -8,10 +8,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
 import SimplexNoise from 'simplex-noise';
 import { Pane } from 'tweakpane';
+import * as TweakpaneImagePlugin from 'tweakpane/dist/tweakpane-image-plugin.min.js';
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
 import Stats from 'stats.js'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
 import gsap from "gsap";
+import { normalizeWheel } from './js/normalize-wheel/normalizewheel.js'
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
@@ -30,18 +32,25 @@ import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 
+////////////////////////////////////////////////////////////////////
+// Normalize-wheel
+///////////////
+
+// document.addEventListener('mousewheel', function (event) {
+//     const normalized = normalizeWheel(event);
+
+//     console.log(normalized.pixelX, normalized.pixelY);
+// });
+
+addEventListener('input', e => {
+  let _t = e.target;
+
+  _t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
+});
 
 ////////////////////////////////////////////////////////////////////
 // Audio
 ///////////////
-
-const show = () => {
-  gsap.to('#bg *', {
-    drawSVG: `${100 - easeFunc(tween.ratio) * 50}% ${easeFunc(tween.ratio) * 50}%`,
-    stagger: 0.06,
-    duration: 0.6
-  })
-}
 
 window.onload = () => {
   const audioTrack = document.getElementById('music2');
@@ -83,6 +92,7 @@ soundWave.onmousemove = (e) => {
   const random = () => hues[Math.floor(Math.random() * hues.length)];
   document.documentElement.style.cssText = ` --hue: ${random()}; `
 }
+
 
 ////////////////////////////////////////////////////////////////////
 // SHOW MODAL INFO
@@ -172,9 +182,6 @@ let config = {
   brightness: .1,
   darkness: .1,
 };
-
-
-
 
 const eyeGeometry = new THREE.SphereGeometry(eyeRadius, 32, 32);
 const eyeShaderMaterial = new THREE.ShaderMaterial({
@@ -482,7 +489,7 @@ gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
 })
 
 
-/*/*/
+
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> CREATIVE_FLOW
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
@@ -638,79 +645,76 @@ composer.addPass(new EffectPass(camera, new BloomEffect()));
 // TWEAK PANE
 ///////////////////////////////////////////////////////////////////
 
+// var kbllr = document.getElementById('kbllr')
+// var filter = document.getElementById('#kbllr#textReflection')
 
-// TweenMax.set('#reflection', {
-//   transformOrigin:'50% 90%',
-//   scaleY:-1
-// }) 
+// var value;
 
-var SVG_FLICKER = {
-  'baseFrequency': 0.001,
-  'numOctaves': 3,
-  'seed': 50,
-  'scale': 10
-}
+// var PARAMS = {
+//   baseFrequency: '0.04 0.01',
+//   numOctaves: '3',
+//   seed: '50',
+//   scale: '10',
+//   image: new Image(), 
+//   placeholder: 'placeholder', 
+//   url: 'https://i.gifer.com/QwiJ.gif'
+// }
 
-var SVG_FLICKER2 = {
-  'baseFrequency': 0.021,
-  'numOctaves': 3,
-  'seed': 50,
-  'scale': 10
-}
+// // declare THE PANE CLASS AND NAME IT ACCORDINGLY TO ITS FUNCTION
+// class PaneTweak {
+//   constructor() {
+//     this.tPane = new Pane({ 'title: ${''}' })
+//     this.folder = this.tPane.folder( PARAMS { 'title: ${''}'})
+//     this.addInput(value)
+//     this.addSeparator()
+//   }
 
-const pane001= new Pane({ title: 'SVG_FLICKER' });
-// pane001.expanded = false;
+//   paneTweak001= new Pane({ title: 'Filter>SVG_FLICKER' });
+// // IF INCLUDING A PLUGIN, THIS WOULD BE A GOOD TIME AS WELL TO LAID OF THE STRUCTURE
+// const panePlug001 = new Pane({ title: 'PIC_THUMBS'})
+// panePlug001.registerPlugin(TweakpaneImagePlugin)
+// }
 
-const kbllr = pane001.addFolder({
-  title: 'kbllr',
-});
+// //FOLDERS
+// const f01TP001 = paneTweak001.addFolder({ title: '#turbulence',})
 
-// kbllr.expanded = false;
-kbllr.addInput(SVG_FLICKER, 'baseFrequency', {
-  min: 0,
-  max: 50,
-});
+// var baseFrequency = "0.0001 " + value;
 
-kbllr.addInput(SVG_FLICKER, 'numOctaves');
-kbllr.addInput(SVG_FLICKER, 'scale');
+// var baseFreq = f01TP001.addInput( PARAMSTP001, "baseFrequency", 0, 0.1)
 
-pane001.addSeparator();
+// var numOctaves = f01TP001.addInput(PARAMSTP001, "numOctaves", 0, 100)
 
-const main_title = pane001.addFolder({
-  title: 'main_title',
-});
+// var scale = f02TP001.addInput(PARAMSTP001, 'scale', 0, 100)
 
-// main_title.expanded = false;
+// var tweeTP = new TWEEN.Tween(baseFrequency).to({ numOctaves: parseInt(baseFrequency) })
 
-main_title.addInput(SVG_FLICKER2, 'baseFrequency');
-main_title.addInput(SVG_FLICKER2, 'numOctaves');
-main_title.addInput(SVG_FLICKER2, 'scale');
-
-pane001.addSeparator();
-
-
-// TweenMax.to('#turbulence', 0.5, {
-//   attr: {
-//     seed: '+=10'
-//   },
-//   repeat: -1,
-//   ease: Linear.easeNone
+// const f02TP001 = paneTweak001.addFolder({
+//  title: '#displacement',
 // })
 
+// paneTweak001.addSeparator();
+// panePlug001.addInput(PARAMSPL001, 'image', { extensions: '.jpg, .gif',})
+// panePlug001.addSeparator();
+// panePlug001.addInput(PARAMSPL001, 'placeholder', { view: 'input-image'})
+// panePlug001.addSeparator();
+// panePlug001.addInput(PARAMSPL001, 'url', { view: 'input-image', imageFit: 'cover',})
 
-// gui.add(values, "baseFrequency", 0, 0.1).onChange(function(value) {
-//   var baseFrequency = "0.0001 " + value;
-//   TweenMax.set('#turbulence', { attr: { baseFrequency: baseFrequency } });
-// });
 
-// gui.add(values, "numOctaves", 0, 100).onChange(function(value) {
-//   TweenMax.set('#turbulence', { attr: { numOctaves: parseInt(value) } });
-// });
-
-// gui.add(values, 'scale', 0, 100).onChange(function(value) {
+// function updateValues(value){ 
 //   console.log("value: " + value)
-//   TweenMax.set('#displacementMap', { attr: { scale: value } });
-// });
+// }
+// function tweenScale(updateValues(
+//   Tween.set( {
+//   '#displacementMap'}
+//   ).attr:{ scale: value };
+
+
+// paneTweak001.expanded = true
+// panePlug001.expanded = false
+
+// f01001.expanded = true;
+// f02001.expanded = true;
+
 
 
 ////////////////////////////////////////////////////////////////////
@@ -728,6 +732,10 @@ const tick = () => {
   // Update controls
 
   controls.update()
+
+  // Update Panes
+  // paneTweak001.refresh()
+  // panePlug001.refresh()
 
   // LIGHT ANIMATIONS
 

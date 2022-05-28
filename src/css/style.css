@@ -28,30 +28,10 @@
   url('../assets/fonts/font.woff') format('woff');
 } */
 
-html,body,div,span,applet,object,iframe,h1,h2,h3,
-h4,
-h5,
-h6,
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,
 p,
 blockquote,
 var,
-b,
-u,
-i,
-center,
-ol,
-ul,
-li,
-fieldset,
-form,
-tr,
-th,
-td,
-article,
-canvas,
-details,
-embed,
-figure,
 figcaption,
 footer,
 header,
@@ -69,6 +49,30 @@ video {
 }
 
 :root {
+
+  /* Tweak_Pane_theme_translucent  **********************************/
+
+  --tp-base-background-color: hsla(0, 0%, 10%, 0.8);
+  --tp-base-shadow-color: hsla(0, 0%, 0%, 0.2);
+  --tp-button-background-color: hsla(0, 0%, 80%, 1);
+  --tp-button-background-color-active: hsla(0, 0%, 100%, 1);
+  --tp-button-background-color-focus: hsla(0, 0%, 95%, 1);
+  --tp-button-background-color-hover: hsla(0, 0%, 85%, 1);
+  --tp-button-foreground-color: hsla(0, 0%, 0%, 0.8);
+  --tp-container-background-color: hsla(0, 0%, 0%, 0.3);
+  --tp-container-background-color-active: hsla(0, 0%, 0%, 0.6);
+  --tp-container-background-color-focus: hsla(0, 0%, 0%, 0.5);
+  --tp-container-background-color-hover: hsla(0, 0%, 0%, 0.4);
+  --tp-container-foreground-color: hsla(0, 0%, 100%, 0.5);
+  --tp-groove-foreground-color: hsla(0, 0%, 0%, 0.2);
+  --tp-input-background-color: hsla(0, 0%, 0%, 0.3);
+  --tp-input-background-color-active: hsla(0, 0%, 0%, 0.6);
+  --tp-input-background-color-focus: hsla(0, 0%, 0%, 0.5);
+  --tp-input-background-color-hover: hsla(0, 0%, 0%, 0.4);
+  --tp-input-foreground-color: hsla(0, 0%, 100%, 0.5);
+  --tp-label-foreground-color: hsla(0, 0%, 100%, 0.5);
+  --tp-monitor-background-color: hsla(0, 0%, 0%, 0.3);
+  --tp-monitor-foreground-color: hsla(0, 0%, 100%, 0.3);
 
   color-scheme: light dark;
   accent-color:  var(--yellow01);
@@ -126,11 +130,15 @@ video {
   /* UIColor Palette ************************************************* */
 
   --hue: var(--venom);
+
   --dark-color: hsl(var(--hue), 100%, 9%);
   --light-color: hsl(var(--hue), 95%, 98%);
+
   --base: hsl(var(--hue), 95%, 50%);
+
   --complimentary1: hsl(var(--hue-complimentary1), 95%, 50%);
   --complimentary2: hsl(var(--hue-complimentary2), 95%, 50%);
+
   --bg-gradient: linear-gradient(to bottom, hsl(var(--hue), 95%, 99%), hsl(var(--hue), 95%, 84%));
 
   /* Box Shadows ************************************************* */
@@ -158,8 +166,6 @@ video {
 
   --margin: 0.75rem;
 
-  --dot: 4px dotted var(--yellow01);
-  --solid: 2px solid var(--yellow01);
   --border: 1px solid var(--blck);
 
   --gapS: 4px;
@@ -287,15 +293,13 @@ h3 { font-size: 1.1rem; }
 h2 { font-size: 1.4rem; }
 h1 { font-size: 2rem; }
 
-.button__text {
-    width: clamp(100px, 50% + 20px, 800px);
-}
 
 /* ************************************************ */
 /* ***************************** HTML&BODY&CANVAS  */
 /* ********************************************** */
 
 html {
+  min-height: 100%;
   margin: 0;
   padding: 0;
   -webkit-text-size-adjust: 100%;
@@ -320,8 +324,9 @@ body {
 }
 
 .title {
-  width: 100vw;
-  padding-top: 45%;
+
+  padding-top: 30%;
+  padding-bottom: 30%;
   pointer-events: none;
   position: fixed;
   z-index: 1;
@@ -329,10 +334,14 @@ body {
 }
 
 h1 { 
-  font-size: clamp(16rem, 50% + 20px, 40rem); 
+  place-self: center;
+  position: fixed;
+  width: min(19em, 90%);
+  height: auto;
+  font-size: clamp(12rem, 50% + 20px, 40rem); 
   color: var(--white04); 
-  line-height: 0.80;
-  letter-spacing: -16px; 
+  line-height: 0.75;
+  letter-spacing: -15px; 
   text-align: center;
 }
 
@@ -438,6 +447,90 @@ canvas.webgl {
   color:  var(--venom);
 }
 
+.card {
+  place-self: center;
+  position: fixed;
+  z-index: 200;
+  overflow: hidden;
+  width: min(19em, 100%);
+  border-radius: 0.5em;
+  box-shadow: 0 2px 7px var(--neutral0102);
+  background: var(--white04);
+}
+
+form {
+  gap: 5vmin;
+  padding: 6vmin 3vmin;
+  color: var(--blck0);
+}
+@media (min-width: 320px) {
+  form {
+    grid-template-columns: max-content 1fr;
+  }
+}
+
+input[type=range] {
+  /* WebKit browsers need their default white background reset */
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+input[type=range], input[type=range]::-webkit-slider-runnable-track, input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 2px;
+  background: linear-gradient(currentcolor 0 0) 50%/calc(100% + 2px - 1.25em) no-repeat;
+}
+input[type=range]::-moz-range-track {
+  height: 2px;
+  background: linear-gradient(currentcolor 0 0) 50%/calc(100% + 2px - 1.25em) no-repeat;
+}
+input[type=range]::-webkit-slider-thumb {
+  /* WebKit browsers need this, 
+   * otherwise thumb & track are top aligned */
+  margin-top: calc(.5*(2px + -1.25em));
+  /* Firefox needs this to reset its default border */
+  border: none;
+  width: 1.25em;
+  height: 1.25em;
+  /* WebKit browsers have no default border */
+  border-radius: 50%;
+  box-shadow: 0 2px 3px #c3c3c3;
+  background: #fff;
+  cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  /* WebKit browsers need this, 
+   * otherwise thumb & track are top aligned */
+  /* Firefox needs this to reset its default border */
+  border: none;
+  width: 1.25em;
+  height: 1.25em;
+  /* WebKit browsers have no default border */
+  border-radius: 50%;
+  box-shadow: 0 2px 3px #c3c3c3;
+  background: #fff;
+  cursor: pointer;
+}
+
+.result {
+  grid-area: 1/1;
+  height: 14em;
+  background: var(--blck08);
+}
+.result::after {
+  place-self: center;
+  padding: min(2.5em, 25%);
+  /* make border-radius & scale depend on 
+   * CSS variables controlled by sliders */
+  border-radius: calc(var(--rval)*1%);
+  transform: scale(var(--sval));
+  /* little trick to keep "border" width constant */
+  box-shadow: inset 0 0 0 calc(2px/var(--sval)) #fff;
+  content: "";
+}
+
 /* ************************************************* */
 /* ************************************ MUSIC PLAYER   */
 /* ************************************************* */
@@ -476,7 +569,7 @@ canvas.webgl {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   opacity: 1;
 }

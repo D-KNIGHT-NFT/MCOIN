@@ -19,7 +19,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icons/appIcon.png" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <script src="https://cdn.jsdelivr.net/gh/snd-lib/snd-lib@v1.0.0/dist/browser/snd.js?kit=01"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </head>
 
 <body>
@@ -48,15 +48,15 @@
       <filter id="textReflection">
          <feTurbulence 
                        id="turbulence" 
-                       baseFrequency="0.0001 0.1" 
+                       baseFrequency="0.04 0.01" 
                        type="fractalNoise" 
                        stitchTiles="stitch" 
                        numOctaves="2" 
-                       seed="50"/> 
+                       seed="32.5"/> 
         <feDisplacementMap 
                        id="displacementMap" 
                        in="SourceGraphic" 
-                       scale="10" />
+                       scale="3" />
         </feGaussianblur>
       </filter>
     </defs>
@@ -80,14 +80,14 @@
   <svg viewBox="0 0 600 600" id="vol01">
     <defs>
       <filter id="textReflection">
-        <feTurbulence id="turbulence" baseFrequency="0.0001 0.01" type="fractalNoise" stitchTiles="stitch" numOctaves="8" seed="50" />
-        <feDisplacementMap id="displacementMap" in="SourceGraphic" scale="5" />
+        <feTurbulence id="turbulence" baseFrequency="0.04 0.01" type="fractalNoise" stitchTiles="stitch" numOctaves="2" seed="50" />
+        <feDisplacementMap id="displacementMap" in="SourceGraphic" scale="3" />
         </feGaussianblur>
       </filter>
     </defs>
     <g filter="url(#textReflection)">
       <g id="reflection">
-        <text opacity="0.8" x=350 y=600 style="fill:var(--white);font-size:20px;text-anchor:middle;font-family:PirulenRG-Regular;font-weight:700;rotate=90deg;">Vol.01//Card#001_</text>
+        <text opacity="0.8" x="295" y="595" style="fill:var(--white);font-size:12px;text-anchor:middle;font-family:PirulenRG-Regular;font-weight:700;">Vol.01//Card#001_</text>
       </g>
     </g>
   </svg>
@@ -96,6 +96,7 @@
   <!--ACTIONS UI_NAV -->
 
   <div class="navWrapper">
+
     <nav class="navAction" id="actionBar">
       <!-- <button class="btn hover__btn nodeHover" id="export"><p>Export glTF</p></button> -->
       <button class="btn  snd__transition_up" id="start-btn">
@@ -112,7 +113,17 @@
       </button>
     </nav>
   </div>
-  </button>
+
+  <div class="card" style="--rval: 50; --sval: 1.5; display:none">
+    <form>
+      <label for="r">Radius</label>
+      <input id="r" type="range" value="50" max="50"/>
+      <label for="s">Scale</label>
+      <input id="s" type="range" min="1" max="2" step="0.01"/>
+    </form>
+    <section class="result"></section>
+  </div>
+
   <a href="#" class="main-nav prev snd__transition_up" data-nav="previous">
     <div class="slider prev">
       <svg style="transform:rotate(-180deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -127,6 +138,7 @@
       </svg>
     </div>
   </a>
+
   <!-- MUSIC UI_NAV -->
   <div class="nav-music">
     <ul class="uiList" id="music-List__items ">
@@ -165,14 +177,6 @@
                 <line x1="220.5" y1="390" x2="220.32" y2="210"/>
                 <polyline points="204.5 350 204.5 350.29 204.5 250"/>
             </g>
-
-        </svg>
-
-        <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none">
-          <path style="fill: var(--hue)" id="bar01" d="M10.9172 22L10.9172 8L12.8984 8L12.8984 22L10.9172 22Z" />
-          <path style="fill: var(--hue)" id="bar02" d="M2.99142 18L2.99142 12L4.97266 12L4.97266 18L2.99142 18Z" />
-          <path style="fill: var(--hue)" id="bar03" d="M18.8391 28L18.8391 3L20.8203 3L20.8203 28L18.8391 28Z" />
-          <path style="fill: var(--hue)" id="bar04" d="M28.7461 9L26.7649 9L26.7649 22L28.7461 22L28.7461 9Z" />
         </svg>
       </li>
       <li class="uiList__item snd__transition_up" id="play" onClick="javascript: return false" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
