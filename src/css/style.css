@@ -396,7 +396,7 @@ canvas.webgl {
 
 .btn {
   box-shadow: none;
-  font-size: 0.3rem;
+  font-size: 1rem;
   font-family: 'PirulenRg-Regular';
   text-decoration: none; 
   outline: none;
