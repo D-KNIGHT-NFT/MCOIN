@@ -13,7 +13,7 @@ import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
 import Stats from 'stats.js'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
 import gsap from "gsap";
-import { normalizeWheel } from './js/normalize-wheel/normalizewheel.js'
+// import { normalizeWheel } from './js/normalize-wheel/normalizewheel.js'
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
