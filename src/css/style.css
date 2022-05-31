@@ -1,5 +1,6 @@
 
 /* @import url("//hello.myfonts.net/count/482c9b"); */
+@import url("//kit.fontawesome.com/86933bf68b");
 /**
  * @license
  * MyFonts Webfont Build ID 4730011, 2022-04-25T00:02:50-0400
@@ -323,25 +324,71 @@ body {
 
 }
 
-.title {
 
-  padding-top: 30%;
-  padding-bottom: 30%;
-  pointer-events: none;
+#nav {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  left: 0px;
   position: fixed;
+  top: 0px;
+  z-index: 999999;
+  width: 120px;
+}
+
+#nav-items {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 120px;
+}
+
+#nav-items > .nav-item {
+  border-radius: 6px;
+  cursor: pointer;
+  display: grid;
+  height: 100px;
+  place-items: center;
+  transition: background-color 250ms;
+  width: 100px;
+}
+
+#nav-items > .nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+#nav-items > .nav-item:hover > i {
+  color: rgba(255, 255, 255, 0.9); 
+}
+
+#nav-items > .nav-item > i {
+  color: rgba(255, 255, 255, 0.4); 
+  font-size: 2.5em;
+  transition: color 250ms;
+}
+
+.navTitles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100vw;
+  padding:  0 16px;
+  text-align: center;
+}
+.title {
+  text-align: center;
+  pointer-events: none;
   z-index: 1;
-  mix-blend-mode: color-dodge;
+  mix-blend-mode: lighten;
 }
 
 h1 { 
   place-self: center;
-  position: fixed;
-  width: min(19em, 90%);
-  height: auto;
-  font-size: clamp(12rem, 50% + 20px, 40rem); 
+  font-size: clamp(4rem, 50% + 20px, 14rem); 
   color: var(--white04); 
-  line-height: 0.75;
-  letter-spacing: -15px; 
+  letter-spacing: -6px; 
   text-align: center;
 }
 
@@ -358,21 +405,7 @@ canvas.webgl {
 /* *********************************** SVG */
 /* ********************************************** */
 
-#kbllr {
-  position:  fixed;
-  top: 2%;
-  pointer-events: none;
-}
 
-
-#vol01 { 
-  position: fixed;
-    bottom:  2%;
-    right:  2%;
-    width:  90%;
-    height:  auto;
-    pointer-events: none;
- }
 
 /* ************************************************* */
 /* ******************************** NAVBARs  */
@@ -447,89 +480,6 @@ canvas.webgl {
   color:  var(--venom);
 }
 
-.card {
-  place-self: center;
-  position: fixed;
-  z-index: 200;
-  overflow: hidden;
-  width: min(19em, 100%);
-  border-radius: 0.5em;
-  box-shadow: 0 2px 7px var(--neutral0102);
-  background: var(--white04);
-}
-
-form {
-  gap: 5vmin;
-  padding: 6vmin 3vmin;
-  color: var(--blck0);
-}
-@media (min-width: 320px) {
-  form {
-    grid-template-columns: max-content 1fr;
-  }
-}
-
-input[type=range] {
-  /* WebKit browsers need their default white background reset */
-  background: none;
-  color: inherit;
-  font: inherit;
-}
-input[type=range], input[type=range]::-webkit-slider-runnable-track, input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-}
-input[type=range]::-webkit-slider-runnable-track {
-  height: 2px;
-  background: linear-gradient(currentcolor 0 0) 50%/calc(100% + 2px - 1.25em) no-repeat;
-}
-input[type=range]::-moz-range-track {
-  height: 2px;
-  background: linear-gradient(currentcolor 0 0) 50%/calc(100% + 2px - 1.25em) no-repeat;
-}
-input[type=range]::-webkit-slider-thumb {
-  /* WebKit browsers need this, 
-   * otherwise thumb & track are top aligned */
-  margin-top: calc(.5*(2px + -1.25em));
-  /* Firefox needs this to reset its default border */
-  border: none;
-  width: 1.25em;
-  height: 1.25em;
-  /* WebKit browsers have no default border */
-  border-radius: 50%;
-  box-shadow: 0 2px 3px #c3c3c3;
-  background: #fff;
-  cursor: pointer;
-}
-input[type=range]::-moz-range-thumb {
-  /* WebKit browsers need this, 
-   * otherwise thumb & track are top aligned */
-  /* Firefox needs this to reset its default border */
-  border: none;
-  width: 1.25em;
-  height: 1.25em;
-  /* WebKit browsers have no default border */
-  border-radius: 50%;
-  box-shadow: 0 2px 3px #c3c3c3;
-  background: #fff;
-  cursor: pointer;
-}
-
-.result {
-  grid-area: 1/1;
-  height: 14em;
-  background: var(--blck08);
-}
-.result::after {
-  place-self: center;
-  padding: min(2.5em, 25%);
-  /* make border-radius & scale depend on 
-   * CSS variables controlled by sliders */
-  border-radius: calc(var(--rval)*1%);
-  transform: scale(var(--sval));
-  /* little trick to keep "border" width constant */
-  box-shadow: inset 0 0 0 calc(2px/var(--sval)) #fff;
-  content: "";
-}
 
 /* ************************************************* */
 /* ************************************ MUSIC PLAYER   */

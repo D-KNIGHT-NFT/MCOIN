@@ -19,20 +19,21 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icons/appIcon.png" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </head>
 
 <body>
   <!---------------------- Canvas Web GL ------------>
   <canvas class="webgl" id="container"></canvas>
-  <!-- <canvas class="2DCanvas" id="simplexNoise"></canvas> -->
   <!---------------------- Gallery ------------>
-  <div class="title">
-    <h1>Project<br>Anja</h1>
-  </div>
   <!-- Cursor -->
+
   <!--DATA ASSETS------------>
   <!-- Audio -->
+
   <audio class="audioTrack" loop id="music" preload="metadata">
     <source src="../assets/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg" />
   </audio>
@@ -42,97 +43,57 @@
   </audio>
   <!--SVG -->
   <!--SVG DKNIGHT FLICKING TEXT-->
-    <svg width="232" height="54" id="kbllr" viewBox="0 0 232 54"id="kbllr" clip-path="url(#clip0_909_22479)">
-    <defs>
-      <filter id="textReflection">
-         <feTurbulence 
-id="turbulence" 
-baseFrequency="0.04 0.01" 
-type="fractalNoise" 
-stitchTiles="stitch" 
-numOctaves="2" 
-seed="32.5"/> 
-<feDisplacementMap 
-id="displacementMap" 
-in="SourceGraphic" 
-scale="3" />
-        </feGaussianblur>
-      </filter>
-    </defs>
-    <filter id="url(#textReflection)">
-    <g id="Vector">
-    <path d="M51.372 53.3216V0.500006H83.2682C96.2027 0.500006 100.063 3.27653 100.063 14.3826C100.063 22.3736 96.2704 26.3691 88.4149 27.1817C94.916 28.1298 98.1666 31.9898 98.1666 39.5745C98.1666 50.5451 94.7129 53.3216 83.2682 53.3216H51.372ZM65.5932 11.3352V21.8995H78.9341C83.3359 21.8995 85.2321 20.2743 85.2321 16.5497C85.2321 11.877 84.6226 11.3352 78.9341 11.3352H65.5932ZM65.5932 32.7348V42.4864H77.5797C82.7941 42.4864 83.3359 42.0124 83.3359 37.5429C83.3359 34.1569 81.6429 32.7348 77.5797 32.7348H65.5932Z" fill="white"/>
-    <path d="M0 0.500006H14.2212V11.6061L22.3476 20.6806L33.86 0.500006H49.5711L32.2347 30.026L48.2167 53.3216H31.7607L14.2212 27.588V53.3216H0V0.500006Z" fill="white"/>
-    <path d="M101.864 53.3216V0.5H141.318V12.6896H116.085V53.3216H101.864Z" fill="white"/>
-    <path d="M142.464 53.3216V0.5H182.419V12.6896H156.685V53.3216H142.464Z" fill="white"/>
-    <path d="M214.423 53.3216H184.22V0.5H198.441V19.123H209.005C216.387 19.123 217.132 18.5135 217.132 12.6896V0.5H232.03V13.5022C232.03 20.2743 228.441 23.3894 221.398 24.1343C228.779 25.1501 232.03 29.281 232.03 38.0169C232.03 50.2742 228.509 53.3216 214.423 53.3216ZM198.441 29.9582V41.8092H210.766C217.132 41.8092 217.809 41.1997 217.809 35.9853C217.809 30.5677 217.132 29.9582 210.766 29.9582H198.441Z" fill="white"/>
-    <path d="M51.372 53.3216V0.500006H83.2682C96.2027 0.500006 100.063 3.27653 100.063 14.3826C100.063 22.3736 96.2704 26.3691 88.4149 27.1817C94.916 28.1298 98.1666 31.9898 98.1666 39.5745C98.1666 50.5451 94.7129 53.3216 83.2682 53.3216H51.372ZM65.5932 11.3352V21.8995H78.9341C83.3359 21.8995 85.2321 20.2743 85.2321 16.5497C85.2321 11.877 84.6226 11.3352 78.9341 11.3352H65.5932ZM65.5932 32.7348V42.4864H77.5797C82.7941 42.4864 83.3359 42.0124 83.3359 37.5429C83.3359 34.1569 81.6429 32.7348 77.5797 32.7348H65.5932Z" stroke="white" stroke-opacity="0.951" stroke-width="0.5"/>
-    <path d="M0 0.500006H14.2212V11.6061L22.3476 20.6806L33.86 0.500006H49.5711L32.2347 30.026L48.2167 53.3216H31.7607L14.2212 27.588V53.3216H0V0.500006Z" stroke="white" stroke-opacity="0.951" stroke-width="0.5"/>
-    <path d="M101.864 53.3216V0.5H141.318V12.6896H116.085V53.3216H101.864Z" stroke="white" stroke-opacity="0.951" stroke-width="0.5"/>
-    <path d="M142.464 53.3216V0.5H182.419V12.6896H156.685V53.3216H142.464Z" stroke="white" stroke-opacity="0.951" stroke-width="0.5"/>
-    <path d="M214.423 53.3216H184.22V0.5H198.441V19.123H209.005C216.387 19.123 217.132 18.5135 217.132 12.6896V0.5H232.03V13.5022C232.03 20.2743 228.441 23.3894 221.398 24.1343C228.779 25.1501 232.03 29.281 232.03 38.0169C232.03 50.2742 228.509 53.3216 214.423 53.3216ZM198.441 29.9582V41.8092H210.766C217.132 41.8092 217.809 41.1997 217.809 35.9853C217.809 30.5677 217.132 29.9582 210.766 29.9582H198.441Z" stroke="white" stroke-opacity="0.951" stroke-width="0.5"/>
-    </g>
-    </g>
-    <defs>
-    <clipPath id="clip0_909_22479">
-    <rect width="232" height="53" fill="white" transform="translate(0 0.5)"/>
-    </clipPath>
-
-
-
-    </filter>
-   
-    
-  </svg>
-
-  <!--TEXT Vol.01_chapter01 -->
-  <svg viewBox="0 0 600 600" id="vol01">
-    <defs>
-      <filter id="textReflection">
-        <feTurbulence id="turbulence" baseFrequency="0.04 0.01" type="fractalNoise" stitchTiles="stitch" numOctaves="2" seed="50" />
-        <feDisplacementMap id="displacementMap" in="SourceGraphic" scale="3" />
-        </feGaussianblur>
-      </filter>
-    </defs>
-    <g filter="url(#textReflection)">
-      <g id="reflection">
-        <text opacity="0.8" x="295" y="595" style="fill:var(--white);font-size:12px;text-anchor:middle;font-family:PirulenRG-Regular;font-weight:700;">Vol.01//Card#001_</text>
-      </g>
-    </g>
-  </svg>
 
 
   <!--ACTIONS UI_NAV -->
 
-  <div class="navWrapper">
+  <div id="nav">
+     <div id="nav-items">
+       <div class="nav-item">
+         <i class="fa-solid fa-house"></i>
+       </div>
+       <div class="nav-item">
+         <i class="fa-solid fa-comment"></i>
+       </div>
+       <div class="nav-item" id="start-btn">
+         <i class="fa-solid fa-bolt"></i>
+       </div>
+       <div class="nav-item">
+         <i class="fa-solid fa-user"></i>
+       </div>
+       <div class="nav-item" id="show-btn">
+         <i class="fa-solid fa-image"></i>
+       </div>
+       <div class="nav-item" id="reset-btn">
+         <i class="fa-solid fa-chart-simple"></i>
+       </div>
+       <div class="nav-item" id="exit-btn">
+         <i class="fa-solid fa-dice"></i>
+       </div>
+     </div>
+   </div>
 
+<!--<div class="navWrapper">
     <nav class="navAction" id="actionBar">
-      <!-- <button class="btn hover__btn nodeHover" id="export"><p>Export glTF</p></button> -->
-      <button class="btn  snd__transition_up" id="start-btn">
+     <button class="btn hover__btn nodeHover" id="export"><p>Export glTF</p></button> -->
+      <!--<button class="btn  snd__transition_up" id="start-btn">
         <p id="button__text">Play Video</p>
       </button>
       <button class="btn  snd__transition_up" id="show-btn">
         <p id="button__text">More Info</p>
       </button>
       <button class="btn  snd__transition_up" id="reset-btn">
-        <p id="button__text">Enter Room</p>
+        <p id="button__text">Zoom In</p>
       </button>
       <button class="btn  snd__transition_up" id="exit-btn">
-        <p id="button__text">Exit Room</p>
+        <p id="button__text">Zoom out</p>
       </button>
     </nav>
-  </div>
+  </div>-->
 
-  <div class="card" style="--rval: 50; --sval: 1.5; display:none  ">
-    <form>
-      <label for="r">Radius</label>
-      <input id="r" type="range" value="50" max="50"/>
-      <label for="s">Scale</label>
-      <input id="s" type="range" min="1" max="2" step="0.01"/>
-    </form>
-    <section class="result"></section>
-  </div>
+  <!-- TITLE's NAVIGATION-->
 
+  <div class="navTitles">
   <a href="#" class="main-nav prev snd__transition_up" data-nav="previous">
     <div class="slider prev">
       <svg style="transform:rotate(-180deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -140,6 +101,8 @@ scale="3" />
       </svg>
     </div>
   </a>
+  <div class="title"><h1>Project Anja</h1></div>
+
   <a href="#" class="main-nav next snd__transition_up" data-nav="next">
     <div class="slider next">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -147,45 +110,15 @@ scale="3" />
       </svg>
     </div>
   </a>
+</div>
 
   <!-- MUSIC UI_NAV -->
+
   <div class="nav-music">
     <ul class="uiList" id="music-List__items ">
-      <li class="uiList__item" id="soundWave" data-tooltip alt="Alt text" title="Hover to change text color" role="tooltip" aria-label="Tooltip message">
+      <li class="uiList__item" id="soundWave" data-tooltip alt="Alt text" title="" role="tooltip" aria-label="Tooltip message">
         <svg style="width:100%;height:100%" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-            <linearGradient id="grad1" x1="393.05" y1="400" x2="393.05" y2="200" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#993BDC"/>
-              <stop offset="1" stop-color="#35AAF9"/>
-            </linearGradient> 
-          <g id="bg" fill="none" stroke="url(#grad1)"  stroke-linecap="square" stroke-miterlimit="10" stroke-width="3">
-                <path d="M594.6,350l-.1-100.29V250"/>
-                <line x1="580.5" y1="390" x2="580.32" y2="210"/>
-                <line x1="565.5" y1="415" x2="565.28" y2="185"/>
-                <line x1="550.5" y1="434" x2="550.24" y2="166"/>
-                <line x1="535.5" y1="449" x2="535.22" y2="151"/>
-                <line x1="520.5" y1="462" x2="520.2" y2="138"/>
-                <line x1="505.5" y1="472" x2="505.18" y2="128"/>
-                <line x1="490.5" y1="480" x2="490.16" y2="120"/>
-                <line x1="475.5" y1="487" x2="475.14" y2="113"/>
-                <line x1="460.5" y1="492" x2="460.14" y2="108"/>
-                <line x1="445.5" y1="496" x2="445.12" y2="104"/>
-                <line x1="430.5" y1="499" x2="430.12" y2="101"/>
-                <line x1="415.5" y1="501" x2="415.12" y2="99"/>
-                <line x1="400.5" y1="501" x2="400.12" y2="99"/>
-                <line x1="385.5" y1="501" x2="385.12" y2="99"/>
-                <line x1="370.5" y1="499" x2="370.12" y2="101"/>
-                <line x1="355.5" y1="496" x2="355.12" y2="104"/>
-                <line x1="340.5" y1="492" x2="340.14" y2="108"/>
-                <line x1="325.5" y1="487" x2="325.14" y2="113"/>
-                <line x1="310.5" y1="480" x2="310.16" y2="120"/>
-                <line x1="295.5" y1="472" x2="295.18" y2="128"/>
-                <line x1="280.5" y1="462" x2="280.2" y2="138"/>
-                <line x1="265.5" y1="449" x2="265.22" y2="151"/>
-                <line x1="250.5" y1="434" x2="250.24" y2="166"/>
-                <line x1="235.5" y1="415" x2="235.28" y2="185"/>
-                <line x1="220.5" y1="390" x2="220.32" y2="210"/>
-                <polyline points="204.5 350 204.5 350.29 204.5 250"/>
-            </g>
+            
         </svg>
       </li>
       <li class="uiList__item snd__transition_up" id="play" onClick="javascript: return false" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
@@ -209,7 +142,9 @@ scale="3" />
       </li>
     </ul>
   </div>
+  
   <!-- OVERLAYERS -->
+
   <!-- Overlay level.I-->
   <video class="overlay" id="eye" crossorigin="anonymous" style="display:none" playsinline loop>
     <source src="../assets/video/eye00.webm" type="video/webm" />
@@ -224,8 +159,10 @@ scale="3" />
       <source src="../assets/video/frameFlick.webm" type="video/webm" />
     </video>
   </div>
+
   <!-- Overlay level.II-->
   <div class="overlay" id="tvLines"></div>
+
   <!-- Overlay level.III-->
   <!-- MODALS -->
   <div class="modal" id="container">
@@ -258,7 +195,7 @@ scale="3" />
   // https://iquilezles.org/
   // https://www.youtube.com/watch?v=emjuqqyq_qc
    -->
-  <div class="container"></div>
+  <!--<div class="container"></div>-->
   <script type="x-shader/x-fragment" id="fragmentShader">
     varying vec2 vUv;
 

@@ -7,8 +7,8 @@ import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUti
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
 import SimplexNoise from 'simplex-noise';
-// import { Pane } from 'tweakpane';
-// import * as TweakpaneImagePlugin from 'tweakpane/dist/tweakpane-image-plugin.min.js';
+import { Pane } from 'tweakpane';
+import * as TweakpaneImagePlugin from 'tweakpane/dist/tweakpane-image-plugin.min.js';
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
 import Stats from 'stats.js'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
@@ -42,11 +42,11 @@ import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 //     console.log(normalized.pixelX, normalized.pixelY);
 // });
 
-addEventListener('input', e => {
-  let _t = e.target;
+//addEventListener('input', e => {
+ // let _t = e.target;
 
-  _t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
-});
+  //t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
+//});
 
 ////////////////////////////////////////////////////////////////////
 // Audio
@@ -145,6 +145,7 @@ modalBtn.addEventListener('click', toggleModal);
 ////////////////////////////////////////////////////////////////////
 
 const canvas = document.querySelector('canvas.webgl')
+
 const scene = new THREE.Scene()
 const paramRender = {
   canvas: canvas,
@@ -197,6 +198,7 @@ const eyeShaderMaterial = new THREE.ShaderMaterial({
   vertexShader: document.getElementById('vertexShader').textContent,
   fragmentShader: document.getElementById('fragmentShader').textContent,
 });
+
 const eye = new THREE.Mesh(eyeGeometry, eyeShaderMaterial);
 eye.rotation.y = -Math.PI / 2;
 eyeGroup.add(eye);
@@ -414,7 +416,7 @@ let kidMixer;
 let kidMaterial;
 
 fbxLoader.load(
-  'models/fbx/curiousKid/animations/Petting.fbx', (object) => {
+  'models/fbx/curiousKid/animations/sitting1.fbx', (object) => {
     kidMixer = new THREE.AnimationMixer(object);
     const action = kidMixer.clipAction(object.animations[0]);
     action.play();
@@ -454,42 +456,6 @@ fbxLoader.load(
   });
 
 
-/*/*/
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> LONE_WOLF
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
-
-let loneWolfMixer = null
-let loneWolf;
-let wolfSkin;
-
-gltfLoader.load('/models/glTF/loneWolf/glTF-Embedded/loneWolf.gltf', (gltf) => {
-  loneWolf = gltf.scene
-  loneWolf.scale.set(0.0019, 0.0019, 0.0019)
-  // loneWolf.position.set(0, 0.11, -0.08)
-  loneWolf.position.set(0, 0, -0.08)
-  loneWolf.rotation.set(0, 0, 0)
-
-  wolfSkin = new THREE.MeshStandardMaterial({
-    metalness: 1.1,
-    roughness: 0.16
-  })
-  loneWolf.traverse(function(object) {
-    if (object.isMesh) {
-      object.material = wolfSkin
-      object.castShadow = false;
-      object.receiveShadow = false;
-    }
-  })
-  scene.add(loneWolf)
-
-  loneWolfMixer = new THREE.AnimationMixer(gltf.scene)
-  const loneWolfAction = loneWolfMixer.clipAction(gltf.animations[0])
-  loneWolfAction.play()
-})
-
-
-
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> CREATIVE_FLOW
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
@@ -517,58 +483,7 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   cFlowAction.play()
 })
 
-/*/*/
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> App ICON
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
-let icon;
-
-
-gltfLoader.load('models/glTF/Anja-icon/icon-Anja.gltf', (gltf) => {
-  icon = gltf.scene
-  icon.scale.set(2, 1, 0.5)
-  icon.position.set(0, 0.15, 0.25)
-  icon.lookAt(0, 0.11, 0)
-
-  icon.traverse(function(object) {
-    if (object.isMesh) {
-      object.material = materialWebm;
-      object.castShadow = false;
-      object.receiveShadow = true;
-    }
-  });
-
-  scene.add(icon)
-})
-
-
-
-/*/*/
-/*/*/
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> ATREZZO: PODIUM
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
-
-// let podium;
-
-// gltfLoader.load('models/glTF/podium/podium.gltf', (gltf) => {
-//   podium = gltf.scene
-//   podium.scale.set(0.4, 0.4, 0.4)
-//   podium.position.set(0, 0, -0.1)
-//   podium.rotation.set(0, 0, 0)
-
-//   podium.traverse(function(o) {
-//     if (o.isMesh) {
-//       o.castShadow = false;
-//       o.receiveShadow = true;
-//     }
-//   });
-//   scene.add(podium)
-// })
-
-
-/*/*/
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> NATURAL_ELEMENTS: WATER
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
@@ -645,75 +560,7 @@ composer.addPass(new EffectPass(camera, new BloomEffect()));
 // TWEAK PANE
 ///////////////////////////////////////////////////////////////////
 
-// var kbllr = document.getElementById('kbllr')
-// var filter = document.getElementById('#kbllr#textReflection')
 
-// var value;
-
-// var PARAMS = {
-//   baseFrequency: '0.04 0.01',
-//   numOctaves: '3',
-//   seed: '50',
-//   scale: '10',
-//   image: new Image(), 
-//   placeholder: 'placeholder', 
-//   url: 'https://i.gifer.com/QwiJ.gif'
-// }
-
-// // declare THE PANE CLASS AND NAME IT ACCORDINGLY TO ITS FUNCTION
-// class PaneTweak {
-//   constructor() {
-//     this.tPane = new Pane({ 'title: ${''}' })
-//     this.folder = this.tPane.folder( PARAMS { 'title: ${''}'})
-//     this.addInput(value)
-//     this.addSeparator()
-//   }
-
-//   paneTweak001= new Pane({ title: 'Filter>SVG_FLICKER' });
-// // IF INCLUDING A PLUGIN, THIS WOULD BE A GOOD TIME AS WELL TO LAID OF THE STRUCTURE
-// const panePlug001 = new Pane({ title: 'PIC_THUMBS'})
-// panePlug001.registerPlugin(TweakpaneImagePlugin)
-// }
-
-// //FOLDERS
-// const f01TP001 = paneTweak001.addFolder({ title: '#turbulence',})
-
-// var baseFrequency = "0.0001 " + value;
-
-// var baseFreq = f01TP001.addInput( PARAMSTP001, "baseFrequency", 0, 0.1)
-
-// var numOctaves = f01TP001.addInput(PARAMSTP001, "numOctaves", 0, 100)
-
-// var scale = f02TP001.addInput(PARAMSTP001, 'scale', 0, 100)
-
-// var tweeTP = new TWEEN.Tween(baseFrequency).to({ numOctaves: parseInt(baseFrequency) })
-
-// const f02TP001 = paneTweak001.addFolder({
-//  title: '#displacement',
-// })
-
-// paneTweak001.addSeparator();
-// panePlug001.addInput(PARAMSPL001, 'image', { extensions: '.jpg, .gif',})
-// panePlug001.addSeparator();
-// panePlug001.addInput(PARAMSPL001, 'placeholder', { view: 'input-image'})
-// panePlug001.addSeparator();
-// panePlug001.addInput(PARAMSPL001, 'url', { view: 'input-image', imageFit: 'cover',})
-
-
-// function updateValues(value){ 
-//   console.log("value: " + value)
-// }
-// function tweenScale(updateValues(
-//   Tween.set( {
-//   '#displacementMap'}
-//   ).attr:{ scale: value };
-
-
-// paneTweak001.expanded = true
-// panePlug001.expanded = false
-
-// f01001.expanded = true;
-// f02001.expanded = true;
 
 
 
@@ -734,8 +581,6 @@ const tick = () => {
   controls.update()
 
   // Update Panes
-  // paneTweak001.refresh()
-  // panePlug001.refresh()
 
   // LIGHT ANIMATIONS
 
@@ -758,7 +603,7 @@ const tick = () => {
 
   // Update Animation Mixers
 
-  if (loneWolfMixer) { loneWolfMixer.update(deltaTime) }
+  // if (loneWolfMixer) { loneWolfMixer.update(deltaTime) }
   if (cFlowMixer) { cFlowMixer.update(deltaTime) }
   if (kidMixer) { kidMixer.update(deltaTime) };
 
@@ -767,8 +612,6 @@ const tick = () => {
 
   // Update PARAMS
 
-  // SVG_FLICKER.update()
-  // SVG_FLICKER2.update()
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
