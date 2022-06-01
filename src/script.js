@@ -8,7 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
 import SimplexNoise from 'simplex-noise';
 import { Pane } from 'tweakpane';
-import * as TweakpaneImagePlugin from 'tweakpane/dist/tweakpane-image-plugin.min.js';
+// import * as TweakpaneImagePlugin from 'tweakpane/dist/tweakpane-image-plugin.min.js';
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
 import Stats from 'stats.js'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
