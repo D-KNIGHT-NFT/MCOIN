@@ -15,68 +15,139 @@
   <meta property="og:image" content="https://htdi.community/favicon.svg" />
   <meta property="og:description" content="A growth journey by David Knight" />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <link rel="stylesheet" type="text/css" href="css/nodeCursor.css">
+  <link rel="stylesheet" type="text/css" href="css/MyFontsWebfontsKit.css">
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icons/appIcon.png" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </head>
+<!--
+/**
+* @license
+* MyFonts Webfont Build ID 935083
+*
+* The fonts listed in this notice are subject to the End User License
+* Agreement(s) entered into by the website owner. All other parties are
+* explicitly restricted from using the Licensed Webfonts(s).
+*
+* You may obtain a valid license from one of MyFonts official sites.
+* http://www.fonts.com
+* http://www.myfonts.com
+* http://www.linotype.com
+*
+*/
+-->
 
 <body>
   <!---------------------- Canvas Web GL ------------>
   <canvas class="webgl" id="container"></canvas>
+  <canvas class="2D" id="noiseContainer"></canvas>
   <!---------------------- Gallery ------------>
   <!-- Cursor -->
-
   <!--DATA ASSETS------------>
   <!-- Audio -->
-
-  <audio class="audioTrack" loop id="music" preload="metadata">
+  <audio class="audioTrack" autoplay loop id="music" preload="metadata">
     <source src="../assets/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg" />
   </audio>
-  <audio class="audioTrack" loop autoplay id="music2" preload="metadata">
+  <audio class="audioTrack" loop id="music2" preload="metadata">
     <source src="../assets/sounds/344_audio/Lo-Fi_Rumble.ogg" type="audio/ogg" />
     <source src="../assets/sounds/344_audio/Lo-Fi_Rumble.mp3" type="audio/mp3" />
   </audio>
+
+  <div class="navTitles">
+    <a href="#" class="main-nav prev snd__transition_up" data-nav="previous">
+      <div class="slider prev">
+        <svg style="transform:rotate(-180deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </div>
+    </a>
+
+    <a href="#" class="main-nav next snd__transition_up" data-nav="next">
+      <div class="slider next">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </div>
+    </a>
+  </div>
+
+  <div id="projectCarroussel">
+    <div id="projects">
+      <div class="profile">
+        <div class="profile-content">
+          <div class="profile-pic">
+            <img class="profile-pic-image" src="../assets/images/png/01.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--SVG -->
   <!--SVG DKNIGHT FLICKING TEXT-->
-
-
+  <div id="KBLLR">
+    <svg xmlns="http://www.w3.org/2000/svg" width="232" height="54" fill="none">
+      <g clip-path="url(#a)">
+        <path fill="#fff" d="M51.372 53.322V.5h31.896c12.935 0 16.795 2.777 16.795 13.883 0 7.99-3.793 11.986-11.648 12.799 6.501.948 9.752 4.808 9.752 12.393 0 10.97-3.454 13.747-14.899 13.747H51.372Zm14.221-41.987V21.9h13.341c4.402 0 6.298-1.625 6.298-5.35 0-4.672-.61-5.214-6.298-5.214h-13.34Zm0 21.4v9.751H77.58c5.214 0 5.756-.474 5.756-4.943 0-3.386-1.693-4.808-5.756-4.808H65.593ZM0 .5h14.221v11.106l8.127 9.075L33.86.5h15.711L32.235 30.026l15.982 23.296H31.76L14.22 27.588v25.734H0V.5Zm101.864 52.822V.5h39.454v12.19h-25.233v40.632h-14.221Zm40.6 0V.5h39.955v12.19h-25.734v40.632h-14.221Zm71.959 0H184.22V.5h14.221v18.623h10.564c7.382 0 8.127-.61 8.127-6.433V.5h14.898v13.002c0 6.772-3.589 9.887-10.632 10.632 7.381 1.016 10.632 5.147 10.632 13.883 0 12.257-3.521 15.305-17.607 15.305Zm-15.982-23.364V41.81h12.325c6.366 0 7.043-.61 7.043-5.824 0-5.417-.677-6.027-7.043-6.027h-12.325Z" />
+        <path stroke="#fff" stroke-opacity="1" stroke-width=".5" d="M51.372 53.322V.5h31.896c12.935 0 16.795 2.777 16.795 13.883 0 7.99-3.793 11.986-11.648 12.799 6.501.948 9.752 4.808 9.752 12.393 0 10.97-3.454 13.747-14.899 13.747H51.372Zm14.221-41.987V21.9h13.341c4.402 0 6.298-1.625 6.298-5.35 0-4.672-.61-5.214-6.298-5.214h-13.34Zm0 21.4v9.751H77.58c5.214 0 5.756-.474 5.756-4.943 0-3.386-1.693-4.808-5.756-4.808H65.593ZM0 .5h14.221v11.106l8.127 9.075L33.86.5h15.711L32.235 30.026l15.982 23.296H31.76L14.22 27.588v25.734H0V.5Zm101.864 52.822V.5h39.454v12.19h-25.233v40.632h-14.221Zm40.6 0V.5h39.955v12.19h-25.734v40.632h-14.221Zm71.959 0H184.22V.5h14.221v18.623h10.564c7.382 0 8.127-.61 8.127-6.433V.5h14.898v13.002c0 6.772-3.589 9.887-10.632 10.632 7.381 1.016 10.632 5.147 10.632 13.883 0 12.257-3.521 15.305-17.607 15.305Zm-15.982-23.364V41.81h12.325c6.366 0 7.043-.61 7.043-5.824 0-5.417-.677-6.027-7.043-6.027h-12.325Z" />
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path fill="#fff" d="M0 0h232v53H0z" transform="translate(0 .5)" />
+        </clipPath>
+      </defs>
+    </svg>
+  </div>
   <!--ACTIONS UI_NAV -->
-
   <div id="nav">
-     <div id="nav-items">
-       <div class="nav-item">
-         <i class="fa-solid fa-house"></i>
-       </div>
-       <div class="nav-item">
-         <i class="fa-solid fa-comment"></i>
-       </div>
-       <div class="nav-item" id="start-btn">
-         <i class="fa-solid fa-bolt"></i>
-       </div>
-       <div class="nav-item">
-         <i class="fa-solid fa-user"></i>
-       </div>
-       <div class="nav-item" id="show-btn">
-         <i class="fa-solid fa-image"></i>
-       </div>
-       <div class="nav-item" id="reset-btn">
-         <i class="fa-solid fa-chart-simple"></i>
-       </div>
-       <div class="nav-item" id="exit-btn">
-         <i class="fa-solid fa-dice"></i>
-       </div>
-     </div>
-   </div>
-
-<!--<div class="navWrapper">
+    <div id="nav-items">
+      <div class="nav-item" id="instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+          <path style="stroke:none;fill-rule:nonzero;fill:var(--indigo11);fill-opacity:1" d="M16 3C8.832 3 3 8.832 3 16v18c0 7.168 5.832 13 13 13h18c7.168 0 13-5.832 13-13V16c0-7.168-5.832-13-13-13Zm0 2h18c6.086 0 11 4.914 11 11v18c0 6.086-4.914 11-11 11H16C9.914 45 5 40.086 5 34V16C5 9.914 9.914 5 16 5Zm21 6a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4Zm-12 3c-6.063 0-11 4.938-11 11 0 6.063 4.938 11 11 11 6.063 0 11-4.938 11-11 0-6.063-4.938-11-11-11Zm0 2c4.98 0 9 4.02 9 9s-4.02 9-9 9-9-4.02-9-9 4.02-9 9-9Zm0 0" />
+        </svg>
+      </div>
+      <div class="nav-item" id="shop-btn">
+        <svg width="50" height="50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 8c-1.668 0-3.137.828-4.047 2.09.344-.055.692-.09 1.047-.09h36c.355 0 .703.035 1.047.09C43.137 8.828 41.668 8 40 8H10Zm-3 4c-2.758 0-5 2.242-5 5v20c0 2.758 2.242 5 5 5h11c.148 0 .297-.016.445-.031a2.998 2.998 0 0 0 2.313-1.785l1.902-5.59C23.086 33.598 23.992 33 25 33a2.51 2.51 0 0 1 2.313 1.527l1.957 5.727c.39.902 1.27 1.562 2.285 1.715.148.015.293.031.445.031h11c2.758 0 5-2.242 5-5V17c0-2.758-2.242-5-5-5H7Zm7.5 10c3.04 0 5.5 2.46 5.5 5.5S17.54 33 14.5 33 9 30.54 9 27.5s2.46-5.5 5.5-5.5Zm21 0c3.04 0 5.5 2.46 5.5 5.5S38.54 33 35.5 33 30 30.54 30 27.5s2.46-5.5 5.5-5.5ZM25 35c-.262 0-.406.188-.48.328L23.273 39h3.457l-1.277-3.73A.516.516 0 0 0 25 35Z" style="fill:var(--indigo11)" />
+        </svg>
+      </div>
+      <div class="nav-item" id="start-btn">
+        <svg width="50" height="50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 7v32h50V7H0Zm2 2h46v28H2V9Zm18.625 7.594a.647.647 0 0 0-.625.656v12.719c0 .226.117.449.313.562a.578.578 0 0 0 .312.063c.11 0 .246-.004.344-.063l11-6.375a.653.653 0 0 0 .312-.562.603.603 0 0 0-.312-.532l-11-6.375a.768.768 0 0 0-.344-.093ZM10.812 41c-.55.05-.957.543-.906 1.094.051.55.543.957 1.094.906h28c.36.004.695-.184.879-.496a1.01 1.01 0 0 0 0-1.008c-.184-.312-.52-.5-.879-.496H10.812Z" style="fill:var(--indigo11)" />
+        </svg>
+      </div>
+      <div class="nav-item" id="twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+          <path style="stroke:none;fill-rule:nonzero;fill: var(--indigo11);fill-opacity:1" d="M34.234 5.477c-5.98 0-10.847 4.867-10.847 10.847 0 .363.086.703.117 1.059-7.395-.703-13.945-4.285-18.387-9.735a.998.998 0 0 0-1.64.125 10.856 10.856 0 0 0-1.47 5.461c0 2.414.856 4.606 2.196 6.41-.262-.113-.543-.183-.789-.32a1 1 0 0 0-.992.008c-.305.18-.492.508-.492.863v.125c0 3.696 1.91 6.895 4.738 8.852-.031-.004-.07 0-.102-.008a.998.998 0 0 0-.937.32.993.993 0 0 0-.203.97c1.12 3.48 3.988 6.108 7.539 7.066-2.82 1.683-6.09 2.68-9.613 2.68-.762 0-1.504-.044-2.23-.134a1 1 0 0 0-1.063.657 1 1 0 0 0 .402 1.183 28.897 28.897 0 0 0 15.633 4.578c9.336 0 16.644-3.894 21.558-9.464 4.91-5.57 7.465-12.79 7.465-19.551 0-.282-.008-.555-.02-.832 1.833-1.399 3.454-3.067 4.735-4.985a.998.998 0 0 0-1.238-1.468c-.516.226-1.11.27-1.645.449.703-.945 1.309-1.98 1.676-3.13a.995.995 0 0 0-.328-1.085 1.003 1.003 0 0 0-1.133-.078c-1.703 1.008-3.59 1.73-5.582 2.164-1.937-1.82-4.484-3.027-7.348-3.027Zm0 2a8.81 8.81 0 0 1 6.453 2.793.997.997 0 0 0 .922.296c1.305-.254 2.547-.656 3.75-1.14-.695.937-1.527 1.761-2.53 2.367a1 1 0 0 0 .636 1.848c.996-.121 1.887-.524 2.836-.782-.856.93-1.778 1.79-2.797 2.528a.99.99 0 0 0-.414.851c.015.407.027.82.027 1.23 0 6.255-2.394 13.044-6.965 18.227-4.574 5.184-11.277 8.79-20.058 8.79-3.98 0-7.754-.872-11.153-2.422 4.22-.32 8.114-1.825 11.254-4.29.332-.261.465-.703.332-1.105a1.01 1.01 0 0 0-.93-.684c-3.292-.058-6.054-1.968-7.527-4.675.055 0 .106.015.164.015.989 0 1.946-.133 2.86-.383.441-.125.746-.535.73-1a.995.995 0 0 0-.8-.941c-3.56-.719-6.215-3.61-6.836-7.21 1.007.347 2.054.6 3.171.636a.999.999 0 0 0 .586-1.828 8.839 8.839 0 0 1-3.937-7.364c0-1.148.281-2.207.676-3.207 5 5.493 11.996 9.145 19.906 9.54a.993.993 0 0 0 1.023-1.223 9.04 9.04 0 0 1-.226-2.02 8.83 8.83 0 0 1 8.847-8.847Zm0 0" />
+        </svg>
+      </div>
+      <div class="nav-item" id="show-btn">
+        <svg width="50" height="50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#a)">
+            <path d="M23.984-.016C23.434-.004 22.992.45 23 1v17.586l-4.293-4.293a.992.992 0 0 0-.973-.273.99.99 0 0 0-.715.715.992.992 0 0 0 .274.972l6 6a1 1 0 0 0 1.414 0l6-6a.992.992 0 0 0 .273-.973.99.99 0 0 0-.714-.714.992.992 0 0 0-.973.273L25 18.586V1a1.003 1.003 0 0 0-1.016-1.016ZM20.016 5.29a.826.826 0 0 0-.172.016c-5.153.808-8.93 3.293-11.348 6.683C6.078 15.38 5 19.625 5 24c0 3.926.922 7.602 3.035 10.676C9.902 37.395 11 40.613 11 43.89V50h2v-6.11c0-3.723-1.242-7.325-3.316-10.344v-.004C7.836 30.856 7 27.613 7 24c0-4.047 1-7.875 3.125-10.848 2.121-2.976 5.344-5.136 10.031-5.875a1 1 0 0 0-.14-1.988Zm7.941.031a.997.997 0 0 0-.113 1.985c4.476.719 7.422 2.61 9.425 5.18 2.004 2.57 3.055 5.882 3.477 9.433a.969.969 0 0 0 .117.363l4.024 7.282v.004c.203.363.113.683-.242.878l-3.118 1.676a.996.996 0 0 0-.527.88v4.51c0 3.278-2.86 5.977-6.125 5.673h-.031L32.062 43A1 1 0 0 0 31 44v6h2.001v-4.934l1.688.11C39.14 45.59 43 41.949 43 37.512v-3.914l2.605-1.395c.004-.004.008-.008.008-.012 1.27-.703 1.719-2.34 1.024-3.597l-3.965-7.172c-.469-3.695-1.574-7.277-3.828-10.168-2.305-2.957-5.793-5.137-10.688-5.922a.829.829 0 0 0-.199-.012Z" style="fill:var(--indigo11)" />
+          </g>
+          <defs>
+            <clipPath id="a">
+              <path fill="#fff" d="M0 0h50v50H0z" />
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+      <div class="nav-item" id="reset-btn">
+        <svg width="50" height="50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.137 3a1.009 1.009 0 0 0-.696.29l-6.023 5.976a1.003 1.003 0 0 0-.008 1.414l14.235 14.35-14.349 14.236a.996.996 0 0 0-.008 1.414l5.977 6.023a.996.996 0 0 0 1.414.008l21.086-20.914c.39-.39.394-1.024.004-1.418L18.86 3.297A.991.991 0 0 0 18.136 3Zm.004 2.414 19.504 19.664L17.98 44.586l-4.566-4.605 14.352-14.235a1 1 0 0 0 .004-1.414L13.535 9.981l4.606-4.567Z" style="fill:var(--indigo11)" />
+        </svg>
+      </div>
+      <div class="nav-item" id="exit-btn">
+        <svg style="transform:rotate(-180deg);" width="50" height="50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.137 3a1.009 1.009 0 0 0-.696.29l-6.023 5.976a1.003 1.003 0 0 0-.008 1.414l14.235 14.35-14.349 14.236a.996.996 0 0 0-.008 1.414l5.977 6.023a.996.996 0 0 0 1.414.008l21.086-20.914c.39-.39.394-1.024.004-1.418L18.86 3.297A.991.991 0 0 0 18.136 3Zm.004 2.414 19.504 19.664L17.98 44.586l-4.566-4.605 14.352-14.235a1 1 0 0 0 .004-1.414L13.535 9.981l4.606-4.567Z" style="fill:var(--indigo11)" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <!--<div class="navWrapper">
     <nav class="navAction" id="actionBar">
      <button class="btn hover__btn nodeHover" id="export"><p>Export glTF</p></button> -->
-      <!--<button class="btn  snd__transition_up" id="start-btn">
+  <!--<button class="btn  snd__transition_up" id="start-btn">
         <p id="button__text">Play Video</p>
       </button>
       <button class="btn  snd__transition_up" id="show-btn">
@@ -90,45 +161,24 @@
       </button>
     </nav>
   </div>-->
-
   <!-- TITLE's NAVIGATION-->
-
-  <div class="navTitles">
-  <a href="#" class="main-nav prev snd__transition_up" data-nav="previous">
-    <div class="slider prev">
-      <svg style="transform:rotate(-180deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-      </svg>
-    </div>
-  </a>
-  <div class="title"><h1>Project Anja</h1></div>
-
-  <a href="#" class="main-nav next snd__transition_up" data-nav="next">
-    <div class="slider next">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-      </svg>
-    </div>
-  </a>
-</div>
 
   <!-- MUSIC UI_NAV -->
 
   <div class="nav-music">
     <ul class="uiList" id="music-List__items ">
-      <li class="uiList__item" id="soundWave" data-tooltip alt="Alt text" title="" role="tooltip" aria-label="Tooltip message">
+      <!-- <li class="uiList__item" id="soundWave" data-tooltip alt="Alt text" title="" role="tooltip" aria-label="Tooltip message">
         <svg style="width:100%;height:100%" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-            
         </svg>
-      </li>
+      </li> -->
       <li class="uiList__item snd__transition_up" id="play" onClick="javascript: return false" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
         <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9.23828 9.76001V23.5733C9.23828 24.6267 10.3983 25.2667 11.2916 24.6933L22.1449 17.7867C22.9716 17.2667 22.9716 16.0667 22.1449 15.5333L11.2916 8.64001C10.3983 8.06668 9.23828 8.70668 9.23828 9.76001Z" style="fill:var(--white)" />
+          <path d="M9.23828 9.76001V23.5733C9.23828 24.6267 10.3983 25.2667 11.2916 24.6933L22.1449 17.7867C22.9716 17.2667 22.9716 16.0667 22.1449 15.5333L11.2916 8.64001C10.3983 8.06668 9.23828 8.70668 9.23828 9.76001Z" style="fill:var(--greyDark9)" />
         </svg>
       </li>
       <li class="uiList__item snd__transition_up" id="pause" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
         <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3333 23.3333C13.3333 24.7999 12.1333 25.9999 10.6667 25.9999C9.2 25.9999 8 24.7999 8 23.3333V9.99992C8 8.53325 9.2 7.33325 10.6667 7.33325C12.1333 7.33325 13.3333 8.53325 13.3333 9.99992V23.3333ZM18.6656 23.3333V9.99997C18.6656 8.5333 19.8656 7.3333 21.3323 7.3333C22.799 7.3333 23.999 8.5333 23.999 9.99997V23.3333C23.999 24.8 22.799 26 21.3323 26C19.8656 26 18.6656 24.8 18.6656 23.3333Z" style="fill:var(--white)" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3333 23.3333C13.3333 24.7999 12.1333 25.9999 10.6667 25.9999C9.2 25.9999 8 24.7999 8 23.3333V9.99992C8 8.53325 9.2 7.33325 10.6667 7.33325C12.1333 7.33325 13.3333 8.53325 13.3333 9.99992V23.3333ZM18.6656 23.3333V9.99997C18.6656 8.5333 19.8656 7.3333 21.3323 7.3333C22.799 7.3333 23.999 8.5333 23.999 9.99997V23.3333C23.999 24.8 22.799 26 21.3323 26C19.8656 26 18.6656 24.8 18.6656 23.3333Z" style="fill:var(--greyDark9)" />
         </svg>
       </li>
       <li class="uiList__item" id="menu">
@@ -142,27 +192,23 @@
       </li>
     </ul>
   </div>
-  
   <!-- OVERLAYERS -->
-
   <!-- Overlay level.I-->
-  <video class="overlay" id="eye" crossorigin="anonymous" style="display:none" playsinline loop>
+  <!--   <video class="overlay" id="eye" crossorigin="anonymous" playsinline loop>
     <source src="../assets/video/eye00.webm" type="video/webm" />
-  </video>
+  </video> -->
   <!-- Overlay level.I-->
-  <video class="overlay" id="video2" crossorigin="anonymous" playsinline style="display: none" loop>
+  <!--  <video class="overlay" id="video2" crossorigin="anonymous" playsinline style="display: none" loop>
     <source src="../assets/video/frame03.webm" type="video/webm" />
-  </video>
+  </video> -->
   <!-- Overlay level.I-->
-  <div class="overlay videoBg">
+  <!--  <div class="overlay videoBg">
     <video id="videoFrame" crossorigin="anonymous" autoplay playsinline loop>
       <source src="../assets/video/frameFlick.webm" type="video/webm" />
     </video>
-  </div>
-
+  </div> -->
   <!-- Overlay level.II-->
   <div class="overlay" id="tvLines"></div>
-
   <!-- Overlay level.III-->
   <!-- MODALS -->
   <div class="modal" id="container">
@@ -185,7 +231,7 @@
         I hope you enjoy the oniric environment which intentions are both, a space for creation and
         recreation.<br />
         As a WIP and "living" space, imperfect but transparent, feedback or
-        comments are highly appreciated.<br />
+        comments are highly appreciated.<br/>
       </h2>
     </div>
   </div>
@@ -287,9 +333,5 @@
       }
   </script>
 </body>
-<!-- <button class="btn hover__btn nodeHover" id="installPWA"><p>Install WebApp</p></button> -->
-<!-- <button class="btn hover__btn nodeHover" id="shop-btn"><a href=""><p>Shop</p></a></button> -->
-<!-- <button class="btn hover__btn nodeHover" id="twitter"><a href="www.twitter.com/3dknightdi"><p>Twitter</p></a></button> 
-<button class="btn hover__btn nodeHover" id="instagram"><a href="www.instagram.com/3dknightdi"><p>Instagram</p></a></button>  -->
 
 </html>

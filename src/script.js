@@ -53,10 +53,9 @@ import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 ///////////////
 
 window.onload = () => {
-  const audioTrack = document.getElementById('music2');
+  const audioTrack = document.getElementById('music');
   const play = document.getElementById('play');
   const pause = document.getElementById('pause');
-  const soundWave = document.getElementById('soundWave')
 
   play.addEventListener('click', function() {
     audioTrack.play()
@@ -73,7 +72,8 @@ window.onload = () => {
   audioTrack.volume = 0.5;
 }
 
-soundWave.onmousemove = (e) => {
+const kbllr = document.getElementById('KBLLR')
+kbllr.onmousemove = (e) => {
   const hues = [
     'mintcream',
     'dodgerblue',
@@ -112,33 +112,36 @@ showBtn.addEventListener('click', toggleModal);
 modalBtn.addEventListener('click', toggleModal);
 
 ////////////////////////////////////////////////////////////////////
-// 2DCANVAS --> Noise
+// 2DCANVAS Background --> Noise 
+//https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/getImageData
+//https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
+//https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin
 ////////////////////////////////////////////////////////////////////
 
-// const simplex = new SimplexNoise();
-// const noiseCanvas = document.getElementById('container');
-// const ctx = noiseCanvas.getContext('2d');
-// const imageData = ctx.getImageData(0, 0, noiseCanvas.width, noiseCanvas.height);
-// const data = imageData.data;
-// let t = 0;
+const simplex = new SimplexNoise();
+const noiseCanvas = document.getElementById('noiseContainer');
+const ctx = noiseCanvas.getContext('2d');
+const imageData = ctx.getImageData(0, 0, noiseCanvas.width, noiseCanvas.height);
+const data = imageData.data;
+let t = 0;
 
-// function drawPlasma(){
-//   for (let x = 0; x < 256; x++) {
-//       for (let y = 0; y < 256; y++) {
-//           const r = simplex.noise3D(x / 16, y / 16, t/32) * 0.5 + 0.5;
-//           const g = simplex.noise3D(x / 8, y / 8, t/32) * 0.5 + 0.5;
-//           data[(x + y * 256) * 4 + 0] = r * 255;
-//           data[(x + y * 256) * 4 + 1] = (r + g) * 20;
-//           data[(x + y * 256) * 4 + 2] = 0;
-//           data[(x + y * 256) * 4 + 3] = 255;
-//       }
-//   }
-//   t++;
-//   ctx.putImageData(imageData, 0, 0);
-//   requestAnimationFrame(drawPlasma);
-// }
+function drawPlasma(){
+  for (let x = 0; x < 256; x++) {
+      for (let y = 0; y < 256; y++) {
+          const r = simplex.noise3D(x / 16, y / 16, t/32) * 0.5 + 0.5;
+          const g = simplex.noise3D(x / 24, y / 24, t/32) * 0.5 + 0.5;
+          data[(x + y * 256) * 4 + 0] = r * 20;
+          data[(x + y * 256) * 4 + 1] = g * 255;
+          data[(x + y * 256) * 4 + 2] = 0;
+          data[(x + y * 256) * 4 + 3] = 255;
+      }
+  }
+  t++;
+  ctx.putImageData(imageData, 0, 0);
+  requestAnimationFrame(drawPlasma);
+}
 
-// drawPlasma();
+drawPlasma();
 
 ////////////////////////////////////////////////////////////////////
 // WEBGL-THREEJS -->CANVAS -->EXPERIENCE
@@ -150,7 +153,7 @@ const scene = new THREE.Scene()
 const paramRender = {
   canvas: canvas,
   antialias: true,
-  alpha: true,
+  alpha: false,
   powerPreference: "high-performance",
 }
 const renderer = new WebGLRenderer(paramRender);
@@ -211,8 +214,8 @@ scene.add(eyeGroup);
 // CAMERA
 //*//
 
-const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 1000);
-camera.position.set(-5, 0, 5);
+const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.01, 1000);
+camera.position.set(0, 0, 3);
 
 scene.add(camera)
 
@@ -228,7 +231,7 @@ controls.autoRotate = true
 controls.enableZoom = false
 controls.autoRotateSpeed = 1.5
 controls.minDistance = 0.3;
-controls.maxDistance = 5;
+controls.maxDistance = 3;
 controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0, 0);
@@ -240,8 +243,8 @@ const resetBtn = document.getElementById('reset-btn')
 const exitBtn = document.getElementById('exit-btn')
 
 resetBtn.addEventListener("click", function() {
-  camera.position.set(0.42, 0.1, 0);
-  controls.target.set(0, 0.3, 0);
+  camera.position.set(0.42, 0.05, 0);
+  controls.target.set(0, 0.05, 0);
   controls.update();
 });
 
@@ -333,30 +336,30 @@ const gltfLoader = new GLTFLoader()
 // VIDEO TEXTURE TV - VIDEO TEXTURE TV - VIDEO TEXTURE TV  - VIDEO TEXTURE TV 
 ////////////////////////////////////////////////////////////////////////////
 
-const videoWebm = document.getElementById('videoFrame');
-const webmTex = new THREE.VideoTexture(videoWebm);
 
-webmTex.minFilter = THREE.LinearFilter;
-webmTex.magFilter = THREE.LinearFilter;
-webmTex.wrapS = THREE.ClampToEdgeWrapping;
-webmTex.wrapT = THREE.ClampToEdgeWrapping;
+// const videoWebm = document.getElementById('videoFrame');
+// const webmTex = new THREE.VideoTexture(videoWebm);
 
-const paramWebm = {
-  side: THREE.DoubleSide,
-  emissive: 0x9ACD32,
-  emissiveIntensity: 0.25,
-  transparent: true,
-  opacity: 0.8,
-  alphaTest: 0.5,
-  map: webmTex,
-};
+// webmTex.minFilter = THREE.LinearFilter;
+// webmTex.magFilter = THREE.LinearFilter;
+// webmTex.wrapS = THREE.ClampToEdgeWrapping;
+// webmTex.wrapT = THREE.ClampToEdgeWrapping;
 
-const materialWebm = new THREE.MeshStandardMaterial(paramWebm);
-materialWebm.emissive.convertSRGBToLinear()
+// const paramWebm = {
+//   side: THREE.DoubleSide,
+//   emissive: 0x9ACD32,
+//   emissiveIntensity: 0.25,
+//   transparent: true,
+//   opacity: 0.8,
+//   alphaTest: 0.5,
+//   map: webmTex,
+// };
 
+// const materialWebm = new THREE.MeshStandardMaterial(paramWebm);
+// materialWebm.emissive.convertSRGBToLinear()
 
-const startVideoBtn = document.getElementById('start-btn');
-startVideoBtn.addEventListener('click', function() { videoWebm.play(); });
+// const startVideoBtn = document.getElementById('start-btn');
+// startVideoBtn.addEventListener('click', function() { videoWebm.play(); });
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -364,50 +367,47 @@ startVideoBtn.addEventListener('click', function() { videoWebm.play(); });
 ////////////////////////////////////////////////////////////////////////////
 
 
-const videoEye = document.getElementById('eye')
-const webmEye = new THREE.VideoTexture(videoEye)
+// const videoEye = document.getElementById('eye')
+// const webmEye = new THREE.VideoTexture(videoEye)
 
-webmEye.minFilter = THREE.LinearFilter;
-webmEye.magFilter = THREE.LinearFilter;
-webmEye.offsetY = 0.030
-webmEye.repeat = 0.940
+// webmEye.minFilter = THREE.LinearFilter;
+// webmEye.magFilter = THREE.LinearFilter;
+// webmEye.offsetY = 0.030
+// webmEye.repeat = 0.940
+
+// webmEye.format = THREE.RGBAFormat
+
+// const paramEye = {
+//   side: THREE.DoubleSide,
+//   emissive: 0xEE82EE,
+//   emissiveIntensity: .5,
+//   transparent: true,
+//   opacity: 0.98,
+//   precision: "highp",
+//   map: webmEye,
+//   fog: true,
+//   envMap: textureCube,
+//   // blending: THREE.SubtractiveBlending,
+//   // blending: THREE.MultiplyBlending,
+
+// };
+
+// const materialEye = new THREE.MeshLambertMaterial(paramEye);
+// materialEye.emissive.convertSRGBToLinear()
 
 
-webmEye.format = THREE.RGBAFormat
-
-const paramEye = {
-  side: THREE.DoubleSide,
-  emissive: 0xEE82EE,
-  emissiveIntensity: .5,
-  transparent: true,
-  opacity: 0.98,
-  precision: "highp",
-  map: webmEye,
-  fog: true,
-  envMap: textureCube,
-  // blending: THREE.SubtractiveBlending,
-  // blending: THREE.MultiplyBlending,
-
-};
-
-const materialEye = new THREE.MeshLambertMaterial(paramEye);
-materialEye.emissive.convertSRGBToLinear()
-
-
-/*/*/
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> SPACE_SHIP: ORBITEYE
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
-const radius = 0.7
-const segments = 104
-const rings = 104
+// const radius = 0.7
+// const segments = 104
+// const rings = 104
 
-const geometry = new THREE.SphereGeometry(radius, segments, rings)
-const orbitEye = new THREE.Mesh(geometry, materialEye);
-scene.add(orbitEye);
+// const geometry = new THREE.SphereGeometry(radius, segments, rings)
+// const orbitEye = new THREE.Mesh(geometry, materialEye);
+// scene.add(orbitEye);
 
-/*/*/
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> CURIOUS_KID
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
@@ -466,7 +466,7 @@ let cFlowMixer = null
 gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   creativeFlow = gltf.scene
   creativeFlow.scale.set(0.002, 0.002, 0.002)
-  creativeFlow.position.set(0.05, 0.25, 0.05)
+  creativeFlow.position.set(0, 0.08, 0)
   creativeFlow.rotation.set(0, 0, 0)
   scene.add(creativeFlow)
 
@@ -507,7 +507,7 @@ scene.add(ground);
 const water = new Water(waterGeometry, {
   color: 0xDDA0DD,
   scale: 0.5,
-  flowDirection: new THREE.Vector2(-1, 0.6),
+  flowDirection: new THREE.Vector2(-1, 1),
   textureWidth: 1024,
   textureHeight: 1024,
   wrapS: THREE.RepeatWrapping,
@@ -515,7 +515,7 @@ const water = new Water(waterGeometry, {
   anisotropy: 16,
   needsUpdate: true,
 });
-water.position.y = 0.01
+water.position.set(0,0.015,0)
 water.rotation.x = Math.PI * -0.5
 
 scene.add(water)
@@ -531,7 +531,7 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1.100
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor(0x00FFFF, 0.2)
+renderer.setClearColor(0x000000, 0.6)
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -559,9 +559,6 @@ composer.addPass(new EffectPass(camera, new BloomEffect()));
 ////////////////////////////////////////////////////////////////////
 // TWEAK PANE
 ///////////////////////////////////////////////////////////////////
-
-
-
 
 
 ////////////////////////////////////////////////////////////////////
@@ -611,7 +608,6 @@ const tick = () => {
   composer.render(scene, camera);
 
   // Update PARAMS
-
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
