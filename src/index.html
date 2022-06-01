@@ -45,6 +45,7 @@
   <!-- Cursor -->
   <!--DATA ASSETS------------>
   <!-- Audio -->
+
   <audio class="audioTrack" autoplay loop id="music" preload="metadata">
     <source src="../assets/sounds/ES_Lucid_Space-Joseph_Beg.ogg" type="audio/ogg" />
   </audio>
@@ -76,7 +77,7 @@
       <div class="profile">
         <div class="profile-content">
           <div class="profile-pic">
-            <video class="profile-pic-image" crossorigin="anonymous" autoplay playsinline loop>
+            <video class="profile-pic-image" id="spin" crossorigin="anonymous" playsinline loop>
               <source src="../assets/video/spin.webm" type="video/webm" />
             </video>
           </div>
@@ -84,8 +85,10 @@
       </div>
     </div>
   </div>
+
   <!--SVG -->
   <!--SVG DKNIGHT FLICKING TEXT-->
+
   <div id="KBLLR">
     <svg xmlns="http://www.w3.org/2000/svg" width="232" height="54" fill="none">
       <g clip-path="url(#a)">
@@ -99,7 +102,9 @@
       </defs>
     </svg>
   </div>
+
   <!--ACTIONS UI_NAV -->
+
   <div id="nav">
     <div id="nav-items">
       <div class="nav-item" id="instagram">
@@ -107,7 +112,7 @@
           <path style="stroke:none;fill-rule:nonzero;fill:var(--mint4);fill-opacity:1" d="M16 3C8.832 3 3 8.832 3 16v18c0 7.168 5.832 13 13 13h18c7.168 0 13-5.832 13-13V16c0-7.168-5.832-13-13-13Zm0 2h18c6.086 0 11 4.914 11 11v18c0 6.086-4.914 11-11 11H16C9.914 45 5 40.086 5 34V16C5 9.914 9.914 5 16 5Zm21 6a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4Zm-12 3c-6.063 0-11 4.938-11 11 0 6.063 4.938 11 11 11 6.063 0 11-4.938 11-11 0-6.063-4.938-11-11-11Zm0 2c4.98 0 9 4.02 9 9s-4.02 9-9 9-9-4.02-9-9 4.02-9 9-9Zm0 0" />
         </svg>
       </div>
-      <div class="nav-item" id="shop-btn">
+      <div class="nav-item" id="vr-btn">
         <svg width="50" height="50" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10 8c-1.668 0-3.137.828-4.047 2.09.344-.055.692-.09 1.047-.09h36c.355 0 .703.035 1.047.09C43.137 8.828 41.668 8 40 8H10Zm-3 4c-2.758 0-5 2.242-5 5v20c0 2.758 2.242 5 5 5h11c.148 0 .297-.016.445-.031a2.998 2.998 0 0 0 2.313-1.785l1.902-5.59C23.086 33.598 23.992 33 25 33a2.51 2.51 0 0 1 2.313 1.527l1.957 5.727c.39.902 1.27 1.562 2.285 1.715.148.015.293.031.445.031h11c2.758 0 5-2.242 5-5V17c0-2.758-2.242-5-5-5H7Zm7.5 10c3.04 0 5.5 2.46 5.5 5.5S17.54 33 14.5 33 9 30.54 9 27.5s2.46-5.5 5.5-5.5Zm21 0c3.04 0 5.5 2.46 5.5 5.5S38.54 33 35.5 33 30 30.54 30 27.5s2.46-5.5 5.5-5.5ZM25 35c-.262 0-.406.188-.48.328L23.273 39h3.457l-1.277-3.73A.516.516 0 0 0 25 35Z" style="fill:var(--mint4)" />
         </svg>
@@ -146,44 +151,30 @@
       </div>
     </div>
   </div>
-  <!--<div class="navWrapper">
-    <nav class="navAction" id="actionBar">
-     <button class="btn hover__btn nodeHover" id="export"><p>Export glTF</p></button> -->
-  <!--<button class="btn  snd__transition_up" id="start-btn">
-        <p id="button__text">Play Video</p>
-      </button>
-      <button class="btn  snd__transition_up" id="show-btn">
-        <p id="button__text">More Info</p>
-      </button>
-      <button class="btn  snd__transition_up" id="reset-btn">
-        <p id="button__text">Zoom In</p>
-      </button>
-      <button class="btn  snd__transition_up" id="exit-btn">
-        <p id="button__text">Zoom out</p>
-      </button>
-    </nav>
-  </div>-->
+ 
   <!-- TITLE's NAVIGATION-->
 
   <!-- MUSIC UI_NAV -->
 
   <div class="nav-music">
-    <ul class="uiList" id="music-List__items ">
       <!-- <li class="uiList__item" id="soundWave" data-tooltip alt="Alt text" title="" role="tooltip" aria-label="Tooltip message">
         <svg style="width:100%;height:100%" id="mainSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
         </svg>
       </li> -->
-      <li class="uiList__item snd__transition_up" id="play" onClick="javascript: return false" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
+
+      <div class="uiList__item" id="play" onClick="javascript: return false" data-tooltip alt="Alt text" title="Play Track" role="tooltip" aria-label="Tooltip message">
         <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M9.23828 9.76001V23.5733C9.23828 24.6267 10.3983 25.2667 11.2916 24.6933L22.1449 17.7867C22.9716 17.2667 22.9716 16.0667 22.1449 15.5333L11.2916 8.64001C10.3983 8.06668 9.23828 8.70668 9.23828 9.76001Z" style="fill:var(--greyDark9)" />
         </svg>
-      </li>
-      <li class="uiList__item snd__transition_up" id="pause" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
+      </div>
+
+      <div class="uiList__item" id="pause" data-tooltip alt="Alt text" title="Pause Track" role="tooltip" aria-label="Tooltip message">
         <svg style="width: 100%; height: 100%" viewBox="0 0 32 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3333 23.3333C13.3333 24.7999 12.1333 25.9999 10.6667 25.9999C9.2 25.9999 8 24.7999 8 23.3333V9.99992C8 8.53325 9.2 7.33325 10.6667 7.33325C12.1333 7.33325 13.3333 8.53325 13.3333 9.99992V23.3333ZM18.6656 23.3333V9.99997C18.6656 8.5333 19.8656 7.3333 21.3323 7.3333C22.799 7.3333 23.999 8.5333 23.999 9.99997V23.3333C23.999 24.8 22.799 26 21.3323 26C19.8656 26 18.6656 24.8 18.6656 23.3333Z" style="fill:var(--greyDark9)" />
         </svg>
-      </li>
-      <li class="uiList__item" id="menu">
+      </div>
+
+      <div class="uiList__item" id="menu">
         <a href="#">
           <svg style="width: 100%; height: 100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -191,28 +182,16 @@
             <line x1="0" y1="16" x2="40" y2="16" />
           </svg>
         </a>
-      </li>
-    </ul>
+      </div>
   </div>
+
   <!-- OVERLAYERS -->
-  <!-- Overlay level.I-->
-  <!--   <video class="overlay" id="eye" crossorigin="anonymous" playsinline loop>
-    <source src="../assets/video/eye00.webm" type="video/webm" />
-  </video> -->
-  <!-- Overlay level.I-->
-  <!--  <video class="overlay" id="video2" crossorigin="anonymous" playsinline style="display: none" loop>
-    <source src="../assets/video/frame03.webm" type="video/webm" />
-  </video> -->
-  <!-- Overlay level.I-->
-  <!--  <div class="overlay videoBg">
-    <video id="videoFrame" crossorigin="anonymous" autoplay playsinline loop>
-      <source src="../assets/video/frameFlick.webm" type="video/webm" />
-    </video>
-  </div> -->
-  <!-- Overlay level.II-->
+  
   <div class="overlay" id="tvLines"></div>
-  <!-- Overlay level.III-->
+
+
   <!-- MODALS -->
+
   <div class="modal" id="container">
     <button class="button" id="cross">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="#B9FD02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -237,6 +216,7 @@
       </h2>
     </div>
   </div>
+
   <!-- 
   // Interactive eyeball animation based on one of 
   // the famous famous GLSL shaders of Inigo Quilez <3

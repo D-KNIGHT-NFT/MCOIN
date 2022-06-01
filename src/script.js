@@ -111,39 +111,6 @@ showBtn.addEventListener('click', toggleModal);
 
 modalBtn.addEventListener('click', toggleModal);
 
-////////////////////////////////////////////////////////////////////
-// 2DCANVAS Background --> Noise 
-//https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/getImageData
-//https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
-//https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin
-////////////////////////////////////////////////////////////////////
-
-// const simplex = new SimplexNoise();
-// const noiseCanvas = document.getElementById('noiseContainer');
-// const ctx = noiseCanvas.getContext('2d');
-// const imageData = ctx.getImageData(0, 0, noiseCanvas.width, noiseCanvas.height);
-// const data = imageData.data;
-// let t = 0;
-
-// function drawPlasma(){
-//   for (let x = 0; x < 256; x++) {
-//       for (let y = 0; y < 256; y++) {
-//           const r = simplex.noise3D(x / 16, y / 16, t/32) * 0.5 + 0.5;
-//           const g = simplex.noise3D(x / 24, y / 24, t/32) * 0.5 + 0.5;
-//           data[(x + y * 256) * 4 + 0] = r * 20;
-//           data[(x + y * 256) * 4 + 1] = g * 255;
-//           data[(x + y * 256) * 4 + 2] = 0;
-//           data[(x + y * 256) * 4 + 3] = 255;
-//       }
-//   }
-//   t++;
-//   ctx.putImageData(imageData, 0, 0);
-//   requestAnimationFrame(drawPlasma);
-// }
-
-// drawPlasma();
-
-
 var canvas2 = document.getElementById("noiseContainer");
 
 canvas2.width = window.innerWidth;
@@ -330,6 +297,8 @@ function draw(){
 }
 
 draw();
+
+
 ////////////////////////////////////////////////////////////////////
 // WEBGL-THREEJS -->CANVAS -->EXPERIENCE
 ////////////////////////////////////////////////////////////////////
@@ -545,8 +514,9 @@ const gltfLoader = new GLTFLoader()
 // const materialWebm = new THREE.MeshStandardMaterial(paramWebm);
 // materialWebm.emissive.convertSRGBToLinear()
 
-// const startVideoBtn = document.getElementById('start-btn');
-// startVideoBtn.addEventListener('click', function() { videoWebm.play(); });
+const startVideoBtn = document.getElementById('start-btn');
+const spinVideo = document.getElementById('spin')
+startVideoBtn.addEventListener('click', function() { spin.play(); });
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -223,16 +223,6 @@ canvas.webgl {
   height: 100vh;
 }
 
-#nav {
-  display: flex;
-  align-items: center;
-  height: 120px;
-  position: fixed;
-  top: 0px;
-  z-index: 999999;
-  width: 100%;
-}
-
 #KBLLR {
   display: flex;
   height: 120px;
@@ -297,37 +287,44 @@ canvas.webgl {
   text-align: center;
 }
 
-#nav-items {
-  align-items: flex-start;
+#nav {
   display: flex;
   flex-direction: row;
-  gap: 10px;
-  height: 120px;
+  align-items: center;
+  justify-content: flex-end;
   position: fixed;
-  bottom: 0%;
-  right: 5%;
+  bottom: 0px;
+  right: 0%;
+  padding: 2%;
+  z-index: 9999;
+  width: 100%;
+}
+
+#nav-items {
+  display: flex;
+  gap: 8px;
 }
 
 #nav-items>.nav-item {
   border-radius: 50%;
   cursor: pointer;
   display: grid;
-  height: 100px;
+  height: 50px;
   place-items: center;
   transition: background-color 250ms;
-  width: 100px;
+  width: 50px;
 }
 
 #nav-items>.nav-item:hover {
-  background-color: var(--mint3);
+  background-color: var(--indigo4);
 }
 
 #nav-items>.nav-item:hover>i {
-  color: var(--mint3);
+  color: var(--indigo4);
 }
 
 #nav-items>.nav-item>i {
-  color: var(--mint3);
+  color: var(--indigo4);
   transition: color 250ms;
 }
 
@@ -355,23 +352,6 @@ canvas.webgl {
   width: clamp(600px, 80vw, 1400px);
 }
 
-.title {
-  text-align: center;
-  pointer-events: none;
-  z-index: 1;
-  mix-blend-mode: normal;
-}
-
-h1 {
-  place-self: center;
-  font-size: clamp(1em, 2vw, 2em);
-  color: var(--indigo1);
-  letter-spacing: -1px;
-  text-align: center;
-  line-height: 0.75;
-  padding-left: 3px;
-}
-
 .prev,
 .next {
 
@@ -392,7 +372,7 @@ h1 {
 
 .slider:hover {
   transform: scale(1.5);
-  color: var(--venom);
+  color: var(--indigo7);
 }
 
 /* ************************************************* */
@@ -402,21 +382,21 @@ h1 {
 .nav-music {
   position: absolute;
   z-index: 40;
-  top: 0px;
+  top: 2%;
+  right: 5%;
+  display: flex;
 }
 
 .uiList {
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   justify-items: center;
   place-self: center;
 }
 
 .uiList__item {
-  width: 10%;
-  height: 10%;
   place-self: stretch;
-  color: var(--darkGrey9);
+  color: var(--grayDark6);
 }
 
 /* ************************************************* */
@@ -531,7 +511,7 @@ h1 {
   text-shadow: var(--mint6) 0 0 0.8rem;
   font-family: "Pirulen";
   line-height: 1.5;
-  font-size: 1rem;
+  font-size: clamp(max(2rem, 1.2vw));
   padding-top: 2vh;
 }
 
