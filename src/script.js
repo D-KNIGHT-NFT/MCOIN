@@ -2,6 +2,7 @@ console.clear();
 
 import './css/style.css'
 import { normalizeWheel } from './js/normalize-wheel/normalizeWheel.js'
+import { SVG, extend as SVGextend, Element as SVGElement } from '@svgdotjs/svg.js'
 import * as THREE from 'three'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -98,7 +99,7 @@ document.addEventListener('mousewheel', function (event) {
 addEventListener('input', e => {
  let _t = e.target;
 
-  t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
+  _t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
 });
 
 
@@ -174,24 +175,164 @@ const modalBtn = modalContainer.querySelector('button');
 const toggleModal = () => {
   modalContainer.classList.toggle('visible');
 };
-
 showBtn.addEventListener('click', toggleModal);
-
 modalBtn.addEventListener('click', toggleModal);
 
-var canvas2 = document.getElementById("noiseContainer");
 
-canvas2.width = window.innerWidth;
-canvas2.height = window.innerHeight;
+/////////////////////////////////////////////////////////////////////////////
+// VIDEO TEXTURE TV - VIDEO TEXTURE TV - VIDEO TEXTURE TV  - VIDEO TEXTURE TV 
+////////////////////////////////////////////////////////////////////////////
+const startVideoBtn = document.getElementById('play-bg');
+const spinVideo = document.getElementById('spin')
+startVideoBtn.addEventListener('click', function() { spin.play(); });
+
+////////////////////////////////////////////////////////////////////
+// WEBGL-THREEJS -->CANVAS -->EXPERIENCE
+////////////////////////////////////////////////////////////////////
+
+const canvas1 = document.querySelector('canvas.webgl')
+
+const scene = new THREE.Scene()
+const paramRender = {
+  canvas: canvas1,
+  antialias: true,
+  alpha: false,
+  powerPreference: "high-performance",
+}
+
+const renderer = new WebGLRenderer(paramRender);
+const textureLoader = new THREE.TextureLoader()
+
+document.body.appendChild( VRButton.createButton( renderer ) );
+//*//
+// CAMERA
+//*//
+
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
+camera.position.set(3.5, 0, 3.5);
+
+scene.add(camera)
+
+const interactionManager = new InteractionManager(
+  renderer,
+  camera,
+  renderer.domElement
+);
+
+////////////////////////////////////////////////////////////////////
+// RESET CAMERA - Enter / Leave Room
+///////////////
+const resetBtn = document.getElementById('enter-circle')
+const exitBtn = document.getElementById('exit-btn')
+
+resetBtn.addEventListener("click", function() {
+  camera.position.set(0.42, 0.02, 0);
+  controls.target.set(0, 0.05, 0);
+  controls.update();
+});
+
+exitBtn.addEventListener("click", function() {
+  camera.position.set(3.5, 0, 3.5);
+  controls.target.set(0, 0, 0);
+  controls.update();
+});
+
+// const loaderIdea = () => {
+// document.addEventListener("click", function() {
+//   camera.position.set(0, 0, 0);
+//   controls.target.set(0, 0, 0);
+//   controls.update();
+// });
+
+////////////////////////////////////////////////////////////////////
+// CONTROLS 
+///////////////
+
+const controls = new OrbitControls(camera, canvas1)
+controls.enable = true
+controls.enableDamping = true
+controls.dampingFactor = 0.05;
+controls.autoRotate = true
+controls.enableZoom = false
+controls.autoRotateSpeed = 1.5
+controls.minDistance = 0.1;
+controls.maxDistance = 3.5;
+controls.minPolarAngle = 0;
+controls.maxPolarAngle = Math.PI / 2.1
+controls.target.set(0, 0, 0);
+
+
+//////////////////////////////////////////////////////////// 
+// ENVIRONMENT _ BACKGROUND
+//////////////////////////////////////////////////////////// 
+
+//==================================================
+//https://threejs.org/docs/#api/en/constants/Textures
+//===================================================
+// EQUIRECTANGULAR HDR
+//===================================================
+
+const textureLoad = new RGBELoader()
+
+textureLoad.setPath('textures/equirectangular/')
+const textureCube = textureLoad.load('mayoris.hdr', function(texture) {
+  textureCube.mapping = THREE.EquirectangularReflectionMapping;
+})
+
+// prefilter the equirectangular environment map for irradiance
+function equirectangularToPMREMCube(textureCube, renderer) {
+  const pmremGenerator = new THREE.PMREMGenerator(renderer)
+  pmremGenerator.compileEquirectangularShader()
+
+  const cubeRenderTarget = pmremGenerator.fromEquirectangular(textureCube)
+
+  pmremGenerator.dispose() // dispose PMREMGenerator
+  texture.dispose() // dispose original texture
+  texture.image.data = null // remove image reference
+
+  return cubeRenderTarget.textureCube
+}
+
+////////////////////////////////////////////////////////////////////
+// Resize Window
+///////////////
+
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight
+}
+
+window.addEventListener('resize', () => {
+  // Update sizes
+  sizes.width = window.innerWidth
+  sizes.height = window.innerHeight
+
+  // Update camera
+  camera.aspect = sizes.width / sizes.height
+  camera.updateProjectionMatrix()
+
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height)
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
+
+////////////////////////////////////////////////////////////////////
+// GLSL SHADER CONTEXT CANVAS
+////////////////////////////////////////////////////////////////////
+
+var canvas = document.getElementById("noiseContainer");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 // Initialize the GL context
-var gl = canvas2.getContext('webgl');
+var gl = canvas.getContext('webgl');
 if(!gl){
   console.error("Unable to initialize WebGL.");
 }
 
 //Time
-var time = 0.0;
+var time = 0.8;
 
 //************** Shader sources **************
 
@@ -259,11 +400,12 @@ void main(){
 
 //************** Utility functions **************
 
+
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize(){
-  canvas2.width  = window.innerWidth;
-  canvas2.height = window.innerHeight;
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
   gl.viewport(0, 0, canvas.width, canvas.height);
   gl.uniform1f(widthHandle, window.innerWidth);
   gl.uniform1f(heightHandle, window.innerHeight);
@@ -368,98 +510,6 @@ draw();
 
 
 ////////////////////////////////////////////////////////////////////
-// WEBGL-THREEJS -->CANVAS -->EXPERIENCE
-////////////////////////////////////////////////////////////////////
-
-const canvas1 = document.querySelector('canvas.webgl')
-
-const scene = new THREE.Scene()
-const paramRender = {
-  canvas: canvas1,
-  antialias: true,
-  alpha: false,
-  powerPreference: "high-performance",
-}
-
-const renderer = new WebGLRenderer(paramRender);
-const textureLoader = new THREE.TextureLoader()
-
-document.body.appendChild( VRButton.createButton( renderer ) );
-//*//
-// CAMERA
-//*//
-
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
-camera.position.set(2.2, 0, 2.2);
-
-scene.add(camera)
-
-const interactionManager = new InteractionManager(
-  renderer,
-  camera,
-  renderer.domElement
-);
-
-////////////////////////////////////////////////////////////////////
-// CONTROLS 
-///////////////
-
-const controls = new OrbitControls(camera, canvas1)
-controls.enable = true
-controls.enableDamping = true
-controls.dampingFactor = 0.05;
-controls.autoRotate = true
-controls.enableZoom = false
-controls.autoRotateSpeed = 1.5
-controls.minDistance = 0.1;
-controls.maxDistance = 3;
-controls.minPolarAngle = 0;
-controls.maxPolarAngle = Math.PI / 2.1
-controls.target.set(0, 0, 0);
-
-////////////////////////////////////////////////////////////////////
-// RESET CAMERA - Enter / Leave Room
-///////////////
-const resetBtn = document.getElementById('enter-circle')
-const exitBtn = document.getElementById('exit-btn')
-
-resetBtn.addEventListener("click", function() {
-  camera.position.set(0.42, 0.02, 0);
-  controls.target.set(0, 0.05, 0);
-  controls.update();
-});
-
-exitBtn.addEventListener("click", function() {
-  camera.position.set(2, 0.2, 2);
-  controls.target.set(0, 0, 0);
-  controls.update();
-});
-
-
-////////////////////////////////////////////////////////////////////
-// Resize Window
-///////////////
-
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight
-}
-
-window.addEventListener('resize', () => {
-  // Update sizes
-  sizes.width = window.innerWidth
-  sizes.height = window.innerHeight
-
-  // Update camera
-  camera.aspect = sizes.width / sizes.height
-  camera.updateProjectionMatrix()
-
-  // Update renderer
-  renderer.setSize(sizes.width, sizes.height)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
-
-////////////////////////////////////////////////////////////////////
 // LIGHTS 
 ///////////////
 
@@ -471,39 +521,7 @@ const light3 = new THREE.PointLight('chartreuse', 10.0, 100, 0.5);
 const light4 = new THREE.PointLight('ghostwhite', 10.0, 100, 0.5);
 scene.add(light1, light2, light3, light4);
 
-//////////////////////////////////////////////////////////// Lightning Scene Space Launcher
 
-
-//==================================================
-//https://threejs.org/docs/#api/en/constants/Textures
-//===================================================
-// EQUIRECTANGULAR HDR
-//===================================================
-
-const textureLoad = new RGBELoader()
-
-textureLoad.setPath('textures/equirectangular/')
-const textureCube = textureLoad.load('mayoris.hdr', function(texture) {
-  textureCube.mapping = THREE.EquirectangularReflectionMapping;
-})
-
-// prefilter the equirectangular environment map for irradiance
-function equirectangularToPMREMCube(textureCube, renderer) {
-  const pmremGenerator = new THREE.PMREMGenerator(renderer)
-  pmremGenerator.compileEquirectangularShader()
-
-  const cubeRenderTarget = pmremGenerator.fromEquirectangular(textureCube)
-
-  pmremGenerator.dispose() // dispose PMREMGenerator
-  texture.dispose() // dispose original texture
-  texture.image.data = null // remove image reference
-
-  return cubeRenderTarget.textureCube
-}
-
-scene.environment = textureCube;
-// scene.fog = new THREE.FogExp2(0x556B2F, 0.9);
-// scene.background = new THREE.Color( 0x9400D3 );
 
 ////////////////////////////////////////////////////////////////////
 // MODEL LOADERS
@@ -511,36 +529,6 @@ scene.environment = textureCube;
 
 const fbxLoader = new FBXLoader()
 const gltfLoader = new GLTFLoader()
-
-/////////////////////////////////////////////////////////////////////////////
-// VIDEO TEXTURE TV - VIDEO TEXTURE TV - VIDEO TEXTURE TV  - VIDEO TEXTURE TV 
-////////////////////////////////////////////////////////////////////////////
-
-
-// const videoWebm = document.getElementById('videoFrame');
-// const webmTex = new THREE.VideoTexture(videoWebm);
-
-// webmTex.minFilter = THREE.LinearFilter;
-// webmTex.magFilter = THREE.LinearFilter;
-// webmTex.wrapS = THREE.ClampToEdgeWrapping;
-// webmTex.wrapT = THREE.ClampToEdgeWrapping;
-
-// const paramWebm = {
-//   side: THREE.DoubleSide,
-//   emissive: 0x9ACD32,
-//   emissiveIntensity: 0.25,
-//   transparent: true,
-//   opacity: 0.8,
-//   alphaTest: 0.5,
-//   map: webmTex,
-// };
-
-// const materialWebm = new THREE.MeshStandardMaterial(paramWebm);
-// materialWebm.emissive.convertSRGBToLinear()
-
-const startVideoBtn = document.getElementById('play-bg');
-const spinVideo = document.getElementById('spin')
-startVideoBtn.addEventListener('click', function() { spin.play(); });
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -594,10 +582,11 @@ scene.add(orbitEye);
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
 let kidMixer;
+let kid2Mixer;
 let kidMaterial;
 
 fbxLoader.load(
-  'models/fbx/curiousKid/animations/sitting1.fbx', (object) => {
+  'models/fbx/curiousKid/animations/Walking.fbx', (object) => {
     kidMixer = new THREE.AnimationMixer(object);
     const action = kidMixer.clipAction(object.animations[0]);
     action.play();
@@ -700,15 +689,14 @@ const water = new Water(waterGeometry, {
   anisotropy: 16,
   needsUpdate: true,
 });
+
 water.position.set(0,0.015,0)
 water.rotation.x = Math.PI * -0.5
 
 scene.add(water)
 
-water.addEventListener("click", (event) => {
-  event.target.material.color.set(0xff0000);
-      document.body.style.cursor = "pointer";
-    })
+
+
 ////////////////////////////////////////////////////////////////////
 // Renderer
 ///////////////
@@ -731,23 +719,12 @@ const composer = new EffectComposer(renderer)
 composer.addPass(new RenderPass(scene, camera))
 composer.addPass(new EffectPass(camera, new BloomEffect()));
 
-/////////////////////////////////////////////////////////////////////// strength, Radius, Threshold
-// const bloomPass = new UnrealBloomPass(new THREE.Vector2(sizes.width, sizes.height), 0.8, 0.5, 0.03)
-// composer.addPass(new EffectPass(camera, bloomPass))
-
-// const effectGrayScale = new ShaderPass( LuminosityShader );
-// composer.addPass( effectGrayScale );
-
-// const effectFXAA = new ShaderPass(FXAAShader)
-// effectFXAA.uniforms['resolution'].value.set(1 / sizes.width, 1 / sizes.height)
-
-// const glitchPass = new GlitchPass();
-// composer.addPass( glitchPass );
 
 ////////////////////////////////////////////////////////////////////
-// TWEAK PANE
+// SVG ANIMATIONS
 ///////////////////////////////////////////////////////////////////
 
+var rtAnja = SVG('#RT-01')
 
 ////////////////////////////////////////////////////////////////////
 // CLOCK - UPDATE 
@@ -791,6 +768,7 @@ const tick = () => {
   // if (loneWolfMixer) { loneWolfMixer.update(deltaTime) }
   if (cFlowMixer) { cFlowMixer.update(deltaTime) }
   if (kidMixer) { kidMixer.update(deltaTime) };
+  if (kid2Mixer) { kid2Mixer.update(deltaTime) };
 
   // Render
   interactionManager.update();

@@ -67,7 +67,7 @@ window.onmousemove = (e) => {
 ///////////////////////////////////////////
 
 
-<filter id="MyFilter" filterUnits="userSpaceOnUse" x="0" y="0" width="200" height="120">
+<filter id="RT-01" filterUnits="userSpaceOnUse" x="0" y="-283" width="566" height="1132">
   <desc>Produces a 3D lighting effect.</desc>
   <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
   <feOffset in="blur" dx="4" dy="4" result="offsetBlur"/>

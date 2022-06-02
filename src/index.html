@@ -41,13 +41,13 @@
   <canvas class="webgl" id="container"></canvas>
 
   <!---------------------- Canvas SHADER ------------>
-  <canvas class="2D" id="noiseContainer"></canvas>
+  <canvas class="webgl" id="noiseContainer"></canvas>
   <!---------------------- Gallery ------------>
 
   <!-- Cursor -->
   <div id="custom-cursor"></div>
 
-  <!--DATA ASSETS------------>
+  <!--DATA ASSETS------------------------------------------------------------------------->
 
   <!-- Audio -->
 
@@ -62,14 +62,16 @@
     <source src="../assets/sounds/344_audio/Lo-Fi_Rumble.mp3" type="audio/mp3" />
   </audio>
 
-  <!-- SVG -->
+  <!-- SVG ----------------------------------------------------->
 
   <!-- LOGO -->
   <img src="./cursor/logo.svg" id="logo">
 
-  <!-- FAB Mennu -->
-  <input class="menu-checkbox" id="menu" type="checkbox" name="menu" />
+  <!-- ROULLETITLES -->
+<img src="./cursor/01/01.svg" id="RT-01">
 
+  <!-- FAB Mennu --------------------------------------------------------->
+  <input class="menu-checkbox" id="menu" type="checkbox" name="menu" />
   <nav class="menu">
     <label class="menu-dots" for="menu"><span class="menu-dot"></span></label>
 
@@ -90,7 +92,7 @@
 
       <li class="menu-item" id="play-bg">
         <svg width="50" height="50" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 7v32h50V7H0Zm2 2h46v28H2V9Zm18.625 7.594a.647.647 0 0 0-.625.656v12.719c0 .226.117.449.313.562a.578.578 0 0 0 .312.063c.11 0 .246-.004.344-.063l11-6.375a.653.653 0 0 0 .312-.562.603.603 0 0 0-.312-.532l-11-6.375a.768.768 0 0 0-.344-.093ZM10.812 41c-.55.05-.957.543-.906 1.094.051.55.543.957 1.094.906h28c.36.004.695-.184.879-.496a1.01 1.01 0 0 0 0-1.008c-.184-.312-.52-.5-.879-.496H10.812Z" style="fill:var(--mint4)" />
+          <path d="M0 7v32h50V7H0Zm2 2h46v28H2V9Zm18.625 7.594a.647.647 0 0 0-.625.656v12.719c0 .226.117.449.313.562a.578.578 0 0 0 .312.063c.11 0 .246-.004.344-.063l11-6.375a.653.653 0 0 0 .312-.562.603.603 0 0 0-.312-.532l-11-6.375a.768.768 0 0 0-.344-.093ZM10.812 41c-.55.05-.957.543-.906 1.094.051.55.543.957 1.094.906h28c.36.004.695-.184.879-.496a1.01 1.01 0 0 0 0-1.008c-.184-.312-.52-.5-.879-.496H10.812Z" style="fill:var(--gray7)" />
         </svg>
       </li>
 
