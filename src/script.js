@@ -7,6 +7,8 @@ import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUti
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
 import SimplexNoise from 'simplex-noise';
+import { InteractionManager } from "three.interactive";
+import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import { Pane } from 'tweakpane';
 // import * as TweakpaneImagePlugin from 'tweakpane/dist/tweakpane-image-plugin.min.js';
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
@@ -53,7 +55,7 @@ import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 ///////////////
 
 window.onload = () => {
-  const audioTrack = document.getElementById('music');
+  const audioTrack = document.getElementById('music2');
   const play = document.getElementById('play');
   const pause = document.getElementById('pause');
 
@@ -72,27 +74,37 @@ window.onload = () => {
   audioTrack.volume = 0.5;
 }
 
-const kbllr = document.getElementById('KBLLR')
-kbllr.onmousemove = (e) => {
-  const hues = [
-    'mintcream',
-    'dodgerblue',
-    'aqua',
-    'chartreuse',
-    'coral',
-    'goldenRod',
-    'ghostwhite',
-    'darksalmon',
-    'darkturquoise',
-    'hotpink',
-    'mediumspringgreen',
-    'peachpuff',
-    'teal'
-  ]
-  const random = () => hues[Math.floor(Math.random() * hues.length)];
-  document.documentElement.style.cssText = ` --hue: ${random()}; `
-}
+// const kbllr = document.getElementById('KBLLR')
+// kbllr.onmousemove = (e) => {
+//   const hues = [
+//     'mintcream',
+//     'dodgerblue',
+//     'aqua',
+//     'chartreuse',
+//     'coral',
+//     'goldenRod',
+//     'ghostwhite',
+//     'darksalmon',
+//     'darkturquoise',
+//     'hotpink',
+//     'mediumspringgreen',
+//     'peachpuff',
+//     'teal'
+//   ]
+//   const random = () => hues[Math.floor(Math.random() * hues.length)];
+//   document.documentElement.style.cssText = ` --hue: ${random()}; `
+// }
 
+
+////////////////////////////////////////////////////////////////////
+// SHOW hamburger menu
+///////////////
+
+// const button = document.getElementById("hamburger");
+
+// button.onclick = () => {
+//   button.classList.toggle("toggled");
+// }
 
 ////////////////////////////////////////////////////////////////////
 // SHOW MODAL INFO
@@ -194,8 +206,8 @@ void main(){
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize(){
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas2.width  = window.innerWidth;
+  canvas2.height = window.innerHeight;
   gl.viewport(0, 0, canvas.width, canvas.height);
   gl.uniform1f(widthHandle, window.innerWidth);
   gl.uniform1f(heightHandle, window.innerHeight);
@@ -312,68 +324,25 @@ const paramRender = {
   alpha: false,
   powerPreference: "high-performance",
 }
-const renderer = new WebGLRenderer(paramRender);
 
+const renderer = new WebGLRenderer(paramRender);
 const textureLoader = new THREE.TextureLoader()
 
-const eyeGroup = new THREE.Group();
-
-const eyeRadius = 0.03;
-
-const eyeAddonGeometry = new THREE.SphereGeometry(eyeRadius, 32, 32);
-
-const eyeAddonMaterial = new THREE.MeshPhongMaterial({
-  opacity: 0.5,
-  shininess: 1,
-  transparent: true
-});
-
-const eyeAddon = new THREE.Mesh(eyeAddonGeometry, eyeAddonMaterial);
-eyeGroup.add(eyeAddon);
-
-let config = {
-  zoomLevel: 0,
-  zoomLevelBounds: [10, 10],
-  shrink: 0,
-  fstBaseColor: 0xA9A9A9,
-  scdBaseColor: 0x696969,
-  midColor: 0xD2691E,
-  vignette: .55,
-  brightness: .1,
-  darkness: .1,
-};
-
-const eyeGeometry = new THREE.SphereGeometry(eyeRadius, 32, 32);
-const eyeShaderMaterial = new THREE.ShaderMaterial({
-  uniforms: {
-    u_shrink: { type: 'f', value: config.shrink },
-    u_base_color_1: { type: 'v3', value: new THREE.Color(config.fstBaseColor) },
-    u_base_color_2: { type: 'v3', value: new THREE.Color(config.scdBaseColor) },
-    u_mid_color: { type: 'v3', value: new THREE.Color(config.midColor) },
-    u_vignette: { type: 'f', value: config.vignette },
-    u_brightness: { type: 'f', value: config.brightness },
-    u_darkness: { type: 'f', value: config.darkness },
-  },
-  vertexShader: document.getElementById('vertexShader').textContent,
-  fragmentShader: document.getElementById('fragmentShader').textContent,
-});
-
-const eye = new THREE.Mesh(eyeGeometry, eyeShaderMaterial);
-eye.rotation.y = -Math.PI / 2;
-eyeGroup.add(eye);
-eyeGroup.position.set(0.1, 0.03, 0.1)
-eyeGroup.rotation.set(0, 48, 0)
-
-scene.add(eyeGroup);
-
+document.body.appendChild( VRButton.createButton( renderer ) );
 //*//
 // CAMERA
 //*//
 
-const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.01, 1000);
-camera.position.set(0, 0, 3);
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
+camera.position.set(2.2, 0, 2.2);
 
 scene.add(camera)
+
+const interactionManager = new InteractionManager(
+  renderer,
+  camera,
+  renderer.domElement
+);
 
 ////////////////////////////////////////////////////////////////////
 // CONTROLS 
@@ -386,7 +355,7 @@ controls.dampingFactor = 0.05;
 controls.autoRotate = true
 controls.enableZoom = false
 controls.autoRotateSpeed = 1.5
-controls.minDistance = 0.3;
+controls.minDistance = 0.1;
 controls.maxDistance = 3;
 controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2.1
@@ -399,21 +368,21 @@ const resetBtn = document.getElementById('reset-btn')
 const exitBtn = document.getElementById('exit-btn')
 
 resetBtn.addEventListener("click", function() {
-  camera.position.set(0.42, 0.05, 0);
+  camera.position.set(0.42, 0.02, 0);
   controls.target.set(0, 0.05, 0);
   controls.update();
 });
 
 exitBtn.addEventListener("click", function() {
-  camera.position.set(2, 0.2, 4);
+  camera.position.set(2, 0.2, 2);
   controls.target.set(0, 0, 0);
   controls.update();
 });
 
 
-//*//
-// WINDOW SIZES + ASPECT
-//*//
+////////////////////////////////////////////////////////////////////
+// Resize Window
+///////////////
 
 const sizes = {
   width: window.innerWidth,
@@ -433,7 +402,6 @@ window.addEventListener('resize', () => {
   renderer.setSize(sizes.width, sizes.height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
-
 
 ////////////////////////////////////////////////////////////////////
 // LIGHTS 
@@ -460,7 +428,7 @@ const textureLoad = new RGBELoader()
 
 textureLoad.setPath('textures/equirectangular/')
 const textureCube = textureLoad.load('mayoris.hdr', function(texture) {
-  textureCube.mapping = THREE.EquirectangularReflectionMapping;
+  textureCube.mapping = THREE.EquirectangularRefractionMapping;
 })
 
 // prefilter the equirectangular environment map for irradiance
@@ -478,7 +446,7 @@ function equirectangularToPMREMCube(textureCube, renderer) {
 }
 
 scene.environment = textureCube;
-scene.fog = new THREE.FogExp2(0x556B2F, 0.2);
+// scene.fog = new THREE.FogExp2(0x556B2F, 0.9);
 // scene.background = new THREE.Color( 0x9400D3 );
 
 ////////////////////////////////////////////////////////////////////
@@ -534,36 +502,36 @@ startVideoBtn.addEventListener('click', function() { spin.play(); });
 
 // webmEye.format = THREE.RGBAFormat
 
-// const paramEye = {
-//   side: THREE.DoubleSide,
-//   emissive: 0xEE82EE,
-//   emissiveIntensity: .5,
-//   transparent: true,
-//   opacity: 0.98,
-//   precision: "highp",
-//   map: webmEye,
-//   fog: true,
-//   envMap: textureCube,
-//   // blending: THREE.SubtractiveBlending,
-//   // blending: THREE.MultiplyBlending,
+const paramEye = {
+  side: THREE.BackSide,
+  emissive: 0xEE82EE,
+  emissiveIntensity: .5,
+  transparent: true,
+  opacity: 0.98,
+  precision: "highp",
+  // map: webmEye,
+  // fog: true,
+  envMap: textureCube,
+  // blending: THREE.SubtractiveBlending,
+  // blending: THREE.MultiplyBlending,
 
-// };
+};
 
-// const materialEye = new THREE.MeshLambertMaterial(paramEye);
-// materialEye.emissive.convertSRGBToLinear()
+const materialEye = new THREE.MeshLambertMaterial(paramEye);
+materialEye.emissive.convertSRGBToLinear()
 
 
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> SPACE_SHIP: ORBITEYE
 //*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
 
-// const radius = 0.7
-// const segments = 104
-// const rings = 104
+const radius = 0.7
+const segments = 104
+const rings = 104
 
-// const geometry = new THREE.SphereGeometry(radius, segments, rings)
-// const orbitEye = new THREE.Mesh(geometry, materialEye);
-// scene.add(orbitEye);
+const geometry = new THREE.SphereGeometry(radius, segments, rings)
+const orbitEye = new THREE.Mesh(geometry, materialEye);
+scene.add(orbitEye);
 
 /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
 //> CURIOUS_KID
@@ -579,16 +547,16 @@ fbxLoader.load(
     action.play();
 
     kidMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xDA70D6, //0xFAFAD2,lightgoldenrodyellow 0xC71585, mediumVioletRed
-      transmission: 0.3,
+      color:0xFAFAD2, //0xFAFAD2,lightgoldenrodyellow 0xC71585, mediumVioletRed
+      transmission: 1,
       opacity: 1.0,
       metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
-      metalness: 0.8,
+      metalness: 0.6,
       roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
-      roughness: 0.1,
+      roughness: 0.5,
       ior: 1.5,
-      thickness: 4,
-      specularIntensity: 10,
+      thickness: 12,
+      specularIntensity: 8,
       specularColor: 0xB0C4DE,
       envMap: textureCube,
       envMapIntensity: 1.5,
@@ -608,8 +576,12 @@ fbxLoader.load(
 
     object.scale.set(.0014, .0014, .0014)
     // object.position.set(-0.07, 0.11, -0.11)
-    object.position.set(-0.07, 0, -0.11)
-    object.rotation.set(0, 45, 0)
+    object.position.set(-0.07, 0, 0)
+    object.rotation.set(0, 0, 0)
+    object.addEventListener("click", (event) => {
+      event.target.material.color.set(0xff0000);
+      document.body.style.cursor = "pointer";
+    });
   });
 
 
@@ -677,7 +649,10 @@ water.rotation.x = Math.PI * -0.5
 
 scene.add(water)
 
-
+water.addEventListener("click", (event) => {
+  event.target.material.color.set(0xff0000);
+      document.body.style.cursor = "pointer";
+    })
 ////////////////////////////////////////////////////////////////////
 // Renderer
 ///////////////
@@ -762,9 +737,11 @@ const tick = () => {
   if (kidMixer) { kidMixer.update(deltaTime) };
 
   // Render
+  interactionManager.update();
   composer.render(scene, camera);
 
   // Update PARAMS
+
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
