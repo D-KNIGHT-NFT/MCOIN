@@ -1,6 +1,7 @@
 console.clear();
 
 import './css/style.css'
+import { normalizeWheel } from './js/normalize-wheel/normalizeWheel.js'
 import * as THREE from 'three'
 import { WebGLRenderer } from "three";
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -35,44 +36,99 @@ import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 
 ////////////////////////////////////////////////////////////////////
+// Custom cursor
+///////////////
+
+// const customCursor = document.createElement("div");
+// customCursor.setAttribute(
+//   "style",
+//   "border: 3px solid #000; width: 16px; height: 16px; border-radius: 100%; position: fixed; left: 0; top: 0; transition: 0.01s"
+// );
+
+// const root = document.documentElement;
+// root.style.cursor = "none";
+// root.appendChild(customCursor);
+
+// root.addEventListener("mouseleave", e => {
+//   customCursor.style.opacity = "1";
+// });
+
+// function handlePos(e) {
+//   customCursor.style.transform = `translateY(${e.clientY}px) translateX(${
+//     e.clientX
+//   }px)`;
+//   customCursor.style.opacity = "1";
+// }
+
+// root.addEventListener("mousemove", e => {
+//   handlePos(e);
+// });
+// root.addEventListener("mousover", e => {
+//   handlePos(e);
+// });
+
+// root.addEventListener("mousedown", e => {
+//   customCursor.style.borderColor = "var(--plum6)";
+//   customCursor.style.backgroundColor = "var(--plum7)";
+//   customCursor.style.transform = `translateY(${e.clientY}px) translateX(${
+//     e.clientX
+//   }px) scale(3)`;
+// });
+
+// root.addEventListener("mouseup", e => {
+//   customCursor.style.borderColor = "var(--plum10)";
+//   customCursor.style.backgroundColor = "var(--plum4)";
+//   customCursor.style.zIndex = "1000000";
+//   customCursor.style.transform = `translateY(${e.clientY}px) translateX(${
+//     e.clientX
+//   }px) scale(1)`;
+// });
+
+ 
+////////////////////////////////////////////////////////////////////
 // Normalize-wheel
 ///////////////
 
-// document.addEventListener('mousewheel', function (event) {
-//     const normalized = normalizeWheel(event);
+document.addEventListener('mousewheel', function (event) {
+    const normalized = normalizeWheel(event);
 
-//     console.log(normalized.pixelX, normalized.pixelY);
-// });
+    console.log(normalized.pixelX, normalized.pixelY);
+});
 
-//addEventListener('input', e => {
- // let _t = e.target;
+addEventListener('input', e => {
+ let _t = e.target;
 
-  //t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
-//});
+  t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
+});
+
 
 ////////////////////////////////////////////////////////////////////
 // Audio
 ///////////////
 
-window.onload = () => {
-  const audioTrack = document.getElementById('music2');
-  const play = document.getElementById('play');
-  const pause = document.getElementById('pause');
+// window.onload = () => {
+//   const audioTrack = document.getElementById('music2');
+//   const play = document.getElementById('play');
+//   const pause = document.getElementById('pause');
 
-  play.addEventListener('click', function() {
-    audioTrack.play()
-    play.style.display = "none";
-    pause.style.display = "block";
-  });
+//   play.addEventListener('click', function() {
+//     audioTrack.play()
+//     play.style.display = "none";
+//     pause.style.display = "block";
+//   });
 
-  pause.addEventListener('click', function() {
-    audioTrack.pause();
-    pause.style.display = "none";
-    play.style.display = "block";
-  });
+//   pause.addEventListener('click', function() {
+//     audioTrack.pause();
+//     pause.style.display = "none";
+//     play.style.display = "block";
+//   });
 
-  audioTrack.volume = 0.5;
-}
+//   audioTrack.volume = 0.5;
+// }
+
+////////////////////////////////////////////////////////////////////
+// COLOR CHANGER ON HOVERING / MOUSE ENTER
+///////////////
 
 // const kbllr = document.getElementById('KBLLR')
 // kbllr.onmousemove = (e) => {
@@ -111,7 +167,7 @@ window.onload = () => {
 ///////////////
 
 const modalContainer = document.getElementsByClassName('modal')[0];
-const showBtn = document.getElementById('show-btn');
+const showBtn = document.getElementById('info-btn');
 const modalBtn = modalContainer.querySelector('button');
 
 
@@ -364,7 +420,7 @@ controls.target.set(0, 0, 0);
 ////////////////////////////////////////////////////////////////////
 // RESET CAMERA - Enter / Leave Room
 ///////////////
-const resetBtn = document.getElementById('reset-btn')
+const resetBtn = document.getElementById('enter-circle')
 const exitBtn = document.getElementById('exit-btn')
 
 resetBtn.addEventListener("click", function() {
@@ -428,7 +484,7 @@ const textureLoad = new RGBELoader()
 
 textureLoad.setPath('textures/equirectangular/')
 const textureCube = textureLoad.load('mayoris.hdr', function(texture) {
-  textureCube.mapping = THREE.EquirectangularRefractionMapping;
+  textureCube.mapping = THREE.EquirectangularReflectionMapping;
 })
 
 // prefilter the equirectangular environment map for irradiance
@@ -482,7 +538,7 @@ const gltfLoader = new GLTFLoader()
 // const materialWebm = new THREE.MeshStandardMaterial(paramWebm);
 // materialWebm.emissive.convertSRGBToLinear()
 
-const startVideoBtn = document.getElementById('start-btn');
+const startVideoBtn = document.getElementById('play-bg');
 const spinVideo = document.getElementById('spin')
 startVideoBtn.addEventListener('click', function() { spin.play(); });
 

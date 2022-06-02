@@ -1,11 +1,8 @@
 @import "@radix-ui/colors/gray.css";
-@import "@radix-ui/colors/indigo.css";
+@import "@radix-ui/colors/plum.css";
 @import "@radix-ui/colors/mint.css";
-@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/yellow.css";
 @import "@radix-ui/colors/grayDark.css";
-@import "@radix-ui/colors/blueDark.css";
-@import "@radix-ui/colors/greenDark.css";
-@import "@radix-ui/colors/redDark.css";
 
 :root {
   /* Tweak_Pane_theme_translucent  **********************************/
@@ -183,6 +180,7 @@ h1 {
 
 html {
   min-height: 100%;
+  min-width: 100%;
   margin: 0;
   padding: 0;
   -webkit-text-size-adjust: 100%;
@@ -195,6 +193,7 @@ html {
 body {
   display: flex;
   height: 100vh;
+  width:  100%;
   justify-content: center;
   align-items: center;
   margin: 0px;
@@ -203,6 +202,15 @@ body {
   font-family: "Flowa";
   font-size: 100%;
   line-height: 1.2;
+  cursor:  url('../cursor/c01.svg'), auto;
+}
+
+#logo {
+  position: fixed;
+  z-index: 1000;
+  padding: 16px;
+  top: 0%; left: 0%;
+  width: 24%;
 }
 
 canvas#noiseContainer {
@@ -291,8 +299,8 @@ canvas.webgl {
 
 .menu {
   position: fixed;
-  bottom: 5%; 
-  right: 6%;
+  bottom: 10%; 
+  right: 10%;
   z-index: 100;
 }
 
@@ -360,6 +368,9 @@ canvas.webgl {
   text-align: center;
 }
 
+#enter-circle, #play-bg, #info-btn {
+  cursor: pointer;
+}
 .menu-checkbox:checked + .menu > .menu-dots {
   transform: none;
   box-shadow: 0 0 0 3.4rem var(--grayDark3)
@@ -431,64 +442,10 @@ canvas.webgl {
  width: clamp(900px, 90vw, 1400px);
 }
 
-/* .navTitles {
-  position: fixed;
-  z-index: 400;
-  display: flex;
-  display: none;
-  flex-flow: row nowrap;
-  gap: clamp(600px, 4vw, 900px);
-  justify-content: center;
-  margin-left: 80px;
-  width: clamp(600px, 80vw, 1400px);
-}
-
-.prev,
-.next {
-
-  border-radius: 50%;
-}
-
-.slider {
-  width: 64px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease-out;
-  cursor: pointer;
-  border: 2px solid white;
-  opacity: 1;
-}
-
-.slider:hover {
-  transform: scale(1.5);
-  color: var(--indigo7);
-} */
-
 /* ************************************************* */
 /* ************************************ MUSIC PLAYER   */
 /* ************************************************* */
 
-/* .nav-music {
-  position: absolute;
-  z-index: 400;
-  top: 1%;
-  right: 5%;
-  display: flex;
-}
-
-.uiList {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  justify-items: center;
-  place-self: center;
-}
-
-.uiList__item {
-  place-self: stretch;
-  color: var(--grayDark6);
-} */
 
 /* ************************************************* */
 /* ******************************** OVERLAYERS  */
@@ -507,11 +464,6 @@ canvas.webgl {
   opacity: 1;
 }
 
-/* #eye {
-  mix-blend-mode: color-dodge;
-} */
-
-#videoFrame {}
 
 #tvLines {
   z-index: 0;
