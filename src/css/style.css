@@ -254,8 +254,8 @@ canvas.webgl {
 
 .menu {
   position: fixed;
-  bottom: 10%; 
-  right: 10%;
+  bottom: 15%; 
+  right: 15%;
   z-index: 100;
 }
 
@@ -388,6 +388,10 @@ canvas.webgl {
 /* *********************** UI ARROWS + Project Titles*/
 /* ************************************************* */
 
+.toggleButton {
+  opacity: 0;
+  pointer-events: auto;
+}
 /* ************************************************* */
 /* ************************************ MUSIC PLAYER   */
 /* ************************************************* */

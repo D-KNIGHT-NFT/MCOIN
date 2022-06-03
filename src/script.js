@@ -204,38 +204,37 @@ const renderer = new WebGLRenderer(paramRender);
 const textureLoader = new THREE.TextureLoader()
 
 document.body.appendChild( VRButton.createButton( renderer ) );
-//*//
-// CAMERA
-//*//
+
+////////////////////////////////////////////////////////////////////
+// CAMERA 
+///////////////
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
 camera.position.set(3.5, 0, 3.5);
 
 scene.add(camera)
 
-const interactionManager = new InteractionManager(
-  renderer,
-  camera,
-  renderer.domElement
-);
-
 ////////////////////////////////////////////////////////////////////
 // RESET CAMERA - Enter / Leave Room
 ///////////////
-const resetBtn = document.getElementById('enter-circle')
-const exitBtn = document.getElementById('exit-btn')
+const toggle = document.getElementsByClassName('toggleButton')[0];
+const enterBtn = document.getElementById('enter-circle')
+const exitBtn = toggle.querySelector('svg')
 
-resetBtn.addEventListener("click", function() {
+enterBtn.addEventListener("click", function() {
+  toggle.style.opacity = "1";
   camera.position.set(0.42, 0.02, 0);
   controls.target.set(0, 0.05, 0);
   controls.update();
 });
 
 exitBtn.addEventListener("click", function() {
+  toggle.style.opacity = "0";
   camera.position.set(3.5, 0, 3.5);
   controls.target.set(0, 0, 0);
   controls.update();
 });
+
 
 // const loaderIdea = () => {
 // document.addEventListener("click", function() {
@@ -260,6 +259,16 @@ controls.maxDistance = 3.5;
 controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0, 0);
+
+////////////////////////////////////////////////////////////////////
+// INTERACTIVITY
+///////////////
+
+const interactionManager = new InteractionManager(
+  renderer,
+  camera,
+  renderer.domElement
+);
 
 
 //////////////////////////////////////////////////////////// 
