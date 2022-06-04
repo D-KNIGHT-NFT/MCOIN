@@ -183,7 +183,7 @@ html {
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--grayDark2);
+  background-color: white;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
@@ -224,6 +224,7 @@ canvas.webgl {
   height: 100vh;
 }
 
+
 /* ************************************************ */
 /* ***************************** SVG */
 /* ********************************************** */
@@ -231,17 +232,17 @@ canvas.webgl {
 #logo {
   position: fixed;
   z-index: 1000;
-  padding: 16px;
+  padding: 20px;
   top: 0%; left: 0%;
   width: 24%;
 }
 
 /* http://jsfiddle.net/fezDu/4/ */
-#RT-01 {
+#RT-01  {
   position: fixed;
   z-index: 1;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 80%;
+  max-height: 80%;
   padding: 0;
   pointer-events: none;
 }
@@ -255,35 +256,28 @@ canvas.webgl {
 
 .menu {
   position: fixed;
-  bottom: 15%; 
-  right: 15%;
+  bottom: 20%; 
+  right: 20%;
   z-index: 100;
 }
-
 .menu-dots {
- 
   border-radius: 100%;
-  box-shadow: 0 0 0 0.1rem var(--mint4);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform: rotate(90deg);
+  transform: scale(1.1);
   transition: 0.3s;
   cursor: pointer;
 }
-
 .menu-dots:hover {
-  box-shadow: 0 0 0 0.5rem var(--mint3), 0 0 0 2rem var(--mint1);
-  transform: scale(1.2) rotate(90deg);
+  box-shadow: 0 0 0 0.5rem var(--mint3), 0 0 0 0.5rem var(--mint1);
+  transform: scale(1);
 }
-
 .menu-dot {
   width: 100%;
   height: 100%;
-
 }
-
 .menu-items {
   position: absolute;
   top: -7rem;
@@ -293,7 +287,7 @@ canvas.webgl {
   color: var(--mint2);
   pointer-events: none;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   opacity: 0;
   transition: 0.3s;
 }
@@ -302,6 +296,7 @@ canvas.webgl {
   transform: scale(0.2);
   filter: blur(12px);
   transition: 0.3s;
+  color: var(--mint2);
 }
 
 .menu-item:nth-child(odd) {
@@ -314,7 +309,7 @@ canvas.webgl {
 
 .menu-item:first-child,
 .menu-item:last-child {
-  grid-column: span 2;
+  grid-column: span 1;
   text-align: center;
   place-self: center;
 }
@@ -412,9 +407,10 @@ canvas.webgl {
 
 
 #tvLines {
-  z-index: -1;
+
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAABBJREFUCJljYGBg8GViQAEABQIAUMdse+oAAAAASUVORK5CYII=");
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
+  background-color: var(--grayDark6);
 }
 
 .videoBg {
@@ -450,7 +446,7 @@ canvas.webgl {
 
 .modal {
   position: fixed;
-  z-index: 7;
+  z-index: 2;
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -458,7 +454,6 @@ canvas.webgl {
   transition: all 1s ease;
   display: grid;
   place-items: center;
-  background: var(--blck08);
   text-align: left;
   pointer-events: none;
 }
@@ -468,22 +463,23 @@ canvas.webgl {
   pointer-events: auto;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  background-color: var(--grayDark7);
 }
 
 #cross {
   position: fixed;
   right: 5%;
   top: 5%;
-  padding: var(--paddingXL);
-  background: var(--blck04);
+  padding: 2%;
+  background: var(--grayDark10);
 }
 
 #cross:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   cursor: pointer;
   transition: transform 150ms linear;
   box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
-  background: var(--mint03);
+  background: var(--mint3);
 }
 
 #info {

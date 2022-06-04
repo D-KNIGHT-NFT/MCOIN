@@ -5,12 +5,13 @@ import { normalizeWheel } from './js/normalize-wheel/normalizeWheel.js'
 import { SVG, extend as SVGextend, Element as SVGElement } from '@svgdotjs/svg.js'
 import * as THREE from 'three'
 import { WebGLRenderer } from "three";
+import { Canvas } from 'glsl-canvas-js';
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
 import SimplexNoise from 'simplex-noise';
 import { InteractionManager } from "three.interactive";
-import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
+// import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import { Pane } from 'tweakpane';
 // import * as TweakpaneImagePlugin from 'tweakpane/dist/tweakpane-image-plugin.min.js';
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
@@ -35,6 +36,12 @@ import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflar
 import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
+
+
+////////////////////////////////////////////////////////////////////
+// VR
+///////////////
+// document.body.appendChild( VRButton.createButton( renderer ) );
 
 ////////////////////////////////////////////////////////////////////
 // Custom cursor
@@ -108,7 +115,7 @@ addEventListener('input', e => {
 ///////////////
 
 // window.onload = () => {
-//   const audioTrack = document.getElementById('music2');
+//   const audioTrack = document.getElementById('music');
 //   const play = document.getElementById('play');
 //   const pause = document.getElementById('pause');
 
@@ -182,9 +189,9 @@ modalBtn.addEventListener('click', toggleModal);
 /////////////////////////////////////////////////////////////////////////////
 // VIDEO TEXTURE TV - VIDEO TEXTURE TV - VIDEO TEXTURE TV  - VIDEO TEXTURE TV 
 ////////////////////////////////////////////////////////////////////////////
-const startVideoBtn = document.getElementById('play-bg');
-const spinVideo = document.getElementById('spin')
-startVideoBtn.addEventListener('click', function() { spin.play(); });
+// const startVideoBtn = document.getElementById('play-bg');
+// const spinVideo = document.getElementById('spin')
+// startVideoBtn.addEventListener('click', function() { spin.play(); });
 
 ////////////////////////////////////////////////////////////////////
 // WEBGL-THREEJS -->CANVAS -->EXPERIENCE
@@ -202,8 +209,6 @@ const paramRender = {
 
 const renderer = new WebGLRenderer(paramRender);
 const textureLoader = new THREE.TextureLoader()
-
-document.body.appendChild( VRButton.createButton( renderer ) );
 
 ////////////////////////////////////////////////////////////////////
 // CAMERA 
@@ -365,7 +370,7 @@ uniform float time;
 float getWaveGlow(vec2 pos, float radius, float intensity, float speed, float amplitude, float frequency, float shift){
   
   float dist = abs(pos.y + amplitude * sin(shift + speed * time + pos.x * frequency));
-  dist = 1.0/dist;
+  dist = 0.02/dist;
   dist *= radius;
   dist = pow(dist, intensity);
   return dist;
@@ -379,16 +384,16 @@ void main(){
   vec2 pos = centre - uv;
   pos.y /= widthHeightRatio;
     
-  float intensity = 1.5;
-  float radius = 0.22;
+  float intensity = 0.5;
+  float radius = 0.1;
     
-  vec3 col = vec3(0.0);
+  vec3 col = vec3(0.1);
   float dist = 0.0;
 
   //Use time varying colours from the basic template
   //Add it to vec3(0.1) to always have a bright core
-  dist = getWaveGlow(pos, radius,intensity, 2.0, 0.018, 3.7, 0.0);
-  col += dist * (vec3(0.1) + 0.5 + 0.5*cos(3.14+time+vec3(0,2,4)));
+  dist = getWaveGlow(pos, radius,intensity, 9.0, 0.018, 3.7, 0.0);
+  col += dist * (vec3(0.1) + 0.1 + 0.5*cos(3.14+time+vec3(0,2,4)));
 
   dist = getWaveGlow(pos, radius, intensity, 4.0, 0.018, 6.0, 2.0);
   col += dist * (vec3(0.1) + 0.5 + 0.5*cos(1.57+time+vec3(0,2,4)));
@@ -704,8 +709,6 @@ water.rotation.x = Math.PI * -0.5
 
 scene.add(water)
 
-
-
 ////////////////////////////////////////////////////////////////////
 // Renderer
 ///////////////
@@ -733,10 +736,7 @@ composer.addPass(new EffectPass(camera, new BloomEffect()));
 // SVG ANIMATIONS
 ///////////////////////////////////////////////////////////////////
 
-var rtAnja = SVG('#RT-01')
-// var icon = SVG('#icon')
 
-// rtAnja.a
 
 ////////////////////////////////////////////////////////////////////
 // CLOCK - UPDATE 
