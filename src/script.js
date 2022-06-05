@@ -312,6 +312,7 @@ const interactionManager = new InteractionManager(
 const textureLoad = new RGBELoader()
 
 textureLoad.setPath('textures/equirectangular/')
+
 const textureCube = textureLoad.load('era-7.hdr', function(texture) {
   textureCube.mapping = THREE.EquirectangularReflectionMapping;
 })
@@ -324,11 +325,28 @@ function equirectangularToPMREMCube(textureCube, renderer) {
   const cubeRenderTarget = pmremGenerator.fromEquirectangular(textureCube)
 
   pmremGenerator.dispose() // dispose PMREMGenerator
-  texture.dispose() // dispose original texture
-  texture.image.data = null // remove image reference
+  textureCube.dispose() // dispose original texture
+  textureCube.image.data = null // remove image reference
 
   return cubeRenderTarget.textureCube
 }
+
+const textureBody = textureLoad.load('omega.hdr', function(texture) {
+  textureBody.mapping = THREE.EquirectangularReflectionMapping;
+})
+
+// function equirectangularToPMREMCube2(textureBody, renderer) {
+//   const pmremGenerator = new THREE.PMREMGenerator(renderer)
+//   pmremGenerator.compileEquirectangularShader()
+
+//   const cubeRenderTarget = pmremGenerator.fromEquirectangular(textureBody)
+
+//   pmremGenerator.dispose() // dispose PMREMGenerator
+//   textureBody.dispose() // dispose original texture
+//   textureBody.image.data = null // remove image reference
+
+//   return cubeRenderTarget.textureBody
+// }
 
 ////////////////////////////////////////////////////////////////////
 // Resize Window
