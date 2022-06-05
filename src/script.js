@@ -1,6 +1,11 @@
 console.clear();
 
 import './css/style.css'
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
+import 'tippy.js/dist/backdrop.css';
+import 'tippy.js/animations/shift-away.css';
+import 'tippy.js/themes/translucent.css';
 import { normalizeWheel } from './js/normalize-wheel/normalizeWheel.js'
 import { SVG, extend as SVGextend, Element as SVGElement } from '@svgdotjs/svg.js'
 import * as THREE from 'three'
@@ -10,6 +15,7 @@ import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUti
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
 import SimplexNoise from 'simplex-noise';
+import tippy, { animateFill } from 'tippy.js';
 import { InteractionManager } from "three.interactive";
 // import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import { Pane } from 'tweakpane';
@@ -36,11 +42,7 @@ import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflar
 import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
-import tippy, { animateFill } from 'tippy.js';
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/animations/scale.css';
-import 'tippy.js/dist/backdrop.css';
-import 'tippy.js/animations/shift-away.css';
+
 
 
 ////////////////////////////////////////////////////////////////////
@@ -139,12 +141,18 @@ addEventListener('input', e => {
 //   audioTrack.volume = 0.5;
 // }
 
+////////////////////////////////////////////////////////////////////
+// Tool Tips
+///////////////
+
 tippy('li',{
+  theme: 'translucent',
   duration: 0,
   arrow: true,
   delay: [400, 200],
-  animations: 'fade',
+  animations: 'scale',
   animateFill: true,
+  inertia: true,
   plugins: [animateFill],
 }); 
 ////////////////////////////////////////////////////////////////////
@@ -304,7 +312,7 @@ const interactionManager = new InteractionManager(
 const textureLoad = new RGBELoader()
 
 textureLoad.setPath('textures/equirectangular/')
-const textureCube = textureLoad.load('mayoris.hdr', function(texture) {
+const textureCube = textureLoad.load('era-7.hdr', function(texture) {
   textureCube.mapping = THREE.EquirectangularReflectionMapping;
 })
 

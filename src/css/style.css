@@ -227,23 +227,54 @@ canvas.webgl {
 nav {
   position: fixed;
   z-index:  100;
+  width: 98%;
+  border: var(--mint7) 2px double;
+}
+.menu-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  place-self: center;
+  gap: min(1rem, 2rem);
+  padding-block: min(8px, 16px);
+  padding-inline-end: min(8px, 16px);
+}
+
+nav#socials {
+  top: 1%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  background-clip: content-box;
+}
+
+nav#action-nav {
   bottom: 2%;
-  right: 2%;
-  display: grid;
-  grid-template-rows: 1fr ;
+  gap: 0.4rem;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  background-clip: content-box;
+}
+
+.container-logo {
+  position: fixed;
+  z-index: 1000;
+  top: 0%; left: 0%;
+  width: 32%;
+}
+
+#logo {
+  width: 30%;
+}
+
+.menu-item {
 }
 
 /* ************************************************ */
 /* ***************************** SVG */
 /* ********************************************** */
 
-#logo {
-  position: fixed;
-  z-index: 1000;
-  padding: 20px;
-  top: 0%; left: 0%;
-  width: 24%;
-}
 
 /* http://jsfiddle.net/fezDu/4/ */
 #RT-01{
@@ -261,10 +292,16 @@ nav {
 }
 
 /* ************************************************ */
-/* ***************************** FAB NAV */
+/* ***************************** Tip tool Tippy */
 /* ********************************************** */
 
-
+.tippy-box
+[data-animation='scale']
+[data-state='hidden']
+[data-placement^="left"] {
+  opacity: 0;
+  transform: scale(1.2);
+}
 
  
 /* ************************************************* */
@@ -370,7 +407,7 @@ nav {
   cursor: pointer;
   transition: transform 150ms linear;
   box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
-  background: var(--mint3);
+  background: var(--grayDark11);
 }
 
 #info {
