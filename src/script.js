@@ -236,7 +236,7 @@ const textureLoader = new THREE.TextureLoader()
 ///////////////
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
-camera.position.set(3.5, 0, 3.5);
+camera.position.set(-3, 0, -3);
 
 scene.add(camera)
 
@@ -250,15 +250,15 @@ const exitBtn = toggle.querySelector('svg')
 enterBtn.addEventListener("click", function() {
   toggle.style.opacity = "1";
   enterBtn.style.opacity = "0";
-  camera.position.set(0.42, 0.02, 0);
-  controls.target.set(0, 0.05, 0);
+  camera.position.set(0.4, 0.001, 0.4);
+  controls.target.set(0, 0.01, 0);
   controls.update();
 });
 
 exitBtn.addEventListener("click", function() {
   toggle.style.opacity = "0";
   enterBtn.style.opacity = "1";
-  camera.position.set(3.5, 0, 3.5);
+  camera.position.set(-3, 0, -3);
   controls.target.set(0, 0, 0);
   controls.update();
 });
@@ -278,15 +278,15 @@ exitBtn.addEventListener("click", function() {
 const controls = new OrbitControls(camera, canvas1)
 controls.enable = true
 controls.enableDamping = true
-controls.dampingFactor = 0.05;
+controls.dampingFactor = 0.05
 controls.autoRotate = true
 controls.enableZoom = false
-controls.autoRotateSpeed = 1.5
-controls.minDistance = 0.1;
-controls.maxDistance = 3.5;
-controls.minPolarAngle = 0;
+controls.autoRotateSpeed = 0.5
+controls.minDistance = 0.1
+controls.maxDistance = 3.5
+controls.minPolarAngle = 0
 controls.maxPolarAngle = Math.PI / 2.1
-controls.target.set(0, 0, 0);
+controls.target.set(0, 0, 0)
 
 ////////////////////////////////////////////////////////////////////
 // INTERACTIVITY
@@ -314,7 +314,7 @@ const textureLoad = new RGBELoader()
 textureLoad.setPath('textures/equirectangular/')
 
 const textureCube = textureLoad.load('era-7.hdr', function(texture) {
-  textureCube.mapping = THREE.EquirectangularReflectionMapping;
+  textureCube.mapping = THREE.EquirectangularRefractionMapping;
 })
 
 // prefilter the equirectangular environment map for irradiance
@@ -560,23 +560,18 @@ function draw(){
 
   requestAnimationFrame(draw);
 }
-
 draw();
-
 
 ////////////////////////////////////////////////////////////////////
 // LIGHTS 
 ///////////////
 
 // ROTATING LIGHT POINTS
-
 const light1 = new THREE.PointLight('dodgerblue', 10.0, 100, 0.5);
 const light2 = new THREE.PointLight('aqua', 10.0, 100, 0.5);
 const light3 = new THREE.PointLight('chartreuse', 10.0, 100, 0.5);
 const light4 = new THREE.PointLight('ghostwhite', 10.0, 100, 0.5);
 scene.add(light1, light2, light3, light4);
-
-
 
 ////////////////////////////////////////////////////////////////////
 // MODEL LOADERS
@@ -585,11 +580,9 @@ scene.add(light1, light2, light3, light4);
 const fbxLoader = new FBXLoader()
 const gltfLoader = new GLTFLoader()
 
-
 /////////////////////////////////////////////////////////////////////////////
-// VIDEO TEXTURE 👁- VIDEO TEXTURE 👁 - VIDEO TEXTURE 👁  - VIDEO TEXTURE 👁
+//VIDEO TEXTURE 👁 - VIDEO TEXTURE 👁  - VIDEO TEXTURE 👁
 ////////////////////////////////////////////////////////////////////////////
-
 
 // const videoEye = document.getElementById('eye')
 // const webmEye = new THREE.VideoTexture(videoEye)
@@ -598,43 +591,39 @@ const gltfLoader = new GLTFLoader()
 // webmEye.magFilter = THREE.LinearFilter;
 // webmEye.offsetY = 0.030
 // webmEye.repeat = 0.940
-
 // webmEye.format = THREE.RGBAFormat
 
-const paramEye = {
-  side: THREE.BackSide,
+/////////////////////////////////////////////////////////////////////////////
+// Inner_WORLD 🌎 Inner_WORLD 🌎 Inner_WORLD 🌎  Inner_WORLD 🌎  
+////////////////////////////////////////////////////////////////////////////
+
+const params_Sphere = {
+  side: THREE.DoubleSide,
   emissive: 0xEE82EE,
-  emissiveIntensity: .5,
+  emissiveIntensity: .9,
   transparent: true,
-  opacity: 0.98,
+  opacity: 0.5,
   precision: "highp",
   // map: webmEye,
   // fog: true,
   envMap: textureCube,
   // blending: THREE.SubtractiveBlending,
   // blending: THREE.MultiplyBlending,
+}
 
-};
-
-const materialEye = new THREE.MeshLambertMaterial(paramEye);
-materialEye.emissive.convertSRGBToLinear()
-
-
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> SPACE_SHIP: ORBITEYE
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
+const material_Sphere = new THREE.MeshLambertMaterial(params_Sphere);
+material_Sphere.emissive.convertSRGBToLinear()
 
 const radius = 0.7
 const segments = 104
 const rings = 104
-
 const geometry = new THREE.SphereGeometry(radius, segments, rings)
-const orbitEye = new THREE.Mesh(geometry, materialEye);
-scene.add(orbitEye);
+const inner_World = new THREE.Mesh(geometry, material_Sphere);
+scene.add(inner_World)
 
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> CURIOUS_KID
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
+/////////////////////////////////////////////////////////////////////////////
+// Inner_KID 👦🏽 * Inner_KID 👦🏽 * Inner_KID 👦🏽 * Inner_KID 👦🏽   
+////////////////////////////////////////////////////////////////////////////
 
 let kidMixer;
 let kid2Mixer;
@@ -676,7 +665,7 @@ fbxLoader.load(
 
     object.scale.set(.0014, .0014, .0014)
     // object.position.set(-0.07, 0.11, -0.11)
-    object.position.set(-0.07, 0, 0)
+    object.position.set(0, 0, 0)
     object.rotation.set(0, 0, 0)
     object.addEventListener("click", (event) => {
       event.target.material.color.set(0xff0000);
@@ -685,9 +674,9 @@ fbxLoader.load(
   });
 
 
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> CREATIVE_FLOW
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
+/////////////////////////////////////////////////////////////////////////////
+// Creative_motor 🧿 * Creative_motor 🧿 * Creative_motor 🧿 * Creative_motor    
+////////////////////////////////////////////////////////////////////////////
 
 let creativeFlow;
 let cFlowMixer = null
@@ -695,7 +684,7 @@ let cFlowMixer = null
 gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   creativeFlow = gltf.scene
   creativeFlow.scale.set(0.002, 0.002, 0.002)
-  creativeFlow.position.set(0, 0.08, 0)
+  creativeFlow.position.set(0, 0.11, 0.01)
   creativeFlow.rotation.set(0, 0, 0)
   scene.add(creativeFlow)
 
@@ -777,8 +766,6 @@ composer.addPass(new EffectPass(camera, new BloomEffect()));
 // SVG ANIMATIONS
 ///////////////////////////////////////////////////////////////////
 
-
-
 ////////////////////////////////////////////////////////////////////
 // CLOCK - UPDATE 
 ///////////////
@@ -799,8 +786,8 @@ const tick = () => {
 
   // LIGHT ANIMATIONS
 
-  light1.position.x = Math.sin(elapsedTime * 0.7) * 30
-  light1.position.y = Math.cos(elapsedTime * 0.9) * 40;
+  light1.position.x = Math.sin(elapsedTime * 0.1) * 30
+  light1.position.y = Math.cos(elapsedTime * 0.1) * 40;
   light1.position.z = Math.cos(elapsedTime * 0.3) * 30;
 
   light2.position.x = Math.cos(elapsedTime * 0.9) * 30;
@@ -809,11 +796,11 @@ const tick = () => {
 
   light3.position.x = Math.sin(elapsedTime * 0.7) * 30;
   light3.position.y = Math.cos(elapsedTime * 0.3) * 40;
-  light3.position.z = Math.sin(elapsedTime * 0.9) * 30;
+  light3.position.z = Math.sin(elapsedTime * 0.5) * 30;
 
   light4.position.x = Math.sin(elapsedTime * 0.3) * 30;
   light4.position.y = Math.cos(elapsedTime * 0.7) * 40;
-  light4.position.z = Math.sin(elapsedTime * 0.9) * 30;
+  light4.position.z = Math.sin(elapsedTime * 0.5) * 30;
 
 
   // Update Animation Mixers
