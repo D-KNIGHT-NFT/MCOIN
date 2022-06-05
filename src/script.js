@@ -36,6 +36,11 @@ import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflar
 import { Water } from 'three/examples/jsm/objects/Water2.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
+import tippy, { animateFill } from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
+import 'tippy.js/dist/backdrop.css';
+import 'tippy.js/animations/shift-away.css';
 
 
 ////////////////////////////////////////////////////////////////////
@@ -134,6 +139,14 @@ addEventListener('input', e => {
 //   audioTrack.volume = 0.5;
 // }
 
+tippy('li',{
+  duration: 0,
+  arrow: true,
+  delay: [400, 200],
+  animations: 'fade',
+  animateFill: true,
+  plugins: [animateFill],
+}); 
 ////////////////////////////////////////////////////////////////////
 // COLOR CHANGER ON HOVERING / MOUSE ENTER
 ///////////////
@@ -228,6 +241,7 @@ const exitBtn = toggle.querySelector('svg')
 
 enterBtn.addEventListener("click", function() {
   toggle.style.opacity = "1";
+  enterBtn.style.opacity = "0";
   camera.position.set(0.42, 0.02, 0);
   controls.target.set(0, 0.05, 0);
   controls.update();
@@ -235,6 +249,7 @@ enterBtn.addEventListener("click", function() {
 
 exitBtn.addEventListener("click", function() {
   toggle.style.opacity = "0";
+  enterBtn.style.opacity = "1";
   camera.position.set(3.5, 0, 3.5);
   controls.target.set(0, 0, 0);
   controls.update();
