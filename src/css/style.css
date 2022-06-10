@@ -6,7 +6,6 @@
 
 :root {
   /* Tweak_Pane_theme_translucent  **********************************/
-
   --tp-base-background-color: hsla(0, 0%, 10%, 0.8);
   --tp-base-shadow-color: hsla(0, 0%, 0%, 0.2);
   --tp-button-background-color: hsla(0, 0%, 80%, 1);
@@ -28,6 +27,9 @@
   --tp-label-foreground-color: hsla(0, 0%, 100%, 0.5);
   --tp-monitor-background-color: hsla(0, 0%, 0%, 0.3);
   --tp-monitor-foreground-color: hsla(0, 0%, 100%, 0.3);
+
+  /* ANIMATIONS  **********************************/
+  --easeOutExpo: cubic-bezier(0.19, 1, 0.22, 1);
 
 }
 
@@ -200,7 +202,7 @@ body {
   margin: 0px;
   overflow: hidden;
   padding: 0px;
-  font-family: "Flowa";
+  font-family: "Pirulen";
   font-size: 100%;
   line-height: 1.2;
   cursor:  url('../cursor/c04.svg'), auto;
@@ -228,8 +230,144 @@ nav {
   position: fixed;
   z-index:  100;
   width: 98%;
-  border: var(--mint7) 2px double;
+ /*  border: var(--mint7) 2px double; */
 }
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vw 2.5vw;
+  /* pointer-events: none; */
+  z-index: 1000;
+
+  > div {
+    display: flex;
+  }
+
+  a {
+    position: relative;
+    color: var(--yellow6);
+    text-decoration: none;
+    font-size: 1rem;
+    pointer-events: all;
+    overflow: hidden;
+
+    div,
+    &::after {
+      transition: transform 0.85s var(--easeOutExpo);
+    }
+
+    &::after {
+      content: attr(data-txt);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--yellow9);
+    }
+
+    &:nth-child(2) {
+      margin-left: 2vw;
+    }
+
+    &:hover {
+      div,
+      &::after {
+        transform: translateY(-100%);
+      }
+    }
+  }
+}
+
+.footer {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   padding: 2vw 2.5vw;
+   /* pointer-events: none; */
+   z-index: 1000;
+}
+ .footer > div {
+   display: flex;
+}
+ .footer a {
+   position: relative;
+   color: #fff;
+   text-decoration: none;
+   font-size: 1rem;
+   pointer-events: all;
+   overflow: hidden;
+}
+ .footer a div, .footer a::after {
+   transition: transform 0.85s var(--easeOutExpo);
+}
+ .footer a::after {
+   content: attr(data-txt);
+   position: absolute;
+   top: 100%;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   color: var(--grayDark11);
+}
+ .footer a:nth-child(2) {
+   margin-left: 2vw;
+}
+ .footer a:hover div, .footer a:hover::after {
+   transform: translateY(-100%);
+}
+ 
+
+.scene {
+  width: 210px;
+  height: 140px;
+  position: relative;
+  perspective: 1000px;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.carousel__cell {
+  position: absolute;
+  width: 190px;
+  height: 120px;
+  left: 10px;
+  top: 10px;
+}
+
+.carousel__cell:nth-child(1) { transform: rotateY(  0deg); }
+.carousel__cell:nth-child(2) { transform: rotateY( 40deg); }
+.carousel__cell:nth-child(3) { transform: rotateY( 80deg); }
+.carousel__cell:nth-child(4) { transform: rotateY(120deg); }
+.carousel__cell:nth-child(5) { transform: rotateY(160deg); }
+.carousel__cell:nth-child(6) { transform: rotateY(200deg); }
+.carousel__cell:nth-child(7) { transform: rotateY(240deg); }
+.carousel__cell:nth-child(8) { transform: rotateY(280deg); }
+.carousel__cell:nth-child(9) { transform: rotateY(320deg); }
+
+.carousel__cell:nth-child(1) { transform: rotateY(  0deg) translateZ(288px); }
+.carousel__cell:nth-child(2) { transform: rotateY( 40deg) translateZ(288px); }
+.carousel__cell:nth-child(3) { transform: rotateY( 80deg) translateZ(288px); }
+.carousel__cell:nth-child(4) { transform: rotateY(120deg) translateZ(288px); }
+.carousel__cell:nth-child(5) { transform: rotateY(160deg) translateZ(288px); }
+.carousel__cell:nth-child(6) { transform: rotateY(200deg) translateZ(288px); }
+.carousel__cell:nth-child(7) { transform: rotateY(240deg) translateZ(288px); }
+.carousel__cell:nth-child(8) { transform: rotateY(280deg) translateZ(288px); }
+.carousel__cell:nth-child(9) { transform: rotateY(320deg) translateZ(288px); }
 .menu-items {
   display: flex;
   flex-direction: row;
@@ -248,7 +386,6 @@ nav#social-nav {
 }
 
 nav#action-nav {
-  bottom: 2%;
   gap: 0.4rem;
   border-bottom-right-radius: 50%;
   border-bottom-left-radius: 50%;
@@ -256,18 +393,86 @@ nav#action-nav {
 }
 
 #logo {
-  position: fixed;
+ /*  position: fixed;
   z-index: 1000;
-  top: 2%; left: 2%;
-  width: 16%;
+  top: 2%; left: 2%; */
+  width: 12%;
   padding: min(8px, 16px);
   margin: min(8px, 16px);
-  border: var(--mint7) 2px double;
+  border: var(--mint8) 2px double;
 }
 
-.menu-item {
+.menu-open {
+  position: fixed;
+  z-index: 1000;
+  top: 3%; right: 0%;
 }
 
+.menu-toggle {
+  --bar-color-open: rgba(255, 255, 255, 0.9);
+  --bar-color-close: #2b2b2b;
+  --bg-color-open: transparent;
+  --bg-color-close: $black;
+  
+  --size: 1.5rem;
+  --padding: 0.2rem;
+  --total-size: calc(var(--size) + 2 * var(--padding));
+  
+  --bar-height: 0.2rem;
+  --top: var(--padding);
+  --center: calc(0.5 * var(--size) - 0.5 * var(--bar-height));
+  --bottom: calc(var(--size) - var(--padding) - var(--bar-height));
+  
+  --transition: 500ms ease-in-out;
+  
+  position: relative;
+  
+  display: inline-block;
+  width: var(--total-size);
+  height: var(--total-size);
+  
+  background-color: var(--bg-color-open);
+  
+  transition: background-color var(--transition);
+}
+
+.menu-toggle > .bar {
+  position: absolute;
+  top: var(--padding);
+  left: var(--padding);
+  width: var(--size);
+  height: var(--bar-height);
+  
+  background-color: var(--bar-color-open);
+  
+  transition: background-color var(--transition), 
+    transform var(--transition);
+}
+.menu-toggle > .bar:nth-child(1) {
+  transform: translateY(var(--top));
+}
+.menu-toggle > .bar:nth-child(2) {
+  transform-origin: 0% 50%;
+  transform: scaleX(1) translateY(var(--center));
+}
+.menu-toggle > .bar:nth-child(3) {
+  transform: translateY(var(--bottom));
+}
+.menu-toggle.close {
+  background-color: var(--bg-color-close);
+}
+.menu-toggle.close > .bar {
+  background-color: var(--bar-color-close);
+}
+.menu-toggle.close > .bar:nth-child(1) {
+  transform: translateY(var(--center)) rotate(135deg) rotateY(180deg);
+}
+.menu-toggle.close > .bar:nth-child(2) {
+  transform: scaleX(0) translateY(var(--center));
+}
+.menu-toggle.close > .bar:nth-child(3) {
+  transform: translateY(var(--center)) rotate(-135deg) rotateY(180deg);
+}
 /* ************************************************ */
 /* ***************************** SVG */
 /* ********************************************** */

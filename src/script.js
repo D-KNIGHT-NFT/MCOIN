@@ -116,6 +116,13 @@ addEventListener('input', e => {
   _t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
 });
 
+////////////////////////////////////////////////////////////////////
+// TOGGLE
+///////////////
+const toggleMenu = document.querySelector(".menu-toggle");
+toggleMenu.addEventListener('click', (e) => {
+  e.currentTarget.classList.toggle('close');
+});
 
 ////////////////////////////////////////////////////////////////////
 // Audio
@@ -602,7 +609,7 @@ const params_Sphere = {
   emissive: 0xEE82EE,
   emissiveIntensity: .9,
   transparent: true,
-  opacity: 0.5,
+  opacity: 0.8,
   precision: "highp",
   // map: webmEye,
   // fog: true,
