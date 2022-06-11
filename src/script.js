@@ -54,50 +54,52 @@ import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 // Custom cursor
 ///////////////
 
-// const customCursor = document.createElement("div");
-// customCursor.setAttribute(
-//   "style",
-//   "border: 3px solid #000; width: 16px; height: 16px; border-radius: 100%; position: fixed; left: 0; top: 0; transition: 0.01s"
-// );
+const customCursor = document.createElement("div");
+customCursor.setAttribute(
+  "style",
+  "border: 1px solid #fff; width: 16px; height: 16px; border-radius: 100%; position: fixed; left: 0; top: 0; transition: 0.01s"
+);
 
-// const root = document.documentElement;
-// root.style.cursor = "none";
-// root.appendChild(customCursor);
+const root = document.documentElement;
+root.style.cursor = "none";
+root.appendChild(customCursor);
 
-// root.addEventListener("mouseleave", e => {
-//   customCursor.style.opacity = "1";
-// });
+root.addEventListener("mouseleave", e => {
+  customCursor.style.opacity = "1";
+});
 
-// function handlePos(e) {
-//   customCursor.style.transform = `translateY(${e.clientY}px) translateX(${
-//     e.clientX
-//   }px)`;
-//   customCursor.style.opacity = "1";
-// }
+function handlePos(e) {
+  customCursor.style.transform = `translateY(${e.clientY}px) translateX(${
+    e.clientX
+  }px)`;
+  customCursor.style.opacity = "1";
+}
 
-// root.addEventListener("mousemove", e => {
-//   handlePos(e);
-// });
-// root.addEventListener("mousover", e => {
-//   handlePos(e);
-// });
+root.addEventListener("mousemove", e => {
+  handlePos(e);
+});
+root.addEventListener("mousover", e => {
+  handlePos(e);
+});
 
-// root.addEventListener("mousedown", e => {
-//   customCursor.style.borderColor = "var(--plum6)";
-//   customCursor.style.backgroundColor = "var(--plum7)";
-//   customCursor.style.transform = `translateY(${e.clientY}px) translateX(${
-//     e.clientX
-//   }px) scale(3)`;
-// });
+root.addEventListener("mousedown", e => {
+  customCursor.style.borderColor = "var(--plum6)";
+  customCursor.style.backgroundColor = "transparent";
+  customCursor.style.transform = `
+  translateY(${e.clientY}px) 
+  translateX(${e.clientX}px) 
+  scale(3)
+  `;
+});
 
-// root.addEventListener("mouseup", e => {
-//   customCursor.style.borderColor = "var(--plum10)";
-//   customCursor.style.backgroundColor = "var(--plum4)";
-//   customCursor.style.zIndex = "1000000";
-//   customCursor.style.transform = `translateY(${e.clientY}px) translateX(${
-//     e.clientX
-//   }px) scale(1)`;
-// });
+root.addEventListener("mouseup", e => {
+  customCursor.style.borderColor = "var(--mint8)";
+  customCursor.style.backgroundColor = "transparent";
+  customCursor.style.zIndex = "1000000";
+  customCursor.style.transform = `translateY(${e.clientY}px) translateX(${
+    e.clientX
+  }px) scale(1)`;
+});
 
  
 ////////////////////////////////////////////////////////////////////
