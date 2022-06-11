@@ -155,15 +155,16 @@ toggleMenu.addEventListener('click', (e) => {
 ///////////////
 
 tippy('li',{
+  animation: 'scale',
   theme: 'translucent',
   duration: 0,
   arrow: true,
   delay: [400, 200],
-  animations: 'scale',
   animateFill: true,
   inertia: true,
   plugins: [animateFill],
 }); 
+
 ////////////////////////////////////////////////////////////////////
 // COLOR CHANGER ON HOVERING / MOUSE ENTER
 ///////////////
@@ -207,7 +208,6 @@ tippy('li',{
 const modalContainer = document.getElementsByClassName('modal')[0];
 const showBtn = document.getElementById('info-btn');
 const modalBtn = modalContainer.querySelector('button');
-
 
 const toggleModal = () => {
   modalContainer.classList.toggle('visible');
@@ -272,7 +272,6 @@ exitBtn.addEventListener("click", function() {
   controls.update();
 });
 
-
 // const loaderIdea = () => {
 // document.addEventListener("click", function() {
 //   camera.position.set(0, 0, 0);
@@ -301,11 +300,11 @@ controls.target.set(0, 0, 0)
 // INTERACTIVITY
 ///////////////
 
-const interactionManager = new InteractionManager(
-  renderer,
-  camera,
-  renderer.domElement
-);
+// const interactionManager = new InteractionManager(
+//   renderer,
+//   camera,
+//   renderer.domElement
+// );
 
 
 //////////////////////////////////////////////////////////// 
@@ -339,23 +338,6 @@ function equirectangularToPMREMCube(textureCube, renderer) {
 
   return cubeRenderTarget.textureCube
 }
-
-const textureBody = textureLoad.load('omega.hdr', function(texture) {
-  textureBody.mapping = THREE.EquirectangularReflectionMapping;
-})
-
-// function equirectangularToPMREMCube2(textureBody, renderer) {
-//   const pmremGenerator = new THREE.PMREMGenerator(renderer)
-//   pmremGenerator.compileEquirectangularShader()
-
-//   const cubeRenderTarget = pmremGenerator.fromEquirectangular(textureBody)
-
-//   pmremGenerator.dispose() // dispose PMREMGenerator
-//   textureBody.dispose() // dispose original texture
-//   textureBody.image.data = null // remove image reference
-
-//   return cubeRenderTarget.textureBody
-// }
 
 ////////////////////////////////////////////////////////////////////
 // Resize Window
@@ -396,7 +378,7 @@ if(!gl){
 }
 
 //Time
-var time = 0.8;
+var time = 8.8;
 
 //************** Shader sources **************
 
@@ -576,18 +558,46 @@ draw();
 ///////////////
 
 // ROTATING LIGHT POINTS
-const light1 = new THREE.PointLight('dodgerblue', 10.0, 100, 0.5);
-const light2 = new THREE.PointLight('aqua', 10.0, 100, 0.5);
-const light3 = new THREE.PointLight('chartreuse', 10.0, 100, 0.5);
-const light4 = new THREE.PointLight('ghostwhite', 10.0, 100, 0.5);
+const light1 = new THREE.PointLight('dodgerblue', 20.0, 100, 0.5);
+const light2 = new THREE.PointLight('aqua', 20.0, 100, 0.5);
+const light3 = new THREE.PointLight('chartreuse', 20.0, 100, 0.5);
+const light4 = new THREE.PointLight('ghostwhite', 20.0, 100, 0.5);
 scene.add(light1, light2, light3, light4);
 
 ////////////////////////////////////////////////////////////////////
-// MODEL LOADERS
-///////////////
+// 3D OBJECTS LOADERS
+///////////////////////////////////////////////////////////////////
 
 const fbxLoader = new FBXLoader()
 const gltfLoader = new GLTFLoader()
+
+////////////////////////////////////////////////////////////////////
+// MATERIALS > ALPHA
+///////////////////////////////////////////////////////////////////
+
+
+let alphaMat= new THREE.MeshStandardMaterial({ 
+  alphaMap: textureLoader.load('./textures/alpha.png'),
+  color: "#000", 
+  transparent: true, 
+  side: THREE.DoubleSide, 
+  alphaTest: 0.5 
+});
+
+alphaMat.alphaMap.magFilter = THREE.NearestFilter;
+alphaMat.alphaMap.wrapT = THREE.RepeatWrapping;
+alphaMat.alphaMap.wrapS = THREE.RepeatWrapping;
+alphaMat.alphaMap.repeat.y = 1;
+alphaMat.alphaMap.repeat.x = 1;
+
+let radiusAM = 0.8
+let segmentsAM = 104
+let ringsAM = 104
+
+const alphaGeo = new THREE.SphereGeometry(radiusAM, segmentsAM, ringsAM)
+const outer_Mesh = new THREE.Mesh(alphaGeo, alphaMat);
+scene.add(outer_Mesh)
+
 
 /////////////////////////////////////////////////////////////////////////////
 //VIDEO TEXTURE 👁 - VIDEO TEXTURE 👁  - VIDEO TEXTURE 👁
@@ -616,8 +626,6 @@ const params_Sphere = {
   // map: webmEye,
   // fog: true,
   envMap: textureCube,
-  // blending: THREE.SubtractiveBlending,
-  // blending: THREE.MultiplyBlending,
 }
 
 const material_Sphere = new THREE.MeshLambertMaterial(params_Sphere);
@@ -791,7 +799,9 @@ const tick = () => {
 
   controls.update()
 
-  // Update Panes
+  // Update Outer Sphere
+
+  outer_Mesh.rotation.y = elapsedTime*0.015;
 
   // LIGHT ANIMATIONS
 
@@ -820,7 +830,8 @@ const tick = () => {
   if (kid2Mixer) { kid2Mixer.update(deltaTime) };
 
   // Render
-  interactionManager.update();
+
+  // interactionManager.update();
   composer.render(scene, camera);
 
   // Update PARAMS

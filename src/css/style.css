@@ -418,6 +418,7 @@ nav {
 .menu-toggle.close > .bar:nth-child(3) {
   transform: translateY(var(--center)) rotate(-135deg) rotateY(180deg);
 }
+
 /* ************************************************ */
 /* ***************************** SVG */
 /* ********************************************** */
@@ -433,8 +434,9 @@ nav {
 }
 #RT-02 {
   z-index: 1100;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  place-self: stretch;
   transform: rotate(90deg);
   pointer-events: none;
 }
