@@ -260,7 +260,7 @@ const exitBtn = toggle.querySelector('svg')
 enterBtn.addEventListener("click", function() {
   toggle.style.opacity = "1";
   enterBtn.style.opacity = "0";
-  camera.position.set(0.4, 0.001, 0.4);
+  camera.position.set(0.3, 0.001, 0.3);
   controls.target.set(0, 0.01, 0);
   controls.update();
 });
@@ -269,7 +269,7 @@ exitBtn.addEventListener("click", function() {
   toggle.style.opacity = "0";
   enterBtn.style.opacity = "1";
   camera.position.set(-3, 0, -3);
-  controls.target.set(0, 0, 0);
+  controls.target.set(0, 0.05, 0);
   controls.update();
 });
 
@@ -582,7 +582,7 @@ let alphaMat= new THREE.MeshStandardMaterial({
   transparent: true, 
   side: THREE.DoubleSide, 
   alphaTest: 0.5,
-  opacity: 0.5,
+  opacity: 1,
   roughness: 1
 });
 
@@ -595,13 +595,13 @@ alphaMat.alphaMap.magFilter = THREE.NearestFilter;
 alphaMat.alphaMap.wrapT = THREE.RepeatWrapping;
 alphaMat.alphaMap.repeat.y = 1;
 
-let radiusAM = 0.75
+let radiusAM = 0.69
 let segmentsAM = 104
 let ringsAM = 104
 
 const alphaGeo = new THREE.SphereGeometry(radiusAM, segmentsAM, ringsAM)
 const outer_Mesh = new THREE.Mesh(alphaGeo, alphaMat);
-outer_Mesh.rotation.x = -Math.PI/4;
+// outer_Mesh.rotation.x = -Math.PI/4;
 scene.add(outer_Mesh)
 
 
@@ -660,18 +660,18 @@ fbxLoader.load(
 
     kidMaterial = new THREE.MeshPhysicalMaterial({
       color:0xFAFAD2, //0xFAFAD2,lightgoldenrodyellow 0xC71585, mediumVioletRed
-      transmission: 1,
+      transmission: 0.1,
       opacity: 1.0,
       metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
-      metalness: 0.6,
+      metalness: 1,
       roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
       roughness: 0.5,
-      ior: 1.5,
-      thickness: 12,
+      ior: 1,
+      thickness: 1,
       specularIntensity: 8,
       specularColor: 0xB0C4DE,
       envMap: textureCube,
-      envMapIntensity: 1.5,
+      envMapIntensity: 1,
       map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map.png")
     })
     kidMaterial.color.convertSRGBToLinear()
@@ -713,7 +713,7 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
 
   creativeFlow.traverse(function(object) {
     if (object.isMesh) {
-      object.material.envMap = textureCube;
+      object.material = kidMaterial;
       object.castShadow = false;
       object.receiveShadow = true;
     }
@@ -725,9 +725,9 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
 })
 
 
-/*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/ /*/*/
-//> NATURAL_ELEMENTS: WATER
-//*/*//*/*//*/*//*/*//*/*//*/*/*/*//*/*//*/*//*/*//*/*/
+/////////////////////////////////////////////////////////////////////////////
+// Natural_element - Water  Natural_element - Water  Natural_element - Water  
+////////////////////////////////////////////////////////////////////////////
 
 const waterGeometry = new THREE.CircleGeometry(0.5, 80);
 const groundGeometry = new THREE.CircleGeometry(0.5, 64);
@@ -772,7 +772,7 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1.100
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor(0x000000, 0.6)
+renderer.setClearColor(0x000000, 0.001)
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -807,7 +807,10 @@ const tick = () => {
 
   // offset the texture
 
-  outer_Mesh.rotation.x = Math.sin(time*0.01)*200;
+  // outer_Mesh.rotation.x = Math.sin(time*0.01)*200;
+  outer_Mesh.rotation.x += 0.01;
+  // outer_Mesh.rotation.y += 0.01;
+  // outer_Mesh.rotation.z += 0.01;
   
 
 
