@@ -344,7 +344,8 @@ nav {
   width: 18%;
   padding: min(8px, 16px);
   margin: min(8px, 16px);
-  border: var(--mint8) 2px double;
+  border: 2px solid var(--mint8) ;
+  pointer-events: none;
 }
 
 .menu-open {

@@ -121,6 +121,7 @@ addEventListener('input', e => {
 ////////////////////////////////////////////////////////////////////
 // TOGGLE
 ///////////////
+
 const toggleMenu = document.querySelector(".menu-toggle");
 toggleMenu.addEventListener('click', (e) => {
   e.currentTarget.classList.toggle('close');
@@ -572,30 +573,35 @@ const fbxLoader = new FBXLoader()
 const gltfLoader = new GLTFLoader()
 
 ////////////////////////////////////////////////////////////////////
-// MATERIALS > ALPHA
+// MATERIALS > ALPHA Outer_WORLD 🌎 - Outer_WORLD 🌎 - Outer_WORLD 🌎
 ///////////////////////////////////////////////////////////////////
 
 
 let alphaMat= new THREE.MeshStandardMaterial({ 
-  alphaMap: textureLoader.load('./textures/alpha.png'),
-  color: "#000", 
+  color: "#fff", 
   transparent: true, 
   side: THREE.DoubleSide, 
-  alphaTest: 0.5 
+  alphaTest: 0.5,
+  opacity: 0.5,
+  roughness: 1
 });
 
+
+let alphaMap = textureLoader.load('textures/alpha.png')
+
+
+alphaMat.alphaMap = alphaMap;
 alphaMat.alphaMap.magFilter = THREE.NearestFilter;
 alphaMat.alphaMap.wrapT = THREE.RepeatWrapping;
-alphaMat.alphaMap.wrapS = THREE.RepeatWrapping;
 alphaMat.alphaMap.repeat.y = 1;
-alphaMat.alphaMap.repeat.x = 1;
 
-let radiusAM = 0.8
+let radiusAM = 0.75
 let segmentsAM = 104
 let ringsAM = 104
 
 const alphaGeo = new THREE.SphereGeometry(radiusAM, segmentsAM, ringsAM)
 const outer_Mesh = new THREE.Mesh(alphaGeo, alphaMat);
+outer_Mesh.rotation.x = -Math.PI/4;
 scene.add(outer_Mesh)
 
 
@@ -799,9 +805,11 @@ const tick = () => {
 
   controls.update()
 
-  // Update Outer Sphere
+  // offset the texture
 
-  outer_Mesh.rotation.y = elapsedTime*0.015;
+  outer_Mesh.rotation.x = Math.sin(time*0.01)*200;
+  
+
 
   // LIGHT ANIMATIONS
 
