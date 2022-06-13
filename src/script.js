@@ -245,8 +245,8 @@ const textureLoader = new THREE.TextureLoader()
 // CAMERA 
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.01, 1000);
-camera.position.set(-0.6, 0, -0.6);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 1000);
+camera.position.set(1, -1, 1);
 
 scene.add(camera)
 
@@ -268,7 +268,7 @@ enterBtn.addEventListener("click", function() {
 exitBtn.addEventListener("click", function() {
   toggle.style.opacity = "0";
   enterBtn.style.opacity = "1";
-  camera.position.set(-0.6, 0, -0.6);
+  camera.position.set(1, -1, 1);
   controls.target.set(0, 0.05, 0);
   controls.update();
 });
@@ -289,10 +289,10 @@ controls.enable = true
 controls.enableDamping = true
 controls.dampingFactor = 0.05
 controls.autoRotate = true
-controls.enableZoom = false
+controls.enableZoom = true
 controls.autoRotateSpeed = 0.5
 controls.minDistance = 0.1
-controls.maxDistance = 5
+controls.maxDistance = 1
 controls.minPolarAngle = 0
 controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0, 0)
@@ -323,7 +323,7 @@ const textureLoad = new RGBELoader()
 textureLoad.setPath('textures/equirectangular/')
 
 const textureCube = textureLoad.load('era-7.hdr', function(texture) {
-  textureCube.mapping = THREE.EquirectangularRefractionMapping;
+  textureCube.mapping = THREE.EquirectangularReflectionMapping;
 })
 
 // prefilter the equirectangular environment map for irradiance
@@ -561,12 +561,16 @@ window.addEventListener('resize', () => {
 ///////////////
 
 // ROTATING LIGHT POINTS
-const light1 = new THREE.PointLight('dodgerblue', 10.0, 1000, 0.8);
+const light1 = new THREE.PointLight('blanchedalmond', 10.0, 1000, 0.8);
 const light2 = new THREE.PointLight('aqua', 10.0, 1000, 0.8);
 const light3 = new THREE.PointLight('mintcream', 10.0, 1000, 0.8);
-const light4 = new THREE.PointLight('cornflowerblue', 10.0, 1000, 0.8);
-const ambLight = new THREE.AmbientLight(0xFFDEAD, 1)
-scene.add(light1, light2, light3, light4, ambLight);
+const light4 = new THREE.PointLight('antiquewhite', 10.0, 1000, 0.8);
+const ambLight = new THREE.AmbientLight(0xD3D3D3, 0.1)
+const directLight = new THREE.DirectionalLight( 0xF5F5F5, 5 );
+directLight.position.set(0,3,0)
+directLight.DirectionalLightShadow = true;
+scene.add( directLight);
+scene.add(light1, light2, light3, light4);
 
 
 ////////////////////////////////////////////////////////////////////
@@ -586,7 +590,7 @@ let alphaMat = new THREE.MeshStandardMaterial({
   side: THREE.DoubleSide, 
   alphaTest: 0.5,
   opacity: 1,
-  roughness: 1,
+  roughness: 8,
   wireframe: true,
   fog: false,
 });
@@ -601,7 +605,7 @@ alphaMat.alphaMap.wrapT = THREE.RepeatWrapping;
 alphaMat.alphaMap.repeat.y = 1;
 
 
-let radiusAM = 8
+let radiusAM = 0.2
 let segmentsAM = 104
 let ringsAM = 104
 
@@ -631,7 +635,8 @@ scene.add(outer_Mesh)
 const params_Sphere = {
   side: THREE.DoubleSide,
   emissive: 0xFFFAF0,
-  emissiveIntensity: 5.9,
+  emissiveIntensity: 8.9,
+  castShadow: true,
   transparent: true,
   opacity: 0.5,
   precision: "highp",
@@ -642,11 +647,12 @@ const params_Sphere = {
 
 const material_Sphere = new THREE.MeshLambertMaterial(params_Sphere);
 
-const radius = 0.51
+const radius = 0.48
 const segments = 104
 const rings = 104
 const geometry = new THREE.SphereGeometry(radius, segments, rings)
 const inner_World = new THREE.Mesh(geometry, material_Sphere);
+inner_World.position.y = -0.75
 scene.add(inner_World)
 
 /////////////////////////////////////////////////////////////////////////////
@@ -692,7 +698,7 @@ fbxLoader.load(
     scene.add(object)
 
     object.scale.set(.0014, .0014, .0014)
-    object.position.set(0, 0.005, 0)
+    object.position.set(0, -0.01, 0)
     object.rotation.set(0, 0, 0)
     object.addEventListener("click", (event) => {
       event.target.material.color.set(0xff0000);
@@ -732,8 +738,23 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
 // EYE-INTUITION - EYE-INTUITION   - EYE-INTUITION   
 ////////////////////////////////////////////////////////////////////////////
 
-// let intuition;
+let projectCard001;
 
+gltfLoader.load('models/glTF/prjct001/prjct001.gltf', (gltf) => {
+  projectCard001 = gltf.scene
+  projectCard001.scale.set(8, 8, 8)
+  projectCard001.position.set(0, -0.7,0.8)
+  projectCard001.rotation.x = Math.PI * -0.5;
+  scene.add(projectCard001)
+
+  projectCard001.traverse(function(object) {
+    if (object.isMesh) {
+      object.material.envMap = textureCube;
+      object.castShadow = false;
+      object.receiveShadow = true;
+    }
+ });
+})
 
 // var geoEye = new THREE.IcosahedronGeometry(0.02, 64);
 // let eyeMat = new THREE.MeshStandardMaterial({
@@ -760,8 +781,9 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
 // Natural_element - Water  Natural_element - Water  Natural_element - Water  
 ////////////////////////////////////////////////////////////////////////////
 
-const waterGeometry = new THREE.CircleGeometry(0.5, 80);
-const groundGeometry = new THREE.CircleGeometry(0.5, 64);
+
+const waterGeometry = new THREE.CircleGeometry(0.2, 80);
+const groundGeometry = new THREE.CircleGeometry(0.2, 80);
 
 const groundMaterial = new THREE.MeshStandardMaterial({
   color: 0x6495ED, //0xFF7F50
@@ -773,10 +795,12 @@ const groundMaterial = new THREE.MeshStandardMaterial({
 
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = Math.PI * -0.5;
+ground.side = THREE.DoubleSide
 scene.add(ground);
 
 const water = new Water(waterGeometry, {
   color: 0xFFDEAD,
+  side: THREE.DoubleSide,
   scale: 0.5,
   flowDirection: new THREE.Vector2(-1, 1),
   textureWidth: 1024,
@@ -787,7 +811,7 @@ const water = new Water(waterGeometry, {
   needsUpdate: true,
 });
 
-water.position.set(0,0.015,0)
+water.position.set(0,0.001,0)
 water.rotation.x = Math.PI * -0.5
 
 scene.add(water)
@@ -802,7 +826,7 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1.2
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor(0xC0C0C0, 1)
+renderer.setClearColor(0x000000, 1)
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 

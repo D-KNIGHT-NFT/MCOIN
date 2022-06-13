@@ -342,8 +342,8 @@ nav {
   z-index: 1000;
   top: 2%; left: 2%; */
   width: 18%;
-  padding: min(4px, 10px);
-  margin: min(4px, 10px);
+  padding: min(8px, 14px);
+  margin: min(8px, 14px);
  /*  border: 2px solid var(--cyan8) ; */
   pointer-events: none;
   background-color: black;
@@ -357,8 +357,8 @@ nav {
 }
 
 .menu-toggle {
-  --bar-color-open: var(--slate1);
-  --bar-color-close: var(--slate1);
+  --bar-color-open: var(--slate10);
+  --bar-color-close: var(--slate10);
   --bg-color-open: transparent;
   --bg-color-close: var(--slate1);
   
