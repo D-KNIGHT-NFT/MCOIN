@@ -83,7 +83,7 @@ root.addEventListener("mousover", e => {
 });
 
 root.addEventListener("mousedown", e => {
-  customCursor.style.borderColor = "var(--plum6)";
+  customCursor.style.borderColor = "whitesmoke";
   customCursor.style.backgroundColor = "transparent";
   customCursor.style.transform = `
   translateY(${e.clientY}px) 
@@ -93,12 +93,12 @@ root.addEventListener("mousedown", e => {
 });
 
 root.addEventListener("mouseup", e => {
-  customCursor.style.borderColor = "var(--mint8)";
+  customCursor.style.borderColor = "whitesmoke";
   customCursor.style.backgroundColor = "transparent";
   customCursor.style.zIndex = "1000000";
   customCursor.style.transform = `translateY(${e.clientY}px) translateX(${
     e.clientX
-  }px) scale(1)`;
+  }px) scale(1.8)`;
 });
 
  
@@ -245,8 +245,8 @@ const textureLoader = new THREE.TextureLoader()
 // CAMERA 
 ///////////////
 
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
-camera.position.set(-3, 0, -3);
+const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.01, 1000);
+camera.position.set(-5, 0, -5);
 
 scene.add(camera)
 
@@ -260,15 +260,15 @@ const exitBtn = toggle.querySelector('svg')
 enterBtn.addEventListener("click", function() {
   toggle.style.opacity = "1";
   enterBtn.style.opacity = "0";
-  camera.position.set(0.3, 0.001, 0.3);
-  controls.target.set(0, 0.01, 0);
+  camera.position.set(0.3, 0.1, 0.3);
+  controls.target.set(0, 0.05, 0);
   controls.update();
 });
 
 exitBtn.addEventListener("click", function() {
   toggle.style.opacity = "0";
   enterBtn.style.opacity = "1";
-  camera.position.set(-3, 0, -3);
+  camera.position.set(-5, 0, -5);
   controls.target.set(0, 0.05, 0);
   controls.update();
 });
@@ -292,7 +292,7 @@ controls.autoRotate = true
 controls.enableZoom = false
 controls.autoRotateSpeed = 0.5
 controls.minDistance = 0.1
-controls.maxDistance = 3.5
+controls.maxDistance = 5
 controls.minPolarAngle = 0
 controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0, 0)
@@ -323,7 +323,7 @@ const textureLoad = new RGBELoader()
 textureLoad.setPath('textures/equirectangular/')
 
 const textureCube = textureLoad.load('era-7.hdr', function(texture) {
-  textureCube.mapping = THREE.EquirectangularRefractionMapping;
+  textureCube.mapping = THREE.EquirectangularReflectionMapping;
 })
 
 // prefilter the equirectangular environment map for irradiance
@@ -339,6 +339,8 @@ function equirectangularToPMREMCube(textureCube, renderer) {
 
   return cubeRenderTarget.textureCube
 }
+
+// scene.fog = new THREE.FogExp2( 0xFDF5E6, 1.2 )
 
 ////////////////////////////////////////////////////////////////////
 // Resize Window
@@ -559,11 +561,13 @@ draw();
 ///////////////
 
 // ROTATING LIGHT POINTS
-const light1 = new THREE.PointLight('dodgerblue', 20.0, 100, 0.5);
-const light2 = new THREE.PointLight('aqua', 20.0, 100, 0.5);
-const light3 = new THREE.PointLight('chartreuse', 20.0, 100, 0.5);
-const light4 = new THREE.PointLight('ghostwhite', 20.0, 100, 0.5);
-scene.add(light1, light2, light3, light4);
+const light1 = new THREE.PointLight('dodgerblue', 2.0, 1000, 0.1);
+const light2 = new THREE.PointLight('aqua', 2.0, 1000, 0.1);
+const light3 = new THREE.PointLight('mintcream', 2.0, 1000, 0.1);
+const light4 = new THREE.PointLight('cornflowerblue', 2.0, 1000, 0.1);
+const ambLight = new THREE.AmbientLight(0xDDA0DD, 2)
+scene.add(light1, light2, light3, light4, ambLight);
+
 
 ////////////////////////////////////////////////////////////////////
 // 3D OBJECTS LOADERS
@@ -577,13 +581,14 @@ const gltfLoader = new GLTFLoader()
 ///////////////////////////////////////////////////////////////////
 
 
-let alphaMat= new THREE.MeshStandardMaterial({ 
-  color: "#fff", 
+let alphaMat = new THREE.MeshStandardMaterial({ 
   transparent: true, 
   side: THREE.DoubleSide, 
   alphaTest: 0.5,
   opacity: 1,
-  roughness: 1
+  roughness: 1,
+  wireframe: true,
+  fog: false,
 });
 
 
@@ -595,13 +600,14 @@ alphaMat.alphaMap.magFilter = THREE.NearestFilter;
 alphaMat.alphaMap.wrapT = THREE.RepeatWrapping;
 alphaMat.alphaMap.repeat.y = 1;
 
-let radiusAM = 0.69
+
+let radiusAM = 2
 let segmentsAM = 104
 let ringsAM = 104
 
 const alphaGeo = new THREE.SphereGeometry(radiusAM, segmentsAM, ringsAM)
 const outer_Mesh = new THREE.Mesh(alphaGeo, alphaMat);
-// outer_Mesh.rotation.x = -Math.PI/4;
+outer_Mesh.rotation.x = -Math.PI/4;
 scene.add(outer_Mesh)
 
 
@@ -624,20 +630,19 @@ scene.add(outer_Mesh)
 
 const params_Sphere = {
   side: THREE.DoubleSide,
-  emissive: 0xEE82EE,
-  emissiveIntensity: .9,
+  emissive: 0x9400D3,
+  emissiveIntensity: 5.9,
   transparent: true,
-  opacity: 0.8,
+  opacity: 0.785,
   precision: "highp",
   // map: webmEye,
-  // fog: true,
+  fog: false,
   envMap: textureCube,
 }
 
 const material_Sphere = new THREE.MeshLambertMaterial(params_Sphere);
-material_Sphere.emissive.convertSRGBToLinear()
 
-const radius = 0.7
+const radius = 0.51
 const segments = 104
 const rings = 104
 const geometry = new THREE.SphereGeometry(radius, segments, rings)
@@ -653,28 +658,28 @@ let kid2Mixer;
 let kidMaterial;
 
 fbxLoader.load(
-  'models/fbx/curiousKid/animations/Walking.fbx', (object) => {
+  'models/fbx/curiousKid/animations/walking.fbx', (object) => {
     kidMixer = new THREE.AnimationMixer(object);
     const action = kidMixer.clipAction(object.animations[0]);
     action.play();
 
     kidMaterial = new THREE.MeshPhysicalMaterial({
-      color:0xFAFAD2, //0xFAFAD2,lightgoldenrodyellow 0xC71585, mediumVioletRed
-      transmission: 0.1,
-      opacity: 1.0,
-      metalnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin000/metalnessMap.png"),
-      metalness: 1,
+      map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map02.png"),
+      color:0xFFDEAD, //0xFAFAD2,lightgoldenrodyellow 0xC71585, mediumVioletRed
+      // transmission: 1,
+      opacity: 1,
+      metalness: 0.1,
       roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
-      roughness: 0.5,
-      ior: 1,
-      thickness: 1,
-      specularIntensity: 8,
-      specularColor: 0xB0C4DE,
+      roughness: 1.5,
+      normalMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/NormalMap.png"),
+      normalScale: new THREE.Vector2(2, 2),
+      ior: 1.8,
+      thickness: 10.0,
+      specularIntensity: 0.9,
+      specularColor: 0xF5F5F5,
       envMap: textureCube,
-      envMapIntensity: 1,
-      map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map.png")
+      envMapIntensity: 2.5,
     })
-    kidMaterial.color.convertSRGBToLinear()
 
     object.traverse(function(object) {
       if (object.isMesh) {
@@ -687,8 +692,7 @@ fbxLoader.load(
     scene.add(object)
 
     object.scale.set(.0014, .0014, .0014)
-    // object.position.set(-0.07, 0.11, -0.11)
-    object.position.set(0, 0, 0)
+    object.position.set(0, 0.005, 0)
     object.rotation.set(0, 0, 0)
     object.addEventListener("click", (event) => {
       event.target.material.color.set(0xff0000);
@@ -707,13 +711,13 @@ let cFlowMixer = null
 gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   creativeFlow = gltf.scene
   creativeFlow.scale.set(0.002, 0.002, 0.002)
-  creativeFlow.position.set(0, 0.11, 0.01)
+  creativeFlow.position.set(0.2, 0.11, 0.02)
   creativeFlow.rotation.set(0, 0, 0)
   scene.add(creativeFlow)
 
   creativeFlow.traverse(function(object) {
     if (object.isMesh) {
-      object.material = kidMaterial;
+      object.material.envMap = textureCube;
       object.castShadow = false;
       object.receiveShadow = true;
     }
@@ -724,6 +728,33 @@ gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   cFlowAction.play()
 })
 
+/////////////////////////////////////////////////////////////////////////////
+// EYE-INTUITION - EYE-INTUITION   - EYE-INTUITION   
+////////////////////////////////////////////////////////////////////////////
+
+// let intuition;
+
+
+// var geoEye = new THREE.IcosahedronGeometry(0.02, 64);
+// let eyeMat = new THREE.MeshStandardMaterial({
+//     side: THREE.DoubleSide,
+//     map: textureLoader.load("models/glTF/eye/scleraColor.png"),
+//     emissiveMap: textureLoader.load("models/glTF/eye/irisbump.png"),
+//     emissiveIntensity: 2,
+//     displacementMap: textureLoader.load("models/glTF/eye/iriscolor.png"),
+//     displacementScale: 0.01,
+//     displacementBias: 0.05,
+//     normalMap: textureLoader.load("models/glTF/eye/cornea_normal.png"),
+//     normalScale: new THREE.Vector2(2, 2),
+//     bumpMap: textureLoader.load("models/glTF/eye/scleraBump.png"),
+//     bumpScale: 0.5,
+//   })
+
+
+// let eyeNtuition = new THREE.Mesh( geoEye, eyeMat)
+// eyeNtuition.position.y = 0.1
+// eyeNtuition.position.x = 0.1
+// scene.add(eyeNtuition)
 
 /////////////////////////////////////////////////////////////////////////////
 // Natural_element - Water  Natural_element - Water  Natural_element - Water  
@@ -733,20 +764,19 @@ const waterGeometry = new THREE.CircleGeometry(0.5, 80);
 const groundGeometry = new THREE.CircleGeometry(0.5, 64);
 
 const groundMaterial = new THREE.MeshStandardMaterial({
-  color: 0x4682B4,
+  color: 0x2F4F4F,
   roughness: 0.05,
   metalness: 0.1,
   normalMap: textureLoader.load('/textures/water/Water_2_M_Normal.jpg'),
   normalScale: new THREE.Vector2(3, 3),
 });
-groundMaterial.color.convertSRGBToLinear()
 
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = Math.PI * -0.5;
 scene.add(ground);
 
 const water = new Water(waterGeometry, {
-  color: 0xDDA0DD,
+  color: 0xFF7F50,
   scale: 0.5,
   flowDirection: new THREE.Vector2(-1, 1),
   textureWidth: 1024,
@@ -769,10 +799,10 @@ scene.add(water)
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.LinearEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 1.100
+renderer.toneMappingExposure = 1.2
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor(0x000000, 0.001)
+renderer.setClearColor(0x9400D3, 0.5)
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -807,8 +837,8 @@ const tick = () => {
 
   // offset the texture
 
-  // outer_Mesh.rotation.x = Math.sin(time*0.01)*200;
-  outer_Mesh.rotation.x += 0.01;
+  outer_Mesh.rotation.y = Math.sin(time*0.01)*200;
+  outer_Mesh.rotation.x += 0.005;
   // outer_Mesh.rotation.y += 0.01;
   // outer_Mesh.rotation.z += 0.01;
   

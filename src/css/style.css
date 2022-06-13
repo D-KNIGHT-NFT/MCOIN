@@ -1,6 +1,6 @@
 @import "@radix-ui/colors/gray.css";
 @import "@radix-ui/colors/plum.css";
-@import "@radix-ui/colors/mint.css";
+@import "@radix-ui/colors/slate.css";
 @import "@radix-ui/colors/yellow.css";
 @import "@radix-ui/colors/grayDark.css";
 
@@ -342,10 +342,12 @@ nav {
   z-index: 1000;
   top: 2%; left: 2%; */
   width: 18%;
-  padding: min(8px, 16px);
-  margin: min(8px, 16px);
-  border: 2px solid var(--mint8) ;
+  padding: min(4px, 10px);
+  margin: min(4px, 10px);
+ /*  border: 2px solid var(--cyan8) ; */
   pointer-events: none;
+  background-color: black;
+
 }
 
 .menu-open {
@@ -355,10 +357,10 @@ nav {
 }
 
 .menu-toggle {
-  --bar-color-open: var(--mint7);
-  --bar-color-close: var(--mint6);
+  --bar-color-open: var(--slate1);
+  --bar-color-close: var(--slate1);
   --bg-color-open: transparent;
-  --bg-color-close: var(--grayDark8);
+  --bg-color-close: var(--slate1);
   
   --size: 1.5rem;
   --padding: 0.2rem;
@@ -438,7 +440,7 @@ nav {
   width: 100vw;
   height: 100vh;
   place-self: stretch;
-  transform: rotate(90deg);
+ /*  transform: rotate(90deg); */
   pointer-events: none;
 }
 
@@ -555,7 +557,7 @@ nav {
   flex-direction: column;
   padding: 5%;
   transition: all 1.4s ease-out;
-  color: var(--mint8);
+  color: var(--gray3);
   background-color: var(--grayDark7);
 }
 
