@@ -556,6 +556,8 @@ window.addEventListener('resize', () => {
 // }
 // draw();
 
+const groupKid = new THREE.Group()
+
 ////////////////////////////////////////////////////////////////////
 // LIGHTS 
 ///////////////
@@ -565,12 +567,21 @@ const light1 = new THREE.PointLight('blanchedalmond', 10.0, 1000, 0.8);
 const light2 = new THREE.PointLight('aqua', 10.0, 1000, 0.8);
 const light3 = new THREE.PointLight('mintcream', 10.0, 1000, 0.8);
 const light4 = new THREE.PointLight('antiquewhite', 10.0, 1000, 0.8);
-const ambLight = new THREE.AmbientLight(0xD3D3D3, 0.1)
-const directLight = new THREE.DirectionalLight( 0xF5F5F5, 5 );
-directLight.position.set(0,3,0)
-directLight.DirectionalLightShadow = true;
-scene.add( directLight);
 scene.add(light1, light2, light3, light4);
+
+const directLight = new THREE.DirectionalLight( 0xF5F5F5, 2 );
+directLight.position.set(0,3,0)
+directLight.castShadow = true;
+//Set up shadow properties for the light
+directLight.shadow.mapSize.width = 512; // default
+directLight.shadow.mapSize.height = 512; // default
+directLight.shadow.camera.near = 0.1; // default
+directLight.shadow.camera.far = 500; // default
+
+// const helper = new THREE.CameraHelper( directLight.shadow.camera ); 
+// scene.add( helper);
+
+groupKid.add(directLight)
 
 
 ////////////////////////////////////////////////////////////////////
@@ -589,7 +600,7 @@ let alphaMat = new THREE.MeshStandardMaterial({
   transparent: true, 
   side: THREE.DoubleSide, 
   alphaTest: 0.5,
-  opacity: 1,
+  opacity: 0.6,
   roughness: 8,
   wireframe: true,
   fog: false,
@@ -605,15 +616,18 @@ alphaMat.alphaMap.wrapT = THREE.RepeatWrapping;
 alphaMat.alphaMap.repeat.y = 1;
 
 
-let radiusAM = 0.2
+let radiusAM = 0.15
 let segmentsAM = 104
 let ringsAM = 104
 
 const alphaGeo = new THREE.SphereGeometry(radiusAM, segmentsAM, ringsAM)
 const outer_Mesh = new THREE.Mesh(alphaGeo, alphaMat);
 outer_Mesh.rotation.x = -Math.PI/4;
+outer_Mesh.position.y = 0.1
+outer_Mesh.receiveShadow = true;
+outer_Mesh.castShadow = true;
 scene.add(outer_Mesh)
-
+groupKid.add(outer_Mesh)
 
 /////////////////////////////////////////////////////////////////////////////
 //VIDEO TEXTURE 👁 - VIDEO TEXTURE 👁  - VIDEO TEXTURE 👁
@@ -634,11 +648,10 @@ scene.add(outer_Mesh)
 
 const params_Sphere = {
   side: THREE.DoubleSide,
-  emissive: 0xFFFAF0,
+  emissive: 0xA9A9A9,
   emissiveIntensity: 8.9,
-  castShadow: true,
   transparent: true,
-  opacity: 0.5,
+  opacity: 0.4,
   precision: "highp",
   // map: webmEye,
   fog: false,
@@ -652,7 +665,7 @@ const segments = 104
 const rings = 104
 const geometry = new THREE.SphereGeometry(radius, segments, rings)
 const inner_World = new THREE.Mesh(geometry, material_Sphere);
-inner_World.position.y = -0.75
+inner_World.position.y = -0.70
 scene.add(inner_World)
 
 /////////////////////////////////////////////////////////////////////////////
@@ -662,32 +675,35 @@ scene.add(inner_World)
 let kidMixer;
 let kid2Mixer;
 let kidMaterial;
+let kid;
 
 fbxLoader.load(
   'models/fbx/curiousKid/animations/walking.fbx', (object) => {
-    kidMixer = new THREE.AnimationMixer(object);
-    const action = kidMixer.clipAction(object.animations[0]);
+    kid = object;
+    kidMixer = new THREE.AnimationMixer(kid);
+    const action = kidMixer.clipAction(kid.animations[0]);
     action.play();
 
     kidMaterial = new THREE.MeshPhysicalMaterial({
       map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map02.png"),
       color:0xFFDEAD, //0xFAFAD2,lightgoldenrodyellow 0xC71585, mediumVioletRed
       // transmission: 1,
-      opacity: 1,
+      transparent: true,
+      opacity: 0.98,
       metalness: 0.1,
       roughnessMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/roughness.png"),
       roughness: 1.5,
       normalMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/NormalMap.png"),
       normalScale: new THREE.Vector2(2, 2),
       ior: 1.8,
-      thickness: 10.0,
-      specularIntensity: 0.9,
-      specularColor: 0xF5F5F5,
+      thickness: 1.0,
+      specularIntensity: 5.9,
+      specularColor: 0xBC8F8F,
       envMap: textureCube,
       envMapIntensity: 2.5,
     })
 
-    object.traverse(function(object) {
+    kid.traverse(function(object) {
       if (object.isMesh) {
         object.material = kidMaterial;
         object.castShadow = true;
@@ -695,12 +711,13 @@ fbxLoader.load(
       }
     });
 
-    scene.add(object)
+    scene.add(kid)
+    groupKid.add(kid)
 
-    object.scale.set(.0014, .0014, .0014)
-    object.position.set(0, -0.01, 0)
-    object.rotation.set(0, 0, 0)
-    object.addEventListener("click", (event) => {
+    kid.scale.set(.0014, .0014, .0014)
+    kid.position.set(0, -0.005, 0)
+    kid.rotation.set(0, 0, 0)
+    kid.addEventListener("click", (event) => {
       event.target.material.color.set(0xff0000);
       document.body.style.cursor = "pointer";
     });
@@ -717,14 +734,14 @@ let cFlowMixer = null
 gltfLoader.load('models/glTF/cFlow/cFlow4.glb', (gltf) => {
   creativeFlow = gltf.scene
   creativeFlow.scale.set(0.002, 0.002, 0.002)
-  creativeFlow.position.set(0.2, 0.11, 0.02)
+  creativeFlow.position.set(0, 0.24, 0.)
   creativeFlow.rotation.set(0, 0, 0)
   scene.add(creativeFlow)
 
   creativeFlow.traverse(function(object) {
     if (object.isMesh) {
       object.material.envMap = textureCube;
-      object.castShadow = false;
+      object.castShadow = true;
       object.receiveShadow = true;
     }
   });
@@ -782,8 +799,8 @@ gltfLoader.load('models/glTF/prjct001/prjct001.gltf', (gltf) => {
 ////////////////////////////////////////////////////////////////////////////
 
 
-const waterGeometry = new THREE.CircleGeometry(0.2, 80);
-const groundGeometry = new THREE.CircleGeometry(0.2, 80);
+const waterGeometry = new THREE.CircleGeometry(0.1, 80);
+const groundGeometry = new THREE.CircleGeometry(0.1, 80);
 
 const groundMaterial = new THREE.MeshStandardMaterial({
   color: 0x6495ED, //0xFF7F50
@@ -797,6 +814,7 @@ const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = Math.PI * -0.5;
 ground.side = THREE.DoubleSide
 scene.add(ground);
+groupKid.add(ground)
 
 const water = new Water(waterGeometry, {
   color: 0xFFDEAD,
@@ -815,7 +833,11 @@ water.position.set(0,0.001,0)
 water.rotation.x = Math.PI * -0.5
 
 scene.add(water)
+groupKid.add(water)
 
+scene.add(groupKid)
+
+groupKid.position.y = 0
 ////////////////////////////////////////////////////////////////////
 // Renderer
 ///////////////
