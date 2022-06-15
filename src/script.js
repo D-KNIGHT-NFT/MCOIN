@@ -107,17 +107,17 @@ root.addEventListener("mouseup", e => {
 // ✧ NORMALISED WHEEL (MOUSE)
 ///////////////////////////////////////////////////////////////////
 
-document.addEventListener('mousewheel', function (event) {
-    const normalized = normalizeWheel(event);
+// document.addEventListener('mousewheel', function (event) {
+//     const normalized = normalizeWheel(event);
 
-    console.log(normalized.pixelX, normalized.pixelY);
-});
+//     console.log(normalized.pixelX, normalized.pixelY);
+// });
 
-addEventListener('input', e => {
- let _t = e.target;
+// addEventListener('input', e => {
+//  let _t = e.target;
 
-  _t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
-});
+//   _t.parentNode.parentNode.style.setProperty(`--${_t.id}val`, +_t.value);
+// });
 
 ////////////////////////////////////////////////////////////////////
 // FUNCTION: TOGGLE
@@ -248,7 +248,7 @@ const renderer = new WebGLRenderer(paramRender);
 ///////////////////////////////////////////////////////////////////////////
 
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 10000);
-camera.position.set(2, -5, 2);
+camera.position.set(2, -4, 2);
 
 scene.add(camera)
 
@@ -295,8 +295,8 @@ controls.autoRotate = true
 controls.enableZoom = true
 controls.autoRotateSpeed = 0.5
 controls.minDistance = 0.1
-controls.maxDistance = 2
-controls.minPolarAngle = 0
+controls.maxDistance = 3
+controls.minPolarAngle = -4
 controls.maxPolarAngle = Math.PI / 2.1
 controls.target.set(0, 0.05, 0)
 
