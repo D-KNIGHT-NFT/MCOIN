@@ -46,13 +46,14 @@ import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 
 
 ////////////////////////////////////////////////////////////////////
-// VR
+// ✧ VR
 ///////////////
+
 // document.body.appendChild( VRButton.createButton( renderer ) );
 
 ////////////////////////////////////////////////////////////////////
-// Custom cursor
-///////////////
+// ✧ Custom cursor
+///////////////////////////////////////////////////////////////////
 
 const customCursor = document.createElement("div");
 customCursor.setAttribute(
@@ -103,8 +104,8 @@ root.addEventListener("mouseup", e => {
 
  
 ////////////////////////////////////////////////////////////////////
-// Normalize-wheel
-///////////////
+// ✧ NORMALISED WHEEL (MOUSE)
+///////////////////////////////////////////////////////////////////
 
 document.addEventListener('mousewheel', function (event) {
     const normalized = normalizeWheel(event);
@@ -119,8 +120,8 @@ addEventListener('input', e => {
 });
 
 ////////////////////////////////////////////////////////////////////
-// TOGGLE
-///////////////
+// FUNCTION: TOGGLE
+///////////////////////////////////////////////////////////////////////////
 
 const toggleMenu = document.querySelector(".menu-toggle");
 toggleMenu.addEventListener('click', (e) => {
@@ -129,7 +130,7 @@ toggleMenu.addEventListener('click', (e) => {
 
 ////////////////////////////////////////////////////////////////////
 // Audio
-///////////////
+///////////////////////////////////////////////////////////////////////////
 
 // window.onload = () => {
 //   const audioTrack = document.getElementById('music');
@@ -153,7 +154,7 @@ toggleMenu.addEventListener('click', (e) => {
 
 ////////////////////////////////////////////////////////////////////
 // Tool Tips
-///////////////
+///////////////////////////////////////////////////////////////////////////
 
 tippy('li',{
   animation: 'scale',
@@ -168,7 +169,7 @@ tippy('li',{
 
 ////////////////////////////////////////////////////////////////////
 // COLOR CHANGER ON HOVERING / MOUSE ENTER
-///////////////
+///////////////////////////////////////////////////////////////////////////
 
 // const kbllr = document.getElementById('KBLLR')
 // kbllr.onmousemove = (e) => {
@@ -194,7 +195,7 @@ tippy('li',{
 
 ////////////////////////////////////////////////////////////////////
 // SHOW hamburger menu
-///////////////
+///////////////////////////////////////////////////////////////////////////
 
 // const button = document.getElementById("hamburger");
 
@@ -204,7 +205,7 @@ tippy('li',{
 
 ////////////////////////////////////////////////////////////////////
 // SHOW MODAL INFO
-///////////////
+///////////////////////////////////////////////////////////////////////////
 
 const modalContainer = document.getElementsByClassName('modal')[0];
 const showBtn = document.getElementById('info-btn');
@@ -220,13 +221,14 @@ modalBtn.addEventListener('click', toggleModal);
 /////////////////////////////////////////////////////////////////////////////
 // VIDEO TEXTURE TV - VIDEO TEXTURE TV - VIDEO TEXTURE TV  - VIDEO TEXTURE TV 
 ////////////////////////////////////////////////////////////////////////////
+
 // const startVideoBtn = document.getElementById('play-bg');
 // const spinVideo = document.getElementById('spin')
 // startVideoBtn.addEventListener('click', function() { spin.play(); });
 
 ////////////////////////////////////////////////////////////////////
-// WEBGL-THREEJS -->CANVAS -->EXPERIENCE
-////////////////////////////////////////////////////////////////////
+// WEBGL-THREEJS --> CANVAS --> EXPERIENCE
+///////////////////////////////////////////////////////////////////////////////////
 
 const canvas1 = document.querySelector('canvas.webgl')
 
@@ -239,20 +241,21 @@ const paramRender = {
 }
 
 const renderer = new WebGLRenderer(paramRender);
-const textureLoader = new THREE.TextureLoader()
+
 
 ////////////////////////////////////////////////////////////////////
-// CAMERA 
-///////////////
+// PERSPECTIVE CAMERA 
+///////////////////////////////////////////////////////////////////////////
 
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 1000);
-camera.position.set(1, -1, 1);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 10000);
+camera.position.set(2, -5, 2);
 
 scene.add(camera)
 
 ////////////////////////////////////////////////////////////////////
-// RESET CAMERA - Enter / Leave Room
-///////////////
+// FUNCTION: RESET CAMERA - Enter / Leave Room
+///////////////////////////////////////////////////////////////////////////////
+
 const toggle = document.getElementsByClassName('toggleButton')[0];
 const enterBtn = document.getElementById('enter-circle')
 const exitBtn = toggle.querySelector('svg')
@@ -268,7 +271,7 @@ enterBtn.addEventListener("click", function() {
 exitBtn.addEventListener("click", function() {
   toggle.style.opacity = "0";
   enterBtn.style.opacity = "1";
-  camera.position.set(1, -1, 1);
+  camera.position.set(3, -3, 3);
   controls.target.set(0, 0.05, 0);
   controls.update();
 });
@@ -281,8 +284,8 @@ exitBtn.addEventListener("click", function() {
 // });
 
 ////////////////////////////////////////////////////////////////////
-// CONTROLS 
-///////////////
+// ORBIT CONTROLS 
+///////////////////////////////////////////////////////////////////////////
 
 const controls = new OrbitControls(camera, canvas1)
 controls.enable = true
@@ -292,14 +295,14 @@ controls.autoRotate = true
 controls.enableZoom = true
 controls.autoRotateSpeed = 0.5
 controls.minDistance = 0.1
-controls.maxDistance = 1
+controls.maxDistance = 2
 controls.minPolarAngle = 0
 controls.maxPolarAngle = Math.PI / 2.1
-controls.target.set(0, 0, 0)
+controls.target.set(0, 0.05, 0)
 
 ////////////////////////////////////////////////////////////////////
 // INTERACTIVITY
-///////////////
+///////////////////////////////////////////////////////////////////////////
 
 // const interactionManager = new InteractionManager(
 //   renderer,
@@ -313,17 +316,20 @@ controls.target.set(0, 0, 0)
 //////////////////////////////////////////////////////////// 
 
 //==================================================
+
 //https://threejs.org/docs/#api/en/constants/Textures
+
 //===================================================
 // EQUIRECTANGULAR HDR
 //===================================================
 
+const textureLoader = new THREE.TextureLoader()
 const textureLoad = new RGBELoader()
 
 textureLoad.setPath('textures/equirectangular/')
 
 const textureCube = textureLoad.load('era-7.hdr', function(texture) {
-  textureCube.mapping = THREE.EquirectangularReflectionMapping;
+  texture.mapping = THREE.EquirectangularReflectionMapping;
 })
 
 // prefilter the equirectangular environment map for irradiance
@@ -340,11 +346,11 @@ function equirectangularToPMREMCube(textureCube, renderer) {
   return cubeRenderTarget.textureCube
 }
 
-// scene.fog = new THREE.FogExp2( 0xFDF5E6, 1.2 )
+// scene.fog = new THREE.FogExp2( 0x000, 0.5 )
 
 ////////////////////////////////////////////////////////////////////
 // Resize Window
-///////////////
+///////////////////////////////////////////////////////////////////////////
 
 const sizes = {
   width: window.innerWidth,
@@ -556,32 +562,36 @@ window.addEventListener('resize', () => {
 // }
 // draw();
 
+////////////////////////////////////////////////////////////////////
+// LIGHTS 
+//////////////////////////////////////////////////////////////////////
+
 const groupKid = new THREE.Group()
 
 ////////////////////////////////////////////////////////////////////
 // LIGHTS 
-///////////////
+///////////////////////////////////////////////////////////////////////////
 
 // ROTATING LIGHT POINTS
-const light1 = new THREE.PointLight('blanchedalmond', 10.0, 1000, 0.8);
-const light2 = new THREE.PointLight('aqua', 10.0, 1000, 0.8);
-const light3 = new THREE.PointLight('mintcream', 10.0, 1000, 0.8);
-const light4 = new THREE.PointLight('antiquewhite', 10.0, 1000, 0.8);
+const light1 = new THREE.PointLight( 0x32CD32, 10.0, 1000, 0.8);
+const light2 = new THREE.PointLight( 0xEE82EE, 10.0, 1000, 0.8);
+const light3 = new THREE.PointLight( 0xC0C0C0, 10.0, 1000, 0.8);
+const light4 = new THREE.PointLight( 0x87CEEB, 10.0, 1000, 0.8);
 scene.add(light1, light2, light3, light4);
 
-const directLight = new THREE.DirectionalLight( 0xF5F5F5, 2 );
-directLight.position.set(0,3,0)
+const directLight = new THREE.DirectionalLight( 0xF5F5F5, 2.5 );
+directLight.position.set(0,0.04,0)
 directLight.castShadow = true;
 //Set up shadow properties for the light
-directLight.shadow.mapSize.width = 512; // default
-directLight.shadow.mapSize.height = 512; // default
+directLight.shadow.mapSize.width = 1024; // default
+directLight.shadow.mapSize.height = 1024; // default
 directLight.shadow.camera.near = 0.1; // default
 directLight.shadow.camera.far = 500; // default
+groupKid.add(directLight)
+
 
 // const helper = new THREE.CameraHelper( directLight.shadow.camera ); 
 // scene.add( helper);
-
-groupKid.add(directLight)
 
 
 ////////////////////////////////////////////////////////////////////
@@ -595,26 +605,21 @@ const gltfLoader = new GLTFLoader()
 // MATERIALS > ALPHA Outer_WORLD 🌎 - Outer_WORLD 🌎 - Outer_WORLD 🌎
 ///////////////////////////////////////////////////////////////////
 
-
 let alphaMat = new THREE.MeshStandardMaterial({ 
   transparent: true, 
   side: THREE.DoubleSide, 
   alphaTest: 0.5,
-  opacity: 0.6,
   roughness: 8,
   wireframe: true,
   fog: false,
 });
 
-
 let alphaMap = textureLoader.load('textures/alpha.png')
-
 
 alphaMat.alphaMap = alphaMap;
 alphaMat.alphaMap.magFilter = THREE.NearestFilter;
 alphaMat.alphaMap.wrapT = THREE.RepeatWrapping;
 alphaMat.alphaMap.repeat.y = 1;
-
 
 let radiusAM = 0.15
 let segmentsAM = 104
@@ -626,8 +631,9 @@ outer_Mesh.rotation.x = -Math.PI/4;
 outer_Mesh.position.y = 0.1
 outer_Mesh.receiveShadow = true;
 outer_Mesh.castShadow = true;
-scene.add(outer_Mesh)
+
 groupKid.add(outer_Mesh)
+
 
 /////////////////////////////////////////////////////////////////////////////
 //VIDEO TEXTURE 👁 - VIDEO TEXTURE 👁  - VIDEO TEXTURE 👁
@@ -687,6 +693,8 @@ fbxLoader.load(
     kidMaterial = new THREE.MeshPhysicalMaterial({
       map: textureLoader.load("models/fbx/curiousKid/tex/skin004/map02.png"),
       color:0xFFDEAD, //0xFAFAD2,lightgoldenrodyellow 0xC71585, mediumVioletRed
+      // emissive: 0x32CD32,
+      // emissiveIntensity: 0.6, 
       // transmission: 1,
       transparent: true,
       opacity: 0.98,
@@ -695,8 +703,8 @@ fbxLoader.load(
       roughness: 1.5,
       normalMap: textureLoader.load("models/fbx/curiousKid/tex/skin004/NormalMap.png"),
       normalScale: new THREE.Vector2(2, 2),
-      ior: 1.8,
-      thickness: 1.0,
+      ior: 1.2,
+      thickness: 0.1,
       specularIntensity: 5.9,
       specularColor: 0xBC8F8F,
       envMap: textureCube,
@@ -711,7 +719,6 @@ fbxLoader.load(
       }
     });
 
-    scene.add(kid)
     groupKid.add(kid)
 
     kid.scale.set(.0014, .0014, .0014)
@@ -760,7 +767,8 @@ let projectCard001;
 gltfLoader.load('models/glTF/prjct001/prjct001.gltf', (gltf) => {
   projectCard001 = gltf.scene
   projectCard001.scale.set(8, 8, 8)
-  projectCard001.position.set(0, -0.7,0.8)
+  projectCard001.side = THREE.DoubleSide
+  projectCard001.position.set(0, -0.67,0.8)
   projectCard001.rotation.x = Math.PI * -0.5;
   scene.add(projectCard001)
 
@@ -813,7 +821,6 @@ const groundMaterial = new THREE.MeshStandardMaterial({
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = Math.PI * -0.5;
 ground.side = THREE.DoubleSide
-scene.add(ground);
 groupKid.add(ground)
 
 const water = new Water(waterGeometry, {
@@ -832,12 +839,15 @@ const water = new Water(waterGeometry, {
 water.position.set(0,0.001,0)
 water.rotation.x = Math.PI * -0.5
 
-scene.add(water)
 groupKid.add(water)
 
-scene.add(groupKid)
+////////////////////////////////////////////////////////////////////
+// GROUP#1: groupKid (directLight + kid + water + alphaBall)
+///////////////////////////////////////////////////////////////////////////
 
-groupKid.position.y = 0
+scene.add(groupKid)
+groupKid.position.set(0, 0, 0)
+groupKid.scale.set(0.3, 0.3, 0.3)
 ////////////////////////////////////////////////////////////////////
 // Renderer
 ///////////////
