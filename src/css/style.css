@@ -185,7 +185,7 @@ html {
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: white;
+  background-color: black;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
@@ -208,6 +208,9 @@ body {
   /* cursor:  url('../cursor/c04.svg'), auto; */
 }
 
+#eye {
+  pointer-events: none;
+}
 canvas#noiseContainer {
   position: fixed;
   top: 0;

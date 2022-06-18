@@ -346,7 +346,18 @@ function equirectangularToPMREMCube(textureCube, renderer) {
   return cubeRenderTarget.textureCube
 }
 
-// scene.fog = new THREE.FogExp2( 0x000, 0.5 )
+// const cubeTextureLoader = new THREE.CubeTextureLoader();
+// const textureBackground = cubeTextureLoader.load([
+//     './textures/cube/cube001/nx.png',
+//     './textures/cube/cube001/ny.png',
+//     './textures/cube/cube001/nz.png',
+//     './textures/cube/cube001/px.png',
+//     './textures/cube/cube001/py.png',
+//     './textures/cube/cube001/pz.png',
+// ]);
+
+// scene.background = textureBackground;
+//scene.fog = new THREE.FogExp2( 0x000, 0.5 )
 
 ////////////////////////////////////////////////////////////////////
 // Resize Window
