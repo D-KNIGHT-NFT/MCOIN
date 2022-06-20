@@ -44,6 +44,26 @@ import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 
 
+////////////////////////////////////////////////////////////////////
+// ✧ GLOBAL VARIABLES
+///////////////
+
+let vertexShaderSource, fragmentShaderSource;
+
+let program, positionAttributeLocation;
+
+let resolutionUniformLocation, timeUniformLocation, mouseUniformLocation;
+
+let mouseX, mouseY; mouseX=mouseY=0;
+
+//-- Mouse Position
+
+document.addEventListener('mousemove', mousemoveHandler);
+function mousemoveHandler(e) {
+  e = e || window.event;
+  mouseX = e.pageX;
+  mouseY = e.pageY;
+}
 
 ////////////////////////////////////////////////////////////////////
 // ✧ VR
